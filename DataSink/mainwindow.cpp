@@ -1,0 +1,725 @@
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QFileDialog>
+#include <QDebug>
+#include <QFileDevice>
+#include <QImage>
+#include <iostream>
+#include <string>
+#include <math.h>
+#include <zmq.hpp>
+#include <string>
+#include <iostream>
+#include <random>
+#include <structs.h>
+#include <QDateTime>
+
+#include "H5Cpp.h"
+using namespace H5;
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    qRegisterMetaType<imagepixeldata>( "imagepixeldata" );
+    qRegisterMetaType<spectrumdata>( "spectrumdata" );
+    qRegisterMetaType<settingsdata>( "settingsdata" );
+    qRegisterMetaType<metadata>( "metadata" );
+    qRegisterMetaType<std::string>();
+    qRegisterMetaType<imagepreviewdata>( "imagepreviewdata" );
+    qRegisterMetaType<roidata>( "roidata" );
+    hdf5filename = "measurement_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::showEvent( QShowEvent* event ) {
+    QWidget::showEvent( event );
+    // launch control thread
+    controlth = new controlThread;
+    const bool connected = connect(controlth, SIGNAL(sendSettingsToGUI(settingsdata)),this,SLOT(getScanSettings(settingsdata)));
+    const bool connected2 = connect(controlth, SIGNAL(sendMetadataToGUI(metadata)),this,SLOT(getMetadata(metadata)));
+
+    controlth->start();
+}
+
+void MainWindow::getMetadata(metadata metadata) {
+    std::cout<<"gui got metadata - "<<metadata.beamline_energy;
+
+    /* WRITE BEAMLINE PARAMETER TO FILE */
+    hsize_t dimsext[2] = {1, 1}; // extend dimensions
+
+    DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/metadata/beamline_energy"));
+
+    hsize_t offset[2];
+
+    H5::ArrayType arrtype = dataset->getArrayType();
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespace = new DataSpace(dataset->getSpace());
+    hsize_t size[2];
+    int n_dims = filespace->getSimpleExtentDims(size);
+
+    offset[0] = size[0];
+    offset[1] = 0;
+
+    size[0]++;
+    size[1] = 1;
+
+    dataset->extend(size);
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespacenew = new DataSpace(dataset->getSpace());
+
+    filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+    // Define memory space.
+    DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
+
+    int beamline_energy = metadata.beamline_energy;
+
+    // Write data to the extended portion of the dataset.
+    dataset->write(&beamline_energy, PredType::STD_I32LE, *memspacenew, *filespacenew);
+
+}
+
+void MainWindow::getScanSettings(settingsdata settings) {
+    std::cout<<"gui knows settings - "<<settings.ccdHeight;
+
+    ccdX = settings.ccdWidth;
+    ccdY = settings.ccdHeight;
+
+    scanX = settings.scanWidth;
+    scanY = settings.scanHeight;
+
+    // create HDF5/NeXus file
+    hdf5filename = "measurement_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
+    nexusfile = new hdf5nexus();
+    nexusfile->createDataFile(hdf5filename, settings);
+
+    // start ccd thread
+    ccd = new zmqThread("127.0.0.1", scanX, scanY);
+    connect(ccd, SIGNAL(ccdReady()),this,SLOT(ccdReady()));
+    const bool connected = connect(ccd, SIGNAL(sendImageData(int, std::string)),this,SLOT(getImageData(int, std::string)));
+    if (connected) {
+        std::cout<<"getImageData connected"<<std::endl;
+    } else {
+        std::cout<<"getImageData not connected"<<std::endl;
+    }
+
+    const bool connected1 = connect(ccd, SIGNAL(sendCCDSettings(int, int)),this,SLOT(getCCDSettings(int, int)));
+    if (connected1) {
+        std::cout<<"getCCDSettings connected"<<std::endl;
+    } else {
+        std::cout<<"getCCDSettings not connected"<<std::endl;
+    }
+
+    sdd = new sddThread("127.0.0.1", QString::fromStdString(settings.ROIdefinitions));
+    connect(sdd, SIGNAL(sddReady()),this,SLOT(sddReady()));
+
+    const bool connected2 = connect(sdd, SIGNAL(sendScanIndexDataToGUI(int, int, int)),this,SLOT(writeScanIndexData(int, int, int)));
+    if (connected2) {
+        std::cout<<"writeScanIndexData connected"<<std::endl;
+    } else {
+        std::cout<<"writeScanIndexData not connected"<<std::endl;
+    }
+
+    const bool connected3 = connect(sdd, SIGNAL(sendLineBreakDataToGUI(roidata, int, int, int)),this,SLOT(writeLineBreakData(roidata, int, int, int)));
+    if (connected3) {
+        std::cout<<"writeLineBreakData connected"<<std::endl;
+    } else {
+        std::cout<<"writeLineBreakData not connected"<<std::endl;
+    }
+
+    const bool connected4 = connect(sdd, SIGNAL(sendSpectrumDataToGUI(int, spectrumdata)),this,SLOT(showIncomingSpectrum(int, spectrumdata)));
+    if (connected4) {
+        std::cout<<"showIncomingSpectrum connected"<<std::endl;
+    } else {
+        std::cout<<"showIncomingSpectrum not connected"<<std::endl;
+    }
+
+    // start threads
+    ccd->start();
+    sdd->start();
+}
+
+void MainWindow::ccdReady() {
+    std::cout<<"GUI knows that CCD is ready"<<std::endl;
+    controlth->ccdReady = true;
+}
+
+void MainWindow::sddReady() {
+    std::cout<<"GUI knows that SDD is ready"<<std::endl;
+    controlth->sddReady = true;
+}
+
+void MainWindow::updateSTXMPreview(int scanX, int scanY, int pixnum) {
+
+       //std::cout<<stxmimage[pixnum]<<"\n";
+
+       u_int32_t max = 0;
+       u_int32_t min = 0xFFFFFFFF;
+
+       //int line = pixnum%imagewidth;
+       //int row = pixnum-line*imagewidth;
+
+       int count = 0;
+       for (int j = 0; j < scanY; ++j) {
+         for (int i = 0; i < scanX; ++i) {
+             if (count <= pixnum) {
+                 uint32_t dummy = stxmimage[i + (j * scanX)];
+                 if (dummy > max) {
+                     max = dummy;
+                 }
+                 if (dummy < min) {
+                     min = dummy;
+                 }
+             }
+             count++;
+         }
+       }
+
+       double factor =(double)65535/(max-min);
+
+       QImage image = QImage(scanX, scanY, QImage::Format_Grayscale16);
+       count = 0;
+       for (int j = 0; j < scanY; ++j) {
+         quint16 *dst = (quint16*)(image.bits() + j * image.bytesPerLine());
+         for (int i = 0; i < scanX; ++i) {
+           dst[i] = floor((stxmimage[i + j * scanX]-min)*factor);
+           if (pixnum == count) {
+             //std::cout<<floor((stxmimage[i + j * scanX]-min)*factor)<<"\n";
+           }
+         count++;
+         }
+       }
+
+       ui->minlabel->setText(QString::number(min));
+       ui->maxlabel->setText(QString::number(max));
+       ui->factor->setText(QString::number(factor));
+
+       ui->imagepreview_2->setGeometry(230, 400, scanX*2, scanY*2);
+       QPixmap scaledpixmp = QPixmap::fromImage(image).scaledToWidth(scanX*2);
+       ui->imagepreview_2->setPixmap(scaledpixmp);
+}
+
+void MainWindow::addCCDDataChunk(int ccdXx, int ccdYx, int scanXx, int scanYx, uint32_t pxnumx, uint32_t stxmpxval, std::string ccddatax) {
+      hsize_t size[3];
+      size[0] = ccdX;
+      size[1] = ccdY;
+
+      hsize_t offset[3];
+      offset[0] = 0;
+      offset[1] = 0;
+
+      long pixelvalue[1];
+      pixelvalue[0] = 0;
+
+
+      uint16_t savedata[ccdX][ccdY][1];
+
+      int counterx = 0;
+      int x = 0;
+      int y = 0;
+      for (int i = 0; i < 32768; i=i+2) {
+              uint16_t value = ((uint16_t) (uint8_t)ccddatax[i+1] << 8) | (uint8_t)ccddatax[i];
+
+              if (((counterx-1)%ccdX == 0) && (counterx > 0)) {
+                  x = 0;
+                  y++;
+              } else {
+                  x++;
+              }
+
+              savedata[x][y][0] = value;
+
+              counterx++;
+      }
+
+
+      /* WRITE DETECTOR DATA TO FILE */
+      size[2] = pxnumx+1;
+      offset[2] = pxnumx;
+
+      hsize_t dimsext[3] = {(hsize_t)ccdX, (hsize_t)ccdY, 1}; // extend dimensions
+
+      DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/ccd/data"));
+
+      dataset->extend(size);
+
+      // Select a hyperslab in extended portion of the dataset.
+      DataSpace *filespace = new DataSpace(dataset->getSpace());
+
+      filespace->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+      // Define memory space.
+      DataSpace *memspace = new DataSpace(3, dimsext, NULL);
+
+      // Write data to the extended portion of the dataset.
+      dataset->write(savedata, PredType::STD_I32LE, *memspace, *filespace);
+
+      /* PLOTTABLE SUM IMAGE */
+
+          hsize_t dimsextsumimage[2] = {1, 1}; // extend dimensions
+
+          hsize_t sizesumimage[2];
+          hsize_t offsetsumimage[2];
+
+          if (counterx < scanX) {
+                  counterx++;
+              } else {
+                  counterx = 1;
+                  xmax = scanX;
+                  countery++;
+              }
+
+          sizesumimage[0] = countery;
+          if (xmax > 0) {
+              sizesumimage[1] = xmax;
+          } else {
+              sizesumimage[1] = counterx;
+          }
+          offsetsumimage[0] = countery-1;
+          offsetsumimage[1] = counterx-1;
+
+          DataSet *datasetsumimage = new DataSet(nexusfile->file->openDataSet("/measurement/data/data"));
+
+          datasetsumimage->extend(sizesumimage);
+
+          // Select a hyperslab in extended portion of the dataset.
+          DataSpace *filespacesumimage = new DataSpace(datasetsumimage->getSpace());
+
+          filespacesumimage->selectHyperslab(H5S_SELECT_SET, dimsextsumimage, offsetsumimage);
+
+          // Define memory space.
+          DataSpace *memspacesumimage = new DataSpace(2, dimsextsumimage, NULL);
+
+          uint64_t blubb[1];
+          blubb[0] = stxmpxval;
+
+          // Write data to the extended portion of the dataset.
+          datasetsumimage->write(blubb, PredType::STD_I64LE, *memspacesumimage, *filespacesumimage);
+
+
+          delete filespacesumimage;
+          delete memspacesumimage;
+
+      //file.close();
+
+}
+
+void MainWindow::getImageData(int cntx, std::string datax) {
+     uint16_t max = 0;
+     uint16_t min = 65535;
+
+     uint16_t savedata[1][ccdX][ccdY];
+     uint32_t ccdpixelcount = ccdX*ccdY;
+     uint32_t ccddatabytecount = ccdpixelcount * 2;
+     uint16_t imagex[ccdpixelcount];
+
+     uint32_t sum = 0;
+     int counterx = 0;
+     int x = 0;
+     int y = 0;
+     for (uint32_t i = 0; i < ccddatabytecount; i=i+2) {
+             uint16_t value = ((uint16_t) (uint8_t)datax[i+1] << 8) | (uint8_t)datax[i];
+
+             if (value > max) {
+                 max = value;
+             }
+
+             if (value < min) {
+                 min = value;
+             }
+
+             imagex[counterx] = value;
+
+             if (((counterx-1)%ccdX == 0) && (counterx > 0)) {
+                 x = 0;
+                 y++;
+             } else {
+                 if (counterx > 0) {
+                    x++;
+                 }
+             }
+
+             savedata[0][x][y] = value;
+
+             sum = sum + value;
+
+             counterx++;
+     }
+
+        double factor = 65535/(max-min);
+
+        ui->label_3->setText("image #"+QString::number(cntx)+" received");
+
+        if (ui->chbPreview->isChecked()) {
+            if (((cntx+1)%scanX) == 0) {
+                 QImage image = QImage(ccdX, ccdY, QImage::Format_Grayscale16);
+                 for (int j = 0; j < ccdY; ++j)
+                 {
+                    quint16 *dst =  reinterpret_cast<quint16*>(image.bits() + j * image.bytesPerLine());
+                    for (int i = 0; i < ccdX; ++i)
+                    {
+                         unsigned short pixelval =  static_cast<unsigned short>(imagex[i + j * ccdX]);
+                         dst[i] = (pixelval-min)*factor;
+                    }
+                 }
+
+                 QPixmap pixmp = QPixmap::fromImage(image);
+                 QPixmap scaledpixmp = pixmp.scaledToHeight(300);
+
+                 ui->imagepreview->setPixmap(scaledpixmp);
+             }
+        }
+
+        stxmimage[cntx] = sum;
+        stxmpreviewvec.append(sum);
+
+        if (ui->chbSaveData->isChecked()) {
+            // write data to file
+
+            hsize_t size[3];
+            size[1] = ccdX;
+            size[2] = ccdY;
+
+            hsize_t offset[3];
+            offset[1] = 0;
+            offset[2] = 0;
+
+            long pixelvalue[1];
+            pixelvalue[0] = 0;
+
+
+            /* WRITE DETECTOR DATA TO FILE */
+            size[0] = cntx+1;
+            offset[0] = cntx;
+
+            hsize_t dimsext[3] = {1, (hsize_t)ccdX, (hsize_t)ccdY}; // extend dimensions
+
+            DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/ccd/data"));
+
+            dataset->extend(size);
+
+            // Select a hyperslab in extended portion of the dataset.
+            DataSpace *filespace = new DataSpace(dataset->getSpace());
+
+            filespace->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+            // Define memory space.
+            DataSpace *memspace = new DataSpace(3, dimsext, NULL);
+
+            // Write data to the extended portion of the dataset.
+            dataset->write(savedata, PredType::STD_U16LE, *memspace, *filespace);
+
+            /* PLOTTABLE SUM IMAGE */
+
+            hsize_t dimsextsumimage[2] = {1, 1}; // extend dimensions
+
+            hsize_t sizesumimage[2];
+            hsize_t offsetsumimage[2];
+
+            if (scancounterx < scanX) {
+                    scancounterx++;
+                } else {
+                    scancounterx = 1;
+                    xmax = scanX;
+                    scancountery++;
+                }
+
+            sizesumimage[0] = scancountery;
+            if (xmax > 0) {
+                sizesumimage[1] = xmax;
+            } else {
+                sizesumimage[1] = scancounterx;
+            }
+            offsetsumimage[0] = scancountery-1;
+            offsetsumimage[1] = scancounterx-1;
+
+            DataSet *datasetsumimage = new DataSet(nexusfile->file->openDataSet("/measurement/data/data"));
+
+            datasetsumimage->extend(sizesumimage);
+
+            // Select a hyperslab in extended portion of the dataset.
+            DataSpace *filespacesumimage = new DataSpace(datasetsumimage->getSpace());
+
+            filespacesumimage->selectHyperslab(H5S_SELECT_SET, dimsextsumimage, offsetsumimage);
+
+            // Define memory space.
+            DataSpace *memspacesumimage = new DataSpace(2, dimsextsumimage, NULL);
+
+            uint64_t blubb[1];
+            blubb[0] = stxmimage[cntx];
+
+            // Write data to the extended portion of the dataset.
+            datasetsumimage->write(blubb, PredType::STD_I64LE, *memspacesumimage, *filespacesumimage);
+
+
+            delete filespacesumimage;
+            delete memspacesumimage;
+        }
+
+        if (((cntx+1)%scanX) == 0) {
+            if (ui->chbPreview->isChecked()) {
+                updateSTXMPreview(scanX, scanY, cntx);
+            }
+            controlth->setCurrentSTXMPreview(stxmpreviewvec);
+            controlth->setCurrentCCDImage(datax);
+    }
+
+}
+
+void MainWindow::showIncomingSpectrum(int cnt, spectrumdata blubb) {
+    if (ui->chbSaveData->isChecked()) {
+        addSDDDataChunk(cnt, blubb);
+    }
+    emit addSpecData(cnt, blubb);
+}
+
+void MainWindow::addSDDDataChunk(int32_t pxnum, spectrumdata specdata) {
+    hsize_t size[2];
+    size[1] = 4096;
+
+    hsize_t offset[2];
+    offset[0] = pxnum;
+    offset[1] = 0;
+
+    /* END PIXEL VALUES */
+    int32_t data[4096];
+    for (int i=0;i<4096;i++) {
+            data[i] = specdata.at(i);
+    }
+
+    /* WRITE DETECTOR DATA TO FILE */
+    size[0] = pxnum+1;
+    offset[0] = pxnum;
+
+    hsize_t dimsext[2] = {1, 4096}; // extend dimensions
+
+    DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/sdd/data"));
+
+    dataset->extend(size);
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespace = new DataSpace(dataset->getSpace());
+
+    filespace->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+    // Define memory space.
+    DataSpace *memspace = new DataSpace(2, dimsext, NULL);
+
+    // Write data to the extended portion of the dataset.
+    dataset->write(data, PredType::STD_I32LE, *memspace, *filespace);
+}
+
+void MainWindow::showBeamlineData(float energy, float pressure, float ringcurrent) {
+    ui->txtEnergy->setText(QString::number(energy));
+    ui->txtPressure->setText(QString::number(pressure));
+    ui->txtRingCurrent->setText(QString::number(ringcurrent));
+
+    if (!QFile::exists(hdf5filename)) {
+        std::cout<<hdf5filename.toStdString()<<std::endl;
+    }
+
+    addBeamlineDataChunk(energy, pressure, ringcurrent);
+}
+
+void MainWindow::addBeamlineDataChunk(float energy, float, float) {
+    H5File file(hdf5filename.toLocal8Bit(), H5F_ACC_RDWR);
+
+    /* WRITE BEAMLINE PARAMETER TO FILE */
+    hsize_t dimsext[2] = {1, 1}; // extend dimensions
+
+    DataSet *dataset = new DataSet(file.openDataSet("/measurement/instruments/monochromator/energy"));
+
+    hsize_t offset[2];
+
+    H5::ArrayType arrtype = dataset->getArrayType();
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespace = new DataSpace(dataset->getSpace());
+    hsize_t size[2];
+    int n_dims = filespace->getSimpleExtentDims(size);
+
+    offset[0] = size[0];
+    offset[1] = 0;
+
+    size[0]++;
+    size[1] = 1;
+
+    std::cout<<size[0]<<std::endl;
+    std::cout<<size[1]<<std::endl;
+    std::cout<<offset[0]<<std::endl;
+    std::cout<<offset[1]<<std::endl;
+
+    dataset->extend(size);
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespacenew = new DataSpace(dataset->getSpace());
+
+    filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+    // Define memory space.
+    DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
+
+    float energydata[1];
+    energydata[0] = energy;
+
+    // Write data to the extended portion of the dataset.
+    dataset->write(energydata, PredType::NATIVE_FLOAT, *memspacenew, *filespacenew);
+
+
+    file.close();
+}
+
+void MainWindow::writeScanIndexData(int dataindex, int nopx, int stopx) {
+    if (ui->chbSaveData->isChecked()) {
+        /* WRITE BEAMLINE PARAMETER TO FILE */
+        hsize_t dimsext[2] = {1, 3}; // extend dimensions
+
+        DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/sdd/log/scanindex"));
+
+        hsize_t offset[2];
+
+        H5::ArrayType arrtype = dataset->getArrayType();
+
+        hsize_t size[2];
+
+        DataSpace *filespace = new DataSpace(dataset->getSpace());
+        int n_dims = filespace->getSimpleExtentDims(size);
+
+        offset[0] = size[0];
+        offset[1] = 0;
+
+        size[0]++;
+        size[1] = 3;
+
+        dataset->extend(size);
+
+        // Select a hyperslab in extended portion of the dataset.
+        DataSpace *filespacenew = new DataSpace(dataset->getSpace());
+
+        filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+        // Define memory space.
+        DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
+
+        int scanindexdata[3] = {dataindex, nopx, stopx};
+
+        // Write data to the extended portion of the dataset.
+        dataset->write(scanindexdata, PredType::STD_I32LE, *memspacenew, *filespacenew);
+
+        std::cout<<"wrote scan index data to file, size: <<"<<size[0]<<", offset: "<<offset[0]<<std::endl;
+    }
+}
+
+void MainWindow::writeLineBreakData(roidata ROImap, int dataindex, int nopx, int stopx) {
+
+
+    std::cout<<"roidata length: "<<ROImap["P"].length()<<","<<dataindex<<","<<nopx<<","<<stopx<<std::endl;
+
+    controlth->setCurrentROIs(ROImap);
+
+    if (ui->chbSaveData->isChecked()) {
+        /* WRITE BEAMLINE PARAMETER TO FILE */
+        hsize_t dimsext[2] = {1, 3}; // extend dimensions
+
+        DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/sdd/log/linebreaks"));
+
+        hsize_t offset[2];
+
+        H5::ArrayType arrtype = dataset->getArrayType();
+
+        hsize_t size[2];
+
+        DataSpace *filespace = new DataSpace(dataset->getSpace());
+        int n_dims = filespace->getSimpleExtentDims(size);
+
+        offset[0] = size[0];
+        offset[1] = 0;
+
+        size[0]++;
+        size[1] = 3;
+
+        dataset->extend(size);
+
+        // Select a hyperslab in extended portion of the dataset.
+        DataSpace *filespacenew = new DataSpace(dataset->getSpace());
+
+        filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+        // Define memory space.
+        DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
+
+        int scanindexdata[3] = {dataindex, nopx, stopx};
+
+        // Write data to the extended portion of the dataset.
+        dataset->write(scanindexdata, PredType::STD_I32LE, *memspacenew, *filespacenew);
+
+        if ((nopx != 0) && (stopx == 0)) {
+            stopx = scanY;
+        }
+
+
+        // write ROIs
+        if ((nopx != 0) && (stopx != 0)) {
+            auto const ROIkeys = ROImap.keys();
+            for (std::string e : ROIkeys) {
+                std::cout<<"writing ROI data for "<<e<<" to file..."<<std::endl;
+                hsize_t dimsextroi[2] = {1, (hsize_t)scanX}; // extend dimensions
+                DataSet *datasetroi = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/sdd/roi/"+e));
+                hsize_t sizeroi[2];
+                hsize_t offsetroi[2];
+                offsetroi[0] = stopx-1;
+                offsetroi[1] = 0;
+
+                sizeroi[0] = stopx;
+                sizeroi[1] = (hsize_t)scanX;
+
+                datasetroi->extend(sizeroi);
+                // Select a hyperslab in extended portion of the dataset.
+                DataSpace *filespacenewroi = new DataSpace(datasetroi->getSpace());
+
+                filespacenewroi->selectHyperslab(H5S_SELECT_SET, dimsextroi, offsetroi);
+                // Define memory space.
+                DataSpace *memspacenewroi = new DataSpace(2, dimsextroi, NULL);
+
+                QVector<uint32_t> roidata = ROImap[e];
+
+                uint32_t writedata[scanX];
+
+                std::cout<<"länge des datenarrays: "<<roidata.length()<<"stopx: "<<stopx<<std::endl;
+                int pxcounter = 0;
+                for (int i=scanX*(stopx-1); i<roidata.length(); i++) {
+                    writedata[pxcounter] = roidata.at(i);
+                    pxcounter++;
+                }
+
+                // Write data to the extended portion of the dataset.
+                datasetroi->write(writedata, PredType::STD_I32LE, *memspacenewroi, *filespacenewroi);
+            }
+        }
+    }
+}
+
+void MainWindow::getCCDSettings(int width, int height) {
+    std::cout<<"real ccd width: "<<width;
+    std::cout<<"real ccd height: "<<height;
+
+    hsize_t fdim[] = {1};
+    DataSpace fspace(1, fdim);
+
+    DataSet* settingsgroupccdWidth = new DataSet(nexusfile->file->openDataSet("/measurement/settings/ccdWidth"));
+    int ccdWidth = width;
+    settingsgroupccdWidth->write(&ccdWidth, PredType::STD_I32LE, fspace);
+
+    DataSet* settingsgroupccdHeight = new DataSet(nexusfile->file->openDataSet("/measurement/settings/ccdHeight"));
+    int ccdHeight = height;
+    settingsgroupccdHeight->write(&ccdHeight, PredType::STD_I32LE, fspace);
+}
+

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package animax;
+
+message Measurement {
+  int32 width = 1;
+  int32 height = 2;
+  int32 aquisition_time = 3;
+  int32 energy_count = 4;
+  int32 ccdheight = 5;
+  int32 ccdwidth = 6;
+  repeated int32 energies = 7;
+  string ROIdefinitions = 8;
+}
+
+message Metadata {
+  int32 aquisition_number = 1;
+  int32 beamline_enery = 2;
+}
+
+message sdd {
+  bytes pixeldata = 1;
+}
+
+message ccd {
+  int32 cnt = 1;
+  bytes pixeldata = 2;
+}
+
+message ccdsettings {
+  int32 width = 1;
+  int32 height = 2;
+}
+
+message preview {
+  string type = 1;
+  bytes previewdata = 2;
+}
+
+message ROI {
+  string element = 1;
+  string line = 2;
+  bytes roidata = 3;
+}
