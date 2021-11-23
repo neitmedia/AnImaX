@@ -48,7 +48,7 @@ void controlThread::run()
     gui.bind("tcp://*:5558");
 
     bool filecreated = false;
-    while (1) {
+    while (!stop) {
         zmq::message_t env;
         (void)subscriber.recv(env, zmq::recv_flags::dontwait);
         if (env.size() > 0) {
@@ -72,6 +72,7 @@ void controlThread::run()
                 settings.ccdWidth = Measurement.ccdwidth();
                 settings.sddChannels = 4096;
                 settings.ROIdefinitions = Measurement.roidefinitions();
+                settings.scantype = Measurement.scantype();
 
                 // give out some debug info
                 std::cout<<"width: "<<settings.scanWidth<<std::endl;
@@ -98,14 +99,17 @@ void controlThread::run()
                     gui.send(zmq::str_buffer("ready"), zmq::send_flags::none);
                 }
             } else if (env_str == "metadata") {
-                animax::Metadata Metadata;
-                Metadata.ParseFromArray(msg.data(), msg.size());
+                if (waitForMetadata) {
+                    animax::Metadata Metadata;
+                    Metadata.ParseFromArray(msg.data(), msg.size());
 
-                metadata metadata;
-                metadata.aquisition_number = Metadata.aquisition_number();
-                metadata.beamline_energy = Metadata.beamline_enery();
+                    metadata metadata;
+                    metadata.aquisition_number = Metadata.aquisition_number();
+                    metadata.beamline_energy = Metadata.beamline_enery();
 
-                emit sendMetadataToGUI(metadata);
+                    emit sendMetadataToGUI(metadata);
+                    waitForMetadata = false;
+                }
             }
         }
 
@@ -172,6 +176,25 @@ void controlThread::run()
 
             newROIs = false;
 
+        }
+
+        // check if a part of NEXAFS scan is ready
+        // if so, tell GUI
+        if (partScanFinished) {
+            animax::scanstatus scanstatus;
+            scanstatus.set_status("part finished");
+            size_t size = scanstatus.ByteSizeLong();
+            void *sendbuffer = malloc(size);
+            scanstatus.SerializeToArray(sendbuffer, size);
+            zmq::message_t request(size);
+            memcpy ((void *) request.data (), sendbuffer, size);
+
+            // send "scanstatus" envelope with status info
+            gui.send(zmq::str_buffer("scanstatus"), zmq::send_flags::sndmore);
+            gui.send(request, zmq::send_flags::none);
+
+            partScanFinished = false;
+            waitForMetadata = true;
         }
     }
 }

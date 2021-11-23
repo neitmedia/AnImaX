@@ -13,6 +13,11 @@ hdf5nexus::hdf5nexus()
 
 }
 
+void hdf5nexus::closeDataFile() {
+    file->close();
+    delete file;
+}
+
 void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     std::cout<<"creating HDF5/NeXus file with filename \""<<filename.toStdString()<<"\"..."<<std::endl;
 
@@ -75,36 +80,46 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
 
     Attribute att = file->createAttribute( "HDF5_Version", str_type, att_space);
     att.write(str_type, std::string(versionstring));
+    att.close();
 
     att = file->createAttribute( "default", str_type, att_space);
     att.write(str_type, std::string("entry"));
+    att.close();
 
     att = file->createAttribute( "detectorRank", str_type, att_space);
     att.write(str_type, std::string("detectorRank"));
+    att.close();
 
     att = file->createAttribute( "file_name", str_type, att_space);
     att.write(str_type, std::string("scantest.h5"));
+    att.close();
 
     att = file->createAttribute( "file_time", str_type, att_space);
     att.write(str_type, std::string("2021-03-29T15:51:42.829454"));
+    att.close();
 
     att = file->createAttribute( "nE", str_type, att_space);
     att.write(str_type, std::string("number of energies scanned"));
+    att.close();
 
     att = file->createAttribute( "nP", str_type, att_space);
     att.write(str_type, std::string("total number of scan points"));
+    att.close();
 
     att = file->createAttribute( "nX", str_type, att_space);
     att.write(str_type, std::string("number of pixels in X direction"));
+    att.close();
 
     att = file->createAttribute( "nY", str_type, att_space);
     att.write(str_type, std::string("number of pixels in Y direction"));
+    att.close();
 
     // create file structure
     Group* entrygroup = new Group(file->createGroup( "/measurement" ));
-
     att = entrygroup->createAttribute( "NX_class", str_type, att_space);
     att.write(str_type, std::string("NXentry"));
+    att.close();
+    delete entrygroup;
 
     hsize_t fdim[] = {1};
     DataSpace fspace(1, fdim);
@@ -114,97 +129,146 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     entrystarttime->write(std::string("2021-03-29T15:51:42.829454"), str_type, att_space);
     att = entrystarttime->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_DATE_TIME"));
+    att.close();
+    delete entrystarttime;
 
     DataSet* entryendtime = new DataSet(file->createDataSet("/measurement/end_time", str_type, fspace));
     entryendtime->write(std::string("2021-03-29T15:51:42.829454"), str_type, att_space);
     att = entryendtime->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_DATE_TIME"));
+    att.close();
+    delete entryendtime;
 
     DataSet* entrydefinition = new DataSet(file->createDataSet("/measurement/definition", str_type, fspace));
     entrydefinition->write(std::string("NXstxm"), str_type, att_space);
     att = entrydefinition->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_CHAR"));
+    att.close();
+    delete entrydefinition;
 
     DataSet* entrytitle = new DataSet(file->createDataSet("/measurement/title", str_type, fspace));
     entrytitle->write(std::string("TITLE"), str_type, att_space);
     att = entrytitle->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_CHAR"));
+    att.close();
+    delete entrytitle;
 
     Group* entrydatamonitor = new Group(file->createGroup( "/measurement/monitor" ));
     att = entrydatamonitor->createAttribute( "NX_class", str_type, att_space);
     att.write(str_type, std::string("NXmonitor"));
+    att.close();
+    delete entrydatamonitor;
 
     DataSet* entrymonitordata = new DataSet(file->createDataSet("/measurement/monitor/data", PredType::NATIVE_FLOAT, fspace));
     entrymonitordata->write(testdata, PredType::NATIVE_FLOAT, fspace);
     att = entrymonitordata->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_FLOAT"));
+    att.close();
+    delete entrymonitordata;
 
     Group* entrydata = new Group(file->createGroup( "/measurement/data" ));
     att = entrydata->createAttribute( "NX_class", str_type, att_space);
     att.write(str_type, std::string("NXdata"));
+    att.close();
+    delete entrydata;
+
     DataSet* entrydataenergy = new DataSet(file->createDataSet("/measurement/data/energy", PredType::NATIVE_FLOAT, fspace));
     att = entrydataenergy->createAttribute( "type", str_type, att_space);
-    att.write(str_type, std::string("NX_FLOAT"));
+    att.write(str_type, std::string("NX_FLOAT"));    
+    att.close();
     entrydataenergy->write(testdata, PredType::NATIVE_FLOAT, fspace);
+    delete entrydataenergy;
+
     DataSet* entrydatasamplex = new DataSet(file->createDataSet("/measurement/data/sample_x", PredType::NATIVE_FLOAT, fspace));
     att = entrydatasamplex->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_FLOAT"));
+    att.close();
     entrydatasamplex->write(testdata, PredType::NATIVE_FLOAT, fspace);
+    delete entrydatasamplex;
+
     DataSet* entrydatasampley = new DataSet(file->createDataSet("/measurement/data/sample_y", PredType::NATIVE_FLOAT, fspace));
     att = entrydatasampley->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_FLOAT"));
+    att.close();
     entrydatasampley->write(testdata, PredType::NATIVE_FLOAT, fspace);
+    delete entrydatasampley;
+
     DataSet* entrydatastxmscantype = new DataSet(file->createDataSet("/measurement/data/stxm_scan_type", str_type, fspace));
     att = entrydatastxmscantype->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_CHAR"));
+    att.close();
     entrydatastxmscantype->write(std::string("sample image"), str_type, fspace);
+    delete entrydatastxmscantype;
+
     Group* entryinstrument = new Group(file->createGroup( "/measurement/instruments" ));
     att = entryinstrument->createAttribute( "NX_class", str_type, att_space);
     att.write(str_type, std::string("NXinstrument"));
+    delete entryinstrument;
 
     Group* entryinstrumentCCD = new Group(file->createGroup( "/measurement/instruments/ccd" ));
     att = entryinstrumentCCD->createAttribute( "NX_class", str_type, att_space);
     att.write(str_type, std::string("NXdetector"));
+    att.close();
+    delete entryinstrumentCCD;
 
     Group* entryinstrumentSDD = new Group(file->createGroup( "/measurement/instruments/sdd" ));
     att = entryinstrumentSDD->createAttribute( "NX_class", str_type, att_space);
     att.write(str_type, std::string("NXdetector"));
+    att.close();
+    delete entryinstrumentSDD;
 
     Group* entryinstrumentmonochromator = new Group(file->createGroup( "/measurement/instruments/monochromator" ));
     att = entryinstrumentmonochromator->createAttribute( "NX_class", str_type, att_space);
     att.write(str_type, std::string("NXmonochromator"));
+    att.close();
+    delete entryinstrumentmonochromator;
 
     DataSet* entryinstrumentmonochromatorenergy = new DataSet(file->createDataSet("/measurement/instruments/monochromator/energy", PredType::NATIVE_FLOAT, fspace));
     att = entryinstrumentmonochromatorenergy->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_FLOAT"));
+    att.close();
     entryinstrumentmonochromatorenergy->write(testdata, PredType::NATIVE_FLOAT, fspace);
+    delete entryinstrumentmonochromatorenergy;
 
     Group* entryinstrumentsource = new Group(file->createGroup( "/measurement/instruments/source" ));
     att = entryinstrumentsource->createAttribute( "NX_class", str_type, att_space);
     att.write(str_type, std::string("NXsource"));
+    att.close();
+    delete entryinstrumentsource;
+
     DataSet* entryinstrumentsourcename = new DataSet(file->createDataSet("/measurement/instruments/source/name", str_type, fspace));
     entryinstrumentsourcename->write(std::string("BEISPIELNAME"), str_type, att_space);
     att = entryinstrumentsourcename->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_CHAR"));
+    att.close();
+    delete entryinstrumentsourcename;
 
     DataSet* entryinstrumentsourceprobe = new DataSet(file->createDataSet("/measurement/instruments/source/probe", str_type, fspace));
     entryinstrumentsourceprobe->write(std::string("BEISPIELNAME"), str_type, att_space);
     att = entryinstrumentsourceprobe->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_CHAR"));
+    att.close();
+    delete entryinstrumentsourceprobe;
 
     DataSet* entryinstrumentsourcetype = new DataSet(file->createDataSet("/measurement/instruments/source/type", str_type, fspace));
     entryinstrumentsourcetype->write(std::string("BEISPIELNAME"), str_type, att_space);
     att = entryinstrumentsourcetype->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_CHAR"));
+    att.close();
+    delete entryinstrumentsourcetype;
 
     Group* entrysample = new Group(file->createGroup( "/measurement/sample" ));
     att = entrysample->createAttribute( "NX_class", str_type, att_space);
     att.write(str_type, std::string("NXsample"));
+    att.close();
+    delete entrysample;
+
     DataSet* entrysamplerotationangle = new DataSet(file->createDataSet("/measurement/sample/rotation_angle", PredType::NATIVE_FLOAT, fspace));
     entrysamplerotationangle->write(testdata, PredType::NATIVE_FLOAT, fspace);
     att = entrysamplerotationangle->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_FLOAT"));
-
+    att.close();
+    delete entrysamplerotationangle;
 
     // Turn off the auto-printing when failure occurs so that we can
     // handle the errors appropriately
@@ -224,6 +288,7 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     DataSet *dataset = new DataSet(file->createDataSet("/measurement/instruments/ccd/data", PredType::STD_U16LE, *dataspace, prop));
     att = dataset->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_FLOAT"));
+    att.close();
 
     // set variables
     hsize_t maxdimssumimage[2]    = {H5S_UNLIMITED, H5S_UNLIMITED};
@@ -242,8 +307,15 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     DataSet *datasetsumimage = new DataSet(file->createDataSet("/measurement/data/data", PredType::STD_I64LE, *dataspacesumimage, propsumimage));
     att = datasetsumimage->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_FLOAT"));
+    att.close();
     att = datasetsumimage->createAttribute( "signal", str_type, att_space);
     att.write(str_type, std::string("1"));
+    att.close();
+
+    delete dataspace;
+    delete dataset;
+    delete dataspacesumimage;
+    delete datasetsumimage;
 
     // write fluorescence data
     DataSpace *dataspacespectrum = new DataSpace(2, dimsspec, maxdimsspec);
@@ -256,11 +328,14 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     DataSet *entryfluoinstrumentfluorescencedata = new DataSet(file->createDataSet("/measurement/instruments/sdd/data", PredType::STD_I16LE, *dataspacespectrum, propspectrum));
     att = entryfluoinstrumentfluorescencedata->createAttribute( "type", str_type, att_space);
     att.write(str_type, std::string("NX_FLOAT"));
+    att.close();
 
     file->link( H5L_TYPE_HARD, "/measurement/instruments/sdd/data", "/measurement/data/sdd" );
 
     // create log group
     Group* sddloggroup = new Group(file->createGroup( "/measurement/instruments/sdd/log" ));
+    delete sddloggroup;
+
 
     // create linebreak log dataset
     hsize_t maxdimslinebreak[2]    = {H5S_UNLIMITED, 3};
@@ -283,6 +358,8 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     if (ROIdefinitions != "") {
         // create log group
         Group* sddroigroup = new Group(file->createGroup( "/measurement/instruments/sdd/roi" ));
+        sddroigroup->close();
+        delete sddroigroup;
 
         // set hdf settings for ROIs
         hsize_t roimaxdims[2]    = {(hsize_t)scanY, (hsize_t)scanX};
@@ -302,30 +379,44 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
         foreach(QString key, jsonObj.keys()) {
             std::string k(key.toLocal8Bit());
             DataSet *roidataset = new DataSet(file->createDataSet("/measurement/instruments/sdd/roi/"+k, PredType::STD_I32LE, *dataspaceroi, proproi));
+            roidataset->close();
+            delete roidataset;
         }
+
+        proproi.close();
+        prop.close();
+
+        delete dataspaceroi;
     }
 
     // create settings group
     Group* settingsgroup = new Group(file->createGroup( "/measurement/settings" ));
+    delete settingsgroup;
 
     DataSet* settingsgroupscanWidth = new DataSet(file->createDataSet("/measurement/settings/scanWidth", PredType::STD_I32LE, fspace));
     int scanWidth = settings.scanWidth;
     settingsgroupscanWidth->write(&scanWidth, PredType::STD_I32LE, att_space);
+    delete settingsgroupscanWidth;
 
     DataSet* settingsgroupscanHeight = new DataSet(file->createDataSet("/measurement/settings/scanHeight", PredType::STD_I32LE, fspace));
     int scanHeight = settings.scanHeight;
     settingsgroupscanHeight->write(&scanHeight, PredType::STD_I32LE, att_space);
+    delete settingsgroupscanHeight;
 
     DataSet* settingsgroupccdHeight = new DataSet(file->createDataSet("/measurement/settings/ccdHeight", PredType::STD_I32LE, fspace));
-    /*int ccdHeight = settings.ccdHeight;
-    settingsgroupccdHeight->write(&ccdHeight, PredType::STD_I32LE, att_space);*/
+    int ccdHeight = settings.ccdHeight;
+    settingsgroupccdHeight->write(&ccdHeight, PredType::STD_I32LE, att_space);
+    delete settingsgroupccdHeight;
 
     DataSet* settingsgroupccdWidth = new DataSet(file->createDataSet("/measurement/settings/ccdWidth", PredType::STD_I32LE, fspace));
-    /*int ccdWidth = settings.ccdWidth;
-    settingsgroupccdWidth->write(&ccdWidth, PredType::STD_I32LE, att_space);*/
+    int ccdWidth = settings.ccdWidth;
+    settingsgroupccdWidth->write(&ccdWidth, PredType::STD_I32LE, att_space);
+    delete settingsgroupccdWidth;
 
     // create metadata group
     Group* metadatagroup = new Group(file->createGroup( "/measurement/metadata" ));
+    delete metadatagroup;
+
     // create linebreak log dataset
     hsize_t maxdimsmetadata[2]    = {H5S_UNLIMITED, 1};
     hsize_t chunk_maxdimsmetadata[2] = {1, 1};
@@ -341,8 +432,20 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
 
     // Create the chunked datasets.  Note the use of pointer.
     DataSet *entrymetadatabeamline_energy = new DataSet(file->createDataSet("/measurement/metadata/beamline_energy", PredType::STD_I32LE, *dataspacemetadata, propmetadata));
+    delete entrymetadatabeamline_energy;
     DataSet *entrymetadataaquisition_number = new DataSet(file->createDataSet("/measurement/metadata/aquisition_number", PredType::STD_I32LE, *dataspacemetadata, propmetadata));
+    delete entrymetadataaquisition_number;
+    propmetadata.close();
     prop.close();
-    //file->close();
 
+    delete dataspacespectrum;
+    delete entryfluoinstrumentfluorescencedata;
+    delete dataspacelinebreak;
+    delete entryscanindex;
+    delete entrylinebreaks;
+
+    propsumimage.close();
+    propspectrum.close();
+    proplinebreak.close();
+    propmetadata.close();
 }

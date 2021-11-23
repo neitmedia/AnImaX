@@ -433,6 +433,19 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_12">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>140</y>
+      <width>83</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>create testfile</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

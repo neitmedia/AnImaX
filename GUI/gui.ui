@@ -65,7 +65,7 @@
       <number>1000</number>
      </property>
      <property name="value">
-      <number>310</number>
+      <number>40</number>
      </property>
     </widget>
     <widget class="QSpinBox" name="spbScanHeight">
@@ -81,7 +81,7 @@
       <number>1000</number>
      </property>
      <property name="value">
-      <number>580</number>
+      <number>30</number>
      </property>
     </widget>
     <widget class="QRadioButton" name="rdbXRF">

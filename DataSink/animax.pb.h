@@ -46,7 +46,7 @@ struct TableStruct_animax_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[8]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -72,6 +72,9 @@ extern ccdsettingsDefaultTypeInternal _ccdsettings_default_instance_;
 class preview;
 struct previewDefaultTypeInternal;
 extern previewDefaultTypeInternal _preview_default_instance_;
+class scanstatus;
+struct scanstatusDefaultTypeInternal;
+extern scanstatusDefaultTypeInternal _scanstatus_default_instance_;
 class sdd;
 struct sddDefaultTypeInternal;
 extern sddDefaultTypeInternal _sdd_default_instance_;
@@ -83,6 +86,7 @@ template<> ::animax::ROI* Arena::CreateMaybeMessage<::animax::ROI>(Arena*);
 template<> ::animax::ccd* Arena::CreateMaybeMessage<::animax::ccd>(Arena*);
 template<> ::animax::ccdsettings* Arena::CreateMaybeMessage<::animax::ccdsettings>(Arena*);
 template<> ::animax::preview* Arena::CreateMaybeMessage<::animax::preview>(Arena*);
+template<> ::animax::scanstatus* Arena::CreateMaybeMessage<::animax::scanstatus>(Arena*);
 template<> ::animax::sdd* Arena::CreateMaybeMessage<::animax::sdd>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace animax {
@@ -206,6 +210,7 @@ class Measurement final :
   enum : int {
     kEnergiesFieldNumber = 7,
     kROIdefinitionsFieldNumber = 8,
+    kScantypeFieldNumber = 9,
     kWidthFieldNumber = 1,
     kHeightFieldNumber = 2,
     kAquisitionTimeFieldNumber = 3,
@@ -247,6 +252,20 @@ class Measurement final :
   const std::string& _internal_roidefinitions() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_roidefinitions(const std::string& value);
   std::string* _internal_mutable_roidefinitions();
+  public:
+
+  // string scantype = 9;
+  void clear_scantype();
+  const std::string& scantype() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_scantype(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_scantype();
+  PROTOBUF_MUST_USE_RESULT std::string* release_scantype();
+  void set_allocated_scantype(std::string* scantype);
+  private:
+  const std::string& _internal_scantype() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_scantype(const std::string& value);
+  std::string* _internal_mutable_scantype();
   public:
 
   // int32 width = 1;
@@ -313,6 +332,7 @@ class Measurement final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 > energies_;
   mutable std::atomic<int> _energies_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roidefinitions_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr scantype_;
   ::PROTOBUF_NAMESPACE_ID::int32 width_;
   ::PROTOBUF_NAMESPACE_ID::int32 height_;
   ::PROTOBUF_NAMESPACE_ID::int32 aquisition_time_;
@@ -1257,6 +1277,150 @@ class ROI final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_animax_2eproto;
 };
+// -------------------------------------------------------------------
+
+class scanstatus final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:animax.scanstatus) */ {
+ public:
+  inline scanstatus() : scanstatus(nullptr) {}
+  ~scanstatus() override;
+  explicit constexpr scanstatus(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  scanstatus(const scanstatus& from);
+  scanstatus(scanstatus&& from) noexcept
+    : scanstatus() {
+    *this = ::std::move(from);
+  }
+
+  inline scanstatus& operator=(const scanstatus& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline scanstatus& operator=(scanstatus&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const scanstatus& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const scanstatus* internal_default_instance() {
+    return reinterpret_cast<const scanstatus*>(
+               &_scanstatus_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(scanstatus& a, scanstatus& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(scanstatus* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(scanstatus* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline scanstatus* New() const final {
+    return new scanstatus();
+  }
+
+  scanstatus* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<scanstatus>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const scanstatus& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const scanstatus& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(scanstatus* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "animax.scanstatus";
+  }
+  protected:
+  explicit scanstatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStatusFieldNumber = 1,
+  };
+  // string status = 1;
+  void clear_status();
+  const std::string& status() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_status(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_status();
+  PROTOBUF_MUST_USE_RESULT std::string* release_status();
+  void set_allocated_status(std::string* status);
+  private:
+  const std::string& _internal_status() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_status(const std::string& value);
+  std::string* _internal_mutable_status();
+  public:
+
+  // @@protoc_insertion_point(class_scope:animax.scanstatus)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr status_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_animax_2eproto;
+};
 // ===================================================================
 
 
@@ -1479,6 +1643,52 @@ inline void Measurement::set_allocated_roidefinitions(std::string* roidefinition
   roidefinitions_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), roidefinitions,
       GetArenaForAllocation());
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.ROIdefinitions)
+}
+
+// string scantype = 9;
+inline void Measurement::clear_scantype() {
+  scantype_.ClearToEmpty();
+}
+inline const std::string& Measurement::scantype() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.scantype)
+  return _internal_scantype();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_scantype(ArgT0&& arg0, ArgT... args) {
+ 
+ scantype_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.scantype)
+}
+inline std::string* Measurement::mutable_scantype() {
+  std::string* _s = _internal_mutable_scantype();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.scantype)
+  return _s;
+}
+inline const std::string& Measurement::_internal_scantype() const {
+  return scantype_.Get();
+}
+inline void Measurement::_internal_set_scantype(const std::string& value) {
+  
+  scantype_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_scantype() {
+  
+  return scantype_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_scantype() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.scantype)
+  return scantype_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_scantype(std::string* scantype) {
+  if (scantype != nullptr) {
+    
+  } else {
+    
+  }
+  scantype_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), scantype,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.scantype)
 }
 
 // -------------------------------------------------------------------
@@ -1927,9 +2137,61 @@ inline void ROI::set_allocated_roidata(std::string* roidata) {
   // @@protoc_insertion_point(field_set_allocated:animax.ROI.roidata)
 }
 
+// -------------------------------------------------------------------
+
+// scanstatus
+
+// string status = 1;
+inline void scanstatus::clear_status() {
+  status_.ClearToEmpty();
+}
+inline const std::string& scanstatus::status() const {
+  // @@protoc_insertion_point(field_get:animax.scanstatus.status)
+  return _internal_status();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void scanstatus::set_status(ArgT0&& arg0, ArgT... args) {
+ 
+ status_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.scanstatus.status)
+}
+inline std::string* scanstatus::mutable_status() {
+  std::string* _s = _internal_mutable_status();
+  // @@protoc_insertion_point(field_mutable:animax.scanstatus.status)
+  return _s;
+}
+inline const std::string& scanstatus::_internal_status() const {
+  return status_.Get();
+}
+inline void scanstatus::_internal_set_status(const std::string& value) {
+  
+  status_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* scanstatus::_internal_mutable_status() {
+  
+  return status_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* scanstatus::release_status() {
+  // @@protoc_insertion_point(field_release:animax.scanstatus.status)
+  return status_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void scanstatus::set_allocated_status(std::string* status) {
+  if (status != nullptr) {
+    
+  } else {
+    
+  }
+  status_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), status,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.scanstatus.status)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

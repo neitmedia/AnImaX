@@ -35,6 +35,8 @@ public:
     bool stop = false;
     bool ccdReady = false;
     bool sddReady = false;
+    bool partScanFinished = false;
+    bool waitForMetadata = false;
 
 private:
     QString hdf5filename;

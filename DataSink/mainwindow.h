@@ -35,24 +35,24 @@ public slots:
     void getImageData(int, std::string);
     void getCCDSettings(int, int);
     void showIncomingSpectrum(int, spectrumdata);
-    void showBeamlineData(float, float, float);
     void writeScanIndexData(int, int, int);
     void writeLineBreakData(roidata, int, int, int);
     void getScanSettings(settingsdata);
     void getMetadata(metadata);
     void ccdReady();
     void sddReady();
+    void checkIfScanIsFinished();
 
 private slots:
     void updateSTXMPreview(int, int, int pixnum);
 
-    void addCCDDataChunk(int ccdX, int ccdY, int scanX, int scanY, uint32_t pxnum, uint32_t stxmpxval, std::string);
-
     void addSDDDataChunk(int32_t pxnum, spectrumdata);
 
-    void addBeamlineDataChunk(float, float, float);
-
     void showEvent( QShowEvent* event );
+
+
+
+    void on_pushButton_12_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -71,6 +71,8 @@ private:
     uint16_t scancountery = 1;
     uint16_t xmax = 0;
     imagepreviewdata stxmpreviewvec;
+    settingsdata scansettings;
+    metadata currentmetadata;
 
     int savestarttime;
     int saveendtime;
@@ -84,6 +86,9 @@ private:
 
     int scanX;
     int scanY;
+
+    bool sddReceived = false;
+    bool ccdReceived = false;
 
 };
 #endif // MAINWINDOW_H

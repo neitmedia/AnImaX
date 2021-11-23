@@ -10,6 +10,7 @@ struct settingsdata {
     int ccdWidth;
     int sddChannels;
     std::string ROIdefinitions;
+    std::string scantype;
 };
 
 struct metadata {

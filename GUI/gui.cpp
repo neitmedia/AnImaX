@@ -44,6 +44,12 @@ void GUI::on_cmdStartScan_clicked()
     settings.sddChannels = ui->spbSDDChannels->value();
     settings.roidefinitions = ui->txtROIdefinitions->toPlainText().toStdString();
 
+    if (ui->rdbNEXAFS->isChecked()) {
+        settings.scantype = "NEXAFS";
+    } else if (ui->rdbXRF->isChecked()) {
+        settings.scantype = "XRF";
+    }
+
     // set global variables to values
     scanX = settings.scanWidth;
     scanY = settings.scanHeight;

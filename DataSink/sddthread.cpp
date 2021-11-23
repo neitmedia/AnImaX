@@ -14,7 +14,7 @@
 #include <QJsonArray>
 #include <zmq.hpp>
 
-sddThread::sddThread(QString s, QString roijson) : ip(s), roijson(roijson)
+sddThread::sddThread(QString s, QString roijson, int scanX, int scanY) : ip(s), roijson(roijson), scanX(scanX), scanY(scanY)
 {
     // generate ROI data structure
     QJsonParseError jsonError;
@@ -34,7 +34,8 @@ void sddThread::run()
 {
         zmq::context_t context(1);
         zmq::socket_t subscriber(context, ZMQ_SUB);
-        subscriber.connect("tcp://"+ip.toStdString()+":5557");
+        //subscriber.connect("tcp://"+ip.toStdString()+":5557");
+        subscriber.connect("tcp://192.168.178.41:5557");
         subscriber.set(zmq::sockopt::subscribe, "statusdata");
         subscriber.set(zmq::sockopt::subscribe, "sdd");
         std::cout<<"waiting for ready signal from sdd..."<<std::endl;
@@ -141,6 +142,7 @@ void sddThread::run()
                                     roivect.append(sum);
 
                                 }
+
                             }
 
 
@@ -163,6 +165,25 @@ void sddThread::run()
                             int xstop = dummy%4096;
                             //std::cout << "line break is given: "<< dataindex-1 << " " << x << " " << xstop << std::endl;
                             emit sendLineBreakDataToGUI(ROImap, dataindex-1, x, xstop);
+
+                            if (x == scanX*scanY) {
+                                std::cout<<"sdd scan received"<<std::endl;
+                                std::cout<<"clear variables..."<<std::endl;
+                                x = 0;
+                                y = 0;
+                                dataindex = 0;
+
+                                // make sure that the spectrum array is empty
+                                for (int i=0;i<4096;i++) {
+                                    spekdata.append(0);
+                                }
+
+                                ROIs.clear();
+                                ROImap.clear();
+
+                                std::cout<<"cleared variables..."<<std::endl;
+                            }
+
                         }
                     }
                 }

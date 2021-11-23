@@ -11,6 +11,7 @@ class hdf5nexus
 public:
     hdf5nexus();
     void createDataFile(QString, settingsdata);
+    void closeDataFile();
 
     H5File *file;
 

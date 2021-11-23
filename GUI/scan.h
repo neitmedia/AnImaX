@@ -29,8 +29,7 @@ public:
     void run();
     bool stop = false;
     settingsdata settings;
-
-
+    int aquisition_number = 1;
 
 private:
     //QString ip;

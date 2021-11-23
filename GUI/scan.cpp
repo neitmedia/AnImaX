@@ -29,7 +29,8 @@ void scan::run()
 
         // Prepare sdd subscriber => open "statusdata" envelopes from sdd PC
         zmq::socket_t sdd(ctx, zmq::socket_type::sub);
-        sdd.connect("tcp://127.0.0.1:5557");
+        //sdd.connect("tcp://127.0.0.1:5557");
+        sdd.connect("tcp://192.168.178.41:5557");
         sdd.set(zmq::sockopt::subscribe, "statusdata");
 
         // Prepare datasink subscriber => open "statusdata", "previewdata" and "roidata" envelopes from datasink PC
@@ -38,6 +39,7 @@ void scan::run()
         datasink.set(zmq::sockopt::subscribe, "statusdata");
         datasink.set(zmq::sockopt::subscribe, "previewdata");
         datasink.set(zmq::sockopt::subscribe, "roidata");
+        datasink.set(zmq::sockopt::subscribe, "scanstatus");
 
         // prepare "Measurement"-protobuf
         animax::Measurement Measurement;
@@ -50,6 +52,7 @@ void scan::run()
         Measurement.set_ccdheight(settings.ccdHeight);
         Measurement.set_ccdwidth(settings.ccdWidth);
         Measurement.set_roidefinitions(settings.roidefinitions);
+        Measurement.set_scantype(settings.scantype);
 
         bool ccd_ready = false;
         bool sdd_ready = false;
@@ -130,7 +133,7 @@ void scan::run()
                 // HERE: get beamline parameter
                 animax::Metadata Metadata;
                 // define protobuf values
-                Metadata.set_aquisition_number(1);
+                Metadata.set_aquisition_number(aquisition_number);
                 Metadata.set_beamline_enery(123);
                 // publish settings
                 publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
@@ -174,6 +177,38 @@ void scan::run()
 
                         // send preview data to GUI
                         emit sendROIDataToGUI(roielement, roidata);
+                    }
+
+                    if (datasinkenv_str == "scanstatus") {
+                        zmq::message_t scanstatusmsg;
+                        (void)datasink.recv(scanstatusmsg, zmq::recv_flags::none);
+                        animax::scanstatus scanstatus;
+                        scanstatus.ParseFromArray(scanstatusmsg.data(), scanstatusmsg.size());
+                        std::string scanstatusstr = scanstatus.status();
+
+                        std::cout<<"received scanstatus message: "<<scanstatusstr<<std::endl;
+
+                        QThread::sleep(5);
+
+                        // image is ready: change settings of beamline, positioner etc.
+                        // if finished, get new metadata and send out new metadata
+                        // send beamline parameter
+
+                        // HERE: get beamline parameter
+                        animax::Metadata Metadata;
+                        // define protobuf values
+                        aquisition_number++;
+                        Metadata.set_aquisition_number(aquisition_number);
+                        Metadata.set_beamline_enery(123);
+                        // publish settings
+                        publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
+                        size_t metadatasize = Metadata.ByteSizeLong();
+                        void *metadatabuffer = malloc(metadatasize);
+                        Metadata.SerializeToArray(metadatabuffer, metadatasize);
+                        zmq::message_t request(metadatasize);
+                        memcpy((void *)request.data(), metadatabuffer, metadatasize);
+                        publisher.send(request, zmq::send_flags::none);
+                        std::cout<<"sent metadata!"<<std::endl;
                     }
                 }
             }

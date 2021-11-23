@@ -22,7 +22,6 @@ zmqThread::zmqThread(QString s, int scanX, int scanY) : ip(s), scanX(scanX), sca
 // run() will be called when a thread starts
 // the code will be shared by all threads
 
-
 void zmqThread::run()
 {
         std::cout<<"started ccd thread"<<std::endl;
@@ -66,7 +65,6 @@ void zmqThread::run()
         }
 
         // if ccd is ready, wait for incoming envelopes with image data
-        int oldbla = 0;
         int bla = 0;
         auto start = high_resolution_clock::now();
 
@@ -89,24 +87,19 @@ void zmqThread::run()
                     std::string text_str;
                     int bla = ccd.cnt();
 
-                    if ((bla >= 131070) && (bla <= 131080)) {
-                        std::string test = ccd.pixeldata();
-                        uint16_t value = ((uint16_t) (uint8_t)test[1] << 8) | (uint8_t)test[0];
-                        std::cout<<"received image #"<<bla<<": control value: "<<value<<std::endl;
-                    }
-
                     emit sendImageData(bla, ccd.pixeldata());
+                    std::cout<<"received image #"<<bla<<std::endl;
 
-                    oldbla = bla;
-
-                    if (bla == ((scanX*scanY)-1)) {
-                        std::cout << "scan received" << std::endl;
+                    if (bla == (scanX*scanY)-1) {
+                        std::cout << "ccd scan received" << std::endl;
                         auto stop = high_resolution_clock::now();
                         auto duration = duration_cast<microseconds>(stop - start);
 
                         // To get the value of duration use the count()
                         // member function on the duration object
                         std::cout << duration.count() << std::endl;
+                        std::cout << "clear ccd variables..." << std::endl;
+                        std::cout << "cleared ccd variables..." << std::endl;
                     }
 
 

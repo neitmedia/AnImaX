@@ -24,17 +24,20 @@ signals:
 public:
     // constructor
     // set name using initializer
-    explicit sddThread(QString s, QString roijson);
+    explicit sddThread(QString s, QString roijson, int scanX, int scanY);
 
     // overriding the QThread's run() method
     void run();
     bool stop = false;
     bool sddReadyState = false;
+    bool dummybool = false;
 private:
     QString ip;
     QVector<QVector<uint32_t>> ROIs;
     roidata ROImap;
     QString roijson;
+    int scanX;
+    int scanY;
 
     QVector<std::string> elements;
 

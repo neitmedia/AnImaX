@@ -10,6 +10,7 @@ struct settingsdata {
     int ccdWidth;
     int sddChannels;
     std::string roidefinitions;
+    std::string scantype;
 };
 
 #endif // STRUCTS_H
