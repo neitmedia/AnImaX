@@ -9,7 +9,13 @@ struct settingsdata {
     int ccdHeight;
     int ccdWidth;
     int sddChannels;
-    std::string ROIdefinitions;
+    std::string datasinkIP;
+    int datasinkPort;
+    std::string sddIP;
+    int sddPort;
+    std::string ccdIP;
+    int ccdPort;
+    std::string roidefinitions;
     std::string scantype;
 };
 

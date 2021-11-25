@@ -12,6 +12,9 @@ int main (int argc, char** argv)
 	FILE *fileptr;
 	char *buffer;
 	uint32_t filelen;
+    std::string guiIP = argv[6];
+    std::string guiPort = argv[7];
+    bool connected = false;
 
 	// define ZMQ context
 	zmq::context_t ctx(1);
@@ -19,8 +22,11 @@ int main (int argc, char** argv)
     // Prepare subscriber
     zmq::socket_t subscriber(ctx, zmq::socket_type::sub);
     
-    // connect to GUI (port 5555)
-    subscriber.connect("tcp://127.0.0.1:5555");
+    std::string connectstring = "tcp://"+guiIP+":"+guiPort;
+    
+    // connect to GUI
+    subscriber.connect(connectstring);
+    std::cout<<"connected to "<<connectstring<<std::endl;
     
     // subscribe to "settings" and "metadata"
     subscriber.set(zmq::sockopt::subscribe, "settings");
@@ -28,9 +34,6 @@ int main (int argc, char** argv)
     
     // Prepare publisher
     zmq::socket_t gui(ctx, zmq::socket_type::pub);
-    
-    // Publisher listens at port 5556
-    gui.bind("tcp://*:5556");
 
 	// declare and initialize ready variable (true means GUI is connected and settings and metadata have been successfully received)
 	bool ready = false;
@@ -78,7 +81,16 @@ int main (int argc, char** argv)
         	std::cout<<"aquisition_time: "<<width<<std::endl;
         	std::cout<<"width: "<<width<<std::endl;
             scantype = Measurement.scantype();
-                        
+            uint32_t ccdPort = Measurement.ccdport();
+            
+            if (!connected) {
+                std::cout<<"sending data on tcp://*:"+std::to_string(ccdPort)<<std::endl;
+                
+                // Publisher listens at port that was set in GUI
+                gui.bind("tcp://*:"+std::to_string(ccdPort));
+                connected = true;
+            }
+        
         	/*                      IMPORTANT INFORMATION                      */
         	/* TO DO: set all ccd settings and prepare everything for the scan */
             

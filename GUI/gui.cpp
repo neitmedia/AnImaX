@@ -44,6 +44,17 @@ void GUI::on_cmdStartScan_clicked()
     settings.sddChannels = ui->spbSDDChannels->value();
     settings.roidefinitions = ui->txtROIdefinitions->toPlainText().toStdString();
 
+    settings.datasinkIP = ui->txtDataSinkIP->text().toStdString();
+    settings.datasinkPort = ui->spbDataSinkPort->value();
+
+    settings.ccdIP = ui->txtCCDIP->text().toStdString();
+    settings.ccdPort = ui->spbCDDPort->value();
+
+    settings.sddIP = ui->txtSDDIP->text().toStdString();
+    settings.sddPort = ui->spbSDDPort->value();
+
+    settings.guiPort = ui->spbGUIPort->value();
+
     if (ui->rdbNEXAFS->isChecked()) {
         settings.scantype = "NEXAFS";
     } else if (ui->rdbXRF->isChecked()) {

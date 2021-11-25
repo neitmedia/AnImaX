@@ -21,7 +21,7 @@ void hdf5nexus::closeDataFile() {
 void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     std::cout<<"creating HDF5/NeXus file with filename \""<<filename.toStdString()<<"\"..."<<std::endl;
 
-    std::string ROIdefinitions = settings.ROIdefinitions;
+    std::string ROIdefinitions = settings.roidefinitions;
 
     int ccdX = settings.ccdWidth;
     int ccdY = settings.ccdHeight;

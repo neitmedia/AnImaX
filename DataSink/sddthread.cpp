@@ -34,8 +34,10 @@ void sddThread::run()
 {
         zmq::context_t context(1);
         zmq::socket_t subscriber(context, ZMQ_SUB);
-        //subscriber.connect("tcp://"+ip.toStdString()+":5557");
-        subscriber.connect("tcp://192.168.178.41:5557");
+        subscriber.connect("tcp://"+ip.toStdString());
+        //subscriber.connect("tcp://127.0.0.1:5557");
+        //subscriber.connect("tcp://192.168.178.41:5557");
+        //subscriber.connect("tcp://10.8.0.8:5557");
         subscriber.set(zmq::sockopt::subscribe, "statusdata");
         subscriber.set(zmq::sockopt::subscribe, "sdd");
         std::cout<<"waiting for ready signal from sdd..."<<std::endl;

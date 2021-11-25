@@ -25,7 +25,7 @@ signals:
 public:
     // constructor
     // set name using initializer
-    explicit controlThread();
+    explicit controlThread(QString s);
 
     // overriding the QThread's run() method
     void run();
@@ -37,6 +37,7 @@ public:
     bool sddReady = false;
     bool partScanFinished = false;
     bool waitForMetadata = false;
+    QString ip;
 
 private:
     QString hdf5filename;
@@ -48,6 +49,7 @@ private:
     std::string ccdpreview;
     bool newCCDpreview = false;
     bool newROIs = false;
+    bool connected = false;
 
 private slots:
 };

@@ -10,8 +10,15 @@ message Measurement {
   int32 ccdheight = 5;
   int32 ccdwidth = 6;
   repeated int32 energies = 7;
+  
   string ROIdefinitions = 8;
   string scantype = 9;
+  string datasinkIP = 10;
+  int32 datasinkPort = 11;
+  string sddIP = 12;
+  int32 sddPort = 13;
+  string ccdIP = 14;
+  int32 ccdPort = 15;
 }
 
 message Metadata {

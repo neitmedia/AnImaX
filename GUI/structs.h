@@ -9,8 +9,15 @@ struct settingsdata {
     int ccdHeight;
     int ccdWidth;
     int sddChannels;
+    std::string datasinkIP;
+    int datasinkPort;
+    std::string sddIP;
+    int sddPort;
+    std::string ccdIP;
+    int ccdPort;
     std::string roidefinitions;
     std::string scantype;
+    int guiPort;
 };
 
 #endif // STRUCTS_H

@@ -13,6 +13,7 @@
 #include <random>
 #include <structs.h>
 #include <QDateTime>
+#include <QSettings>
 
 #include "H5Cpp.h"
 using namespace H5;
@@ -39,12 +40,36 @@ MainWindow::~MainWindow()
 
 void MainWindow::showEvent( QShowEvent* event ) {
     QWidget::showEvent( event );
+    // get IP settings from ini file
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "AnImaX", "DataSink");
+
+    settings.beginGroup("Network");
+
+    QString guiIP = settings.value("guiIP").toString();
+    QString guiPort = settings.value("guiPort").toString();
+
+    settings.endGroup();
+
+    std::cout<<"GUI IP: "<<guiIP.toStdString()<<" GUI PORT: "<<guiPort.toStdString()<<std::endl;
+
+    if ((guiIP == "") || (guiPort == "")) {
+        // write standard IP settings to ini file
+        guiIP = "127.0.0.1";
+        guiPort = "5555";
+        QSettings settings(QSettings::IniFormat, QSettings::UserScope, "AnImaX", "DataSink");
+        settings.beginGroup("Network");
+        settings.setValue("guiIP", guiIP);
+        settings.setValue("guiPort", guiPort);
+        settings.endGroup();
+    }
+
     // launch control thread
-    controlth = new controlThread;
+    controlth = new controlThread(guiIP+':'+guiPort);
     const bool connected = connect(controlth, SIGNAL(sendSettingsToGUI(settingsdata)),this,SLOT(getScanSettings(settingsdata)));
     const bool connected2 = connect(controlth, SIGNAL(sendMetadataToGUI(metadata)),this,SLOT(getMetadata(metadata)));
 
     controlth->start();
+
 }
 
 void MainWindow::getMetadata(metadata metadata) {
@@ -98,8 +123,7 @@ void MainWindow::getMetadata(metadata metadata) {
 }
 
 void MainWindow::getScanSettings(settingsdata settings) {
-    std::cout<<"gui knows settings - "<<settings.ccdHeight;
-
+    std::cout<<"gui knows settings:"<<std::endl;
     scansettings = settings;
 
     ccdX = scansettings.ccdWidth;
@@ -108,13 +132,16 @@ void MainWindow::getScanSettings(settingsdata settings) {
     scanX = scansettings.scanWidth;
     scanY = scansettings.scanHeight;
 
+    std::cout<<"ccd ip:port "<<scansettings.ccdIP+':'+std::to_string(scansettings.ccdPort)<<std::endl;
+    std::cout<<"sdd ip:port "<<scansettings.sddIP+':'+std::to_string(scansettings.sddPort)<<std::endl;
+
     // create HDF5/NeXus file
     hdf5filename = "measurement_testmessung_1_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
     nexusfile = new hdf5nexus();
     nexusfile->createDataFile(hdf5filename, scansettings);
 
     // start ccd thread
-    ccd = new zmqThread("127.0.0.1", scanX, scanY);
+    ccd = new zmqThread(QString::fromStdString(scansettings.ccdIP+':'+std::to_string(scansettings.ccdPort)), scanX, scanY);
     connect(ccd, SIGNAL(ccdReady()),this,SLOT(ccdReady()));
 
     const bool connected = connect(ccd, SIGNAL(sendImageData(int, std::string)),this,SLOT(getImageData(int, std::string)));
@@ -131,7 +158,7 @@ void MainWindow::getScanSettings(settingsdata settings) {
         std::cout<<"getCCDSettings not connected"<<std::endl;
     }
 
-    sdd = new sddThread("127.0.0.1", QString::fromStdString(settings.ROIdefinitions), scanX, scanY);
+    sdd = new sddThread(QString::fromStdString(scansettings.sddIP+':'+std::to_string(scansettings.sddPort)), QString::fromStdString(scansettings.roidefinitions), scanX, scanY);
     connect(sdd, SIGNAL(sddReady()),this,SLOT(sddReady()));
 
     const bool connected2 = connect(sdd, SIGNAL(sendScanIndexDataToGUI(int, int, int)),this,SLOT(writeScanIndexData(int, int, int)));
@@ -161,6 +188,60 @@ void MainWindow::getScanSettings(settingsdata settings) {
 
     // tell control thread that it should listen for metadata
     controlth->waitForMetadata = true;
+
+    /*
+    // start ccd thread
+    ccd = new zmqThread("127.0.0.1", scanX, scanY);
+    connect(ccd, SIGNAL(ccdReady()),this,SLOT(ccdReady()));
+
+    const bool connected = connect(ccd, SIGNAL(sendImageData(int, std::string)),this,SLOT(getImageData(int, std::string)));
+    if (connected) {
+        std::cout<<"getImageData connected"<<std::endl;
+    } else {
+        std::cout<<"getImageData not connected"<<std::endl;
+    }
+
+    const bool connected1 = connect(ccd, SIGNAL(sendCCDSettings(int, int)),this,SLOT(getCCDSettings(int, int)));
+    if (connected1) {
+        std::cout<<"getCCDSettings connected"<<std::endl;
+    } else {
+        std::cout<<"getCCDSettings not connected"<<std::endl;
+    }
+    */
+
+    /*
+    sdd = new sddThread("127.0.0.1", QString::fromStdString(settings.roidefinitions), scanX, scanY);
+    connect(sdd, SIGNAL(sddReady()),this,SLOT(sddReady()));
+
+    const bool connected2 = connect(sdd, SIGNAL(sendScanIndexDataToGUI(int, int, int)),this,SLOT(writeScanIndexData(int, int, int)));
+    if (connected2) {
+        std::cout<<"writeScanIndexData connected"<<std::endl;
+    } else {
+        std::cout<<"writeScanIndexData not connected"<<std::endl;
+    }
+
+    const bool connected3 = connect(sdd, SIGNAL(sendLineBreakDataToGUI(roidata, int, int, int)),this,SLOT(writeLineBreakData(roidata, int, int, int)));
+    if (connected3) {
+        std::cout<<"writeLineBreakData connected"<<std::endl;
+    } else {
+        std::cout<<"writeLineBreakData not connected"<<std::endl;
+    }
+
+    const bool connected4 = connect(sdd, SIGNAL(sendSpectrumDataToGUI(int, spectrumdata)),this,SLOT(showIncomingSpectrum(int, spectrumdata)));
+    if (connected4) {
+        std::cout<<"showIncomingSpectrum connected"<<std::endl;
+    } else {
+        std::cout<<"showIncomingSpectrum not connected"<<std::endl;
+    }
+
+    // start threads
+    ccd->start();
+    sdd->start();
+
+
+    // tell control thread that it should listen for metadata
+    controlth->waitForMetadata = true;
+    */
 }
 
 void MainWindow::ccdReady() {
@@ -668,7 +749,7 @@ void MainWindow::checkIfScanIsFinished() {
 
 void MainWindow::on_pushButton_12_clicked()
 {
-    scansettings.ROIdefinitions = "";
+    scansettings.roidefinitions = "";
     scansettings.ccdHeight = 128;
     scansettings.ccdWidth = 128;
     scansettings.scanHeight = 40;

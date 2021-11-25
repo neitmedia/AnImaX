@@ -27,7 +27,7 @@ void zmqThread::run()
         std::cout<<"started ccd thread"<<std::endl;
         zmq::context_t context(1);
         zmq::socket_t subscriber(context, ZMQ_SUB);
-        subscriber.connect("tcp://"+ip.toStdString()+":5556");
+        subscriber.connect("tcp://"+ip.toStdString());
         subscriber.set(zmq::sockopt::subscribe, "statusdata");
         subscriber.set(zmq::sockopt::subscribe, "ccd");
         subscriber.set(zmq::sockopt::subscribe, "ccdsettings");

@@ -609,7 +609,7 @@ p, li { white-space: pre-wrap; }
       <string>data sink</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="txtDataSinkIP">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -641,10 +641,10 @@ p, li { white-space: pre-wrap; }
       <number>50000</number>
      </property>
      <property name="value">
-      <number>5555</number>
+      <number>5558</number>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_3">
+    <widget class="QLineEdit" name="txtCCDIP">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -676,7 +676,7 @@ p, li { white-space: pre-wrap; }
       <number>50000</number>
      </property>
      <property name="value">
-      <number>6555</number>
+      <number>5556</number>
      </property>
     </widget>
     <widget class="QLabel" name="label_8">
@@ -721,10 +721,10 @@ p, li { white-space: pre-wrap; }
       <number>50000</number>
      </property>
      <property name="value">
-      <number>7555</number>
+      <number>5557</number>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_4">
+    <widget class="QLineEdit" name="txtSDDIP">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -738,6 +738,35 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="placeholderText">
       <string>IP</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>61</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>GUI</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spbGUIPort">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>135</y>
+       <width>61</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>65565</number>
+     </property>
+     <property name="value">
+      <number>5555</number>
      </property>
     </widget>
    </widget>

@@ -10,7 +10,7 @@
 
 #include <zmq.hpp>
 
-controlThread::controlThread()
+controlThread::controlThread(QString s): ip(s)
 {
     qRegisterMetaType<imagepixeldata>( "imagepixeldata" );
     qRegisterMetaType<settingsdata>( "settingsdata" );
@@ -39,13 +39,11 @@ void controlThread::run()
     zmq::context_t ctx(1);
     // Prepare subscriber
     zmq::socket_t subscriber(ctx, zmq::socket_type::sub);
-    subscriber.connect("tcp://127.0.0.1:5555");
+    subscriber.connect("tcp://"+ip.toStdString());
     subscriber.set(zmq::sockopt::subscribe, "settings");
     subscriber.set(zmq::sockopt::subscribe, "metadata");
 
-    // Prepare publisher
     zmq::socket_t gui(ctx, zmq::socket_type::pub);
-    gui.bind("tcp://*:5558");
 
     bool filecreated = false;
     while (!stop) {
@@ -71,8 +69,20 @@ void controlThread::run()
                 settings.ccdHeight = Measurement.ccdheight();
                 settings.ccdWidth = Measurement.ccdwidth();
                 settings.sddChannels = 4096;
-                settings.ROIdefinitions = Measurement.roidefinitions();
+                settings.roidefinitions = Measurement.roidefinitions();
                 settings.scantype = Measurement.scantype();
+                settings.ccdIP = Measurement.ccdip();
+                settings.ccdPort = Measurement.ccdport();
+                settings.sddIP = Measurement.sddip();
+                settings.sddPort = Measurement.sddport();
+                settings.datasinkIP = Measurement.datasinkip();
+                settings.datasinkPort = Measurement.datasinkport();
+
+                if (!connected) {
+                    // Prepare publisher
+                    gui.bind("tcp://*:"+std::to_string(settings.datasinkPort));
+                    connected = true;
+                }
 
                 // give out some debug info
                 std::cout<<"width: "<<settings.scanWidth<<std::endl;

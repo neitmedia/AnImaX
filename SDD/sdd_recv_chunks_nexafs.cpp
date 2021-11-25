@@ -13,6 +13,9 @@ int main (int argc, char** argv)
 	char *buffer;
 	uint64_t filelen;
     uint64_t filelenhalf;
+    std::string guiIP = argv[2];
+    std::string guiPort = argv[3];
+    bool connected = false;
 
 	// read file (here: raw.rtdat)
 	fileptr = fopen(argv[1], "rb");
@@ -29,8 +32,11 @@ int main (int argc, char** argv)
     // Prepare subscriber
     zmq::socket_t subscriber(ctx, zmq::socket_type::sub);
     
-    // connect to GUI (port 5555)
-    subscriber.connect("tcp://127.0.0.1:5555");
+    std::string connectstring = "tcp://"+guiIP+":"+guiPort;
+    
+    // connect to GUI
+    subscriber.connect(connectstring);
+    std::cout<<"connected to "<<connectstring<<std::endl;
     
     // subscribe to "settings" and "metadata"
     subscriber.set(zmq::sockopt::subscribe, "settings");
@@ -38,9 +44,6 @@ int main (int argc, char** argv)
     
     // Prepare publisher
     zmq::socket_t gui(ctx, zmq::socket_type::pub);
-    
-    // Publisher listens at port 5557
-    gui.bind("tcp://*:5557");
     
     std::string scantype = "";
 
@@ -70,6 +73,15 @@ int main (int argc, char** argv)
         	uint32_t aquisition_time = Measurement.aquisition_time();
         	uint32_t energy_count = Measurement.energy_count();
             scantype = Measurement.scantype();
+            uint32_t sddPort = Measurement.sddport();
+            
+            
+            if (!connected) {
+                std::cout<<"sending data on tcp://*:"+std::to_string(sddPort)<<std::endl;
+                // Publisher listens at port that was set in GUI
+                gui.bind("tcp://*:"+std::to_string(sddPort));
+                connected = true;
+            }
         	
         	std::cout << "width: " << width << std::endl;
         	std::cout << "height: " << height << std::endl;

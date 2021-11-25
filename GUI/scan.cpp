@@ -20,22 +20,24 @@ void scan::run()
         //  Prepare publisher
         zmq::context_t ctx(1);
         zmq::socket_t publisher(ctx, zmq::socket_type::pub);
-        publisher.bind("tcp://*:5555");
+        publisher.bind("tcp://*:"+std::to_string(settings.guiPort));
 
         // Prepare ccd subscriber => open "statusdata" envelopes from ccd PC
         zmq::socket_t ccd(ctx, zmq::socket_type::sub);
-        ccd.connect("tcp://127.0.0.1:5556");
+        ccd.connect("tcp://"+settings.ccdIP+":"+std::to_string(settings.ccdPort));
+        std::cout<<"connected to ccd: "<<"tcp://"+settings.ccdIP+":"+std::to_string(settings.ccdPort)<<std::endl;
         ccd.set(zmq::sockopt::subscribe, "statusdata");
 
         // Prepare sdd subscriber => open "statusdata" envelopes from sdd PC
         zmq::socket_t sdd(ctx, zmq::socket_type::sub);
-        //sdd.connect("tcp://127.0.0.1:5557");
-        sdd.connect("tcp://192.168.178.41:5557");
+        sdd.connect("tcp://"+settings.sddIP+":"+std::to_string(settings.sddPort));
+        std::cout<<"connected to sdd: "<<"tcp://"+settings.sddIP+":"+std::to_string(settings.sddPort)<<std::endl;
         sdd.set(zmq::sockopt::subscribe, "statusdata");
 
         // Prepare datasink subscriber => open "statusdata", "previewdata" and "roidata" envelopes from datasink PC
         zmq::socket_t datasink(ctx, zmq::socket_type::sub);
-        datasink.connect("tcp://127.0.0.1:5558");
+        datasink.connect("tcp://"+settings.datasinkIP+":"+std::to_string(settings.datasinkPort));
+        std::cout<<"connected to sdd: "<<"tcp://"+settings.datasinkIP+":"+std::to_string(settings.datasinkPort)<<std::endl;
         datasink.set(zmq::sockopt::subscribe, "statusdata");
         datasink.set(zmq::sockopt::subscribe, "previewdata");
         datasink.set(zmq::sockopt::subscribe, "roidata");
@@ -53,6 +55,12 @@ void scan::run()
         Measurement.set_ccdwidth(settings.ccdWidth);
         Measurement.set_roidefinitions(settings.roidefinitions);
         Measurement.set_scantype(settings.scantype);
+        Measurement.set_ccdip(settings.ccdIP);
+        Measurement.set_ccdport(settings.ccdPort);
+        Measurement.set_sddip(settings.sddIP);
+        Measurement.set_sddport(settings.sddPort);
+        Measurement.set_datasinkip(settings.datasinkIP);
+        Measurement.set_datasinkport(settings.datasinkPort);
 
         bool ccd_ready = false;
         bool sdd_ready = false;

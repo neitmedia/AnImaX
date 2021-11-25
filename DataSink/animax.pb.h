@@ -211,12 +211,18 @@ class Measurement final :
     kEnergiesFieldNumber = 7,
     kROIdefinitionsFieldNumber = 8,
     kScantypeFieldNumber = 9,
+    kDatasinkIPFieldNumber = 10,
+    kSddIPFieldNumber = 12,
+    kCcdIPFieldNumber = 14,
     kWidthFieldNumber = 1,
     kHeightFieldNumber = 2,
     kAquisitionTimeFieldNumber = 3,
     kEnergyCountFieldNumber = 4,
     kCcdheightFieldNumber = 5,
     kCcdwidthFieldNumber = 6,
+    kDatasinkPortFieldNumber = 11,
+    kSddPortFieldNumber = 13,
+    kCcdPortFieldNumber = 15,
   };
   // repeated int32 energies = 7;
   int energies_size() const;
@@ -266,6 +272,48 @@ class Measurement final :
   const std::string& _internal_scantype() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_scantype(const std::string& value);
   std::string* _internal_mutable_scantype();
+  public:
+
+  // string datasinkIP = 10;
+  void clear_datasinkip();
+  const std::string& datasinkip() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_datasinkip(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_datasinkip();
+  PROTOBUF_MUST_USE_RESULT std::string* release_datasinkip();
+  void set_allocated_datasinkip(std::string* datasinkip);
+  private:
+  const std::string& _internal_datasinkip() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_datasinkip(const std::string& value);
+  std::string* _internal_mutable_datasinkip();
+  public:
+
+  // string sddIP = 12;
+  void clear_sddip();
+  const std::string& sddip() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sddip(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sddip();
+  PROTOBUF_MUST_USE_RESULT std::string* release_sddip();
+  void set_allocated_sddip(std::string* sddip);
+  private:
+  const std::string& _internal_sddip() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sddip(const std::string& value);
+  std::string* _internal_mutable_sddip();
+  public:
+
+  // string ccdIP = 14;
+  void clear_ccdip();
+  const std::string& ccdip() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_ccdip(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_ccdip();
+  PROTOBUF_MUST_USE_RESULT std::string* release_ccdip();
+  void set_allocated_ccdip(std::string* ccdip);
+  private:
+  const std::string& _internal_ccdip() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_ccdip(const std::string& value);
+  std::string* _internal_mutable_ccdip();
   public:
 
   // int32 width = 1;
@@ -322,6 +370,33 @@ class Measurement final :
   void _internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
+  // int32 datasinkPort = 11;
+  void clear_datasinkport();
+  ::PROTOBUF_NAMESPACE_ID::int32 datasinkport() const;
+  void set_datasinkport(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_datasinkport() const;
+  void _internal_set_datasinkport(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 sddPort = 13;
+  void clear_sddport();
+  ::PROTOBUF_NAMESPACE_ID::int32 sddport() const;
+  void set_sddport(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sddport() const;
+  void _internal_set_sddport(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 ccdPort = 15;
+  void clear_ccdport();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccdport() const;
+  void set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccdport() const;
+  void _internal_set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:animax.Measurement)
  private:
   class _Internal;
@@ -333,12 +408,18 @@ class Measurement final :
   mutable std::atomic<int> _energies_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roidefinitions_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr scantype_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr datasinkip_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sddip_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ccdip_;
   ::PROTOBUF_NAMESPACE_ID::int32 width_;
   ::PROTOBUF_NAMESPACE_ID::int32 height_;
   ::PROTOBUF_NAMESPACE_ID::int32 aquisition_time_;
   ::PROTOBUF_NAMESPACE_ID::int32 energy_count_;
   ::PROTOBUF_NAMESPACE_ID::int32 ccdheight_;
   ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth_;
+  ::PROTOBUF_NAMESPACE_ID::int32 datasinkport_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sddport_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccdport_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_animax_2eproto;
 };
@@ -1689,6 +1770,204 @@ inline void Measurement::set_allocated_scantype(std::string* scantype) {
   scantype_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), scantype,
       GetArenaForAllocation());
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.scantype)
+}
+
+// string datasinkIP = 10;
+inline void Measurement::clear_datasinkip() {
+  datasinkip_.ClearToEmpty();
+}
+inline const std::string& Measurement::datasinkip() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.datasinkIP)
+  return _internal_datasinkip();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_datasinkip(ArgT0&& arg0, ArgT... args) {
+ 
+ datasinkip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.datasinkIP)
+}
+inline std::string* Measurement::mutable_datasinkip() {
+  std::string* _s = _internal_mutable_datasinkip();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.datasinkIP)
+  return _s;
+}
+inline const std::string& Measurement::_internal_datasinkip() const {
+  return datasinkip_.Get();
+}
+inline void Measurement::_internal_set_datasinkip(const std::string& value) {
+  
+  datasinkip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_datasinkip() {
+  
+  return datasinkip_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_datasinkip() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.datasinkIP)
+  return datasinkip_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_datasinkip(std::string* datasinkip) {
+  if (datasinkip != nullptr) {
+    
+  } else {
+    
+  }
+  datasinkip_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), datasinkip,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.datasinkIP)
+}
+
+// int32 datasinkPort = 11;
+inline void Measurement::clear_datasinkport() {
+  datasinkport_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_datasinkport() const {
+  return datasinkport_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::datasinkport() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.datasinkPort)
+  return _internal_datasinkport();
+}
+inline void Measurement::_internal_set_datasinkport(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  datasinkport_ = value;
+}
+inline void Measurement::set_datasinkport(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_datasinkport(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.datasinkPort)
+}
+
+// string sddIP = 12;
+inline void Measurement::clear_sddip() {
+  sddip_.ClearToEmpty();
+}
+inline const std::string& Measurement::sddip() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sddIP)
+  return _internal_sddip();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_sddip(ArgT0&& arg0, ArgT... args) {
+ 
+ sddip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.sddIP)
+}
+inline std::string* Measurement::mutable_sddip() {
+  std::string* _s = _internal_mutable_sddip();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.sddIP)
+  return _s;
+}
+inline const std::string& Measurement::_internal_sddip() const {
+  return sddip_.Get();
+}
+inline void Measurement::_internal_set_sddip(const std::string& value) {
+  
+  sddip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_sddip() {
+  
+  return sddip_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_sddip() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.sddIP)
+  return sddip_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_sddip(std::string* sddip) {
+  if (sddip != nullptr) {
+    
+  } else {
+    
+  }
+  sddip_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sddip,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sddIP)
+}
+
+// int32 sddPort = 13;
+inline void Measurement::clear_sddport() {
+  sddport_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sddport() const {
+  return sddport_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sddport() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sddPort)
+  return _internal_sddport();
+}
+inline void Measurement::_internal_set_sddport(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  sddport_ = value;
+}
+inline void Measurement::set_sddport(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sddport(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sddPort)
+}
+
+// string ccdIP = 14;
+inline void Measurement::clear_ccdip() {
+  ccdip_.ClearToEmpty();
+}
+inline const std::string& Measurement::ccdip() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccdIP)
+  return _internal_ccdip();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_ccdip(ArgT0&& arg0, ArgT... args) {
+ 
+ ccdip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccdIP)
+}
+inline std::string* Measurement::mutable_ccdip() {
+  std::string* _s = _internal_mutable_ccdip();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.ccdIP)
+  return _s;
+}
+inline const std::string& Measurement::_internal_ccdip() const {
+  return ccdip_.Get();
+}
+inline void Measurement::_internal_set_ccdip(const std::string& value) {
+  
+  ccdip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_ccdip() {
+  
+  return ccdip_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_ccdip() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.ccdIP)
+  return ccdip_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_ccdip(std::string* ccdip) {
+  if (ccdip != nullptr) {
+    
+  } else {
+    
+  }
+  ccdip_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ccdip,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.ccdIP)
+}
+
+// int32 ccdPort = 15;
+inline void Measurement::clear_ccdport() {
+  ccdport_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccdport() const {
+  return ccdport_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccdport() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccdPort)
+  return _internal_ccdport();
+}
+inline void Measurement::_internal_set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  ccdport_ = value;
+}
+inline void Measurement::set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccdport(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccdPort)
 }
 
 // -------------------------------------------------------------------

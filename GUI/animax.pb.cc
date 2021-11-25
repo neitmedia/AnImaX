@@ -23,12 +23,18 @@ constexpr Measurement::Measurement(
   , _energies_cached_byte_size_(0)
   , roidefinitions_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , scantype_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , datasinkip_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , sddip_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , ccdip_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , width_(0)
   , height_(0)
   , aquisition_time_(0)
   , energy_count_(0)
   , ccdheight_(0)
-  , ccdwidth_(0){}
+  , ccdwidth_(0)
+  , datasinkport_(0)
+  , sddport_(0)
+  , ccdport_(0){}
 struct MeasurementDefaultTypeInternal {
   constexpr MeasurementDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -148,6 +154,12 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animax_2eproto::offsets[] PROT
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, energies_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, roidefinitions_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, scantype_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, datasinkip_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, datasinkport_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, sddip_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, sddport_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, ccdip_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, ccdport_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::animax::Metadata, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -199,13 +211,13 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animax_2eproto::offsets[] PROT
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::animax::Measurement)},
-  { 14, -1, sizeof(::animax::Metadata)},
-  { 21, -1, sizeof(::animax::sdd)},
-  { 27, -1, sizeof(::animax::ccd)},
-  { 34, -1, sizeof(::animax::ccdsettings)},
-  { 41, -1, sizeof(::animax::preview)},
-  { 48, -1, sizeof(::animax::ROI)},
-  { 56, -1, sizeof(::animax::scanstatus)},
+  { 20, -1, sizeof(::animax::Metadata)},
+  { 27, -1, sizeof(::animax::sdd)},
+  { 33, -1, sizeof(::animax::ccd)},
+  { 40, -1, sizeof(::animax::ccdsettings)},
+  { 47, -1, sizeof(::animax::preview)},
+  { 54, -1, sizeof(::animax::ROI)},
+  { 62, -1, sizeof(::animax::scanstatus)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -220,24 +232,26 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_animax_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014animax.proto\022\006animax\"\274\001\n\013Measurement\022\r"
+  "\n\014animax.proto\022\006animax\"\246\002\n\013Measurement\022\r"
   "\n\005width\030\001 \001(\005\022\016\n\006height\030\002 \001(\005\022\027\n\017aquisit"
   "ion_time\030\003 \001(\005\022\024\n\014energy_count\030\004 \001(\005\022\021\n\t"
   "ccdheight\030\005 \001(\005\022\020\n\010ccdwidth\030\006 \001(\005\022\020\n\010ene"
   "rgies\030\007 \003(\005\022\026\n\016ROIdefinitions\030\010 \001(\t\022\020\n\010s"
-  "cantype\030\t \001(\t\"=\n\010Metadata\022\031\n\021aquisition_"
-  "number\030\001 \001(\005\022\026\n\016beamline_enery\030\002 \001(\005\"\030\n\003"
-  "sdd\022\021\n\tpixeldata\030\001 \001(\014\"%\n\003ccd\022\013\n\003cnt\030\001 \001"
-  "(\005\022\021\n\tpixeldata\030\002 \001(\014\",\n\013ccdsettings\022\r\n\005"
-  "width\030\001 \001(\005\022\016\n\006height\030\002 \001(\005\",\n\007preview\022\014"
-  "\n\004type\030\001 \001(\t\022\023\n\013previewdata\030\002 \001(\014\"5\n\003ROI"
-  "\022\017\n\007element\030\001 \001(\t\022\014\n\004line\030\002 \001(\t\022\017\n\007roida"
-  "ta\030\003 \001(\014\"\034\n\nscanstatus\022\016\n\006status\030\001 \001(\tb\006"
-  "proto3"
+  "cantype\030\t \001(\t\022\022\n\ndatasinkIP\030\n \001(\t\022\024\n\014dat"
+  "asinkPort\030\013 \001(\005\022\r\n\005sddIP\030\014 \001(\t\022\017\n\007sddPor"
+  "t\030\r \001(\005\022\r\n\005ccdIP\030\016 \001(\t\022\017\n\007ccdPort\030\017 \001(\005\""
+  "=\n\010Metadata\022\031\n\021aquisition_number\030\001 \001(\005\022\026"
+  "\n\016beamline_enery\030\002 \001(\005\"\030\n\003sdd\022\021\n\tpixelda"
+  "ta\030\001 \001(\014\"%\n\003ccd\022\013\n\003cnt\030\001 \001(\005\022\021\n\tpixeldat"
+  "a\030\002 \001(\014\",\n\013ccdsettings\022\r\n\005width\030\001 \001(\005\022\016\n"
+  "\006height\030\002 \001(\005\",\n\007preview\022\014\n\004type\030\001 \001(\t\022\023"
+  "\n\013previewdata\030\002 \001(\014\"5\n\003ROI\022\017\n\007element\030\001 "
+  "\001(\t\022\014\n\004line\030\002 \001(\t\022\017\n\007roidata\030\003 \001(\014\"\034\n\nsc"
+  "anstatus\022\016\n\006status\030\001 \001(\tb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_animax_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_animax_2eproto = {
-  false, false, 526, descriptor_table_protodef_animax_2eproto, "animax.proto", 
+  false, false, 632, descriptor_table_protodef_animax_2eproto, "animax.proto", 
   &descriptor_table_animax_2eproto_once, nullptr, 0, 8,
   schemas, file_default_instances, TableStruct_animax_2eproto::offsets,
   file_level_metadata_animax_2eproto, file_level_enum_descriptors_animax_2eproto, file_level_service_descriptors_animax_2eproto,
@@ -280,19 +294,37 @@ Measurement::Measurement(const Measurement& from)
     scantype_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_scantype(), 
       GetArenaForAllocation());
   }
+  datasinkip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_datasinkip().empty()) {
+    datasinkip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_datasinkip(), 
+      GetArenaForAllocation());
+  }
+  sddip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_sddip().empty()) {
+    sddip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_sddip(), 
+      GetArenaForAllocation());
+  }
+  ccdip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_ccdip().empty()) {
+    ccdip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_ccdip(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&width_, &from.width_,
-    static_cast<size_t>(reinterpret_cast<char*>(&ccdwidth_) -
-    reinterpret_cast<char*>(&width_)) + sizeof(ccdwidth_));
+    static_cast<size_t>(reinterpret_cast<char*>(&ccdport_) -
+    reinterpret_cast<char*>(&width_)) + sizeof(ccdport_));
   // @@protoc_insertion_point(copy_constructor:animax.Measurement)
 }
 
 inline void Measurement::SharedCtor() {
 roidefinitions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 scantype_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+datasinkip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+sddip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+ccdip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&width_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&ccdwidth_) -
-    reinterpret_cast<char*>(&width_)) + sizeof(ccdwidth_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&ccdport_) -
+    reinterpret_cast<char*>(&width_)) + sizeof(ccdport_));
 }
 
 Measurement::~Measurement() {
@@ -306,6 +338,9 @@ inline void Measurement::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   roidefinitions_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   scantype_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  datasinkip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sddip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ccdip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void Measurement::ArenaDtor(void* object) {
@@ -327,9 +362,12 @@ void Measurement::Clear() {
   energies_.Clear();
   roidefinitions_.ClearToEmpty();
   scantype_.ClearToEmpty();
+  datasinkip_.ClearToEmpty();
+  sddip_.ClearToEmpty();
+  ccdip_.ClearToEmpty();
   ::memset(&width_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&ccdwidth_) -
-      reinterpret_cast<char*>(&width_)) + sizeof(ccdwidth_));
+      reinterpret_cast<char*>(&ccdport_) -
+      reinterpret_cast<char*>(&width_)) + sizeof(ccdport_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -406,6 +444,54 @@ const char* Measurement::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           auto str = _internal_mutable_scantype();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.scantype"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string datasinkIP = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+          auto str = _internal_mutable_datasinkip();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.datasinkIP"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 datasinkPort = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
+          datasinkport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string sddIP = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 98)) {
+          auto str = _internal_mutable_sddip();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.sddIP"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 sddPort = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 104)) {
+          sddport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string ccdIP = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 114)) {
+          auto str = _internal_mutable_ccdip();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.ccdIP"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 ccdPort = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 120)) {
+          ccdport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -503,6 +589,54 @@ failure:
         9, this->_internal_scantype(), target);
   }
 
+  // string datasinkIP = 10;
+  if (!this->_internal_datasinkip().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_datasinkip().data(), static_cast<int>(this->_internal_datasinkip().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "animax.Measurement.datasinkIP");
+    target = stream->WriteStringMaybeAliased(
+        10, this->_internal_datasinkip(), target);
+  }
+
+  // int32 datasinkPort = 11;
+  if (this->_internal_datasinkport() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(11, this->_internal_datasinkport(), target);
+  }
+
+  // string sddIP = 12;
+  if (!this->_internal_sddip().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_sddip().data(), static_cast<int>(this->_internal_sddip().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "animax.Measurement.sddIP");
+    target = stream->WriteStringMaybeAliased(
+        12, this->_internal_sddip(), target);
+  }
+
+  // int32 sddPort = 13;
+  if (this->_internal_sddport() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(13, this->_internal_sddport(), target);
+  }
+
+  // string ccdIP = 14;
+  if (!this->_internal_ccdip().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_ccdip().data(), static_cast<int>(this->_internal_ccdip().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "animax.Measurement.ccdIP");
+    target = stream->WriteStringMaybeAliased(
+        14, this->_internal_ccdip(), target);
+  }
+
+  // int32 ccdPort = 15;
+  if (this->_internal_ccdport() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(15, this->_internal_ccdport(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -548,6 +682,27 @@ size_t Measurement::ByteSizeLong() const {
         this->_internal_scantype());
   }
 
+  // string datasinkIP = 10;
+  if (!this->_internal_datasinkip().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_datasinkip());
+  }
+
+  // string sddIP = 12;
+  if (!this->_internal_sddip().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_sddip());
+  }
+
+  // string ccdIP = 14;
+  if (!this->_internal_ccdip().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_ccdip());
+  }
+
   // int32 width = 1;
   if (this->_internal_width() != 0) {
     total_size += 1 +
@@ -590,6 +745,27 @@ size_t Measurement::ByteSizeLong() const {
         this->_internal_ccdwidth());
   }
 
+  // int32 datasinkPort = 11;
+  if (this->_internal_datasinkport() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_datasinkport());
+  }
+
+  // int32 sddPort = 13;
+  if (this->_internal_sddport() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_sddport());
+  }
+
+  // int32 ccdPort = 15;
+  if (this->_internal_ccdport() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_ccdport());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -625,6 +801,15 @@ void Measurement::MergeFrom(const Measurement& from) {
   if (!from._internal_scantype().empty()) {
     _internal_set_scantype(from._internal_scantype());
   }
+  if (!from._internal_datasinkip().empty()) {
+    _internal_set_datasinkip(from._internal_datasinkip());
+  }
+  if (!from._internal_sddip().empty()) {
+    _internal_set_sddip(from._internal_sddip());
+  }
+  if (!from._internal_ccdip().empty()) {
+    _internal_set_ccdip(from._internal_ccdip());
+  }
   if (from._internal_width() != 0) {
     _internal_set_width(from._internal_width());
   }
@@ -642,6 +827,15 @@ void Measurement::MergeFrom(const Measurement& from) {
   }
   if (from._internal_ccdwidth() != 0) {
     _internal_set_ccdwidth(from._internal_ccdwidth());
+  }
+  if (from._internal_datasinkport() != 0) {
+    _internal_set_datasinkport(from._internal_datasinkport());
+  }
+  if (from._internal_sddport() != 0) {
+    _internal_set_sddport(from._internal_sddport());
+  }
+  if (from._internal_ccdport() != 0) {
+    _internal_set_ccdport(from._internal_ccdport());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -671,9 +865,24 @@ void Measurement::InternalSwap(Measurement* other) {
       &scantype_, GetArenaForAllocation(),
       &other->scantype_, other->GetArenaForAllocation()
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &datasinkip_, GetArenaForAllocation(),
+      &other->datasinkip_, other->GetArenaForAllocation()
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &sddip_, GetArenaForAllocation(),
+      &other->sddip_, other->GetArenaForAllocation()
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &ccdip_, GetArenaForAllocation(),
+      &other->ccdip_, other->GetArenaForAllocation()
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Measurement, ccdwidth_)
-      + sizeof(Measurement::ccdwidth_)
+      PROTOBUF_FIELD_OFFSET(Measurement, ccdport_)
+      + sizeof(Measurement::ccdport_)
       - PROTOBUF_FIELD_OFFSET(Measurement, width_)>(
           reinterpret_cast<char*>(&width_),
           reinterpret_cast<char*>(&other->width_));
