@@ -64,8 +64,6 @@ void controlThread::run()
                 settingsdata settings;
                 settings.scanWidth = Measurement.width();
                 settings.scanHeight = Measurement.height();
-                uint32_t aquisition_time = 0;
-                uint32_t energy_count = 0;
                 settings.ccdHeight = Measurement.ccdheight();
                 settings.ccdWidth = Measurement.ccdwidth();
                 settings.sddChannels = 4096;
@@ -77,6 +75,7 @@ void controlThread::run()
                 settings.sddPort = Measurement.sddport();
                 settings.datasinkIP = Measurement.datasinkip();
                 settings.datasinkPort = Measurement.datasinkport();
+                settings.energycount = Measurement.energy_count();
 
                 if (!connected) {
                     // Prepare publisher

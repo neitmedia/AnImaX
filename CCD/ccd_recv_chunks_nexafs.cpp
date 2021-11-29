@@ -15,6 +15,8 @@ int main (int argc, char** argv)
     std::string guiIP = argv[6];
     std::string guiPort = argv[7];
     bool connected = false;
+    
+    uint32_t energy_count;
 
 	// define ZMQ context
 	zmq::context_t ctx(1);
@@ -74,7 +76,7 @@ int main (int argc, char** argv)
         	uint32_t width = Measurement.width();
         	uint32_t height = Measurement.height();
         	uint32_t aquisition_time = Measurement.aquisition_time();
-        	uint32_t energy_count = Measurement.energy_count();
+        	energy_count = Measurement.energy_count();
         	
         	std::cout<<"width: "<<width<<std::endl;
         	std::cout<<"height: "<<height<<std::endl;
@@ -112,7 +114,7 @@ int main (int argc, char** argv)
             // send ready signal
             
             gui.send(zmq::str_buffer("statusdata"), zmq::send_flags::sndmore);
-        	gui.send(zmq::str_buffer("ready"), zmq::send_flags::none);
+        	gui.send(zmq::str_buffer("connection ready"), zmq::send_flags::none);
         	
         	// give out some debug info
         	std::cout<<"sent status info"<<width<<std::endl;
@@ -122,144 +124,91 @@ int main (int argc, char** argv)
         }
     }
     
-    // the code after this is executed when everything is ready for the scan
-    std::cout<<"ready to send data!"<<std::endl;
-	
-	std::cout<<"start sending data"<<std::endl;
-	
-	uint64_t counter = 0;
+    for (int scanc = 0; scanc < energy_count; scanc++) {
     
-    uint32_t pixelanzahl = scanX*scanY;
-    
-    uint32_t ccdpixelcount = ccdX*ccdY;
-
-    uint32_t ccdpixelbytecount = ccdpixelcount*2;
-    
-    // iterate through the images
-    while(counter<pixelanzahl) {
-    
-    	zmq::message_t env1(3);
-        memcpy(env1.data(), "ccd", 3);
-        
-        animax::ccd ccd;
-        
-        /*                                           IMPORTANT INFORMATION                                        */	
-    	/* TO DO: get the real data from the sdd and write this data into the pixeldata field of the ccd protobuf */
-   		/*                                                                                                        */
-        
-    	ccd.set_cnt(counter);
-        uint64_t offset = counter*ccdpixelbytecount;        
-
-        buffer = (char *)malloc(ccdpixelbytecount * sizeof(uint8_t)); 
-        in.seekg(offset, std::ios_base::beg); 
-        in.read(buffer, ccdpixelbytecount);
-
-    	ccd.set_pixeldata(buffer, ccdpixelbytecount);
-    	
-    	counter++;
-    	
-    	// serialize data and write into ZMQ request
-    	size_t size = ccd.ByteSizeLong(); 
-        
-        void *buffersend = malloc(size);
-		ccd.SerializeToArray(buffersend, size);
-    	zmq::message_t request(size);
-    	memcpy ((void *) request.data (), buffersend, size);
-        
-        
-    	// send "ccd" envelope with sdd data content
-    	gui.send(env1, zmq::send_flags::sndmore);
-    	gui.send(request, zmq::send_flags::none);
-    	std::cout << "sent ccd data #"<<counter<<std::endl;
-        
-        free(buffer);
-        free(buffersend);
-            	
-        usleep(5000);
-  
-    }
-    
-    // give out debug info
-    std::cout<<"finished sending data"<<std::endl;
-	
-    if (scantype == "NEXAFS") {
-        
-        ready = false;
-        
-        std::cout<<"waiting for scan to finish..."<<std::endl;
-        
-        while (!ready) {
-            // declare ZMQ envelope message
-            zmq::message_t env;
-            // receive envelope
-            (void)subscriber.recv(env);
-            // read out envelope content
-            std::string env_str = std::string(static_cast<char*>(env.data()), env.size());
+            // tell the GUI that detector is ready ("statusdata" envelope with content "detector ready")
+            gui.send(zmq::str_buffer("statusdata"), zmq::send_flags::sndmore);
+            gui.send(zmq::str_buffer("detector ready"), zmq::send_flags::none);
             
-            // if the received envelope is the "settings" envelope, decode protobuf and give out values for debugging purposes
-            if (env_str == "metadata") {
-                // if the received envelope is the "metadata" envelope, it means that the GUI received "ready" messages from all peripherals and everything is ready
-                ready = true;
+            // wait for reply from the GUI
+            ready = false;
+            while (!ready) {
+                // declare ZMQ envelope message
+                zmq::message_t env;
+                // receive envelope
+                (void)subscriber.recv(env);
+                // read out envelope content
+                std::string env_str = std::string(static_cast<char*>(env.data()), env.size());
+                if (env_str == "metadata") {
+                    zmq::message_t msg;
+                    (void)subscriber.recv(msg);
+                    // if the received envelope is the "metadata" envelope, it means that the GUI received "ready" messages from all peripherals and everything is ready
+                    animax::Metadata Metadata;
+                    Metadata.ParseFromArray(msg.data(), msg.size());
+                    uint32_t acq_num = Metadata.aquisition_number();
+                    std::cout<<"aquisition_number: "<<acq_num<<std::endl;
+                    ready = true;
+                }
             }
+            
+            std::cout<<"start sending data"<<std::endl;
+        
+            uint64_t counter = 0;
+            
+            uint32_t pixelanzahl = scanX*scanY;
+            
+            uint32_t ccdpixelcount = ccdX*ccdY;
+
+            uint32_t ccdpixelbytecount = ccdpixelcount*2;
+            
+            // iterate through the images
+            while(counter<pixelanzahl) {
+            
+                zmq::message_t env1(3);
+                memcpy(env1.data(), "ccd", 3);
+                
+                animax::ccd ccd;
+                
+                /*                                           IMPORTANT INFORMATION                                        */	
+                /* TO DO: get the real data from the sdd and write this data into the pixeldata field of the ccd protobuf */
+                /*                                                                                                        */
+                
+                ccd.set_cnt(counter);
+                uint64_t offset = counter*ccdpixelbytecount;        
+
+                buffer = (char *)malloc(ccdpixelbytecount * sizeof(uint8_t)); 
+                in.seekg(offset, std::ios_base::beg); 
+                in.read(buffer, ccdpixelbytecount);
+
+                ccd.set_pixeldata(buffer, ccdpixelbytecount);
+                
+                counter++;
+                
+                // serialize data and write into ZMQ request
+                size_t size = ccd.ByteSizeLong(); 
+                
+                void *buffersend = malloc(size);
+                ccd.SerializeToArray(buffersend, size);
+                zmq::message_t request(size);
+                memcpy ((void *) request.data (), buffersend, size);
+                
+                
+                // send "ccd" envelope with sdd data content
+                gui.send(env1, zmq::send_flags::sndmore);
+                gui.send(request, zmq::send_flags::none);
+                std::cout << "sent ccd data #"<<counter<<std::endl;
+                
+                free(buffer);
+                free(buffersend);
+                        
+                usleep(5000);
+        
+            }
+            // tell the GUI that measurement is finished ("statusdata" envelope with content "finished measurement")
+            gui.send(zmq::str_buffer("statusdata"), zmq::send_flags::sndmore);
+            gui.send(zmq::str_buffer("finished measurement"), zmq::send_flags::none);
+        
+            // give out debug info
+            std::cout<<"finished sending data"<<std::endl;
         }
-        
-        sleep(5);
-        
-        std::cout<<"start sending data"<<std::endl;
-	
-        uint64_t counter = 0;
-        
-        uint32_t pixelanzahl = scanX*scanY;
-        
-        uint32_t ccdpixelcount = ccdX*ccdY;
-
-        uint32_t ccdpixelbytecount = ccdpixelcount*2;
-        
-        // iterate through the images
-        while(counter<pixelanzahl) {
-        
-            zmq::message_t env1(3);
-            memcpy(env1.data(), "ccd", 3);
-            
-            animax::ccd ccd;
-            
-            /*                                           IMPORTANT INFORMATION                                        */	
-            /* TO DO: get the real data from the sdd and write this data into the pixeldata field of the ccd protobuf */
-            /*                                                                                                        */
-            
-            ccd.set_cnt(counter);
-            uint64_t offset = counter*ccdpixelbytecount;        
-
-            buffer = (char *)malloc(ccdpixelbytecount * sizeof(uint8_t)); 
-            in.seekg(offset, std::ios_base::beg); 
-            in.read(buffer, ccdpixelbytecount);
-
-            ccd.set_pixeldata(buffer, ccdpixelbytecount);
-            
-            counter++;
-            
-            // serialize data and write into ZMQ request
-            size_t size = ccd.ByteSizeLong(); 
-            
-            void *buffersend = malloc(size);
-            ccd.SerializeToArray(buffersend, size);
-            zmq::message_t request(size);
-            memcpy ((void *) request.data (), buffersend, size);
-            
-            
-            // send "ccd" envelope with sdd data content
-            gui.send(env1, zmq::send_flags::sndmore);
-            gui.send(request, zmq::send_flags::none);
-            std::cout << "sent ccd data #"<<counter<<std::endl;
-            
-            free(buffer);
-            free(buffersend);
-                    
-            usleep(5000);
-    
-        }
-        
-        // give out debug info
-        std::cout<<"finished sending data"<<std::endl;
-    }
 }

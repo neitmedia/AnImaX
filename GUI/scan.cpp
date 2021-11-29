@@ -61,8 +61,14 @@ void scan::run()
         Measurement.set_sddport(settings.sddPort);
         Measurement.set_datasinkip(settings.datasinkIP);
         Measurement.set_datasinkport(settings.datasinkPort);
+        Measurement.set_energy_count(settings.energycount);
 
-        bool ccd_ready = false;
+        for (int i=0;i<settings.energycount;i++) {
+            Measurement.add_energies(settings.energies[i]);
+        }
+
+        bool ccd_connection_ready = false;
+        bool ccd_detector_ready = false;
         bool sdd_connection_ready = false;
         bool sdd_detector_ready = false;
         bool datasink_ready = false;
@@ -71,7 +77,7 @@ void scan::run()
         while (true) {
 
             // send settings and make sure all hosts and peripherals / devices are connected
-            while ((!ccd_ready) || (!sdd_connection_ready) || (!datasink_ready)) {
+            while ((!ccd_connection_ready) || (!sdd_connection_ready) || (!datasink_ready)) {
                 // publish settings
                 publisher.send(zmq::str_buffer("settings"), zmq::send_flags::sndmore);
                 size_t settingssize = Measurement.ByteSizeLong();
@@ -82,8 +88,8 @@ void scan::run()
                 publisher.send(request, zmq::send_flags::none);
                 std::cout<<"sent!"<<std::endl;
 
-                // check if ccd is ready
-                if (!ccd_ready) {
+                // check if ccd connection is ready
+                if (!ccd_connection_ready) {
                     zmq::message_t ccdreply;
                     (void)ccd.recv(ccdreply, zmq::recv_flags::dontwait);
                     std::string ccdenv_str = "";
@@ -92,9 +98,9 @@ void scan::run()
                         zmq::message_t ccdmsg;
                         (void)ccd.recv(ccdmsg, zmq::recv_flags::none);
                         std::string ccdmsg_str = std::string(static_cast<char*>(ccdmsg.data()), ccdmsg.size());
-                        if (ccdmsg_str == "ready") {
-                            ccd_ready = true;
-                            emit sendDeviceStatusToGUI("ccd", "ready");
+                        if (ccdmsg_str == "connection ready") {
+                            ccd_connection_ready = true;
+                            emit sendDeviceStatusToGUI("ccd", QString::fromStdString(ccdmsg_str));
                         }
                     }
                 }
@@ -155,7 +161,7 @@ void scan::run()
                 std::cout<<"all connected"<<std::endl;
             }
 
-            while ((!sdd_detector_ready)) {
+            while ((!sdd_detector_ready) || (!ccd_detector_ready)) {
 
                 if (!metadata_sent) {
                     // send beamline parameter
@@ -194,9 +200,26 @@ void scan::run()
                         }
                     }
                 }
+
+                if (!ccd_detector_ready) {
+                // check if ccd detector is ready
+                    zmq::message_t ccdreply;
+                    (void)ccd.recv(ccdreply, zmq::recv_flags::dontwait);
+                    std::string ccdenv_str = "";
+                    ccdenv_str = std::string(static_cast<char*>(ccdreply.data()), ccdreply.size());
+                    if (ccdenv_str != "") {
+                        zmq::message_t ccdmsg;
+                        (void)ccd.recv(ccdmsg, zmq::recv_flags::none);
+                        std::string ccdmsg_str = std::string(static_cast<char*>(ccdmsg.data()), ccdmsg.size());
+                        if (ccdmsg_str == "detector ready") {
+                            ccd_detector_ready = true;
+                            emit sendDeviceStatusToGUI("ccd", QString::fromStdString(ccdmsg_str));
+                        }
+                    }
+                }
             }
 
-            if ((datasink_ready) && (ccd_ready) && (sdd_connection_ready) && (sdd_detector_ready) && (metadata_sent)) {
+            if ((datasink_ready) && (ccd_connection_ready) && (ccd_detector_ready) && (sdd_connection_ready) && (sdd_detector_ready) && (metadata_sent)) {
                 zmq::message_t previewmessage;
                 (void)datasink.recv(previewmessage, zmq::recv_flags::dontwait);
                 if (previewmessage.size() > 0) {
@@ -238,6 +261,7 @@ void scan::run()
                         QThread::sleep(5);
 
                         sdd_detector_ready = false;
+                        ccd_detector_ready = false;
                         // image is ready: change settings of beamline, positioner etc.
                         // if finished, get new metadata and send out new metadata
                         // send beamline parameter
@@ -247,7 +271,7 @@ void scan::run()
                         // define protobuf values
                         aquisition_number++;
                         Metadata.set_aquisition_number(aquisition_number);
-                        Metadata.set_beamline_enery(123);
+                        Metadata.set_beamline_enery(settings.energies[aquisition_number-1]);
                         //ublish settings
                         publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
                         size_t metadatasize = Metadata.ByteSizeLong();

@@ -129,6 +129,9 @@ void MainWindow::getScanSettings(settingsdata settings) {
     ccdX = scansettings.ccdWidth;
     ccdY = scansettings.ccdHeight;
 
+    // allocate memory for transmission preview image
+    stxmimage = (uint32_t*) malloc(ccdX*ccdY*sizeof(uint32_t));
+
     scanX = scansettings.scanWidth;
     scanY = scansettings.scanHeight;
 
@@ -716,7 +719,7 @@ void MainWindow::checkIfScanIsFinished() {
 
         ui->label_3->setText("scan "+QString::number(currentScanNumber)+" finished");
 
-        if (scansettings.scantype == "NEXAFS") {
+        if ((scansettings.scantype == "NEXAFS") && (currentmetadata.aquisition_number < scansettings.energycount)) {
             currentmetadata.aquisition_number++;
             hdf5filename = "measurement_testmessung_"+QString::number(currentmetadata.aquisition_number)+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
 

@@ -9,6 +9,8 @@ struct settingsdata {
     int ccdHeight;
     int ccdWidth;
     int sddChannels;
+    int energycount;
+    float *energies;
     std::string datasinkIP;
     int datasinkPort;
     std::string sddIP;

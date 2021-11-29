@@ -48,7 +48,7 @@ void zmqThread::run()
                 std::cout << "Received:" << msg_str << std::endl;
 
                 // if ccd is ready, set public variable "ccdReady" give controlthread the permission to get this info
-                if (msg_str == "ready") {
+                if (msg_str == "connection ready") {
                     std::cout<<"ccd is ready"<<std::endl;
                     ccdReadyState = true;
                     emit ccdReady();

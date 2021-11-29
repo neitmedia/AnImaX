@@ -16,6 +16,7 @@ int main (int argc, char** argv)
     std::string guiIP = argv[2];
     std::string guiPort = argv[3];
     bool connected = false;
+    uint32_t energy_count;
 
 	// read file (here: raw.rtdat)
 	fileptr = fopen(argv[1], "rb");
@@ -71,7 +72,7 @@ int main (int argc, char** argv)
         	uint32_t width = Measurement.width();
         	uint32_t height = Measurement.height();
         	uint32_t aquisition_time = Measurement.aquisition_time();
-        	uint32_t energy_count = Measurement.energy_count();
+        	energy_count = Measurement.energy_count();
             scantype = Measurement.scantype();
             uint32_t sddPort = Measurement.sddport();
             
@@ -105,17 +106,14 @@ int main (int argc, char** argv)
         	Metadata.ParseFromArray(msg.data(), msg.size());
         	uint32_t acq_num = Metadata.aquisition_number();
             std::cout<<"aquisition_number: "<<acq_num<<std::endl;
+            uint32_t beamline_enery = Metadata.beamline_enery();
+            std::cout<<"beamline energy: "<<beamline_enery<<std::endl;
         	// if the received envelope is the "metadata" envelope, it means that the GUI received "ready" messages from all peripherals and everything is ready
         	ready = true;
         }
     }
     
-    int countto = 1;
-    if (scantype == "NEXAFS") {
-        countto = 3;
-    }
-    
-    for (int scanc = 0; scanc < countto; scanc++) {
+    for (int scanc = 0; scanc < energy_count; scanc++) {
     
         // tell the GUI that detector is ready ("statusdata" envelope with content "detector ready")
         gui.send(zmq::str_buffer("statusdata"), zmq::send_flags::sndmore);
@@ -138,6 +136,8 @@ int main (int argc, char** argv)
                 Metadata.ParseFromArray(msg.data(), msg.size());
                 uint32_t acq_num = Metadata.aquisition_number();
                 std::cout<<"aquisition_number: "<<acq_num<<std::endl;
+                uint32_t beamline_enery = Metadata.beamline_enery();
+                std::cout<<"beamline energy: "<<beamline_enery<<std::endl;
                 ready = true;
             }
         }

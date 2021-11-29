@@ -77,7 +77,7 @@ private:
     int savestarttime;
     int saveendtime;
 
-    uint32_t stxmimage[200000];
+    uint32_t *stxmimage;
 
     QString hdf5filename;
 

@@ -43,6 +43,14 @@ void GUI::on_cmdStartScan_clicked()
     settings.ccdWidth = ui->spbCCDWidth->value();
     settings.sddChannels = ui->spbSDDChannels->value();
     settings.roidefinitions = ui->txtROIdefinitions->toPlainText().toStdString();
+    settings.energycount = ui->lstEnergies->count();
+    settings.energies = (float*) malloc(ui->lstEnergies->count()*sizeof(float));
+
+    for(int i = 0; i < ui->lstEnergies->count(); ++i)
+    {
+        QListWidgetItem* item = ui->lstEnergies->item(i);
+        settings.energies[i] = item->text().toFloat();
+    }
 
     settings.datasinkIP = ui->txtDataSinkIP->text().toStdString();
     settings.datasinkPort = ui->spbDataSinkPort->value();
@@ -82,7 +90,7 @@ void GUI::on_cmdStartScan_clicked()
 
 void GUI::showDeviceStatus(QString device, QString status) {
     if (device == "ccd") {
-        if (status == "ready") {
+        if ((status == "connection ready") || (status == "detector ready")) {
             ui->chbCCD->setChecked(true);
         } else {
             ui->chbCCD->setChecked(false);
