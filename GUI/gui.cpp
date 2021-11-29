@@ -89,7 +89,7 @@ void GUI::showDeviceStatus(QString device, QString status) {
         }
     }
     if (device == "sdd") {
-        if (status == "ready") {
+        if ((status == "connection ready") || (status == "detector ready")) {
             ui->chbSDD->setChecked(true);
         } else {
             ui->chbSDD->setChecked(false);

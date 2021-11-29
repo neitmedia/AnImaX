@@ -56,8 +56,8 @@ void sddThread::run()
             std::cout << "Received:" << msg_str << std::endl;
 
             // if ccd is ready, set public variable "sddReady" give controlthread the permission to get this info
-            if (msg_str == "ready") {
-                std::cout<<"sdd is ready"<<std::endl;
+            if (msg_str == "connection ready") {
+                std::cout<<"sdd connection is ready"<<std::endl;
                 sddReadyState = true;
                 emit sddReady();
             }
@@ -91,6 +91,8 @@ void sddThread::run()
                     text_str = sdd.pixeldata();
 
                     std::cout << "Received" << text_str.size() << std::endl;
+
+                    if (text_str.size() > 0) {
 
                     // iterate through the data buffer
                     for (unsigned long i=0;i<=text_str.size()-1;i=i+2) {
@@ -188,6 +190,7 @@ void sddThread::run()
 
                         }
                     }
+                  }
                 }
             }  catch (zmq::error_t &err)
             {

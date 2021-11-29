@@ -92,83 +92,37 @@ int main (int argc, char** argv)
         	/* TO DO: set all sdd settings and prepare everything for the scan */
         	/*                                                                 */
         	
-        	// tell the GUI that everything is ready for the scan ("statusdata" envelope with content "ready")
+        	// tell the GUI that connection is ready ("statusdata" envelope with content "connection ready")
         	gui.send(zmq::str_buffer("statusdata"), zmq::send_flags::sndmore);
-        	gui.send(zmq::str_buffer("ready"), zmq::send_flags::none);
+        	gui.send(zmq::str_buffer("connection ready"), zmq::send_flags::none);
         	
         	// give out some debug info
         	std::cout<<"sent status info"<<width<<std::endl;
         } else if (env_str == "metadata") {
+            zmq::message_t msg;
+        	(void)subscriber.recv(msg);
+            animax::Metadata Metadata;
+        	Metadata.ParseFromArray(msg.data(), msg.size());
+        	uint32_t acq_num = Metadata.aquisition_number();
+            std::cout<<"aquisition_number: "<<acq_num<<std::endl;
         	// if the received envelope is the "metadata" envelope, it means that the GUI received "ready" messages from all peripherals and everything is ready
         	ready = true;
         }
     }
     
-    // the code after this is executed when everything is ready for the scan
-    
-    std::cout<<"ready to send data!"<<std::endl;
-	
-	std::cout<<"start sending data"<<std::endl;
-	
-	uint64_t counter = 0;
-    uint32_t readsize = 20000;
-    uint64_t offset = 0;
-    // iterate through the images
-    while(readsize == 20000) {
-    	zmq::message_t env1(3);
-        memcpy(env1.data(), "sdd", 3);
-        
-        animax::sdd sdd;
-        
-        /*                                           IMPORTANT INFORMATION                                        */	
-    	/* TO DO: get the real data from the sdd and write this data into the pixeldata field of the sdd protobuf */
-   		/*                                                                                                        */
-        
-        uint64_t offset = counter*readsize;
-        
-        if (offset+readsize > filelen) {
-            readsize = filelen-offset;
-        }
-
-        buffer = (char *)malloc(readsize * sizeof(uint8_t)); 
-        in.seekg(offset, std::ios_base::beg); 
-        in.read(buffer, readsize);
-        
-    	sdd.set_pixeldata(buffer, readsize);
-    	
-    	counter++;
-    	
-    	// serialize data and write into ZMQ request
-    	size_t size = sdd.ByteSizeLong(); 
-        
-        void *buffersend = malloc(size);
-		sdd.SerializeToArray(buffersend, size);
-    	zmq::message_t request(size);
-    	memcpy ((void *) request.data (), buffersend, size);
-        
-        
-    	// send "sdd" envelope with sdd data content
-    	gui.send(env1, zmq::send_flags::sndmore);
-    	gui.send(request, zmq::send_flags::none);
-    	std::cout << "sent sdd data #"<<counter<<std::endl;
-        
-        //std::cout << "offset | filesize | readsize: "<<offset<<" | "<<filelen<<" | "<<readsize<<std::endl;
-        
-        free(buffer);
-        free(buffersend);
-    	
-        usleep(4500);
+    int countto = 1;
+    if (scantype == "NEXAFS") {
+        countto = 3;
     }
     
-    // give out debug info
-   	std::cout<<"finished sending data!"<<std::endl;
+    for (int scanc = 0; scanc < countto; scanc++) {
     
-    if (scantype == "NEXAFS") {
+        // tell the GUI that detector is ready ("statusdata" envelope with content "detector ready")
+        gui.send(zmq::str_buffer("statusdata"), zmq::send_flags::sndmore);
+        gui.send(zmq::str_buffer("detector ready"), zmq::send_flags::none);
         
+        // wait for reply from the GUI
         ready = false;
-        
-        std::cout<<"waiting for scan to finish..."<<std::endl;
-        
         while (!ready) {
             // declare ZMQ envelope message
             zmq::message_t env;
@@ -176,18 +130,24 @@ int main (int argc, char** argv)
             (void)subscriber.recv(env);
             // read out envelope content
             std::string env_str = std::string(static_cast<char*>(env.data()), env.size());
-            
-            // if the received envelope is the "settings" envelope, decode protobuf and give out values for debugging purposes
             if (env_str == "metadata") {
+                zmq::message_t msg;
+                (void)subscriber.recv(msg);
                 // if the received envelope is the "metadata" envelope, it means that the GUI received "ready" messages from all peripherals and everything is ready
+                animax::Metadata Metadata;
+                Metadata.ParseFromArray(msg.data(), msg.size());
+                uint32_t acq_num = Metadata.aquisition_number();
+                std::cout<<"aquisition_number: "<<acq_num<<std::endl;
                 ready = true;
             }
         }
         
-        sleep(5);
+        // the code after this is executed when everything is ready for the scan
+        
+        std::cout<<"ready to send data!"<<std::endl;
         
         std::cout<<"start sending data"<<std::endl;
-	
+        
         uint64_t counter = 0;
         uint32_t readsize = 20000;
         uint64_t offset = 0;
@@ -238,9 +198,11 @@ int main (int argc, char** argv)
             usleep(4500);
         }
         
+        // tell the GUI that measurement is finished ("statusdata" envelope with content "finished measurement")
+        gui.send(zmq::str_buffer("statusdata"), zmq::send_flags::sndmore);
+        gui.send(zmq::str_buffer("finished measurement"), zmq::send_flags::none);
         // give out debug info
         std::cout<<"finished sending data!"<<std::endl;
     }
-
 
 }

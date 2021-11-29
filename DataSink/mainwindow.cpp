@@ -75,12 +75,12 @@ void MainWindow::showEvent( QShowEvent* event ) {
 void MainWindow::getMetadata(metadata metadata) {
     currentmetadata = metadata;
 
-    std::cout<<"gui got metadata - "<<metadata.beamline_energy;
+    std::cout<<"gui got metadata - "<<metadata.aquisition_number;
 
     /* WRITE BEAMLINE PARAMETER TO FILE */
     hsize_t dimsext[2] = {1, 1}; // extend dimensions
 
-    DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/metadata/beamline_energy"));
+    DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/metadata/aquisition_number"));
 
     hsize_t offset[2];
 
@@ -107,10 +107,10 @@ void MainWindow::getMetadata(metadata metadata) {
     // Define memory space.
     DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
 
-    int beamline_energy = metadata.beamline_energy;
+    int aquisition_number = metadata.aquisition_number;
 
     // Write data to the extended portion of the dataset.
-    dataset->write(&beamline_energy, PredType::STD_I32LE, *memspacenew, *filespacenew);
+    dataset->write(&aquisition_number, PredType::STD_I32LE, *memspacenew, *filespacenew);
 
     dataset->close();
     delete dataset;

@@ -63,14 +63,15 @@ void scan::run()
         Measurement.set_datasinkport(settings.datasinkPort);
 
         bool ccd_ready = false;
-        bool sdd_ready = false;
+        bool sdd_connection_ready = false;
+        bool sdd_detector_ready = false;
         bool datasink_ready = false;
         bool metadata_sent = false;
 
         while (true) {
 
             // send settings and make sure all hosts and peripherals / devices are connected
-            while ((!ccd_ready) || (!sdd_ready) || (!datasink_ready)) {
+            while ((!ccd_ready) || (!sdd_connection_ready) || (!datasink_ready)) {
                 // publish settings
                 publisher.send(zmq::str_buffer("settings"), zmq::send_flags::sndmore);
                 size_t settingssize = Measurement.ByteSizeLong();
@@ -98,8 +99,8 @@ void scan::run()
                     }
                 }
 
-                // check if sdd is ready
-                if (!sdd_ready) {
+                // check if sdd connection is ready
+                if (!sdd_connection_ready) {
                     zmq::message_t sddreply;
                     (void)sdd.recv(sddreply, zmq::recv_flags::dontwait);
                     std::string sddenv_str = "";
@@ -108,13 +109,12 @@ void scan::run()
                         zmq::message_t sddmsg;
                         (void)sdd.recv(sddmsg, zmq::recv_flags::none);
                         std::string sddmsg_str = std::string(static_cast<char*>(sddmsg.data()), sddmsg.size());
-                        if (sddmsg_str == "ready") {
-                            sdd_ready = true;
-                            emit sendDeviceStatusToGUI("sdd", "ready");
+                        if (sddmsg_str == "connection ready") {
+                            sdd_connection_ready = true;
+                            emit sendDeviceStatusToGUI("sdd", QString::fromStdString(sddmsg_str));
                         }
                     }
                 }
-
 
                 // check if datasink is ready
                 if (!datasink_ready) {
@@ -137,7 +137,6 @@ void scan::run()
 
             if (!metadata_sent) {
                 // send beamline parameter
-
                 // HERE: get beamline parameter
                 animax::Metadata Metadata;
                 // define protobuf values
@@ -154,10 +153,50 @@ void scan::run()
                 std::cout<<"sent metadata!"<<std::endl;
 
                 std::cout<<"all connected"<<std::endl;
-                metadata_sent = true;
             }
 
-            if ((datasink_ready) && (ccd_ready) && (sdd_ready) && (metadata_sent)) {
+            while ((!sdd_detector_ready)) {
+
+                if (!metadata_sent) {
+                    // send beamline parameter
+                    // HERE: get beamline parameter
+                    animax::Metadata Metadata;
+                    // define protobuf values
+                    Metadata.set_aquisition_number(aquisition_number);
+                    Metadata.set_beamline_enery(123);
+                    // publish settings
+                    publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
+                    size_t metadatasize = Metadata.ByteSizeLong();
+                    void *metadatabuffer = malloc(metadatasize);
+                    Metadata.SerializeToArray(metadatabuffer, metadatasize);
+                    zmq::message_t request(metadatasize);
+                    memcpy((void *)request.data(), metadatabuffer, metadatasize);
+                    publisher.send(request, zmq::send_flags::none);
+                    std::cout<<"sent metadata!"<<std::endl;
+
+                    std::cout<<"all connected"<<std::endl;
+                    metadata_sent = true;
+                }
+
+                if (!sdd_detector_ready) {
+                // check if sdd detector is ready
+                    zmq::message_t sddreply;
+                    (void)sdd.recv(sddreply, zmq::recv_flags::dontwait);
+                    std::string sddenv_str = "";
+                    sddenv_str = std::string(static_cast<char*>(sddreply.data()), sddreply.size());
+                    if (sddenv_str != "") {
+                        zmq::message_t sddmsg;
+                        (void)sdd.recv(sddmsg, zmq::recv_flags::none);
+                        std::string sddmsg_str = std::string(static_cast<char*>(sddmsg.data()), sddmsg.size());
+                        if (sddmsg_str == "detector ready") {
+                            sdd_detector_ready = true;
+                            emit sendDeviceStatusToGUI("sdd", QString::fromStdString(sddmsg_str));
+                        }
+                    }
+                }
+            }
+
+            if ((datasink_ready) && (ccd_ready) && (sdd_connection_ready) && (sdd_detector_ready) && (metadata_sent)) {
                 zmq::message_t previewmessage;
                 (void)datasink.recv(previewmessage, zmq::recv_flags::dontwait);
                 if (previewmessage.size() > 0) {
@@ -198,6 +237,7 @@ void scan::run()
 
                         QThread::sleep(5);
 
+                        sdd_detector_ready = false;
                         // image is ready: change settings of beamline, positioner etc.
                         // if finished, get new metadata and send out new metadata
                         // send beamline parameter
@@ -208,7 +248,7 @@ void scan::run()
                         aquisition_number++;
                         Metadata.set_aquisition_number(aquisition_number);
                         Metadata.set_beamline_enery(123);
-                        // publish settings
+                        //ublish settings
                         publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
                         size_t metadatasize = Metadata.ByteSizeLong();
                         void *metadatabuffer = malloc(metadatasize);
