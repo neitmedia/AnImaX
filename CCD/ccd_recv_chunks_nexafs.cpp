@@ -98,8 +98,8 @@ int main (int argc, char** argv)
             
             // send real settings
             animax::ccdsettings ccdsettings;
-            ccdsettings.set_width(width);
-            ccdsettings.set_height(height);
+            ccdsettings.set_width(ccdX);
+            ccdsettings.set_height(ccdY);
             
             size_t ccdsettingssize = ccdsettings.ByteSizeLong(); 
         

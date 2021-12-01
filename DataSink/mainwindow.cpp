@@ -701,7 +701,7 @@ void MainWindow::getCCDSettings(int width, int height) {
     DataSet* settingsgroupccdHeight = new DataSet(nexusfile->file->openDataSet("/measurement/settings/ccdHeight"));
     int ccdHeight = height;
     settingsgroupccdHeight->write(&ccdHeight, PredType::STD_I32LE, fspace);
-    settingsgroupccdWidth->close();
+    settingsgroupccdHeight->close();
     delete settingsgroupccdHeight;
 
     fspace.close();

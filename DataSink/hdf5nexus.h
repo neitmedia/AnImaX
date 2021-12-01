@@ -10,8 +10,24 @@ class hdf5nexus
 {
 public:
     hdf5nexus();
+
     void createDataFile(QString, settingsdata);
     void closeDataFile();
+    void newNeXusFileStringAttribute(std::string, std::string);
+    void newNeXusGroupStringAttribute(Group*, std::string, std::string);
+    void newNeXusDatasetStringAttribute(DataSet*, std::string, std::string);
+
+    DataSet* newNeXusScalarDataSet(std::string, std::string, std::string, bool);
+    DataSet* newNeXusScalarDataSet(std::string, std::string, float, bool);
+    DataSet* newNeXusScalarDataSet(std::string, std::string, int32_t, bool);
+
+    Group* newNeXusGroup(std::string, std::string, std::string, bool);
+    DataSet* newNeXusChunkedCCDDataSet(std::string, int, int, H5::PredType, std::string, bool);
+    DataSet* newNeXusChunkedTransmissionPreviewDataSet(std::string, H5::PredType, std::string, bool);
+    DataSet* newNeXusChunkedSpectraDataSet(std::string, H5::PredType, std::string, bool);
+    DataSet* newNeXusChunkedSDDLogDataSet(std::string, H5::PredType, std::string, bool);
+    DataSet* newNeXusROIDataSet(std::string, int, int, H5::PredType, std::string, bool);
+    DataSet* newNeXusChunkedMetadataDataSet(std::string, H5::PredType, std::string, bool);
 
     H5File *file;
 
