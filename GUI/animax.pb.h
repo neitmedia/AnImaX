@@ -208,23 +208,44 @@ class Measurement final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kEnergiesFieldNumber = 7,
-    kROIdefinitionsFieldNumber = 8,
-    kScantypeFieldNumber = 9,
-    kDatasinkIPFieldNumber = 10,
-    kSddIPFieldNumber = 12,
-    kCcdIPFieldNumber = 14,
+    kEnergiesFieldNumber = 8,
+    kScantypeFieldNumber = 4,
+    kSavePathFieldNumber = 5,
+    kSaveFileFieldNumber = 6,
+    kDatasinkIPFieldNumber = 9,
+    kSddIPFieldNumber = 11,
+    kCcdIPFieldNumber = 13,
+    kROIdefinitionsFieldNumber = 15,
+    kSampleNameFieldNumber = 29,
+    kSampleTypeFieldNumber = 30,
+    kSampleNoteFieldNumber = 31,
+    kNotesFieldNumber = 35,
+    kUserdataFieldNumber = 36,
     kWidthFieldNumber = 1,
     kHeightFieldNumber = 2,
-    kAquisitionTimeFieldNumber = 3,
-    kEnergyCountFieldNumber = 4,
-    kCcdheightFieldNumber = 5,
-    kCcdwidthFieldNumber = 6,
-    kDatasinkPortFieldNumber = 11,
-    kSddPortFieldNumber = 13,
-    kCcdPortFieldNumber = 15,
+    kAcquisitionTimeFieldNumber = 3,
+    kEnergyCountFieldNumber = 7,
+    kDatasinkPortFieldNumber = 10,
+    kSddPortFieldNumber = 12,
+    kCcdPortFieldNumber = 14,
+    kSebitcountFieldNumber = 16,
+    kFilterFieldNumber = 17,
+    kEnergyrangeFieldNumber = 18,
+    kTempmodeFieldNumber = 19,
+    kZeropeakperiodFieldNumber = 20,
+    kAcquisitionmodeFieldNumber = 21,
+    kChecktemperatureFieldNumber = 22,
+    kSdd1FieldNumber = 23,
+    kSdd2FieldNumber = 24,
+    kSdd3FieldNumber = 25,
+    kSdd4FieldNumber = 26,
+    kCcdheightFieldNumber = 27,
+    kCcdwidthFieldNumber = 28,
+    kSampleWidthFieldNumber = 32,
+    kSampleHeightFieldNumber = 33,
+    kSampleRotationAngleFieldNumber = 34,
   };
-  // repeated int32 energies = 7;
+  // repeated int32 energies = 8;
   int energies_size() const;
   private:
   int _internal_energies_size() const;
@@ -246,21 +267,7 @@ class Measurement final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
       mutable_energies();
 
-  // string ROIdefinitions = 8;
-  void clear_roidefinitions();
-  const std::string& roidefinitions() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_roidefinitions(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_roidefinitions();
-  PROTOBUF_MUST_USE_RESULT std::string* release_roidefinitions();
-  void set_allocated_roidefinitions(std::string* roidefinitions);
-  private:
-  const std::string& _internal_roidefinitions() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_roidefinitions(const std::string& value);
-  std::string* _internal_mutable_roidefinitions();
-  public:
-
-  // string scantype = 9;
+  // string scantype = 4;
   void clear_scantype();
   const std::string& scantype() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -274,7 +281,35 @@ class Measurement final :
   std::string* _internal_mutable_scantype();
   public:
 
-  // string datasinkIP = 10;
+  // string save_path = 5;
+  void clear_save_path();
+  const std::string& save_path() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_save_path(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_save_path();
+  PROTOBUF_MUST_USE_RESULT std::string* release_save_path();
+  void set_allocated_save_path(std::string* save_path);
+  private:
+  const std::string& _internal_save_path() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_save_path(const std::string& value);
+  std::string* _internal_mutable_save_path();
+  public:
+
+  // string save_file = 6;
+  void clear_save_file();
+  const std::string& save_file() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_save_file(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_save_file();
+  PROTOBUF_MUST_USE_RESULT std::string* release_save_file();
+  void set_allocated_save_file(std::string* save_file);
+  private:
+  const std::string& _internal_save_file() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_save_file(const std::string& value);
+  std::string* _internal_mutable_save_file();
+  public:
+
+  // string datasinkIP = 9;
   void clear_datasinkip();
   const std::string& datasinkip() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -288,7 +323,7 @@ class Measurement final :
   std::string* _internal_mutable_datasinkip();
   public:
 
-  // string sddIP = 12;
+  // string sddIP = 11;
   void clear_sddip();
   const std::string& sddip() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -302,7 +337,7 @@ class Measurement final :
   std::string* _internal_mutable_sddip();
   public:
 
-  // string ccdIP = 14;
+  // string ccdIP = 13;
   void clear_ccdip();
   const std::string& ccdip() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -314,6 +349,90 @@ class Measurement final :
   const std::string& _internal_ccdip() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_ccdip(const std::string& value);
   std::string* _internal_mutable_ccdip();
+  public:
+
+  // string ROIdefinitions = 15;
+  void clear_roidefinitions();
+  const std::string& roidefinitions() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_roidefinitions(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_roidefinitions();
+  PROTOBUF_MUST_USE_RESULT std::string* release_roidefinitions();
+  void set_allocated_roidefinitions(std::string* roidefinitions);
+  private:
+  const std::string& _internal_roidefinitions() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_roidefinitions(const std::string& value);
+  std::string* _internal_mutable_roidefinitions();
+  public:
+
+  // string sample_name = 29;
+  void clear_sample_name();
+  const std::string& sample_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sample_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sample_name();
+  PROTOBUF_MUST_USE_RESULT std::string* release_sample_name();
+  void set_allocated_sample_name(std::string* sample_name);
+  private:
+  const std::string& _internal_sample_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sample_name(const std::string& value);
+  std::string* _internal_mutable_sample_name();
+  public:
+
+  // string sample_type = 30;
+  void clear_sample_type();
+  const std::string& sample_type() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sample_type(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sample_type();
+  PROTOBUF_MUST_USE_RESULT std::string* release_sample_type();
+  void set_allocated_sample_type(std::string* sample_type);
+  private:
+  const std::string& _internal_sample_type() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sample_type(const std::string& value);
+  std::string* _internal_mutable_sample_type();
+  public:
+
+  // string sample_note = 31;
+  void clear_sample_note();
+  const std::string& sample_note() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sample_note(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sample_note();
+  PROTOBUF_MUST_USE_RESULT std::string* release_sample_note();
+  void set_allocated_sample_note(std::string* sample_note);
+  private:
+  const std::string& _internal_sample_note() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sample_note(const std::string& value);
+  std::string* _internal_mutable_sample_note();
+  public:
+
+  // string notes = 35;
+  void clear_notes();
+  const std::string& notes() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_notes(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_notes();
+  PROTOBUF_MUST_USE_RESULT std::string* release_notes();
+  void set_allocated_notes(std::string* notes);
+  private:
+  const std::string& _internal_notes() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_notes(const std::string& value);
+  std::string* _internal_mutable_notes();
+  public:
+
+  // string userdata = 36;
+  void clear_userdata();
+  const std::string& userdata() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_userdata(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_userdata();
+  PROTOBUF_MUST_USE_RESULT std::string* release_userdata();
+  void set_allocated_userdata(std::string* userdata);
+  private:
+  const std::string& _internal_userdata() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_userdata(const std::string& value);
+  std::string* _internal_mutable_userdata();
   public:
 
   // int32 width = 1;
@@ -334,16 +453,16 @@ class Measurement final :
   void _internal_set_height(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 aquisition_time = 3;
-  void clear_aquisition_time();
-  ::PROTOBUF_NAMESPACE_ID::int32 aquisition_time() const;
-  void set_aquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 acquisition_time = 3;
+  void clear_acquisition_time();
+  ::PROTOBUF_NAMESPACE_ID::int32 acquisition_time() const;
+  void set_acquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_aquisition_time() const;
-  void _internal_set_aquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_acquisition_time() const;
+  void _internal_set_acquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 energy_count = 4;
+  // int32 energy_count = 7;
   void clear_energy_count();
   ::PROTOBUF_NAMESPACE_ID::int32 energy_count() const;
   void set_energy_count(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -352,25 +471,7 @@ class Measurement final :
   void _internal_set_energy_count(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 ccdheight = 5;
-  void clear_ccdheight();
-  ::PROTOBUF_NAMESPACE_ID::int32 ccdheight() const;
-  void set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccdheight() const;
-  void _internal_set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // int32 ccdwidth = 6;
-  void clear_ccdwidth();
-  ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth() const;
-  void set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccdwidth() const;
-  void _internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // int32 datasinkPort = 11;
+  // int32 datasinkPort = 10;
   void clear_datasinkport();
   ::PROTOBUF_NAMESPACE_ID::int32 datasinkport() const;
   void set_datasinkport(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -379,7 +480,7 @@ class Measurement final :
   void _internal_set_datasinkport(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 sddPort = 13;
+  // int32 sddPort = 12;
   void clear_sddport();
   ::PROTOBUF_NAMESPACE_ID::int32 sddport() const;
   void set_sddport(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -388,13 +489,157 @@ class Measurement final :
   void _internal_set_sddport(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 ccdPort = 15;
+  // int32 ccdPort = 14;
   void clear_ccdport();
   ::PROTOBUF_NAMESPACE_ID::int32 ccdport() const;
   void set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
   ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccdport() const;
   void _internal_set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 sebitcount = 16;
+  void clear_sebitcount();
+  ::PROTOBUF_NAMESPACE_ID::int32 sebitcount() const;
+  void set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sebitcount() const;
+  void _internal_set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 filter = 17;
+  void clear_filter();
+  ::PROTOBUF_NAMESPACE_ID::int32 filter() const;
+  void set_filter(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_filter() const;
+  void _internal_set_filter(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 energyrange = 18;
+  void clear_energyrange();
+  ::PROTOBUF_NAMESPACE_ID::int32 energyrange() const;
+  void set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_energyrange() const;
+  void _internal_set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 tempmode = 19;
+  void clear_tempmode();
+  ::PROTOBUF_NAMESPACE_ID::int32 tempmode() const;
+  void set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_tempmode() const;
+  void _internal_set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 zeropeakperiod = 20;
+  void clear_zeropeakperiod();
+  ::PROTOBUF_NAMESPACE_ID::int32 zeropeakperiod() const;
+  void set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_zeropeakperiod() const;
+  void _internal_set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 acquisitionmode = 21;
+  void clear_acquisitionmode();
+  ::PROTOBUF_NAMESPACE_ID::int32 acquisitionmode() const;
+  void set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_acquisitionmode() const;
+  void _internal_set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 checktemperature = 22;
+  void clear_checktemperature();
+  ::PROTOBUF_NAMESPACE_ID::int32 checktemperature() const;
+  void set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_checktemperature() const;
+  void _internal_set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 sdd1 = 23;
+  void clear_sdd1();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd1() const;
+  void set_sdd1(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd1() const;
+  void _internal_set_sdd1(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 sdd2 = 24;
+  void clear_sdd2();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd2() const;
+  void set_sdd2(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd2() const;
+  void _internal_set_sdd2(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 sdd3 = 25;
+  void clear_sdd3();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd3() const;
+  void set_sdd3(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd3() const;
+  void _internal_set_sdd3(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 sdd4 = 26;
+  void clear_sdd4();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd4() const;
+  void set_sdd4(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd4() const;
+  void _internal_set_sdd4(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 ccdheight = 27;
+  void clear_ccdheight();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccdheight() const;
+  void set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccdheight() const;
+  void _internal_set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 ccdwidth = 28;
+  void clear_ccdwidth();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth() const;
+  void set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccdwidth() const;
+  void _internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // float sample_width = 32;
+  void clear_sample_width();
+  float sample_width() const;
+  void set_sample_width(float value);
+  private:
+  float _internal_sample_width() const;
+  void _internal_set_sample_width(float value);
+  public:
+
+  // float sample_height = 33;
+  void clear_sample_height();
+  float sample_height() const;
+  void set_sample_height(float value);
+  private:
+  float _internal_sample_height() const;
+  void _internal_set_sample_height(float value);
+  public:
+
+  // float sample_rotation_angle = 34;
+  void clear_sample_rotation_angle();
+  float sample_rotation_angle() const;
+  void set_sample_rotation_angle(float value);
+  private:
+  float _internal_sample_rotation_angle() const;
+  void _internal_set_sample_rotation_angle(float value);
   public:
 
   // @@protoc_insertion_point(class_scope:animax.Measurement)
@@ -406,20 +651,41 @@ class Measurement final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 > energies_;
   mutable std::atomic<int> _energies_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roidefinitions_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr scantype_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr save_path_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr save_file_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr datasinkip_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sddip_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ccdip_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roidefinitions_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sample_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sample_type_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sample_note_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr notes_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr userdata_;
   ::PROTOBUF_NAMESPACE_ID::int32 width_;
   ::PROTOBUF_NAMESPACE_ID::int32 height_;
-  ::PROTOBUF_NAMESPACE_ID::int32 aquisition_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 acquisition_time_;
   ::PROTOBUF_NAMESPACE_ID::int32 energy_count_;
-  ::PROTOBUF_NAMESPACE_ID::int32 ccdheight_;
-  ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth_;
   ::PROTOBUF_NAMESPACE_ID::int32 datasinkport_;
   ::PROTOBUF_NAMESPACE_ID::int32 sddport_;
   ::PROTOBUF_NAMESPACE_ID::int32 ccdport_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sebitcount_;
+  ::PROTOBUF_NAMESPACE_ID::int32 filter_;
+  ::PROTOBUF_NAMESPACE_ID::int32 energyrange_;
+  ::PROTOBUF_NAMESPACE_ID::int32 tempmode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 zeropeakperiod_;
+  ::PROTOBUF_NAMESPACE_ID::int32 acquisitionmode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 checktemperature_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd1_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd2_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd3_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd4_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccdheight_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth_;
+  float sample_width_;
+  float sample_height_;
+  float sample_rotation_angle_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_animax_2eproto;
 };
@@ -540,25 +806,65 @@ class Metadata final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAquisitionNumberFieldNumber = 1,
-    kBeamlineEneryFieldNumber = 2,
+    kAcquisitionNumberFieldNumber = 1,
+    kAcquisitionTimeFieldNumber = 2,
+    kBeamlineEnergyFieldNumber = 3,
+    kRingcurrentFieldNumber = 4,
+    kHorizontalShutterFieldNumber = 5,
+    kVerticalShutterFieldNumber = 6,
   };
-  // int32 aquisition_number = 1;
-  void clear_aquisition_number();
-  ::PROTOBUF_NAMESPACE_ID::int32 aquisition_number() const;
-  void set_aquisition_number(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 acquisition_number = 1;
+  void clear_acquisition_number();
+  ::PROTOBUF_NAMESPACE_ID::int32 acquisition_number() const;
+  void set_acquisition_number(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_aquisition_number() const;
-  void _internal_set_aquisition_number(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_acquisition_number() const;
+  void _internal_set_acquisition_number(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 beamline_enery = 2;
-  void clear_beamline_enery();
-  ::PROTOBUF_NAMESPACE_ID::int32 beamline_enery() const;
-  void set_beamline_enery(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 acquisition_time = 2;
+  void clear_acquisition_time();
+  ::PROTOBUF_NAMESPACE_ID::int32 acquisition_time() const;
+  void set_acquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_beamline_enery() const;
-  void _internal_set_beamline_enery(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_acquisition_time() const;
+  void _internal_set_acquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // float beamline_energy = 3;
+  void clear_beamline_energy();
+  float beamline_energy() const;
+  void set_beamline_energy(float value);
+  private:
+  float _internal_beamline_energy() const;
+  void _internal_set_beamline_energy(float value);
+  public:
+
+  // float ringcurrent = 4;
+  void clear_ringcurrent();
+  float ringcurrent() const;
+  void set_ringcurrent(float value);
+  private:
+  float _internal_ringcurrent() const;
+  void _internal_set_ringcurrent(float value);
+  public:
+
+  // bool horizontal_shutter = 5;
+  void clear_horizontal_shutter();
+  bool horizontal_shutter() const;
+  void set_horizontal_shutter(bool value);
+  private:
+  bool _internal_horizontal_shutter() const;
+  void _internal_set_horizontal_shutter(bool value);
+  public:
+
+  // bool vertical_shutter = 6;
+  void clear_vertical_shutter();
+  bool vertical_shutter() const;
+  void set_vertical_shutter(bool value);
+  private:
+  bool _internal_vertical_shutter() const;
+  void _internal_set_vertical_shutter(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:animax.Metadata)
@@ -568,8 +874,12 @@ class Metadata final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::int32 aquisition_number_;
-  ::PROTOBUF_NAMESPACE_ID::int32 beamline_enery_;
+  ::PROTOBUF_NAMESPACE_ID::int32 acquisition_number_;
+  ::PROTOBUF_NAMESPACE_ID::int32 acquisition_time_;
+  float beamline_energy_;
+  float ringcurrent_;
+  bool horizontal_shutter_;
+  bool vertical_shutter_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_animax_2eproto;
 };
@@ -1553,27 +1863,165 @@ inline void Measurement::set_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.height)
 }
 
-// int32 aquisition_time = 3;
-inline void Measurement::clear_aquisition_time() {
-  aquisition_time_ = 0;
+// int32 acquisition_time = 3;
+inline void Measurement::clear_acquisition_time() {
+  acquisition_time_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_aquisition_time() const {
-  return aquisition_time_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_acquisition_time() const {
+  return acquisition_time_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::aquisition_time() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.aquisition_time)
-  return _internal_aquisition_time();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::acquisition_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.acquisition_time)
+  return _internal_acquisition_time();
 }
-inline void Measurement::_internal_set_aquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_acquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  aquisition_time_ = value;
+  acquisition_time_ = value;
 }
-inline void Measurement::set_aquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_aquisition_time(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.aquisition_time)
+inline void Measurement::set_acquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_acquisition_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.acquisition_time)
 }
 
-// int32 energy_count = 4;
+// string scantype = 4;
+inline void Measurement::clear_scantype() {
+  scantype_.ClearToEmpty();
+}
+inline const std::string& Measurement::scantype() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.scantype)
+  return _internal_scantype();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_scantype(ArgT0&& arg0, ArgT... args) {
+ 
+ scantype_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.scantype)
+}
+inline std::string* Measurement::mutable_scantype() {
+  std::string* _s = _internal_mutable_scantype();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.scantype)
+  return _s;
+}
+inline const std::string& Measurement::_internal_scantype() const {
+  return scantype_.Get();
+}
+inline void Measurement::_internal_set_scantype(const std::string& value) {
+  
+  scantype_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_scantype() {
+  
+  return scantype_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_scantype() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.scantype)
+  return scantype_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_scantype(std::string* scantype) {
+  if (scantype != nullptr) {
+    
+  } else {
+    
+  }
+  scantype_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), scantype,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.scantype)
+}
+
+// string save_path = 5;
+inline void Measurement::clear_save_path() {
+  save_path_.ClearToEmpty();
+}
+inline const std::string& Measurement::save_path() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.save_path)
+  return _internal_save_path();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_save_path(ArgT0&& arg0, ArgT... args) {
+ 
+ save_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.save_path)
+}
+inline std::string* Measurement::mutable_save_path() {
+  std::string* _s = _internal_mutable_save_path();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.save_path)
+  return _s;
+}
+inline const std::string& Measurement::_internal_save_path() const {
+  return save_path_.Get();
+}
+inline void Measurement::_internal_set_save_path(const std::string& value) {
+  
+  save_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_save_path() {
+  
+  return save_path_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_save_path() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.save_path)
+  return save_path_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_save_path(std::string* save_path) {
+  if (save_path != nullptr) {
+    
+  } else {
+    
+  }
+  save_path_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), save_path,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.save_path)
+}
+
+// string save_file = 6;
+inline void Measurement::clear_save_file() {
+  save_file_.ClearToEmpty();
+}
+inline const std::string& Measurement::save_file() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.save_file)
+  return _internal_save_file();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_save_file(ArgT0&& arg0, ArgT... args) {
+ 
+ save_file_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.save_file)
+}
+inline std::string* Measurement::mutable_save_file() {
+  std::string* _s = _internal_mutable_save_file();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.save_file)
+  return _s;
+}
+inline const std::string& Measurement::_internal_save_file() const {
+  return save_file_.Get();
+}
+inline void Measurement::_internal_set_save_file(const std::string& value) {
+  
+  save_file_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_save_file() {
+  
+  return save_file_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_save_file() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.save_file)
+  return save_file_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_save_file(std::string* save_file) {
+  if (save_file != nullptr) {
+    
+  } else {
+    
+  }
+  save_file_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), save_file,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.save_file)
+}
+
+// int32 energy_count = 7;
 inline void Measurement::clear_energy_count() {
   energy_count_ = 0;
 }
@@ -1593,47 +2041,7 @@ inline void Measurement::set_energy_count(::PROTOBUF_NAMESPACE_ID::int32 value) 
   // @@protoc_insertion_point(field_set:animax.Measurement.energy_count)
 }
 
-// int32 ccdheight = 5;
-inline void Measurement::clear_ccdheight() {
-  ccdheight_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccdheight() const {
-  return ccdheight_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccdheight() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.ccdheight)
-  return _internal_ccdheight();
-}
-inline void Measurement::_internal_set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  ccdheight_ = value;
-}
-inline void Measurement::set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_ccdheight(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.ccdheight)
-}
-
-// int32 ccdwidth = 6;
-inline void Measurement::clear_ccdwidth() {
-  ccdwidth_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccdwidth() const {
-  return ccdwidth_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccdwidth() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.ccdwidth)
-  return _internal_ccdwidth();
-}
-inline void Measurement::_internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  ccdwidth_ = value;
-}
-inline void Measurement::set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_ccdwidth(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.ccdwidth)
-}
-
-// repeated int32 energies = 7;
+// repeated int32 energies = 8;
 inline int Measurement::_internal_energies_size() const {
   return energies_.size();
 }
@@ -1680,99 +2088,7 @@ Measurement::mutable_energies() {
   return _internal_mutable_energies();
 }
 
-// string ROIdefinitions = 8;
-inline void Measurement::clear_roidefinitions() {
-  roidefinitions_.ClearToEmpty();
-}
-inline const std::string& Measurement::roidefinitions() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.ROIdefinitions)
-  return _internal_roidefinitions();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void Measurement::set_roidefinitions(ArgT0&& arg0, ArgT... args) {
- 
- roidefinitions_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:animax.Measurement.ROIdefinitions)
-}
-inline std::string* Measurement::mutable_roidefinitions() {
-  std::string* _s = _internal_mutable_roidefinitions();
-  // @@protoc_insertion_point(field_mutable:animax.Measurement.ROIdefinitions)
-  return _s;
-}
-inline const std::string& Measurement::_internal_roidefinitions() const {
-  return roidefinitions_.Get();
-}
-inline void Measurement::_internal_set_roidefinitions(const std::string& value) {
-  
-  roidefinitions_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
-}
-inline std::string* Measurement::_internal_mutable_roidefinitions() {
-  
-  return roidefinitions_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
-}
-inline std::string* Measurement::release_roidefinitions() {
-  // @@protoc_insertion_point(field_release:animax.Measurement.ROIdefinitions)
-  return roidefinitions_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
-}
-inline void Measurement::set_allocated_roidefinitions(std::string* roidefinitions) {
-  if (roidefinitions != nullptr) {
-    
-  } else {
-    
-  }
-  roidefinitions_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), roidefinitions,
-      GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.ROIdefinitions)
-}
-
-// string scantype = 9;
-inline void Measurement::clear_scantype() {
-  scantype_.ClearToEmpty();
-}
-inline const std::string& Measurement::scantype() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.scantype)
-  return _internal_scantype();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void Measurement::set_scantype(ArgT0&& arg0, ArgT... args) {
- 
- scantype_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:animax.Measurement.scantype)
-}
-inline std::string* Measurement::mutable_scantype() {
-  std::string* _s = _internal_mutable_scantype();
-  // @@protoc_insertion_point(field_mutable:animax.Measurement.scantype)
-  return _s;
-}
-inline const std::string& Measurement::_internal_scantype() const {
-  return scantype_.Get();
-}
-inline void Measurement::_internal_set_scantype(const std::string& value) {
-  
-  scantype_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
-}
-inline std::string* Measurement::_internal_mutable_scantype() {
-  
-  return scantype_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
-}
-inline std::string* Measurement::release_scantype() {
-  // @@protoc_insertion_point(field_release:animax.Measurement.scantype)
-  return scantype_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
-}
-inline void Measurement::set_allocated_scantype(std::string* scantype) {
-  if (scantype != nullptr) {
-    
-  } else {
-    
-  }
-  scantype_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), scantype,
-      GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.scantype)
-}
-
-// string datasinkIP = 10;
+// string datasinkIP = 9;
 inline void Measurement::clear_datasinkip() {
   datasinkip_.ClearToEmpty();
 }
@@ -1818,7 +2134,7 @@ inline void Measurement::set_allocated_datasinkip(std::string* datasinkip) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.datasinkIP)
 }
 
-// int32 datasinkPort = 11;
+// int32 datasinkPort = 10;
 inline void Measurement::clear_datasinkport() {
   datasinkport_ = 0;
 }
@@ -1838,7 +2154,7 @@ inline void Measurement::set_datasinkport(::PROTOBUF_NAMESPACE_ID::int32 value) 
   // @@protoc_insertion_point(field_set:animax.Measurement.datasinkPort)
 }
 
-// string sddIP = 12;
+// string sddIP = 11;
 inline void Measurement::clear_sddip() {
   sddip_.ClearToEmpty();
 }
@@ -1884,7 +2200,7 @@ inline void Measurement::set_allocated_sddip(std::string* sddip) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sddIP)
 }
 
-// int32 sddPort = 13;
+// int32 sddPort = 12;
 inline void Measurement::clear_sddport() {
   sddport_ = 0;
 }
@@ -1904,7 +2220,7 @@ inline void Measurement::set_sddport(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sddPort)
 }
 
-// string ccdIP = 14;
+// string ccdIP = 13;
 inline void Measurement::clear_ccdip() {
   ccdip_.ClearToEmpty();
 }
@@ -1950,7 +2266,7 @@ inline void Measurement::set_allocated_ccdip(std::string* ccdip) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.ccdIP)
 }
 
-// int32 ccdPort = 15;
+// int32 ccdPort = 14;
 inline void Measurement::clear_ccdport() {
   ccdport_ = 0;
 }
@@ -1970,48 +2286,724 @@ inline void Measurement::set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.ccdPort)
 }
 
+// string ROIdefinitions = 15;
+inline void Measurement::clear_roidefinitions() {
+  roidefinitions_.ClearToEmpty();
+}
+inline const std::string& Measurement::roidefinitions() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ROIdefinitions)
+  return _internal_roidefinitions();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_roidefinitions(ArgT0&& arg0, ArgT... args) {
+ 
+ roidefinitions_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.ROIdefinitions)
+}
+inline std::string* Measurement::mutable_roidefinitions() {
+  std::string* _s = _internal_mutable_roidefinitions();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.ROIdefinitions)
+  return _s;
+}
+inline const std::string& Measurement::_internal_roidefinitions() const {
+  return roidefinitions_.Get();
+}
+inline void Measurement::_internal_set_roidefinitions(const std::string& value) {
+  
+  roidefinitions_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_roidefinitions() {
+  
+  return roidefinitions_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_roidefinitions() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.ROIdefinitions)
+  return roidefinitions_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_roidefinitions(std::string* roidefinitions) {
+  if (roidefinitions != nullptr) {
+    
+  } else {
+    
+  }
+  roidefinitions_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), roidefinitions,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.ROIdefinitions)
+}
+
+// int32 sebitcount = 16;
+inline void Measurement::clear_sebitcount() {
+  sebitcount_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sebitcount() const {
+  return sebitcount_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sebitcount() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sebitcount)
+  return _internal_sebitcount();
+}
+inline void Measurement::_internal_set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  sebitcount_ = value;
+}
+inline void Measurement::set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sebitcount(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sebitcount)
+}
+
+// int32 filter = 17;
+inline void Measurement::clear_filter() {
+  filter_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_filter() const {
+  return filter_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::filter() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.filter)
+  return _internal_filter();
+}
+inline void Measurement::_internal_set_filter(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  filter_ = value;
+}
+inline void Measurement::set_filter(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_filter(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.filter)
+}
+
+// int32 energyrange = 18;
+inline void Measurement::clear_energyrange() {
+  energyrange_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_energyrange() const {
+  return energyrange_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::energyrange() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.energyrange)
+  return _internal_energyrange();
+}
+inline void Measurement::_internal_set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  energyrange_ = value;
+}
+inline void Measurement::set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_energyrange(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.energyrange)
+}
+
+// int32 tempmode = 19;
+inline void Measurement::clear_tempmode() {
+  tempmode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_tempmode() const {
+  return tempmode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::tempmode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.tempmode)
+  return _internal_tempmode();
+}
+inline void Measurement::_internal_set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  tempmode_ = value;
+}
+inline void Measurement::set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_tempmode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.tempmode)
+}
+
+// int32 zeropeakperiod = 20;
+inline void Measurement::clear_zeropeakperiod() {
+  zeropeakperiod_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_zeropeakperiod() const {
+  return zeropeakperiod_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::zeropeakperiod() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.zeropeakperiod)
+  return _internal_zeropeakperiod();
+}
+inline void Measurement::_internal_set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  zeropeakperiod_ = value;
+}
+inline void Measurement::set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_zeropeakperiod(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.zeropeakperiod)
+}
+
+// int32 acquisitionmode = 21;
+inline void Measurement::clear_acquisitionmode() {
+  acquisitionmode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_acquisitionmode() const {
+  return acquisitionmode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::acquisitionmode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.acquisitionmode)
+  return _internal_acquisitionmode();
+}
+inline void Measurement::_internal_set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  acquisitionmode_ = value;
+}
+inline void Measurement::set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_acquisitionmode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.acquisitionmode)
+}
+
+// int32 checktemperature = 22;
+inline void Measurement::clear_checktemperature() {
+  checktemperature_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_checktemperature() const {
+  return checktemperature_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::checktemperature() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.checktemperature)
+  return _internal_checktemperature();
+}
+inline void Measurement::_internal_set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  checktemperature_ = value;
+}
+inline void Measurement::set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_checktemperature(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.checktemperature)
+}
+
+// int32 sdd1 = 23;
+inline void Measurement::clear_sdd1() {
+  sdd1_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd1() const {
+  return sdd1_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd1() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd1)
+  return _internal_sdd1();
+}
+inline void Measurement::_internal_set_sdd1(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  sdd1_ = value;
+}
+inline void Measurement::set_sdd1(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd1(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd1)
+}
+
+// int32 sdd2 = 24;
+inline void Measurement::clear_sdd2() {
+  sdd2_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd2() const {
+  return sdd2_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd2() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd2)
+  return _internal_sdd2();
+}
+inline void Measurement::_internal_set_sdd2(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  sdd2_ = value;
+}
+inline void Measurement::set_sdd2(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd2(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd2)
+}
+
+// int32 sdd3 = 25;
+inline void Measurement::clear_sdd3() {
+  sdd3_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd3() const {
+  return sdd3_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd3() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd3)
+  return _internal_sdd3();
+}
+inline void Measurement::_internal_set_sdd3(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  sdd3_ = value;
+}
+inline void Measurement::set_sdd3(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd3(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd3)
+}
+
+// int32 sdd4 = 26;
+inline void Measurement::clear_sdd4() {
+  sdd4_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd4() const {
+  return sdd4_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd4() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd4)
+  return _internal_sdd4();
+}
+inline void Measurement::_internal_set_sdd4(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  sdd4_ = value;
+}
+inline void Measurement::set_sdd4(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd4(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd4)
+}
+
+// int32 ccdheight = 27;
+inline void Measurement::clear_ccdheight() {
+  ccdheight_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccdheight() const {
+  return ccdheight_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccdheight() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccdheight)
+  return _internal_ccdheight();
+}
+inline void Measurement::_internal_set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  ccdheight_ = value;
+}
+inline void Measurement::set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccdheight(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccdheight)
+}
+
+// int32 ccdwidth = 28;
+inline void Measurement::clear_ccdwidth() {
+  ccdwidth_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccdwidth() const {
+  return ccdwidth_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccdwidth() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccdwidth)
+  return _internal_ccdwidth();
+}
+inline void Measurement::_internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  ccdwidth_ = value;
+}
+inline void Measurement::set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccdwidth(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccdwidth)
+}
+
+// string sample_name = 29;
+inline void Measurement::clear_sample_name() {
+  sample_name_.ClearToEmpty();
+}
+inline const std::string& Measurement::sample_name() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sample_name)
+  return _internal_sample_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_sample_name(ArgT0&& arg0, ArgT... args) {
+ 
+ sample_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.sample_name)
+}
+inline std::string* Measurement::mutable_sample_name() {
+  std::string* _s = _internal_mutable_sample_name();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.sample_name)
+  return _s;
+}
+inline const std::string& Measurement::_internal_sample_name() const {
+  return sample_name_.Get();
+}
+inline void Measurement::_internal_set_sample_name(const std::string& value) {
+  
+  sample_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_sample_name() {
+  
+  return sample_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_sample_name() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.sample_name)
+  return sample_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_sample_name(std::string* sample_name) {
+  if (sample_name != nullptr) {
+    
+  } else {
+    
+  }
+  sample_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sample_name,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sample_name)
+}
+
+// string sample_type = 30;
+inline void Measurement::clear_sample_type() {
+  sample_type_.ClearToEmpty();
+}
+inline const std::string& Measurement::sample_type() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sample_type)
+  return _internal_sample_type();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_sample_type(ArgT0&& arg0, ArgT... args) {
+ 
+ sample_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.sample_type)
+}
+inline std::string* Measurement::mutable_sample_type() {
+  std::string* _s = _internal_mutable_sample_type();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.sample_type)
+  return _s;
+}
+inline const std::string& Measurement::_internal_sample_type() const {
+  return sample_type_.Get();
+}
+inline void Measurement::_internal_set_sample_type(const std::string& value) {
+  
+  sample_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_sample_type() {
+  
+  return sample_type_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_sample_type() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.sample_type)
+  return sample_type_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_sample_type(std::string* sample_type) {
+  if (sample_type != nullptr) {
+    
+  } else {
+    
+  }
+  sample_type_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sample_type,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sample_type)
+}
+
+// string sample_note = 31;
+inline void Measurement::clear_sample_note() {
+  sample_note_.ClearToEmpty();
+}
+inline const std::string& Measurement::sample_note() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sample_note)
+  return _internal_sample_note();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_sample_note(ArgT0&& arg0, ArgT... args) {
+ 
+ sample_note_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.sample_note)
+}
+inline std::string* Measurement::mutable_sample_note() {
+  std::string* _s = _internal_mutable_sample_note();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.sample_note)
+  return _s;
+}
+inline const std::string& Measurement::_internal_sample_note() const {
+  return sample_note_.Get();
+}
+inline void Measurement::_internal_set_sample_note(const std::string& value) {
+  
+  sample_note_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_sample_note() {
+  
+  return sample_note_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_sample_note() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.sample_note)
+  return sample_note_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_sample_note(std::string* sample_note) {
+  if (sample_note != nullptr) {
+    
+  } else {
+    
+  }
+  sample_note_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sample_note,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sample_note)
+}
+
+// float sample_width = 32;
+inline void Measurement::clear_sample_width() {
+  sample_width_ = 0;
+}
+inline float Measurement::_internal_sample_width() const {
+  return sample_width_;
+}
+inline float Measurement::sample_width() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sample_width)
+  return _internal_sample_width();
+}
+inline void Measurement::_internal_set_sample_width(float value) {
+  
+  sample_width_ = value;
+}
+inline void Measurement::set_sample_width(float value) {
+  _internal_set_sample_width(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sample_width)
+}
+
+// float sample_height = 33;
+inline void Measurement::clear_sample_height() {
+  sample_height_ = 0;
+}
+inline float Measurement::_internal_sample_height() const {
+  return sample_height_;
+}
+inline float Measurement::sample_height() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sample_height)
+  return _internal_sample_height();
+}
+inline void Measurement::_internal_set_sample_height(float value) {
+  
+  sample_height_ = value;
+}
+inline void Measurement::set_sample_height(float value) {
+  _internal_set_sample_height(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sample_height)
+}
+
+// float sample_rotation_angle = 34;
+inline void Measurement::clear_sample_rotation_angle() {
+  sample_rotation_angle_ = 0;
+}
+inline float Measurement::_internal_sample_rotation_angle() const {
+  return sample_rotation_angle_;
+}
+inline float Measurement::sample_rotation_angle() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sample_rotation_angle)
+  return _internal_sample_rotation_angle();
+}
+inline void Measurement::_internal_set_sample_rotation_angle(float value) {
+  
+  sample_rotation_angle_ = value;
+}
+inline void Measurement::set_sample_rotation_angle(float value) {
+  _internal_set_sample_rotation_angle(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sample_rotation_angle)
+}
+
+// string notes = 35;
+inline void Measurement::clear_notes() {
+  notes_.ClearToEmpty();
+}
+inline const std::string& Measurement::notes() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.notes)
+  return _internal_notes();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_notes(ArgT0&& arg0, ArgT... args) {
+ 
+ notes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.notes)
+}
+inline std::string* Measurement::mutable_notes() {
+  std::string* _s = _internal_mutable_notes();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.notes)
+  return _s;
+}
+inline const std::string& Measurement::_internal_notes() const {
+  return notes_.Get();
+}
+inline void Measurement::_internal_set_notes(const std::string& value) {
+  
+  notes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_notes() {
+  
+  return notes_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_notes() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.notes)
+  return notes_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_notes(std::string* notes) {
+  if (notes != nullptr) {
+    
+  } else {
+    
+  }
+  notes_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), notes,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.notes)
+}
+
+// string userdata = 36;
+inline void Measurement::clear_userdata() {
+  userdata_.ClearToEmpty();
+}
+inline const std::string& Measurement::userdata() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.userdata)
+  return _internal_userdata();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_userdata(ArgT0&& arg0, ArgT... args) {
+ 
+ userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.userdata)
+}
+inline std::string* Measurement::mutable_userdata() {
+  std::string* _s = _internal_mutable_userdata();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.userdata)
+  return _s;
+}
+inline const std::string& Measurement::_internal_userdata() const {
+  return userdata_.Get();
+}
+inline void Measurement::_internal_set_userdata(const std::string& value) {
+  
+  userdata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_userdata() {
+  
+  return userdata_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_userdata() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.userdata)
+  return userdata_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_userdata(std::string* userdata) {
+  if (userdata != nullptr) {
+    
+  } else {
+    
+  }
+  userdata_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), userdata,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.userdata)
+}
+
 // -------------------------------------------------------------------
 
 // Metadata
 
-// int32 aquisition_number = 1;
-inline void Metadata::clear_aquisition_number() {
-  aquisition_number_ = 0;
+// int32 acquisition_number = 1;
+inline void Metadata::clear_acquisition_number() {
+  acquisition_number_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Metadata::_internal_aquisition_number() const {
-  return aquisition_number_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Metadata::_internal_acquisition_number() const {
+  return acquisition_number_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Metadata::aquisition_number() const {
-  // @@protoc_insertion_point(field_get:animax.Metadata.aquisition_number)
-  return _internal_aquisition_number();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Metadata::acquisition_number() const {
+  // @@protoc_insertion_point(field_get:animax.Metadata.acquisition_number)
+  return _internal_acquisition_number();
 }
-inline void Metadata::_internal_set_aquisition_number(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Metadata::_internal_set_acquisition_number(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  aquisition_number_ = value;
+  acquisition_number_ = value;
 }
-inline void Metadata::set_aquisition_number(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_aquisition_number(value);
-  // @@protoc_insertion_point(field_set:animax.Metadata.aquisition_number)
+inline void Metadata::set_acquisition_number(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_acquisition_number(value);
+  // @@protoc_insertion_point(field_set:animax.Metadata.acquisition_number)
 }
 
-// int32 beamline_enery = 2;
-inline void Metadata::clear_beamline_enery() {
-  beamline_enery_ = 0;
+// int32 acquisition_time = 2;
+inline void Metadata::clear_acquisition_time() {
+  acquisition_time_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Metadata::_internal_beamline_enery() const {
-  return beamline_enery_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Metadata::_internal_acquisition_time() const {
+  return acquisition_time_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Metadata::beamline_enery() const {
-  // @@protoc_insertion_point(field_get:animax.Metadata.beamline_enery)
-  return _internal_beamline_enery();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Metadata::acquisition_time() const {
+  // @@protoc_insertion_point(field_get:animax.Metadata.acquisition_time)
+  return _internal_acquisition_time();
 }
-inline void Metadata::_internal_set_beamline_enery(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Metadata::_internal_set_acquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  beamline_enery_ = value;
+  acquisition_time_ = value;
 }
-inline void Metadata::set_beamline_enery(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_beamline_enery(value);
-  // @@protoc_insertion_point(field_set:animax.Metadata.beamline_enery)
+inline void Metadata::set_acquisition_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_acquisition_time(value);
+  // @@protoc_insertion_point(field_set:animax.Metadata.acquisition_time)
+}
+
+// float beamline_energy = 3;
+inline void Metadata::clear_beamline_energy() {
+  beamline_energy_ = 0;
+}
+inline float Metadata::_internal_beamline_energy() const {
+  return beamline_energy_;
+}
+inline float Metadata::beamline_energy() const {
+  // @@protoc_insertion_point(field_get:animax.Metadata.beamline_energy)
+  return _internal_beamline_energy();
+}
+inline void Metadata::_internal_set_beamline_energy(float value) {
+  
+  beamline_energy_ = value;
+}
+inline void Metadata::set_beamline_energy(float value) {
+  _internal_set_beamline_energy(value);
+  // @@protoc_insertion_point(field_set:animax.Metadata.beamline_energy)
+}
+
+// float ringcurrent = 4;
+inline void Metadata::clear_ringcurrent() {
+  ringcurrent_ = 0;
+}
+inline float Metadata::_internal_ringcurrent() const {
+  return ringcurrent_;
+}
+inline float Metadata::ringcurrent() const {
+  // @@protoc_insertion_point(field_get:animax.Metadata.ringcurrent)
+  return _internal_ringcurrent();
+}
+inline void Metadata::_internal_set_ringcurrent(float value) {
+  
+  ringcurrent_ = value;
+}
+inline void Metadata::set_ringcurrent(float value) {
+  _internal_set_ringcurrent(value);
+  // @@protoc_insertion_point(field_set:animax.Metadata.ringcurrent)
+}
+
+// bool horizontal_shutter = 5;
+inline void Metadata::clear_horizontal_shutter() {
+  horizontal_shutter_ = false;
+}
+inline bool Metadata::_internal_horizontal_shutter() const {
+  return horizontal_shutter_;
+}
+inline bool Metadata::horizontal_shutter() const {
+  // @@protoc_insertion_point(field_get:animax.Metadata.horizontal_shutter)
+  return _internal_horizontal_shutter();
+}
+inline void Metadata::_internal_set_horizontal_shutter(bool value) {
+  
+  horizontal_shutter_ = value;
+}
+inline void Metadata::set_horizontal_shutter(bool value) {
+  _internal_set_horizontal_shutter(value);
+  // @@protoc_insertion_point(field_set:animax.Metadata.horizontal_shutter)
+}
+
+// bool vertical_shutter = 6;
+inline void Metadata::clear_vertical_shutter() {
+  vertical_shutter_ = false;
+}
+inline bool Metadata::_internal_vertical_shutter() const {
+  return vertical_shutter_;
+}
+inline bool Metadata::vertical_shutter() const {
+  // @@protoc_insertion_point(field_get:animax.Metadata.vertical_shutter)
+  return _internal_vertical_shutter();
+}
+inline void Metadata::_internal_set_vertical_shutter(bool value) {
+  
+  vertical_shutter_ = value;
+}
+inline void Metadata::set_vertical_shutter(bool value) {
+  _internal_set_vertical_shutter(value);
+  // @@protoc_insertion_point(field_set:animax.Metadata.vertical_shutter)
 }
 
 // -------------------------------------------------------------------

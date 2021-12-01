@@ -75,12 +75,12 @@ int main (int argc, char** argv)
         	Measurement.ParseFromArray(msg.data(), msg.size());
         	uint32_t width = Measurement.width();
         	uint32_t height = Measurement.height();
-        	uint32_t aquisition_time = Measurement.aquisition_time();
+        	uint32_t acquisition_time = Measurement.acquisition_time();
         	energy_count = Measurement.energy_count();
         	
         	std::cout<<"width: "<<width<<std::endl;
         	std::cout<<"height: "<<height<<std::endl;
-        	std::cout<<"aquisition_time: "<<width<<std::endl;
+        	std::cout<<"acquisition_time: "<<width<<std::endl;
         	std::cout<<"width: "<<width<<std::endl;
             scantype = Measurement.scantype();
             uint32_t ccdPort = Measurement.ccdport();
@@ -145,8 +145,8 @@ int main (int argc, char** argv)
                     // if the received envelope is the "metadata" envelope, it means that the GUI received "ready" messages from all peripherals and everything is ready
                     animax::Metadata Metadata;
                     Metadata.ParseFromArray(msg.data(), msg.size());
-                    uint32_t acq_num = Metadata.aquisition_number();
-                    std::cout<<"aquisition_number: "<<acq_num<<std::endl;
+                    uint32_t acq_num = Metadata.acquisition_number();
+                    std::cout<<"acquisition_number: "<<acq_num<<std::endl;
                     ready = true;
                 }
             }

@@ -433,8 +433,8 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     // Create the chunked datasets.  Note the use of pointer.
     DataSet *entrymetadatabeamline_energy = new DataSet(file->createDataSet("/measurement/metadata/beamline_energy", PredType::STD_I32LE, *dataspacemetadata, propmetadata));
     delete entrymetadatabeamline_energy;
-    DataSet *entrymetadataaquisition_number = new DataSet(file->createDataSet("/measurement/metadata/aquisition_number", PredType::STD_I32LE, *dataspacemetadata, propmetadata));
-    delete entrymetadataaquisition_number;
+    DataSet *entrymetadataacquisition_number = new DataSet(file->createDataSet("/measurement/metadata/acquisition_number", PredType::STD_I32LE, *dataspacemetadata, propmetadata));
+    delete entrymetadataacquisition_number;
     propmetadata.close();
     prop.close();
 

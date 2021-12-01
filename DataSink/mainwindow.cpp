@@ -75,12 +75,12 @@ void MainWindow::showEvent( QShowEvent* event ) {
 void MainWindow::getMetadata(metadata metadata) {
     currentmetadata = metadata;
 
-    std::cout<<"gui got metadata - "<<metadata.aquisition_number;
+    std::cout<<"gui got metadata - "<<metadata.acquisition_number;
 
     /* WRITE BEAMLINE PARAMETER TO FILE */
     hsize_t dimsext[2] = {1, 1}; // extend dimensions
 
-    DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/metadata/aquisition_number"));
+    DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/metadata/acquisition_number"));
 
     hsize_t offset[2];
 
@@ -107,10 +107,10 @@ void MainWindow::getMetadata(metadata metadata) {
     // Define memory space.
     DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
 
-    int aquisition_number = metadata.aquisition_number;
+    int acquisition_number = metadata.acquisition_number;
 
     // Write data to the extended portion of the dataset.
-    dataset->write(&aquisition_number, PredType::STD_I32LE, *memspacenew, *filespacenew);
+    dataset->write(&acquisition_number, PredType::STD_I32LE, *memspacenew, *filespacenew);
 
     dataset->close();
     delete dataset;
@@ -715,13 +715,13 @@ void MainWindow::checkIfScanIsFinished() {
 
         std::cout<<"closed file '"<<hdf5filename.toStdString()<<"'"<<std::endl;
 
-        int currentScanNumber = currentmetadata.aquisition_number;
+        int currentScanNumber = currentmetadata.acquisition_number;
 
         ui->label_3->setText("scan "+QString::number(currentScanNumber)+" finished");
 
-        if ((scansettings.scantype == "NEXAFS") && (currentmetadata.aquisition_number < scansettings.energycount)) {
-            currentmetadata.aquisition_number++;
-            hdf5filename = "measurement_testmessung_"+QString::number(currentmetadata.aquisition_number)+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
+        if ((scansettings.scantype == "NEXAFS") && (currentmetadata.acquisition_number < scansettings.energycount)) {
+            currentmetadata.acquisition_number++;
+            hdf5filename = "measurement_testmessung_"+QString::number(currentmetadata.acquisition_number)+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
 
             nexusfile = new hdf5nexus();
             nexusfile->createDataFile(hdf5filename, scansettings);

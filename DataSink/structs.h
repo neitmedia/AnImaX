@@ -22,7 +22,7 @@ struct settingsdata {
 };
 
 struct metadata {
-    int aquisition_number;
+    int acquisition_number;
     int beamline_energy;
 };
 

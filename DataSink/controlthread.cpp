@@ -113,8 +113,8 @@ void controlThread::run()
                     Metadata.ParseFromArray(msg.data(), msg.size());
 
                     metadata metadata;
-                    metadata.aquisition_number = Metadata.aquisition_number();
-                    metadata.beamline_energy = Metadata.beamline_enery();
+                    metadata.acquisition_number = Metadata.acquisition_number();
+                    metadata.beamline_energy = Metadata.beamline_energy();
 
                     emit sendMetadataToGUI(metadata);
                     waitForMetadata = false;

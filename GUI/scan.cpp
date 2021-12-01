@@ -48,7 +48,7 @@ void scan::run()
         // define protobuf values
         Measurement.set_width(settings.scanWidth);
         Measurement.set_height(settings.scanHeight);
-        Measurement.set_aquisition_time(10);
+        Measurement.set_acquisition_time(10);
         Measurement.set_energy_count(1);
         Measurement.add_energies(100);
         Measurement.set_ccdheight(settings.ccdHeight);
@@ -146,8 +146,8 @@ void scan::run()
                 // HERE: get beamline parameter
                 animax::Metadata Metadata;
                 // define protobuf values
-                Metadata.set_aquisition_number(aquisition_number);
-                Metadata.set_beamline_enery(123);
+                Metadata.set_acquisition_number(aquisition_number);
+                Metadata.set_beamline_energy(123);
                 // publish settings
                 publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
                 size_t metadatasize = Metadata.ByteSizeLong();
@@ -168,8 +168,8 @@ void scan::run()
                     // HERE: get beamline parameter
                     animax::Metadata Metadata;
                     // define protobuf values
-                    Metadata.set_aquisition_number(aquisition_number);
-                    Metadata.set_beamline_enery(123);
+                    Metadata.set_acquisition_number(aquisition_number);
+                    Metadata.set_beamline_energy(123);
                     // publish settings
                     publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
                     size_t metadatasize = Metadata.ByteSizeLong();
@@ -270,8 +270,8 @@ void scan::run()
                         animax::Metadata Metadata;
                         // define protobuf values
                         aquisition_number++;
-                        Metadata.set_aquisition_number(aquisition_number);
-                        Metadata.set_beamline_enery(settings.energies[aquisition_number-1]);
+                        Metadata.set_acquisition_number(aquisition_number);
+                        Metadata.set_beamline_energy(settings.energies[aquisition_number-1]);
                         //ublish settings
                         publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
                         size_t metadatasize = Metadata.ByteSizeLong();
