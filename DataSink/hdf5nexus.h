@@ -5,6 +5,8 @@
 #include "H5Cpp.h"
 using namespace H5;
 
+typedef QMap<std::string, QVector<uint32_t>> roidata;
+typedef QVector<uint32_t> spectrumdata;
 
 class hdf5nexus
 {
@@ -16,6 +18,13 @@ public:
     void newNeXusFileStringAttribute(std::string, std::string);
     void newNeXusGroupStringAttribute(Group*, std::string, std::string);
     void newNeXusDatasetStringAttribute(DataSet*, std::string, std::string);
+
+    void writeScanIndexData(int, int, int);
+    void writeLineBreakDataAndROIs(roidata, int, int, int, int, int);
+
+    void writeMetadata(metadata);
+    void writeSDDData(int32_t, spectrumdata);
+    void writeCCDSettings(int width, int height);
 
     DataSet* newNeXusScalarDataSet(std::string, std::string, std::string, bool);
     DataSet* newNeXusScalarDataSet(std::string, std::string, float, bool);

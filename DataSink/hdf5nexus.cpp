@@ -10,7 +10,8 @@
 
 hdf5nexus::hdf5nexus()
 {
-
+    qRegisterMetaType<roidata>( "roidata" );
+    qRegisterMetaType<spectrumdata>( "spectrumdata" );
 }
 
 void hdf5nexus::closeDataFile() {
@@ -321,6 +322,152 @@ DataSet* hdf5nexus::newNeXusROIDataSet(std::string location, int x, int y, H5::P
     return roidataset;
 }
 
+void hdf5nexus::writeScanIndexData(int dataindex, int nopx, int stopx) {
+    // WRITE BEAMLINE PARAMETER TO FILE
+    hsize_t dimsext[2] = {1, 3}; // extend dimensions
+
+    DataSet *dataset = new DataSet(file->openDataSet("/measurement/instruments/sdd/log/scanindex"));
+
+    hsize_t offset[2];
+
+    H5::ArrayType arrtype = dataset->getArrayType();
+
+    hsize_t size[2];
+
+    DataSpace *filespace = new DataSpace(dataset->getSpace());
+    int n_dims = filespace->getSimpleExtentDims(size);
+
+    offset[0] = size[0];
+    offset[1] = 0;
+
+    size[0]++;
+    size[1] = 3;
+
+    dataset->extend(size);
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespacenew = new DataSpace(dataset->getSpace());
+
+    filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+    // Define memory space.
+    DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
+
+    int scanindexdata[3] = {dataindex, nopx, stopx};
+
+    // Write data to the extended portion of the dataset.
+    dataset->write(scanindexdata, PredType::STD_I32LE, *memspacenew, *filespacenew);
+
+    std::cout<<"wrote scan index data to file, size: <<"<<size[0]<<", offset: "<<offset[0]<<std::endl;
+
+    dataset->close();
+    delete dataset;
+    filespace->close();
+    delete filespace;
+    filespacenew->close();
+    delete filespacenew;
+    memspacenew->close();
+    delete memspacenew;
+}
+
+void hdf5nexus::writeLineBreakDataAndROIs(roidata ROImap, int dataindex, int nopx, int stopx, int scanX, int scanY) {
+    // WRITE LINE BREAKS AND ROIS TO FILE
+    hsize_t dimsext[2] = {1, 3}; // extend dimensions
+
+    DataSet *dataset = new DataSet(file->openDataSet("/measurement/instruments/sdd/log/linebreaks"));
+
+    hsize_t offset[2];
+
+    H5::ArrayType arrtype = dataset->getArrayType();
+
+    hsize_t size[2];
+
+    DataSpace *filespace = new DataSpace(dataset->getSpace());
+    int n_dims = filespace->getSimpleExtentDims(size);
+
+    offset[0] = size[0];
+    offset[1] = 0;
+
+    size[0]++;
+    size[1] = 3;
+
+    dataset->extend(size);
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespacenew = new DataSpace(dataset->getSpace());
+
+    filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+    // Define memory space.
+    DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
+
+    int scanindexdata[3] = {dataindex, nopx, stopx};
+
+    // Write data to the extended portion of the dataset.
+    dataset->write(scanindexdata, PredType::STD_I32LE, *memspacenew, *filespacenew);
+
+    if ((nopx != 0) && (stopx == 0)) {
+        stopx = scanY;
+    }
+
+
+    // write ROIs
+    if ((nopx != 0) && (stopx != 0)) {
+        auto const ROIkeys = ROImap.keys();
+        for (std::string e : ROIkeys) {
+            std::cout<<"writing ROI data for "<<e<<" to file..."<<std::endl;
+            hsize_t dimsextroi[2] = {1, (hsize_t)scanX}; // extend dimensions
+            DataSet *datasetroi = new DataSet(file->openDataSet("/measurement/instruments/sdd/roi/"+e));
+            hsize_t sizeroi[2];
+            hsize_t offsetroi[2];
+            offsetroi[0] = stopx-1;
+            offsetroi[1] = 0;
+
+            sizeroi[0] = stopx;
+            sizeroi[1] = (hsize_t)scanX;
+
+            datasetroi->extend(sizeroi);
+            // Select a hyperslab in extended portion of the dataset.
+            DataSpace *filespacenewroi = new DataSpace(datasetroi->getSpace());
+
+            filespacenewroi->selectHyperslab(H5S_SELECT_SET, dimsextroi, offsetroi);
+            // Define memory space.
+            DataSpace *memspacenewroi = new DataSpace(2, dimsextroi, NULL);
+
+            QVector<uint32_t> roidata = ROImap[e];
+
+            uint32_t writedata[scanX];
+
+            std::cout<<"länge des datenarrays: "<<roidata.length()<<"stopx: "<<stopx<<std::endl;
+            int pxcounter = 0;
+            for (int i=scanX*(stopx-1); i<roidata.length(); i++) {
+                writedata[pxcounter] = roidata.at(i);
+                pxcounter++;
+            }
+
+            // Write data to the extended portion of the dataset.
+            datasetroi->write(writedata, PredType::STD_I32LE, *memspacenewroi, *filespacenewroi);
+
+            datasetroi->close();
+            delete datasetroi;
+            filespacenewroi->close();
+            delete filespacenewroi;
+            memspacenewroi->close();
+            delete memspacenewroi;
+
+        }
+    }
+
+    dataset->close();
+    delete dataset;
+    filespace->close();
+    delete filespace;
+    filespacenew->close();
+    delete filespacenew;
+    memspacenew->close();
+    delete memspacenew;
+}
+
 void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     std::cout<<"creating HDF5/NeXus file with filename \""<<filename.toStdString()<<"\"..."<<std::endl;
 
@@ -426,3 +573,112 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusChunkedSDDLogDataSet("/measurement/metadata/beamline_energy", PredType::STD_I32LE, "beamline energy", true);
     newNeXusChunkedSDDLogDataSet("/measurement/metadata/acquisition_number", PredType::STD_I32LE, "acquisition number", true);
 }
+
+void hdf5nexus::writeMetadata(metadata metadata) {
+    /* WRITE BEAMLINE PARAMETER TO FILE */
+    hsize_t dimsext[2] = {1, 1}; // extend dimensions
+
+    DataSet *dataset = new DataSet(file->openDataSet("/measurement/metadata/acquisition_number"));
+
+    hsize_t offset[2];
+
+    H5::ArrayType arrtype = dataset->getArrayType();
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespace = new DataSpace(dataset->getSpace());
+    hsize_t size[2];
+    int n_dims = filespace->getSimpleExtentDims(size);
+
+    offset[0] = size[0];
+    offset[1] = 0;
+
+    size[0]++;
+    size[1] = 1;
+
+    dataset->extend(size);
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespacenew = new DataSpace(dataset->getSpace());
+
+    filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+    // Define memory space.
+    DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
+
+    int acquisition_number = metadata.acquisition_number;
+
+    // Write data to the extended portion of the dataset.
+    dataset->write(&acquisition_number, PredType::STD_I32LE, *memspacenew, *filespacenew);
+
+    dataset->close();
+    delete dataset;
+    filespace->close();
+    delete filespace;
+    filespacenew->close();
+    delete filespacenew;
+    memspacenew->close();
+    delete memspacenew;
+}
+
+void hdf5nexus::writeSDDData(int32_t pxnum, spectrumdata specdata) {
+    hsize_t size[2];
+    size[1] = 4096;
+
+    hsize_t offset[2];
+    offset[0] = pxnum;
+    offset[1] = 0;
+
+    // END PIXEL VALUES
+    int32_t data[4096];
+    for (int i=0;i<4096;i++) {
+        data[i] = specdata.at(i);
+    }
+
+    // WRITE DETECTOR DATA TO FILE
+    size[0] = pxnum+1;
+    offset[0] = pxnum;
+
+    hsize_t dimsext[2] = {1, 4096}; // extend dimensions
+
+    DataSet *dataset = new DataSet(file->openDataSet("/measurement/instruments/sdd/data"));
+
+    dataset->extend(size);
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespace = new DataSpace(dataset->getSpace());
+
+    filespace->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+    // Define memory space.
+    DataSpace *memspace = new DataSpace(2, dimsext, NULL);
+
+    // Write data to the extended portion of the dataset.
+    dataset->write(data, PredType::STD_I32LE, *memspace, *filespace);
+
+    dataset->close();
+    delete dataset;
+    filespace->close();
+    delete filespace;
+    memspace->close();
+    delete memspace;
+}
+
+void hdf5nexus::writeCCDSettings(int width, int height) {
+    hsize_t fdim[] = {1};
+    DataSpace fspace(1, fdim);
+
+    DataSet* settingsgroupccdWidth = new DataSet(file->openDataSet("/measurement/settings/ccdWidth"));
+    int ccdWidth = width;
+    settingsgroupccdWidth->write(&ccdWidth, PredType::STD_I32LE, fspace);
+    settingsgroupccdWidth->close();
+    delete settingsgroupccdWidth;
+
+    DataSet* settingsgroupccdHeight = new DataSet(file->openDataSet("/measurement/settings/ccdHeight"));
+    int ccdHeight = height;
+    settingsgroupccdHeight->write(&ccdHeight, PredType::STD_I32LE, fspace);
+    settingsgroupccdHeight->close();
+    delete settingsgroupccdHeight;
+
+    fspace.close();
+}
+

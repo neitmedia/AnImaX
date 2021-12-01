@@ -75,51 +75,11 @@ void MainWindow::showEvent( QShowEvent* event ) {
 void MainWindow::getMetadata(metadata metadata) {
     currentmetadata = metadata;
 
+    if (ui->chbSaveData->isChecked()) {
+        nexusfile->writeMetadata(metadata);
+    }
+
     std::cout<<"gui got metadata - "<<metadata.acquisition_number;
-
-    /* WRITE BEAMLINE PARAMETER TO FILE */
-    hsize_t dimsext[2] = {1, 1}; // extend dimensions
-
-    DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/metadata/acquisition_number"));
-
-    hsize_t offset[2];
-
-    H5::ArrayType arrtype = dataset->getArrayType();
-
-    // Select a hyperslab in extended portion of the dataset.
-    DataSpace *filespace = new DataSpace(dataset->getSpace());
-    hsize_t size[2];
-    int n_dims = filespace->getSimpleExtentDims(size);
-
-    offset[0] = size[0];
-    offset[1] = 0;
-
-    size[0]++;
-    size[1] = 1;
-
-    dataset->extend(size);
-
-    // Select a hyperslab in extended portion of the dataset.
-    DataSpace *filespacenew = new DataSpace(dataset->getSpace());
-
-    filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
-
-    // Define memory space.
-    DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
-
-    int acquisition_number = metadata.acquisition_number;
-
-    // Write data to the extended portion of the dataset.
-    dataset->write(&acquisition_number, PredType::STD_I32LE, *memspacenew, *filespacenew);
-
-    dataset->close();
-    delete dataset;
-    filespace->close();
-    delete filespace;
-    filespacenew->close();
-    delete filespacenew;
-    memspacenew->close();
-    delete memspacenew;
 }
 
 void MainWindow::getScanSettings(settingsdata settings) {
@@ -129,11 +89,11 @@ void MainWindow::getScanSettings(settingsdata settings) {
     ccdX = scansettings.ccdWidth;
     ccdY = scansettings.ccdHeight;
 
-    // allocate memory for transmission preview image
-    stxmimage = (uint32_t*) malloc(ccdX*ccdY*sizeof(uint32_t));
-
     scanX = scansettings.scanWidth;
     scanY = scansettings.scanHeight;
+
+    // allocate memory for transmission preview image
+    stxmimage = (uint32_t*) malloc(scanX*scanY*sizeof(uint32_t));
 
     std::cout<<"ccd ip:port "<<scansettings.ccdIP+':'+std::to_string(scansettings.ccdPort)<<std::endl;
     std::cout<<"sdd ip:port "<<scansettings.sddIP+':'+std::to_string(scansettings.sddPort)<<std::endl;
@@ -191,60 +151,6 @@ void MainWindow::getScanSettings(settingsdata settings) {
 
     // tell control thread that it should listen for metadata
     controlth->waitForMetadata = true;
-
-    /*
-    // start ccd thread
-    ccd = new zmqThread("127.0.0.1", scanX, scanY);
-    connect(ccd, SIGNAL(ccdReady()),this,SLOT(ccdReady()));
-
-    const bool connected = connect(ccd, SIGNAL(sendImageData(int, std::string)),this,SLOT(getImageData(int, std::string)));
-    if (connected) {
-        std::cout<<"getImageData connected"<<std::endl;
-    } else {
-        std::cout<<"getImageData not connected"<<std::endl;
-    }
-
-    const bool connected1 = connect(ccd, SIGNAL(sendCCDSettings(int, int)),this,SLOT(getCCDSettings(int, int)));
-    if (connected1) {
-        std::cout<<"getCCDSettings connected"<<std::endl;
-    } else {
-        std::cout<<"getCCDSettings not connected"<<std::endl;
-    }
-    */
-
-    /*
-    sdd = new sddThread("127.0.0.1", QString::fromStdString(settings.roidefinitions), scanX, scanY);
-    connect(sdd, SIGNAL(sddReady()),this,SLOT(sddReady()));
-
-    const bool connected2 = connect(sdd, SIGNAL(sendScanIndexDataToGUI(int, int, int)),this,SLOT(writeScanIndexData(int, int, int)));
-    if (connected2) {
-        std::cout<<"writeScanIndexData connected"<<std::endl;
-    } else {
-        std::cout<<"writeScanIndexData not connected"<<std::endl;
-    }
-
-    const bool connected3 = connect(sdd, SIGNAL(sendLineBreakDataToGUI(roidata, int, int, int)),this,SLOT(writeLineBreakData(roidata, int, int, int)));
-    if (connected3) {
-        std::cout<<"writeLineBreakData connected"<<std::endl;
-    } else {
-        std::cout<<"writeLineBreakData not connected"<<std::endl;
-    }
-
-    const bool connected4 = connect(sdd, SIGNAL(sendSpectrumDataToGUI(int, spectrumdata)),this,SLOT(showIncomingSpectrum(int, spectrumdata)));
-    if (connected4) {
-        std::cout<<"showIncomingSpectrum connected"<<std::endl;
-    } else {
-        std::cout<<"showIncomingSpectrum not connected"<<std::endl;
-    }
-
-    // start threads
-    ccd->start();
-    sdd->start();
-
-
-    // tell control thread that it should listen for metadata
-    controlth->waitForMetadata = true;
-    */
 }
 
 void MainWindow::ccdReady() {
@@ -369,7 +275,6 @@ void MainWindow::getImageData(int cntx, std::string datax) {
 
         if (ui->chbSaveData->isChecked()) {
             // write data to file
-
             hsize_t size[3];
             size[1] = ccdX;
             size[2] = ccdY;
@@ -457,6 +362,7 @@ void MainWindow::getImageData(int cntx, std::string datax) {
             delete filespacesumimage;
             memspacesumimage->close();
             delete memspacesumimage;
+
         }
 
         if (((cntx+1)%scanX) == 0) {
@@ -475,208 +381,22 @@ void MainWindow::getImageData(int cntx, std::string datax) {
 
 void MainWindow::showIncomingSpectrum(int cnt, spectrumdata blubb) {
     if (ui->chbSaveData->isChecked()) {
-        addSDDDataChunk(cnt, blubb);
+        nexusfile->writeSDDData(cnt, blubb);
     }
     emit addSpecData(cnt, blubb);
 }
 
-void MainWindow::addSDDDataChunk(int32_t pxnum, spectrumdata specdata) {
-    hsize_t size[2];
-    size[1] = 4096;
-
-    hsize_t offset[2];
-    offset[0] = pxnum;
-    offset[1] = 0;
-
-    // END PIXEL VALUES
-    int32_t data[4096];
-    for (int i=0;i<4096;i++) {
-            data[i] = specdata.at(i);
-    }
-
-    // WRITE DETECTOR DATA TO FILE
-    size[0] = pxnum+1;
-    offset[0] = pxnum;
-
-    hsize_t dimsext[2] = {1, 4096}; // extend dimensions
-
-    DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/sdd/data"));
-
-    dataset->extend(size);
-
-    // Select a hyperslab in extended portion of the dataset.
-    DataSpace *filespace = new DataSpace(dataset->getSpace());
-
-    filespace->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
-
-    // Define memory space.
-    DataSpace *memspace = new DataSpace(2, dimsext, NULL);
-
-    // Write data to the extended portion of the dataset.
-    dataset->write(data, PredType::STD_I32LE, *memspace, *filespace);
-
-    dataset->close();
-    delete dataset;
-    filespace->close();
-    delete filespace;
-    memspace->close();
-    delete memspace;
-}
-
 void MainWindow::writeScanIndexData(int dataindex, int nopx, int stopx) {
     if (ui->chbSaveData->isChecked()) {
-        // WRITE BEAMLINE PARAMETER TO FILE
-        hsize_t dimsext[2] = {1, 3}; // extend dimensions
-
-        DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/sdd/log/scanindex"));
-
-        hsize_t offset[2];
-
-        H5::ArrayType arrtype = dataset->getArrayType();
-
-        hsize_t size[2];
-
-        DataSpace *filespace = new DataSpace(dataset->getSpace());
-        int n_dims = filespace->getSimpleExtentDims(size);
-
-        offset[0] = size[0];
-        offset[1] = 0;
-
-        size[0]++;
-        size[1] = 3;
-
-        dataset->extend(size);
-
-        // Select a hyperslab in extended portion of the dataset.
-        DataSpace *filespacenew = new DataSpace(dataset->getSpace());
-
-        filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
-
-        // Define memory space.
-        DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
-
-        int scanindexdata[3] = {dataindex, nopx, stopx};
-
-        // Write data to the extended portion of the dataset.
-        dataset->write(scanindexdata, PredType::STD_I32LE, *memspacenew, *filespacenew);
-
-        std::cout<<"wrote scan index data to file, size: <<"<<size[0]<<", offset: "<<offset[0]<<std::endl;
-
-        dataset->close();
-        delete dataset;
-        filespace->close();
-        delete filespace;
-        filespacenew->close();
-        delete filespacenew;
-        memspacenew->close();
-        delete memspacenew;
+        nexusfile->writeScanIndexData(dataindex, nopx, stopx);
     }
 }
 
 void MainWindow::writeLineBreakData(roidata ROImap, int dataindex, int nopx, int stopx) {
-
-
-    std::cout<<"roidata length: "<<ROImap["P"].length()<<","<<dataindex<<","<<nopx<<","<<stopx<<std::endl;
-
     controlth->setCurrentROIs(ROImap);
 
     if (ui->chbSaveData->isChecked()) {
-        // WRITE BEAMLINE PARAMETER TO FILE
-        hsize_t dimsext[2] = {1, 3}; // extend dimensions
-
-        DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/sdd/log/linebreaks"));
-
-        hsize_t offset[2];
-
-        H5::ArrayType arrtype = dataset->getArrayType();
-
-        hsize_t size[2];
-
-        DataSpace *filespace = new DataSpace(dataset->getSpace());
-        int n_dims = filespace->getSimpleExtentDims(size);
-
-        offset[0] = size[0];
-        offset[1] = 0;
-
-        size[0]++;
-        size[1] = 3;
-
-        dataset->extend(size);
-
-        // Select a hyperslab in extended portion of the dataset.
-        DataSpace *filespacenew = new DataSpace(dataset->getSpace());
-
-        filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
-
-        // Define memory space.
-        DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
-
-        int scanindexdata[3] = {dataindex, nopx, stopx};
-
-        // Write data to the extended portion of the dataset.
-        dataset->write(scanindexdata, PredType::STD_I32LE, *memspacenew, *filespacenew);
-
-        if ((nopx != 0) && (stopx == 0)) {
-            stopx = scanY;
-        }
-
-
-        // write ROIs
-        if ((nopx != 0) && (stopx != 0)) {
-            auto const ROIkeys = ROImap.keys();
-            for (std::string e : ROIkeys) {
-                std::cout<<"writing ROI data for "<<e<<" to file..."<<std::endl;
-                hsize_t dimsextroi[2] = {1, (hsize_t)scanX}; // extend dimensions
-                DataSet *datasetroi = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/sdd/roi/"+e));
-                hsize_t sizeroi[2];
-                hsize_t offsetroi[2];
-                offsetroi[0] = stopx-1;
-                offsetroi[1] = 0;
-
-                sizeroi[0] = stopx;
-                sizeroi[1] = (hsize_t)scanX;
-
-                datasetroi->extend(sizeroi);
-                // Select a hyperslab in extended portion of the dataset.
-                DataSpace *filespacenewroi = new DataSpace(datasetroi->getSpace());
-
-                filespacenewroi->selectHyperslab(H5S_SELECT_SET, dimsextroi, offsetroi);
-                // Define memory space.
-                DataSpace *memspacenewroi = new DataSpace(2, dimsextroi, NULL);
-
-                QVector<uint32_t> roidata = ROImap[e];
-
-                uint32_t writedata[scanX];
-
-                std::cout<<"länge des datenarrays: "<<roidata.length()<<"stopx: "<<stopx<<std::endl;
-                int pxcounter = 0;
-                for (int i=scanX*(stopx-1); i<roidata.length(); i++) {
-                    writedata[pxcounter] = roidata.at(i);
-                    pxcounter++;
-                }
-
-                // Write data to the extended portion of the dataset.
-                datasetroi->write(writedata, PredType::STD_I32LE, *memspacenewroi, *filespacenewroi);
-
-                datasetroi->close();
-                delete datasetroi;
-                filespacenewroi->close();
-                delete filespacenewroi;
-                memspacenewroi->close();
-                delete memspacenewroi;
-
-            }
-        }
-
-        dataset->close();
-        delete dataset;
-        filespace->close();
-        delete filespace;
-        filespacenew->close();
-        delete filespacenew;
-        memspacenew->close();
-        delete memspacenew;
-
+        nexusfile->writeLineBreakDataAndROIs(ROImap, dataindex, nopx, stopx, scanX, scanY);
     }
 
     if (nopx == scanX*scanY) {
@@ -688,23 +408,7 @@ void MainWindow::writeLineBreakData(roidata ROImap, int dataindex, int nopx, int
 void MainWindow::getCCDSettings(int width, int height) {
     std::cout<<"real ccd width: "<<width;
     std::cout<<"real ccd height: "<<height;
-
-    hsize_t fdim[] = {1};
-    DataSpace fspace(1, fdim);
-
-    DataSet* settingsgroupccdWidth = new DataSet(nexusfile->file->openDataSet("/measurement/settings/ccdWidth"));
-    int ccdWidth = width;
-    settingsgroupccdWidth->write(&ccdWidth, PredType::STD_I32LE, fspace);
-    settingsgroupccdWidth->close();
-    delete settingsgroupccdWidth;
-
-    DataSet* settingsgroupccdHeight = new DataSet(nexusfile->file->openDataSet("/measurement/settings/ccdHeight"));
-    int ccdHeight = height;
-    settingsgroupccdHeight->write(&ccdHeight, PredType::STD_I32LE, fspace);
-    settingsgroupccdHeight->close();
-    delete settingsgroupccdHeight;
-
-    fspace.close();
+    nexusfile->writeCCDSettings(width, height);
 }
 
 void MainWindow::checkIfScanIsFinished() {

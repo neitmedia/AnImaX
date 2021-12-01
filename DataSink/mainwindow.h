@@ -45,13 +45,7 @@ public slots:
 
 private slots:
     void updateSTXMPreview(int, int, int pixnum);
-
-    void addSDDDataChunk(int32_t pxnum, spectrumdata);
-
     void showEvent( QShowEvent* event );
-
-
-
     void on_pushButton_12_clicked();
 
 private:
