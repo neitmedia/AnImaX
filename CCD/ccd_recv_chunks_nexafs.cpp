@@ -123,9 +123,8 @@ int main (int argc, char** argv)
         	ready = true;
         }
     }
-    
+
     for (int scanc = 0; scanc < energy_count; scanc++) {
-    
             // tell the GUI that detector is ready ("statusdata" envelope with content "detector ready")
             gui.send(zmq::str_buffer("statusdata"), zmq::send_flags::sndmore);
             gui.send(zmq::str_buffer("detector ready"), zmq::send_flags::none);

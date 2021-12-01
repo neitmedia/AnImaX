@@ -67,6 +67,7 @@ void GUI::on_cmdStartScan_clicked()
         settings.scantype = "NEXAFS";
     } else if (ui->rdbXRF->isChecked()) {
         settings.scantype = "XRF";
+        settings.energycount = 1;
     }
 
     // set global variables to values
