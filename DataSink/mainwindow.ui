@@ -6,84 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>846</width>
-    <height>839</height>
+    <width>690</width>
+    <height>669</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>AnImaX data sink</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>151</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Datei öffnen</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>720</y>
-      <width>791</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="imagepreview">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>70</y>
-      <width>300</width>
-      <height>300</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>270</y>
-      <width>83</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;&lt;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>250</y>
-      <width>83</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&gt;&gt;</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>370</y>
+      <x>560</x>
+      <y>480</y>
       <width>62</width>
       <height>17</height>
      </rect>
@@ -92,359 +33,249 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>10</y>
-      <width>221</width>
-      <height>25</height>
+      <x>10</x>
+      <y>0</y>
+      <width>431</width>
+      <height>51</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Create HDF5 file</string>
+    <property name="title">
+     <string>settings</string>
     </property>
+    <widget class="QCheckBox" name="chbPreview">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>23</y>
+       <width>121</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>show preview</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="chbSaveData">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>23</y>
+       <width>131</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>save data to file</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>760</y>
-      <width>201</width>
-      <height>25</height>
+      <x>10</x>
+      <y>60</y>
+      <width>211</width>
+      <height>211</height>
      </rect>
     </property>
-    <property name="text">
-     <string>STXM Bild generieren</string>
+    <property name="title">
+     <string>ccd image preview</string>
     </property>
+    <widget class="QLabel" name="imagepreview">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>191</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
-   <widget class="QLabel" name="imagepreview_2">
+   <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>400</y>
-      <width>300</width>
-      <height>300</height>
+      <y>60</y>
+      <width>211</width>
+      <height>211</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
+    <property name="title">
+     <string>stxm transmission preview</string>
     </property>
+    <widget class="QLabel" name="imagepreview_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>191</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
-   <widget class="QLabel" name="minlabel">
+   <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>740</y>
-      <width>62</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="maxlabel">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>760</y>
-      <width>62</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="factor">
-    <property name="geometry">
-     <rect>
-      <x>550</x>
-      <y>690</y>
-      <width>62</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>440</y>
-      <width>231</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>fluo file size:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="fluofilesize">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>610</y>
-      <width>421</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>420</y>
-      <width>101</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>fluo file name:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="fluofilename">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>590</y>
-      <width>711</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_6">
-    <property name="geometry">
-     <rect>
-      <x>712</x>
-      <y>310</y>
-      <width>101</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>send data</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_7">
-    <property name="geometry">
-     <rect>
-      <x>712</x>
-      <y>340</y>
-      <width>101</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>start thread</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_8">
-    <property name="geometry">
-     <rect>
-      <x>712</x>
+      <x>10</x>
       <y>370</y>
-      <width>101</width>
-      <height>25</height>
+      <width>671</width>
+      <height>271</height>
      </rect>
     </property>
-    <property name="text">
-     <string>stop thread</string>
+    <property name="title">
+     <string>status log</string>
     </property>
+    <widget class="QListWidget" name="lstStatusLog">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>651</width>
+       <height>201</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="chbSaveLogToFile">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>240</y>
+       <width>121</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>save log to file</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txtLogFileName">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>240</y>
+       <width>451</width>
+       <height>23</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cmdSelectLogFile">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>240</y>
+       <width>71</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Select...</string>
+     </property>
+    </widget>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QGroupBox" name="groupBox_5">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>50</y>
-      <width>111</width>
-      <height>17</height>
+      <x>10</x>
+      <y>280</y>
+      <width>671</width>
+      <height>81</height>
      </rect>
     </property>
-    <property name="text">
-     <string>CCD publisher IP</string>
+    <property name="title">
+     <string>current status</string>
     </property>
+    <widget class="QLabel" name="lblStatus">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>651</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblFilename">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>651</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
-   <widget class="QLineEdit" name="txtCCDPublisherIP">
+   <widget class="QGroupBox" name="grbROIs">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>70</y>
-      <width>121</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>127.0.0.1</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_9">
-    <property name="geometry">
-     <rect>
-      <x>672</x>
-      <y>410</y>
-      <width>161</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>start sdd thread</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_10">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>440</y>
-      <width>161</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>start beamline thread</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>611</x>
-      <y>470</y>
-      <width>61</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>energy:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>500</y>
-      <width>71</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>pressure:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_8">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>530</y>
-      <width>91</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ring current:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="txtEnergy">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>470</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="txtPressure">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>500</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="txtRingCurrent">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>530</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_11">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>260</y>
-      <width>101</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Ready</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="chbPreview">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>20</y>
-      <width>151</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Vorschau anzeigen</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="chbSaveData">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>20</y>
+      <x>450</x>
+      <y>0</y>
       <width>231</width>
-      <height>23</height>
+      <height>271</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Daten speichern</string>
+    <property name="title">
+     <string>Spectral ROIs / XRF preview</string>
     </property>
-    <property name="checked">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_12">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>140</y>
-      <width>83</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>create testfile</string>
-    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Select ROI:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cmbROISelect">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>25</y>
+       <width>131</width>
+       <height>24</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblROIPreview">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>211</width>
+       <height>191</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -452,12 +283,23 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>846</width>
-     <height>22</height>
+     <width>690</width>
+     <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionClose"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionClose">
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -41,7 +41,6 @@ void GUI::on_cmdStartScan_clicked()
     settings.scanWidth = ui->spbScanWidth->value();
     settings.ccdHeight = ui->spbCCDHeight->value();
     settings.ccdWidth = ui->spbCCDWidth->value();
-    settings.sddChannels = ui->spbSDDChannels->value();
     settings.roidefinitions = ui->txtROIdefinitions->toPlainText().toStdString();
     settings.energycount = ui->lstEnergies->count();
     settings.energies = (float*) malloc(ui->lstEnergies->count()*sizeof(float));
@@ -76,8 +75,6 @@ void GUI::on_cmdStartScan_clicked()
 
     ccdX = settings.ccdWidth;
     ccdY = settings.ccdHeight;
-
-    sddChannels = settings.sddChannels;
 
     // start "scan" thread
     Scan = new scan(settings);
@@ -155,7 +152,17 @@ void GUI::showROI(std::string element, std::string previewdata) {
         }
 
         QPixmap pixmp = QPixmap::fromImage(image);
-        QPixmap scaledpixmp = pixmp.scaledToHeight(ui->ROIPPreview->height());
+
+        QPixmap scaledpixmp;
+
+        if (scanX>=scanY) {
+          scaledpixmp = QPixmap::fromImage(image).scaledToWidth(ui->ROIPPreview->width());
+        }
+
+        if (scanX<scanY) {
+          scaledpixmp = QPixmap::fromImage(image).scaledToHeight(ui->ROIPPreview->height());
+        }
+
         if (element == "P") {
             ui->ROIPPreview->setPixmap(scaledpixmp);
         } else if (element == "O") {
@@ -214,7 +221,16 @@ void GUI::showPreview(std::string previewtype, std::string previewdata) {
         }
 
         QPixmap pixmp = QPixmap::fromImage(image);
-        QPixmap scaledpixmp = pixmp.scaledToHeight(ui->stxmPreview->height());
+        QPixmap scaledpixmp;
+
+        if (scanX>=scanY) {
+          scaledpixmp = QPixmap::fromImage(image).scaledToWidth(ui->stxmPreview->width());
+        }
+
+        if (scanX<scanY) {
+          scaledpixmp = QPixmap::fromImage(image).scaledToHeight(ui->stxmPreview->height());
+        }
+
         ui->stxmPreview->setPixmap(scaledpixmp);
     }
 
@@ -264,8 +280,8 @@ void GUI::showPreview(std::string previewtype, std::string previewdata) {
                 }
 
         QPixmap pixmp = QPixmap::fromImage(image);
-        QPixmap scaledpixmp = pixmp.scaledToHeight(ui->ccdPreview->height());
-        ui->ccdPreview->setPixmap(scaledpixmp);
+
+        ui->ccdPreview->setPixmap(pixmp);
     }
 
 }

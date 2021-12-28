@@ -66,7 +66,6 @@ void controlThread::run()
                 settings.scanHeight = Measurement.height();
                 settings.ccdHeight = Measurement.ccdheight();
                 settings.ccdWidth = Measurement.ccdwidth();
-                settings.sddChannels = 4096;
                 settings.roidefinitions = Measurement.roidefinitions();
                 settings.scantype = Measurement.scantype();
                 settings.ccdIP = Measurement.ccdip();

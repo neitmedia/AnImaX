@@ -14,6 +14,10 @@
 #include <structs.h>
 #include <QDateTime>
 #include <QSettings>
+#include <QListWidgetItem>
+#include <QJsonParseError>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 #include "H5Cpp.h"
 using namespace H5;
@@ -23,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // register Metatypes to be able to use them with signals/slots
     qRegisterMetaType<imagepixeldata>( "imagepixeldata" );
     qRegisterMetaType<spectrumdata>( "spectrumdata" );
     qRegisterMetaType<settingsdata>( "settingsdata" );
@@ -30,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent)
     qRegisterMetaType<std::string>();
     qRegisterMetaType<imagepreviewdata>( "imagepreviewdata" );
     qRegisterMetaType<roidata>( "roidata" );
+
+    // create filename of first file
     hdf5filename = "measurement_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
 }
 
@@ -50,7 +57,9 @@ void MainWindow::showEvent( QShowEvent* event ) {
 
     settings.endGroup();
 
-    std::cout<<"GUI IP: "<<guiIP.toStdString()<<" GUI PORT: "<<guiPort.toStdString()<<std::endl;
+    // add log item
+    addLogItem("read network settings from file "+settings.fileName());
+    addLogItem("GUI - "+guiIP+":"+guiPort);
 
     if ((guiIP == "") || (guiPort == "")) {
         // write standard IP settings to ini file
@@ -63,13 +72,47 @@ void MainWindow::showEvent( QShowEvent* event ) {
         settings.endGroup();
     }
 
+    // set log filename
+    QString logpath = QDir::currentPath();
+    qint64 qiTimestamp=QDateTime::currentMSecsSinceEpoch();
+    QDateTime dt;
+    dt.setTime_t(qiTimestamp/1000);
+    QString datestring = dt.toString("yyyy-MM-dd-hh-mm-ss");
+    QString logfile = "measurement_"+datestring+".log";
+
+    QString logfilepath = logpath+"/"+logfile;
+
+    ui->txtLogFileName->setText(logfilepath);
+
     // launch control thread
     controlth = new controlThread(guiIP+':'+guiPort);
     const bool connected = connect(controlth, SIGNAL(sendSettingsToGUI(settingsdata)),this,SLOT(getScanSettings(settingsdata)));
     const bool connected2 = connect(controlth, SIGNAL(sendMetadataToGUI(metadata)),this,SLOT(getMetadata(metadata)));
-
     controlth->start();
 
+    // add log item
+    addLogItem("launched control thread");
+}
+
+void MainWindow::addLogItem(QString logtext) {
+    qint64 qiTimestamp=QDateTime::currentMSecsSinceEpoch();
+    QDateTime dt;
+    dt.setTime_t(qiTimestamp/1000);
+    QString datestring = dt.toString("yyyy-MM-dd hh:mm:ss");
+
+    new QListWidgetItem(datestring+": "+logtext, ui->lstStatusLog);
+
+    ui->lstStatusLog->scrollToBottom();
+
+    // if "save to file"-checkbox is checked, save log entry to file
+    if (ui->chbSaveLogToFile->isChecked()) {
+        QString filename = ui->txtLogFileName->text();
+        QFile file(filename);
+        if (file.open(QIODevice::ReadWrite | QIODevice::Append)) {
+            QTextStream stream(&file);
+            stream << datestring+": "+logtext << Qt::endl;
+        }
+    }
 }
 
 void MainWindow::getMetadata(metadata metadata) {
@@ -79,11 +122,11 @@ void MainWindow::getMetadata(metadata metadata) {
         nexusfile->writeMetadata(metadata);
     }
 
-    std::cout<<"gui got metadata - "<<metadata.acquisition_number;
+    // add log item
+    addLogItem("received metadata");
 }
 
 void MainWindow::getScanSettings(settingsdata settings) {
-    std::cout<<"gui knows settings:"<<std::endl;
     scansettings = settings;
 
     ccdX = scansettings.ccdWidth;
@@ -92,8 +135,13 @@ void MainWindow::getScanSettings(settingsdata settings) {
     scanX = scansettings.scanWidth;
     scanY = scansettings.scanHeight;
 
-    // allocate memory for transmission preview image
+    // allocate memory for STXM transmission preview image
     stxmimage = (uint32_t*) malloc(scanX*scanY*sizeof(uint32_t));
+
+    // make sure stxmimage contains only zeros
+    for (int i=0;i<=scanX*scanY;i++) {
+        stxmimage[i] = 0;
+    }
 
     std::cout<<"ccd ip:port "<<scansettings.ccdIP+':'+std::to_string(scansettings.ccdPort)<<std::endl;
     std::cout<<"sdd ip:port "<<scansettings.sddIP+':'+std::to_string(scansettings.sddPort)<<std::endl;
@@ -102,6 +150,17 @@ void MainWindow::getScanSettings(settingsdata settings) {
     hdf5filename = "measurement_testmessung_1_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
     nexusfile = new hdf5nexus();
     nexusfile->createDataFile(hdf5filename, scansettings);
+    ui->lblFilename->setText("current file: "+hdf5filename);
+    addLogItem("created file "+hdf5filename);
+
+    // prepare ROI preview labels
+    QJsonParseError jsonError;
+    QString roijson = QString::fromStdString(scansettings.roidefinitions);
+    QJsonDocument document = QJsonDocument::fromJson(roijson.toLocal8Bit(), &jsonError);
+    QJsonObject jsonObj = document.object();
+    foreach(QString key, jsonObj.keys()) {
+        ui->cmbROISelect->addItem(key);
+    }
 
     // start ccd thread
     ccd = new zmqThread(QString::fromStdString(scansettings.ccdIP+':'+std::to_string(scansettings.ccdPort)), scanX, scanY);
@@ -151,16 +210,23 @@ void MainWindow::getScanSettings(settingsdata settings) {
 
     // tell control thread that it should listen for metadata
     controlth->waitForMetadata = true;
+
+    // add log item
+    addLogItem("received scan settings");
 }
 
 void MainWindow::ccdReady() {
     std::cout<<"GUI knows that CCD is ready"<<std::endl;
     controlth->ccdReady = true;
+    // add log item
+    addLogItem("ccd is ready");
 }
 
 void MainWindow::sddReady() {
     std::cout<<"GUI knows that SDD is ready"<<std::endl;
     controlth->sddReady = true;
+    // add log item
+    addLogItem("sdd is ready");
 }
 
 void MainWindow::updateSTXMPreview(int scanX, int scanY, int pixnum) {
@@ -195,12 +261,15 @@ void MainWindow::updateSTXMPreview(int scanX, int scanY, int pixnum) {
          }
        }
 
-       ui->minlabel->setText(QString::number(min));
-       ui->maxlabel->setText(QString::number(max));
-       ui->factor->setText(QString::number(factor));
+       QPixmap scaledpixmp;
+       if (scanX>=scanY) {
+         scaledpixmp = QPixmap::fromImage(image).scaledToWidth(ui->imagepreview_2->width());
+       }
 
-       ui->imagepreview_2->setGeometry(230, 400, scanX*2, scanY*2);
-       QPixmap scaledpixmp = QPixmap::fromImage(image).scaledToWidth(scanX*2);
+       if (scanX<scanY) {
+         scaledpixmp = QPixmap::fromImage(image).scaledToHeight(ui->imagepreview_2->height());
+       }
+
        ui->imagepreview_2->setPixmap(scaledpixmp);
 }
 
@@ -248,10 +317,11 @@ void MainWindow::getImageData(int cntx, std::string datax) {
 
         double factor = 65535/(max-min);
 
-        ui->label_3->setText("image #"+QString::number(cntx)+" received");
-
         if (ui->chbPreview->isChecked()) {
             if (((cntx+1)%scanX) == 0) {
+
+                 ui->lblStatus->setText("image #"+QString::number(cntx)+" received");
+
                  QImage image = QImage(ccdX, ccdY, QImage::Format_Grayscale16);
                  for (int j = 0; j < ccdY; ++j)
                  {
@@ -264,9 +334,8 @@ void MainWindow::getImageData(int cntx, std::string datax) {
                  }
 
                  QPixmap pixmp = QPixmap::fromImage(image);
-                 QPixmap scaledpixmp = pixmp.scaledToHeight(300);
 
-                 ui->imagepreview->setPixmap(scaledpixmp);
+                 ui->imagepreview->setPixmap(pixmp);
              }
         }
 
@@ -375,6 +444,8 @@ void MainWindow::getImageData(int cntx, std::string datax) {
 
     if (cntx == (scanX*scanY)-1) {
         ccdReceived = true;
+        // add log item
+        addLogItem("fully received ccd data");
         checkIfScanIsFinished();
     }
 }
@@ -402,6 +473,68 @@ void MainWindow::writeLineBreakData(roidata ROImap, int dataindex, int nopx, int
     if (nopx == scanX*scanY) {
         sddReceived = true;
         checkIfScanIsFinished();
+        addLogItem("fully received sdd data");
+    }
+
+    // if preview checkbox is checked, show ROI preview
+    if (ui->chbPreview->isChecked()) {
+        u_int32_t max = 0;
+        u_int32_t min = 0xFFFFFFFF;
+
+        unsigned long count = 0;
+
+        unsigned long pixelcount = scanX*scanY;
+        unsigned long bytecount = pixelcount*sizeof(uint32_t);
+
+        std::string ROIelement = ui->cmbROISelect->currentText().toStdString();
+
+        uint32_t previewimage[pixelcount];
+
+        QVector<uint32_t> roidata = ROImap[ROIelement];
+
+        for (unsigned long i = 0; i < pixelcount; i++) {
+            if ((i+3) < (unsigned long) roidata.length()) {
+                uint32_t pixelvalue = roidata.at(i);
+
+                if (pixelvalue > max) {
+                    max = pixelvalue;
+                }
+                if (pixelvalue < min) {
+                    min = pixelvalue;
+                }
+
+                previewimage[count] = pixelvalue;
+            } else {
+                previewimage[count] = 0;
+            }
+            count++;
+        }
+
+        double factor =(double)65535/(max-min);
+
+        QImage image = QImage(scanX, scanY, QImage::Format_Grayscale16);
+        count = 0;
+        for (int j = 0; j < scanY; ++j) {
+          quint16 *dst = (quint16*)(image.bits() + j * image.bytesPerLine());
+          for (int i = 0; i < scanX; ++i) {
+            dst[i] = floor((previewimage[i + j * scanX]-min)*factor);
+            std::cout<<"roi preview debug: "<<dst[10]<<std::endl;
+            count++;
+          }
+        }
+
+        QPixmap scaledpixmp;
+
+        if (scanX>=scanY) {
+          scaledpixmp = QPixmap::fromImage(image).scaledToWidth(ui->imagepreview->width());
+        }
+
+        if (scanX<scanY) {
+          scaledpixmp = QPixmap::fromImage(image).scaledToHeight(ui->imagepreview->height());
+        }
+
+        ui->lblROIPreview->setPixmap(scaledpixmp);
+
     }
 }
 
@@ -414,6 +547,7 @@ void MainWindow::getCCDSettings(int width, int height) {
 void MainWindow::checkIfScanIsFinished() {
     if ((sddReceived) && (ccdReceived)) {
         nexusfile->closeDataFile();
+        addLogItem("closed file "+hdf5filename);
         sddReceived = false;
         ccdReceived = false;
 
@@ -421,15 +555,26 @@ void MainWindow::checkIfScanIsFinished() {
 
         int currentScanNumber = currentmetadata.acquisition_number;
 
-        ui->label_3->setText("scan "+QString::number(currentScanNumber)+" finished");
+        ui->lblStatus->setText("scan "+QString::number(currentScanNumber)+" finished");
+        addLogItem("scan "+QString::number(currentScanNumber)+" finished");
 
         if ((scansettings.scantype == "NEXAFS") && (currentmetadata.acquisition_number < scansettings.energycount)) {
+
+            // clear stxm transmission preview
+            for (int i=0;i<=scanX*scanY;i++) {
+                stxmimage[i] = 0;
+            }
+
+            // incremement acquisition number
             currentmetadata.acquisition_number++;
             hdf5filename = "measurement_testmessung_"+QString::number(currentmetadata.acquisition_number)+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
 
             nexusfile = new hdf5nexus();
             nexusfile->createDataFile(hdf5filename, scansettings);
-            ui->label_3->setText("created new datafile "+hdf5filename);
+
+            addLogItem("created file "+hdf5filename);
+
+            ui->lblFilename->setText("current file: "+hdf5filename);
             std::cout<<"created datafile "<<hdf5filename.toStdString()<<std::endl;
 
             std::cout<<"scan part is ready"<<std::endl;
@@ -454,18 +599,15 @@ void MainWindow::checkIfScanIsFinished() {
     }
 }
 
-void MainWindow::on_pushButton_12_clicked()
+void MainWindow::on_actionClose_triggered()
 {
-    scansettings.roidefinitions = "";
-    scansettings.ccdHeight = 128;
-    scansettings.ccdWidth = 128;
-    scansettings.scanHeight = 40;
-    scansettings.scanWidth = 30;
-    scansettings.scantype = "XRF";
-    scansettings.sddChannels = 4096;
+    qApp->closeAllWindows();
+}
 
-    nexusfile = new hdf5nexus();
-    nexusfile->createDataFile("testfile.h5", scansettings);
-    nexusfile->closeDataFile();
+
+void MainWindow::on_cmdSelectLogFile_clicked()
+{
+    QString logFileName = QFileDialog::getSaveFileName(this, tr("Save log file"), "/", tr("Log Files (*.log)"));
+    ui->txtLogFileName->setText(logFileName);
 }
 

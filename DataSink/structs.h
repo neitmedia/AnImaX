@@ -8,7 +8,6 @@ struct settingsdata {
     int scanWidth;
     int ccdHeight;
     int ccdWidth;
-    int sddChannels;
     int energycount;
     float *energies;
     std::string datasinkIP;

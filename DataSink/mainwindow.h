@@ -44,9 +44,13 @@ public slots:
     void checkIfScanIsFinished();
 
 private slots:
+    void addLogItem(QString);
     void updateSTXMPreview(int, int, int pixnum);
     void showEvent( QShowEvent* event );
-    void on_pushButton_12_clicked();
+
+    void on_actionClose_triggered();
+
+    void on_cmdSelectLogFile_clicked();
 
 private:
     Ui::MainWindow *ui;

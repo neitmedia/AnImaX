@@ -410,7 +410,6 @@ void hdf5nexus::writeLineBreakDataAndROIs(roidata ROImap, int dataindex, int nop
         stopx = scanY;
     }
 
-
     // write ROIs
     if ((nopx != 0) && (stopx != 0)) {
         auto const ROIkeys = ROImap.keys();
