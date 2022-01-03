@@ -34,6 +34,10 @@ private slots:
 
     void showROI(std::string, std::string);
 
+    void on_cmdDeleteEnergy_clicked();
+
+    void on_cmdAddEnergy_clicked();
+
 private:
     Ui::GUI *ui;
     scan* Scan;

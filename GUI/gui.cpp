@@ -37,20 +37,34 @@ void GUI::on_cmdStartScan_clicked()
 
     // get settings from UI and put them in a variable of type "settingsdata"
     settingsdata settings;
+
     settings.scanHeight = ui->spbScanHeight->value();
     settings.scanWidth = ui->spbScanWidth->value();
-    settings.ccdHeight = ui->spbCCDHeight->value();
-    settings.ccdWidth = ui->spbCCDWidth->value();
-    settings.roidefinitions = ui->txtROIdefinitions->toPlainText().toStdString();
+
+    settings.save_path = ui->txtFilePath->text().toStdString();
+    settings.save_file = ui->txtFileName->text().toStdString();
+
+    // write scan width and height into global variables
+    scanX = settings.scanWidth;
+    scanY = settings.scanHeight;
+
     settings.energycount = ui->lstEnergies->count();
     settings.energies = (float*) malloc(ui->lstEnergies->count()*sizeof(float));
-
     for(int i = 0; i < ui->lstEnergies->count(); ++i)
     {
         QListWidgetItem* item = ui->lstEnergies->item(i);
         settings.energies[i] = item->text().toFloat();
     }
+    settings.roidefinitions = ui->txtROIdefinitions->toPlainText().toStdString();
 
+    if (ui->rdbNEXAFS->isChecked()) {
+        settings.scantype = "NEXAFS";
+    } else if (ui->rdbXRF->isChecked()) {
+        settings.scantype = "XRF";
+        settings.energycount = 1;
+    }
+
+    // network settings
     settings.datasinkIP = ui->txtDataSinkIP->text().toStdString();
     settings.datasinkPort = ui->spbDataSinkPort->value();
 
@@ -62,19 +76,45 @@ void GUI::on_cmdStartScan_clicked()
 
     settings.guiPort = ui->spbGUIPort->value();
 
-    if (ui->rdbNEXAFS->isChecked()) {
-        settings.scantype = "NEXAFS";
-    } else if (ui->rdbXRF->isChecked()) {
-        settings.scantype = "XRF";
-        settings.energycount = 1;
-    }
-
-    // set global variables to values
-    scanX = settings.scanWidth;
-    scanY = settings.scanHeight;
-
+    // ccd settings
+    settings.ccdHeight = ui->spbCCDHeight->value();
+    settings.ccdWidth = ui->spbCCDWidth->value();
+    // write ccd width and height into global variables
     ccdX = settings.ccdWidth;
     ccdY = settings.ccdHeight;
+
+    // sdd settings
+    settings.sebitcount = ui->spbSebitcount->value();
+    settings.filter = ui->cmbFilter->currentIndex();
+    settings.energyrange = ui->cmbEnergyrange->currentIndex();
+    settings.tempmode = ui->cmbTempmode->currentIndex();
+    settings.zeropeakperiod = ui->spbZeroPeakPeriod->value();
+    settings.checktemperature = ui->cmbCheckTemperature->currentIndex();
+
+    if (ui->cmbAcquisionMode->currentIndex() == 0) {
+        settings.acquisitionmode = 0;
+    }
+
+    if (ui->cmbAcquisionMode->currentIndex() == 1) {
+        settings.acquisitionmode = 4;
+    }
+
+    settings.sdd1 = ui->chbSDD1->isChecked();
+    settings.sdd2 = ui->chbSDD2->isChecked();
+    settings.sdd3 = ui->chbSDD3->isChecked();
+    settings.sdd4 = ui->chbSSD4->isChecked();
+
+    // sample settings
+    settings.sample_name = ui->txtSampleName->text().toStdString();
+    settings.sample_type = ui->txtSampleType->text().toStdString();
+    settings.sample_note = ui->txtSampleNote->toPlainText().toStdString();
+    settings.sample_width = ui->dsbSampleWidth->value();
+    settings.sample_height = ui->dsbSampleHeight->value();
+    settings.sample_rotation_angle = ui->dsbSampleRotationAngle->value();
+
+    // additional settings
+    settings.notes = ui->txtScanNote->toPlainText().toStdString();
+    settings.userdata = ui->txtUserInfo->toPlainText().toStdString();
 
     // start "scan" thread
     Scan = new scan(settings);
@@ -284,5 +324,23 @@ void GUI::showPreview(std::string previewtype, std::string previewdata) {
         ui->ccdPreview->setPixmap(pixmp);
     }
 
+}
+
+
+void GUI::on_cmdDeleteEnergy_clicked()
+{
+    // delete selected energy entries
+    QList<QListWidgetItem*> items = ui->lstEnergies->selectedItems();
+
+    foreach(QListWidgetItem * item, items)
+    {
+        delete ui->lstEnergies->takeItem(ui->lstEnergies->row(item));
+    }
+}
+
+
+void GUI::on_cmdAddEnergy_clicked()
+{
+    ui->lstEnergies->addItem(QString::number(ui->spbNewEnergy->value()));
 }
 

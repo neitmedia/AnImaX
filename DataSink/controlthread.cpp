@@ -62,19 +62,52 @@ void controlThread::run()
 
                 // get settings from protobuf and write them into settingsdata variable "settings"
                 settingsdata settings;
+
+                // general scan settings
                 settings.scanWidth = Measurement.width();
                 settings.scanHeight = Measurement.height();
-                settings.ccdHeight = Measurement.ccdheight();
-                settings.ccdWidth = Measurement.ccdwidth();
+                settings.energycount = Measurement.energy_count();
                 settings.roidefinitions = Measurement.roidefinitions();
                 settings.scantype = Measurement.scantype();
+                settings.save_path = Measurement.save_path();
+                settings.save_file = Measurement.save_file();
+
+                // network settings
                 settings.ccdIP = Measurement.ccdip();
                 settings.ccdPort = Measurement.ccdport();
                 settings.sddIP = Measurement.sddip();
                 settings.sddPort = Measurement.sddport();
                 settings.datasinkIP = Measurement.datasinkip();
                 settings.datasinkPort = Measurement.datasinkport();
-                settings.energycount = Measurement.energy_count();
+
+                // ccd settings
+                settings.ccdHeight = Measurement.ccdheight();
+                settings.ccdWidth = Measurement.ccdwidth();
+
+                // sdd settings
+                settings.sebitcount = Measurement.sebitcount();
+                settings.filter = Measurement.filter();
+                settings.energyrange = Measurement.energyrange();
+                settings.tempmode = Measurement.tempmode();
+                settings.zeropeakperiod = Measurement.zeropeakperiod();
+                settings.acquisitionmode = Measurement.zeropeakperiod();
+                settings.checktemperature = Measurement.checktemperature();
+                settings.sdd1 = Measurement.sdd1();
+                settings.sdd2 = Measurement.sdd2();
+                settings.sdd3 = Measurement.sdd3();
+                settings.sdd4 = Measurement.sdd4();
+
+                // sample settings
+                settings.sample_name = Measurement.sample_name();
+                settings.sample_type = Measurement.sample_type();
+                settings.sample_width = Measurement.sample_width();
+                settings.sample_height = Measurement.sample_height();
+                settings.sample_rotation_angle = Measurement.sample_rotation_angle();
+                settings.sample_note = Measurement.sample_note();
+
+                // additional settings
+                settings.notes = Measurement.notes();
+                settings.userdata = Measurement.userdata();
 
                 if (!connected) {
                     // Prepare publisher
@@ -113,7 +146,12 @@ void controlThread::run()
 
                     metadata metadata;
                     metadata.acquisition_number = Metadata.acquisition_number();
+                    metadata.acquisition_time = Metadata.acquisition_time();
+                    metadata.set_energy = Metadata.set_energy();
                     metadata.beamline_energy = Metadata.beamline_energy();
+                    metadata.ringcurrent = Metadata.ringcurrent();
+                    metadata.horizontal_shutter = Metadata.horizontal_shutter();
+                    metadata.vertical_shutter = Metadata.vertical_shutter();
 
                     emit sendMetadataToGUI(metadata);
                     waitForMetadata = false;

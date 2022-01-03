@@ -120,6 +120,7 @@ void MainWindow::getMetadata(metadata metadata) {
 
     if (ui->chbSaveData->isChecked()) {
         nexusfile->writeMetadata(metadata);
+        nexusfile->writeCCDSettings(realccdX, realccdY);
     }
 
     // add log item
@@ -147,11 +148,25 @@ void MainWindow::getScanSettings(settingsdata settings) {
     std::cout<<"sdd ip:port "<<scansettings.sddIP+':'+std::to_string(scansettings.sddPort)<<std::endl;
 
     // create HDF5/NeXus file
-    hdf5filename = "measurement_testmessung_1_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
+    // check if provided path exists
+    QFileInfo my_dir(QString::fromStdString(scansettings.save_path));
+
+    // if provided path exists and is writable, write file to this folder
+    if ((my_dir.exists()) && (my_dir.isWritable())) {
+        addLogItem("provided folder "+QString::fromStdString(scansettings.save_path)+" exists and is writetable, create file...");
+        hdf5filename = QString::fromStdString(scansettings.save_path)+"/measurement_"+QString::fromStdString(scansettings.save_file)+"_1_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
+    // if provided path does not exist or is not writable, write file to application folder
+    } else {
+        addLogItem("provided folder "+QString::fromStdString(scansettings.save_path)+" does not exist or is not writetable, create file in application directory...");
+        hdf5filename = "measurement_"+QString::fromStdString(scansettings.save_file)+"_1_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
+    }
+
+    // create HDF5/NeXus file
     nexusfile = new hdf5nexus();
     nexusfile->createDataFile(hdf5filename, scansettings);
+
+    // show filename in GUI
     ui->lblFilename->setText("current file: "+hdf5filename);
-    addLogItem("created file "+hdf5filename);
 
     // prepare ROI preview labels
     QJsonParseError jsonError;
@@ -541,7 +556,8 @@ void MainWindow::writeLineBreakData(roidata ROImap, int dataindex, int nopx, int
 void MainWindow::getCCDSettings(int width, int height) {
     std::cout<<"real ccd width: "<<width;
     std::cout<<"real ccd height: "<<height;
-    nexusfile->writeCCDSettings(width, height);
+    realccdX = width;
+    realccdY = height;
 }
 
 void MainWindow::checkIfScanIsFinished() {
@@ -567,7 +583,18 @@ void MainWindow::checkIfScanIsFinished() {
 
             // incremement acquisition number
             currentmetadata.acquisition_number++;
-            hdf5filename = "measurement_testmessung_"+QString::number(currentmetadata.acquisition_number)+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
+
+            QFileInfo my_dir(QString::fromStdString(scansettings.save_path));
+
+            // if provided path exists and is writable, write file to this folder
+            if ((my_dir.exists()) && (my_dir.isWritable())) {
+                addLogItem("provided folder "+QString::fromStdString(scansettings.save_path)+" exists and is writetable, create file...");
+                hdf5filename = QString::fromStdString(scansettings.save_path)+"/measurement_"+QString::fromStdString(scansettings.save_file)+"_"+QString::number(currentmetadata.acquisition_number)+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
+            // if provided path does not exist or is not writable, write file to application folder
+            } else {
+                addLogItem("provided folder "+QString::fromStdString(scansettings.save_path)+" does not exist or is not writetable, create file in application directory...");
+                hdf5filename = "measurement_"+QString::fromStdString(scansettings.save_file)+"_"+QString::number(currentmetadata.acquisition_number)+"_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
+            }
 
             nexusfile = new hdf5nexus();
             nexusfile->createDataFile(hdf5filename, scansettings);

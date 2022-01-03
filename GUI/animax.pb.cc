@@ -47,10 +47,10 @@ constexpr Measurement::Measurement(
   , zeropeakperiod_(0)
   , acquisitionmode_(0)
   , checktemperature_(0)
-  , sdd1_(0)
-  , sdd2_(0)
-  , sdd3_(0)
-  , sdd4_(0)
+  , sdd1_(false)
+  , sdd2_(false)
+  , sdd3_(false)
+  , sdd4_(false)
   , ccdheight_(0)
   , ccdwidth_(0)
   , sample_width_(0)
@@ -67,8 +67,9 @@ struct MeasurementDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MeasurementDefaultTypeInternal _Measurement_default_instance_;
 constexpr Metadata::Metadata(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : acquisition_number_(0)
-  , acquisition_time_(0)
+  : acquisition_time_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , acquisition_number_(0)
+  , set_energy_(0)
   , beamline_energy_(0)
   , ringcurrent_(0)
   , horizontal_shutter_(false)
@@ -178,13 +179,13 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animax_2eproto::offsets[] PROT
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, save_file_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, energy_count_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, energies_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, roidefinitions_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, datasinkip_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, datasinkport_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, sddip_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, sddport_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, ccdip_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, ccdport_),
-  PROTOBUF_FIELD_OFFSET(::animax::Measurement, roidefinitions_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, sebitcount_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, filter_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, energyrange_),
@@ -213,6 +214,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animax_2eproto::offsets[] PROT
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::animax::Metadata, acquisition_number_),
   PROTOBUF_FIELD_OFFSET(::animax::Metadata, acquisition_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::Metadata, set_energy_),
   PROTOBUF_FIELD_OFFSET(::animax::Metadata, beamline_energy_),
   PROTOBUF_FIELD_OFFSET(::animax::Metadata, ringcurrent_),
   PROTOBUF_FIELD_OFFSET(::animax::Metadata, horizontal_shutter_),
@@ -262,12 +264,12 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animax_2eproto::offsets[] PROT
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::animax::Measurement)},
   { 41, -1, sizeof(::animax::Metadata)},
-  { 52, -1, sizeof(::animax::sdd)},
-  { 58, -1, sizeof(::animax::ccd)},
-  { 65, -1, sizeof(::animax::ccdsettings)},
-  { 72, -1, sizeof(::animax::preview)},
-  { 79, -1, sizeof(::animax::ROI)},
-  { 87, -1, sizeof(::animax::scanstatus)},
+  { 53, -1, sizeof(::animax::sdd)},
+  { 59, -1, sizeof(::animax::ccd)},
+  { 66, -1, sizeof(::animax::ccdsettings)},
+  { 73, -1, sizeof(::animax::preview)},
+  { 80, -1, sizeof(::animax::ROI)},
+  { 88, -1, sizeof(::animax::scanstatus)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -286,35 +288,36 @@ const char descriptor_table_protodef_animax_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\n\005width\030\001 \001(\005\022\016\n\006height\030\002 \001(\005\022\030\n\020acquisi"
   "tion_time\030\003 \001(\005\022\020\n\010scantype\030\004 \001(\t\022\021\n\tsav"
   "e_path\030\005 \001(\t\022\021\n\tsave_file\030\006 \001(\t\022\024\n\014energ"
-  "y_count\030\007 \001(\005\022\020\n\010energies\030\010 \003(\005\022\022\n\ndatas"
-  "inkIP\030\t \001(\t\022\024\n\014datasinkPort\030\n \001(\005\022\r\n\005sdd"
-  "IP\030\013 \001(\t\022\017\n\007sddPort\030\014 \001(\005\022\r\n\005ccdIP\030\r \001(\t"
-  "\022\017\n\007ccdPort\030\016 \001(\005\022\026\n\016ROIdefinitions\030\017 \001("
-  "\t\022\022\n\nsebitcount\030\020 \001(\005\022\016\n\006filter\030\021 \001(\005\022\023\n"
+  "y_count\030\007 \001(\005\022\020\n\010energies\030\010 \003(\005\022\026\n\016ROIde"
+  "finitions\030\017 \001(\t\022\022\n\ndatasinkIP\030\t \001(\t\022\024\n\014d"
+  "atasinkPort\030\n \001(\005\022\r\n\005sddIP\030\013 \001(\t\022\017\n\007sddP"
+  "ort\030\014 \001(\005\022\r\n\005ccdIP\030\r \001(\t\022\017\n\007ccdPort\030\016 \001("
+  "\005\022\022\n\nsebitcount\030\020 \001(\005\022\016\n\006filter\030\021 \001(\005\022\023\n"
   "\013energyrange\030\022 \001(\005\022\020\n\010tempmode\030\023 \001(\005\022\026\n\016"
   "zeropeakperiod\030\024 \001(\005\022\027\n\017acquisitionmode\030"
   "\025 \001(\005\022\030\n\020checktemperature\030\026 \001(\005\022\014\n\004sdd1\030"
-  "\027 \001(\005\022\014\n\004sdd2\030\030 \001(\005\022\014\n\004sdd3\030\031 \001(\005\022\014\n\004sdd"
-  "4\030\032 \001(\005\022\021\n\tccdheight\030\033 \001(\005\022\020\n\010ccdwidth\030\034"
+  "\027 \001(\010\022\014\n\004sdd2\030\030 \001(\010\022\014\n\004sdd3\030\031 \001(\010\022\014\n\004sdd"
+  "4\030\032 \001(\010\022\021\n\tccdheight\030\033 \001(\005\022\020\n\010ccdwidth\030\034"
   " \001(\005\022\023\n\013sample_name\030\035 \001(\t\022\023\n\013sample_type"
   "\030\036 \001(\t\022\023\n\013sample_note\030\037 \001(\t\022\024\n\014sample_wi"
   "dth\030  \001(\002\022\025\n\rsample_height\030! \001(\002\022\035\n\025samp"
   "le_rotation_angle\030\" \001(\002\022\r\n\005notes\030# \001(\t\022\020"
-  "\n\010userdata\030$ \001(\t\"\244\001\n\010Metadata\022\032\n\022acquisi"
+  "\n\010userdata\030$ \001(\t\"\270\001\n\010Metadata\022\032\n\022acquisi"
   "tion_number\030\001 \001(\005\022\030\n\020acquisition_time\030\002 "
-  "\001(\005\022\027\n\017beamline_energy\030\003 \001(\002\022\023\n\013ringcurr"
-  "ent\030\004 \001(\002\022\032\n\022horizontal_shutter\030\005 \001(\010\022\030\n"
-  "\020vertical_shutter\030\006 \001(\010\"\030\n\003sdd\022\021\n\tpixeld"
-  "ata\030\001 \001(\014\"%\n\003ccd\022\013\n\003cnt\030\001 \001(\005\022\021\n\tpixelda"
-  "ta\030\002 \001(\014\",\n\013ccdsettings\022\r\n\005width\030\001 \001(\005\022\016"
-  "\n\006height\030\002 \001(\005\",\n\007preview\022\014\n\004type\030\001 \001(\t\022"
-  "\023\n\013previewdata\030\002 \001(\014\"5\n\003ROI\022\017\n\007element\030\001"
-  " \001(\t\022\014\n\004line\030\002 \001(\t\022\017\n\007roidata\030\003 \001(\014\"\034\n\ns"
-  "canstatus\022\016\n\006status\030\001 \001(\tb\006proto3"
+  "\001(\t\022\022\n\nset_energy\030\003 \001(\002\022\027\n\017beamline_ener"
+  "gy\030\004 \001(\002\022\023\n\013ringcurrent\030\005 \001(\002\022\032\n\022horizon"
+  "tal_shutter\030\006 \001(\010\022\030\n\020vertical_shutter\030\007 "
+  "\001(\010\"\030\n\003sdd\022\021\n\tpixeldata\030\001 \001(\014\"%\n\003ccd\022\013\n\003"
+  "cnt\030\001 \001(\005\022\021\n\tpixeldata\030\002 \001(\014\",\n\013ccdsetti"
+  "ngs\022\r\n\005width\030\001 \001(\005\022\016\n\006height\030\002 \001(\005\",\n\007pr"
+  "eview\022\014\n\004type\030\001 \001(\t\022\023\n\013previewdata\030\002 \001(\014"
+  "\"5\n\003ROI\022\017\n\007element\030\001 \001(\t\022\014\n\004line\030\002 \001(\t\022\017"
+  "\n\007roidata\030\003 \001(\014\"\034\n\nscanstatus\022\016\n\006status\030"
+  "\001 \001(\tb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_animax_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_animax_2eproto = {
-  false, false, 1153, descriptor_table_protodef_animax_2eproto, "animax.proto", 
+  false, false, 1173, descriptor_table_protodef_animax_2eproto, "animax.proto", 
   &descriptor_table_animax_2eproto_once, nullptr, 0, 8,
   schemas, file_default_instances, TableStruct_animax_2eproto::offsets,
   file_level_metadata_animax_2eproto, file_level_enum_descriptors_animax_2eproto, file_level_service_descriptors_animax_2eproto,
@@ -667,28 +670,28 @@ const char* Measurement::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 sdd1 = 23;
+      // bool sdd1 = 23;
       case 23:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 184)) {
           sdd1_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 sdd2 = 24;
+      // bool sdd2 = 24;
       case 24:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 192)) {
           sdd2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 sdd3 = 25;
+      // bool sdd3 = 25;
       case 25:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 200)) {
           sdd3_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 sdd4 = 26;
+      // bool sdd4 = 26;
       case 26:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 208)) {
           sdd4_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -967,28 +970,28 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(22, this->_internal_checktemperature(), target);
   }
 
-  // int32 sdd1 = 23;
+  // bool sdd1 = 23;
   if (this->_internal_sdd1() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(23, this->_internal_sdd1(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(23, this->_internal_sdd1(), target);
   }
 
-  // int32 sdd2 = 24;
+  // bool sdd2 = 24;
   if (this->_internal_sdd2() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(24, this->_internal_sdd2(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(24, this->_internal_sdd2(), target);
   }
 
-  // int32 sdd3 = 25;
+  // bool sdd3 = 25;
   if (this->_internal_sdd3() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(25, this->_internal_sdd3(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(25, this->_internal_sdd3(), target);
   }
 
-  // int32 sdd4 = 26;
+  // bool sdd4 = 26;
   if (this->_internal_sdd4() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(26, this->_internal_sdd4(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(26, this->_internal_sdd4(), target);
   }
 
   // int32 ccdheight = 27;
@@ -1284,32 +1287,24 @@ size_t Measurement::ByteSizeLong() const {
         this->_internal_checktemperature());
   }
 
-  // int32 sdd1 = 23;
+  // bool sdd1 = 23;
   if (this->_internal_sdd1() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_sdd1());
+    total_size += 2 + 1;
   }
 
-  // int32 sdd2 = 24;
+  // bool sdd2 = 24;
   if (this->_internal_sdd2() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_sdd2());
+    total_size += 2 + 1;
   }
 
-  // int32 sdd3 = 25;
+  // bool sdd3 = 25;
   if (this->_internal_sdd3() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_sdd3());
+    total_size += 2 + 1;
   }
 
-  // int32 sdd4 = 26;
+  // bool sdd4 = 26;
   if (this->_internal_sdd4() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_sdd4());
+    total_size += 2 + 1;
   }
 
   // int32 ccdheight = 27;
@@ -1585,6 +1580,11 @@ Metadata::Metadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 Metadata::Metadata(const Metadata& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  acquisition_time_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_acquisition_time().empty()) {
+    acquisition_time_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_acquisition_time(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&acquisition_number_, &from.acquisition_number_,
     static_cast<size_t>(reinterpret_cast<char*>(&vertical_shutter_) -
     reinterpret_cast<char*>(&acquisition_number_)) + sizeof(vertical_shutter_));
@@ -1592,6 +1592,7 @@ Metadata::Metadata(const Metadata& from)
 }
 
 inline void Metadata::SharedCtor() {
+acquisition_time_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&acquisition_number_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&vertical_shutter_) -
@@ -1607,6 +1608,7 @@ Metadata::~Metadata() {
 
 inline void Metadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  acquisition_time_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void Metadata::ArenaDtor(void* object) {
@@ -1625,6 +1627,7 @@ void Metadata::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  acquisition_time_.ClearToEmpty();
   ::memset(&acquisition_number_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&vertical_shutter_) -
       reinterpret_cast<char*>(&acquisition_number_)) + sizeof(vertical_shutter_));
@@ -1644,37 +1647,46 @@ const char* Metadata::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 acquisition_time = 2;
+      // string acquisition_time = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          acquisition_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_acquisition_time();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Metadata.acquisition_time"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // float beamline_energy = 3;
+      // float set_energy = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
+          set_energy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float beamline_energy = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
           beamline_energy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float ringcurrent = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+      // float ringcurrent = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
           ringcurrent_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // bool horizontal_shutter = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+      // bool horizontal_shutter = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
           horizontal_shutter_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool vertical_shutter = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+      // bool vertical_shutter = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
           vertical_shutter_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -1714,34 +1726,44 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_acquisition_number(), target);
   }
 
-  // int32 acquisition_time = 2;
-  if (this->_internal_acquisition_time() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_acquisition_time(), target);
+  // string acquisition_time = 2;
+  if (!this->_internal_acquisition_time().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_acquisition_time().data(), static_cast<int>(this->_internal_acquisition_time().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "animax.Metadata.acquisition_time");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_acquisition_time(), target);
   }
 
-  // float beamline_energy = 3;
+  // float set_energy = 3;
+  if (!(this->_internal_set_energy() <= 0 && this->_internal_set_energy() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_set_energy(), target);
+  }
+
+  // float beamline_energy = 4;
   if (!(this->_internal_beamline_energy() <= 0 && this->_internal_beamline_energy() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_beamline_energy(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_beamline_energy(), target);
   }
 
-  // float ringcurrent = 4;
+  // float ringcurrent = 5;
   if (!(this->_internal_ringcurrent() <= 0 && this->_internal_ringcurrent() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_ringcurrent(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_ringcurrent(), target);
   }
 
-  // bool horizontal_shutter = 5;
+  // bool horizontal_shutter = 6;
   if (this->_internal_horizontal_shutter() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_horizontal_shutter(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_horizontal_shutter(), target);
   }
 
-  // bool vertical_shutter = 6;
+  // bool vertical_shutter = 7;
   if (this->_internal_vertical_shutter() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_vertical_shutter(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_vertical_shutter(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1760,6 +1782,13 @@ size_t Metadata::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // string acquisition_time = 2;
+  if (!this->_internal_acquisition_time().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_acquisition_time());
+  }
+
   // int32 acquisition_number = 1;
   if (this->_internal_acquisition_number() != 0) {
     total_size += 1 +
@@ -1767,29 +1796,27 @@ size_t Metadata::ByteSizeLong() const {
         this->_internal_acquisition_number());
   }
 
-  // int32 acquisition_time = 2;
-  if (this->_internal_acquisition_time() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_acquisition_time());
+  // float set_energy = 3;
+  if (!(this->_internal_set_energy() <= 0 && this->_internal_set_energy() >= 0)) {
+    total_size += 1 + 4;
   }
 
-  // float beamline_energy = 3;
+  // float beamline_energy = 4;
   if (!(this->_internal_beamline_energy() <= 0 && this->_internal_beamline_energy() >= 0)) {
     total_size += 1 + 4;
   }
 
-  // float ringcurrent = 4;
+  // float ringcurrent = 5;
   if (!(this->_internal_ringcurrent() <= 0 && this->_internal_ringcurrent() >= 0)) {
     total_size += 1 + 4;
   }
 
-  // bool horizontal_shutter = 5;
+  // bool horizontal_shutter = 6;
   if (this->_internal_horizontal_shutter() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool vertical_shutter = 6;
+  // bool vertical_shutter = 7;
   if (this->_internal_vertical_shutter() != 0) {
     total_size += 1 + 1;
   }
@@ -1822,11 +1849,14 @@ void Metadata::MergeFrom(const Metadata& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_acquisition_time().empty()) {
+    _internal_set_acquisition_time(from._internal_acquisition_time());
+  }
   if (from._internal_acquisition_number() != 0) {
     _internal_set_acquisition_number(from._internal_acquisition_number());
   }
-  if (from._internal_acquisition_time() != 0) {
-    _internal_set_acquisition_time(from._internal_acquisition_time());
+  if (!(from._internal_set_energy() <= 0 && from._internal_set_energy() >= 0)) {
+    _internal_set_set_energy(from._internal_set_energy());
   }
   if (!(from._internal_beamline_energy() <= 0 && from._internal_beamline_energy() >= 0)) {
     _internal_set_beamline_energy(from._internal_beamline_energy());
@@ -1857,6 +1887,11 @@ bool Metadata::IsInitialized() const {
 void Metadata::InternalSwap(Metadata* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &acquisition_time_, GetArenaForAllocation(),
+      &other->acquisition_time_, other->GetArenaForAllocation()
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Metadata, vertical_shutter_)
       + sizeof(Metadata::vertical_shutter_)

@@ -3,7 +3,7 @@ syntax = "proto3";
 package animax;
 
 message Measurement {
-  // general settings
+  // general scan settings
   int32 width = 1;
   int32 height = 2;
   int32 acquisition_time = 3;
@@ -12,6 +12,7 @@ message Measurement {
   string save_file = 6;
   int32 energy_count = 7;
   repeated int32 energies = 8;
+  string ROIdefinitions = 15;
   
   // network settings
   string datasinkIP = 9;
@@ -22,7 +23,6 @@ message Measurement {
   int32 ccdPort = 14;
   
   // sdd settings
-  string ROIdefinitions = 15;
   int32 sebitcount = 16;
   int32 filter = 17;
   int32 energyrange = 18;
@@ -30,10 +30,10 @@ message Measurement {
   int32 zeropeakperiod = 20;
   int32 acquisitionmode = 21;
   int32 checktemperature = 22;
-  int32 sdd1 = 23;
-  int32 sdd2 = 24;
-  int32 sdd3 = 25;
-  int32 sdd4 = 26;
+  bool sdd1 = 23;
+  bool sdd2 = 24;
+  bool sdd3 = 25;
+  bool sdd4 = 26;
   
   //ccd settings
   int32 ccdheight = 27;
@@ -54,11 +54,12 @@ message Measurement {
 
 message Metadata {
   int32 acquisition_number = 1;
-  int32 acquisition_time = 2;
-  float beamline_energy = 3;
-  float ringcurrent = 4;
-  bool horizontal_shutter = 5;
-  bool vertical_shutter = 6;
+  string acquisition_time = 2;
+  float set_energy = 3;
+  float beamline_energy = 4;
+  float ringcurrent = 5;
+  bool horizontal_shutter = 6;
+  bool vertical_shutter = 7;
 }
 
 message sdd {

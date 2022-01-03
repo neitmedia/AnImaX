@@ -88,5 +88,8 @@ private:
     bool sddReceived = false;
     bool ccdReceived = false;
 
+    uint16_t realccdX;
+    uint16_t realccdY;
+
 };
 #endif // MAINWINDOW_H

@@ -26,6 +26,7 @@ public:
     void writeSDDData(int32_t, spectrumdata);
     void writeCCDSettings(int width, int height);
 
+    //DataSet* newNeXusScalarDataSet(std::string, std::string, bool, bool);
     DataSet* newNeXusScalarDataSet(std::string, std::string, std::string, bool);
     DataSet* newNeXusScalarDataSet(std::string, std::string, float, bool);
     DataSet* newNeXusScalarDataSet(std::string, std::string, int32_t, bool);

@@ -7,6 +7,8 @@
 #include <thread>
 #include <iostream>
 #include <unistd.h>
+#include <QDate>
+#include <QTime>
 
 #include <zmq.hpp>
 
@@ -45,27 +47,58 @@ void scan::run()
 
         // prepare "Measurement"-protobuf
         animax::Measurement Measurement;
-        // define protobuf values
+
+        /* BEGIN SET PROTOBUF VALUES */
+        // general scan settings
         Measurement.set_width(settings.scanWidth);
         Measurement.set_height(settings.scanHeight);
         Measurement.set_acquisition_time(10);
-        Measurement.set_energy_count(1);
-        Measurement.add_energies(100);
-        Measurement.set_ccdheight(settings.ccdHeight);
-        Measurement.set_ccdwidth(settings.ccdWidth);
+        Measurement.set_energy_count(settings.energycount);
+        for (int i=0;i<settings.energycount;i++) {
+            Measurement.add_energies(settings.energies[i]);
+        }
         Measurement.set_roidefinitions(settings.roidefinitions);
         Measurement.set_scantype(settings.scantype);
+        Measurement.set_save_path(settings.save_path);
+        Measurement.set_save_file(settings.save_file);
+
+        // network settings
         Measurement.set_ccdip(settings.ccdIP);
         Measurement.set_ccdport(settings.ccdPort);
         Measurement.set_sddip(settings.sddIP);
         Measurement.set_sddport(settings.sddPort);
         Measurement.set_datasinkip(settings.datasinkIP);
         Measurement.set_datasinkport(settings.datasinkPort);
-        Measurement.set_energy_count(settings.energycount);
 
-        for (int i=0;i<settings.energycount;i++) {
-            Measurement.add_energies(settings.energies[i]);
-        }
+        // ccd settings
+        Measurement.set_ccdheight(settings.ccdHeight);
+        Measurement.set_ccdwidth(settings.ccdWidth);
+
+        // sdd settings
+        Measurement.set_sebitcount(settings.sebitcount);
+        Measurement.set_filter(settings.filter);
+        Measurement.set_energyrange(settings.energyrange);
+        Measurement.set_tempmode(settings.tempmode);
+        Measurement.set_zeropeakperiod(settings.zeropeakperiod);
+        Measurement.set_acquisitionmode(settings.acquisitionmode);
+        Measurement.set_checktemperature(settings.checktemperature);
+        Measurement.set_sdd1(settings.sdd1);
+        Measurement.set_sdd2(settings.sdd2);
+        Measurement.set_sdd3(settings.sdd3);
+        Measurement.set_sdd4(settings.sdd4);
+
+        // sample settings
+        Measurement.set_sample_name(settings.sample_name);
+        Measurement.set_sample_type(settings.sample_type);
+        Measurement.set_sample_note(settings.sample_note);
+        Measurement.set_sample_width(settings.sample_width);
+        Measurement.set_sample_height(settings.sample_height);
+        Measurement.set_sample_rotation_angle(settings.sample_rotation_angle);
+
+        // additional settings
+        Measurement.set_notes(settings.notes);
+        Measurement.set_userdata(settings.userdata);
+        /* END SET PROTOBUF VALUES */
 
         bool ccd_connection_ready = false;
         bool ccd_detector_ready = false;
@@ -145,9 +178,22 @@ void scan::run()
                 // send beamline parameter
                 // HERE: get beamline parameter
                 animax::Metadata Metadata;
+
+                // get current time
+                QDate cd = QDate::currentDate();
+                QTime ct = QTime::currentTime();
+
+                QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
+
                 // define protobuf values
-                Metadata.set_acquisition_number(aquisition_number);
-                Metadata.set_beamline_energy(123);
+                Metadata.set_acquisition_number(acquisition_number);
+                Metadata.set_acquisition_time(datetime.toStdString());
+                Metadata.set_set_energy(settings.energies[acquisition_number-1]);
+                Metadata.set_beamline_energy(settings.energies[acquisition_number-1]+0.5);
+                Metadata.set_ringcurrent(198);
+                Metadata.set_horizontal_shutter(true);
+                Metadata.set_vertical_shutter(true);
+
                 // publish settings
                 publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
                 size_t metadatasize = Metadata.ByteSizeLong();
@@ -167,9 +213,21 @@ void scan::run()
                     // send beamline parameter
                     // HERE: get beamline parameter
                     animax::Metadata Metadata;
+                    // get current time
+                    QDate cd = QDate::currentDate();
+                    QTime ct = QTime::currentTime();
+
+                    QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
+
                     // define protobuf values
-                    Metadata.set_acquisition_number(aquisition_number);
-                    Metadata.set_beamline_energy(123);
+                    Metadata.set_acquisition_number(acquisition_number);
+                    Metadata.set_acquisition_time(datetime.toStdString());
+                    Metadata.set_set_energy(settings.energies[acquisition_number-1]);
+                    Metadata.set_beamline_energy(settings.energies[acquisition_number-1]+0.5);
+                    Metadata.set_ringcurrent(198);
+                    Metadata.set_horizontal_shutter(true);
+                    Metadata.set_vertical_shutter(true);
+
                     // publish settings
                     publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
                     size_t metadatasize = Metadata.ByteSizeLong();
@@ -269,10 +327,24 @@ void scan::run()
                         // HERE: get beamline parameter
                         animax::Metadata Metadata;
                         // define protobuf values
-                        aquisition_number++;
-                        Metadata.set_acquisition_number(aquisition_number);
-                        Metadata.set_beamline_energy(settings.energies[aquisition_number-1]);
-                        //ublish settings
+                        acquisition_number++;
+
+                        // get current time
+                        QDate cd = QDate::currentDate();
+                        QTime ct = QTime::currentTime();
+
+                        QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
+
+                        // define protobuf values
+                        Metadata.set_acquisition_number(acquisition_number);
+                        Metadata.set_acquisition_time(datetime.toStdString());
+                        Metadata.set_set_energy(settings.energies[acquisition_number-1]);
+                        Metadata.set_beamline_energy(settings.energies[acquisition_number-1]+0.5);
+                        Metadata.set_ringcurrent(198);
+                        Metadata.set_horizontal_shutter(true);
+                        Metadata.set_vertical_shutter(true);
+
+                        // publish settings
                         publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
                         size_t metadatasize = Metadata.ByteSizeLong();
                         void *metadatabuffer = malloc(metadatasize);

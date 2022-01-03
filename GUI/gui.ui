@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1176</width>
-    <height>917</height>
+    <width>1280</width>
+    <height>679</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -117,10 +117,10 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>350</x>
       <y>10</y>
-      <width>141</width>
-      <height>91</height>
+      <width>201</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="title">
@@ -155,9 +155,9 @@
     <widget class="QSpinBox" name="spbCCDWidth">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>110</x>
        <y>30</y>
-       <width>71</width>
+       <width>81</width>
        <height>26</height>
       </rect>
      </property>
@@ -171,9 +171,9 @@
     <widget class="QSpinBox" name="spbCCDHeight">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>110</x>
        <y>60</y>
-       <width>71</width>
+       <width>81</width>
        <height>26</height>
       </rect>
      </property>
@@ -188,15 +188,358 @@
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>110</y>
-      <width>141</width>
-      <height>171</height>
+      <x>560</x>
+      <y>10</y>
+      <width>261</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="title">
      <string>SDD Settings</string>
     </property>
+    <widget class="QLabel" name="label_17">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>sebitcount</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>filter</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>energyrange</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_20">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>tempmode</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_21">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>zeropeakperiod</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_22">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>131</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>acquisitionmode</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_23">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>141</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>checktemperature</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="chbSDD1">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>240</y>
+       <width>61</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;turn on/off 1st segment of SDD&lt;/span&gt;&lt;/p&gt;&lt;p&gt;0: off&lt;/p&gt;&lt;p&gt;1: on&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>SDD1</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="chbSDD2">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>240</y>
+       <width>61</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;turn on/off 2nd segment of SDD&lt;/span&gt;&lt;/p&gt;&lt;p&gt;0: off&lt;/p&gt;&lt;p&gt;1: on&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>SDD2</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="chbSDD3">
+     <property name="geometry">
+      <rect>
+       <x>132</x>
+       <y>240</y>
+       <width>61</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;turn on/off 3rd segment of SDD&lt;/span&gt;&lt;/p&gt;&lt;p&gt;0: off&lt;/p&gt;&lt;p&gt;1: on&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>SDD3</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="chbSSD4">
+     <property name="geometry">
+      <rect>
+       <x>194</x>
+       <y>240</y>
+       <width>61</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;turn on/off 4th segment of SDD&lt;/span&gt;&lt;/p&gt;&lt;p&gt;0: off&lt;/p&gt;&lt;p&gt;1: on&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>SDD4</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spbSebitcount">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>25</y>
+       <width>131</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Bits for channels&lt;/span&gt;&lt;/p&gt;&lt;p&gt;keep 12 for 4096 channels; &lt;/p&gt;&lt;p&gt;can be reduced for data reduction:&lt;/p&gt;&lt;p&gt;4096 channels =&amp;gt; 10 keV;&lt;/p&gt;&lt;p&gt;3 keV =&amp;gt; ? channels&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="maximum">
+      <number>12</number>
+     </property>
+     <property name="value">
+      <number>12</number>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cmbFilter">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>55</y>
+       <width>131</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Energy resolution vs. throughput&lt;/span&gt;&lt;/p&gt;&lt;p&gt;0: best energy resolution (ER) (60kcps)&lt;/p&gt;&lt;p&gt;1: middle ER (130kcps)&lt;/p&gt;&lt;p&gt;2: middle (275 kcps)&lt;/p&gt;&lt;p&gt;3: worst ER (400 kcps)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>Best ER (60 kcps)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Middle ER (130 kcps)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Middle ER (275 kcps)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Worst ER (400 kcps)</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="cmbEnergyrange">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>85</y>
+       <width>131</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;MCA&lt;/span&gt;&lt;/p&gt;&lt;p&gt;0: up to 10 keV&lt;/p&gt;&lt;p&gt;1: up to 20 keV&lt;/p&gt;&lt;p&gt;2: up to 40 keV&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>up to 10 keV</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>up to 20 keV</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>up to 40 keV</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="cmbTempmode">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>115</y>
+       <width>111</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0: cooling off&lt;/p&gt;&lt;p&gt;1: cooling controlled to -25°C&lt;/p&gt;&lt;p&gt;2: cooling max&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>cooling off</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>-25°C</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>cooling max</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QSpinBox" name="spbZeroPeakPeriod">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>145</y>
+       <width>111</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'monospace'; font-style:italic; background-color:transparent;&quot;&gt;Defines number of events in the zero peak&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'monospace'; background-color:transparent;&quot;&gt;0: off&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'monospace'; background-color:transparent;&quot;&gt;1-65536: one event every X*10 µs&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'monospace'; font-weight:700; background-color:transparent;&quot;&gt;Examples:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'monospace'; background-color:transparent;&quot;&gt;1: event every 10 µs&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'monospace'; background-color:transparent;&quot;&gt;100: every 1 ms&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="maximum">
+      <number>65536</number>
+     </property>
+     <property name="value">
+      <number>1</number>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cmbAcquisionMode">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>175</y>
+       <width>111</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0: internal trigger (timing can’t be changed)&lt;/p&gt;&lt;p&gt;4: external trigger&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>internal trigger</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>external trigger</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="cmbCheckTemperature">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>206</y>
+       <width>111</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0: starts scan immediately&lt;/p&gt;&lt;p&gt;1: waits for cooling down to -25°C and stability (+- 0.2°C) for at least 1 min (recommended for first scan if SDD just turned on (SDD needs ~ 25 min to cool down)&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>start immediately</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>wait until cooled down to -25°C</string>
+      </property>
+     </item>
+    </widget>
    </widget>
    <widget class="QPushButton" name="cmdStartScan">
     <property name="geometry">
@@ -214,9 +557,9 @@
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>930</x>
+      <x>1120</x>
       <y>10</y>
-      <width>241</width>
+      <width>151</width>
       <height>171</height>
      </rect>
     </property>
@@ -227,7 +570,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>80</y>
+       <y>100</y>
        <width>131</width>
        <height>17</height>
       </rect>
@@ -243,9 +586,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>100</y>
-       <width>221</width>
-       <height>61</height>
+       <y>120</y>
+       <width>131</width>
+       <height>41</height>
       </rect>
      </property>
     </widget>
@@ -265,8 +608,8 @@
     <widget class="QCheckBox" name="chbCCD">
      <property name="geometry">
       <rect>
-       <x>140</x>
-       <y>30</y>
+       <x>10</x>
+       <y>50</y>
        <width>90</width>
        <height>23</height>
       </rect>
@@ -279,7 +622,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>50</y>
+       <y>70</y>
        <width>90</width>
        <height>23</height>
       </rect>
@@ -319,8 +662,8 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>410</y>
-      <width>1061</width>
+      <y>420</y>
+      <width>1261</width>
       <height>461</height>
      </rect>
     </property>
@@ -332,8 +675,8 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>221</width>
-       <height>201</height>
+       <width>171</width>
+       <height>181</height>
       </rect>
      </property>
      <property name="title">
@@ -344,8 +687,8 @@
        <rect>
         <x>10</x>
         <y>30</y>
-        <width>201</width>
-        <height>161</height>
+        <width>151</width>
+        <height>141</height>
        </rect>
       </property>
       <property name="text">
@@ -356,10 +699,10 @@
     <widget class="QGroupBox" name="groupBox_7">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>240</y>
-       <width>221</width>
-       <height>211</height>
+       <x>200</x>
+       <y>30</y>
+       <width>181</width>
+       <height>181</height>
       </rect>
      </property>
      <property name="title">
@@ -370,8 +713,8 @@
        <rect>
         <x>10</x>
         <y>30</y>
-        <width>201</width>
-        <height>171</height>
+        <width>161</width>
+        <height>141</height>
        </rect>
       </property>
       <property name="text">
@@ -382,10 +725,10 @@
     <widget class="QGroupBox" name="groupBox_8">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>390</x>
        <y>30</y>
-       <width>811</width>
-       <height>421</height>
+       <width>861</width>
+       <height>181</height>
       </rect>
      </property>
      <property name="title">
@@ -394,10 +737,10 @@
      <widget class="QGroupBox" name="groupBox_10">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>180</x>
         <y>30</y>
-        <width>151</width>
-        <height>131</height>
+        <width>161</width>
+        <height>141</height>
        </rect>
       </property>
       <property name="title">
@@ -411,8 +754,8 @@
         <rect>
          <x>10</x>
          <y>30</y>
-         <width>131</width>
-         <height>91</height>
+         <width>141</width>
+         <height>101</height>
         </rect>
        </property>
        <property name="text">
@@ -423,10 +766,10 @@
      <widget class="QGroupBox" name="groupBox_11">
       <property name="geometry">
        <rect>
-        <x>490</x>
+        <x>520</x>
         <y>30</y>
-        <width>151</width>
-        <height>131</height>
+        <width>161</width>
+        <height>141</height>
        </rect>
       </property>
       <property name="title">
@@ -440,8 +783,8 @@
         <rect>
          <x>10</x>
          <y>30</y>
-         <width>131</width>
-         <height>91</height>
+         <width>141</width>
+         <height>101</height>
         </rect>
        </property>
        <property name="text">
@@ -452,10 +795,10 @@
      <widget class="QGroupBox" name="groupBox_12">
       <property name="geometry">
        <rect>
-        <x>330</x>
+        <x>350</x>
         <y>30</y>
-        <width>151</width>
-        <height>131</height>
+        <width>161</width>
+        <height>141</height>
        </rect>
       </property>
       <property name="title">
@@ -469,8 +812,8 @@
         <rect>
          <x>10</x>
          <y>30</y>
-         <width>131</width>
-         <height>91</height>
+         <width>141</width>
+         <height>101</height>
         </rect>
        </property>
        <property name="text">
@@ -481,10 +824,10 @@
      <widget class="QGroupBox" name="groupBox_13">
       <property name="geometry">
        <rect>
-        <x>650</x>
+        <x>690</x>
         <y>30</y>
-        <width>151</width>
-        <height>131</height>
+        <width>161</width>
+        <height>141</height>
        </rect>
       </property>
       <property name="title">
@@ -498,8 +841,8 @@
         <rect>
          <x>10</x>
          <y>30</y>
-         <width>131</width>
-         <height>91</height>
+         <width>141</width>
+         <height>101</height>
         </rect>
        </property>
        <property name="text">
@@ -512,8 +855,8 @@
        <rect>
         <x>10</x>
         <y>30</y>
-        <width>151</width>
-        <height>131</height>
+        <width>161</width>
+        <height>141</height>
        </rect>
       </property>
       <property name="title">
@@ -527,8 +870,8 @@
         <rect>
          <x>10</x>
          <y>30</y>
-         <width>131</width>
-         <height>91</height>
+         <width>141</width>
+         <height>101</height>
         </rect>
        </property>
        <property name="text">
@@ -541,7 +884,7 @@
    <widget class="QGroupBox" name="groupBox_9">
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>830</x>
       <y>10</y>
       <width>281</width>
       <height>171</height>
@@ -729,7 +1072,7 @@
      <rect>
       <x>220</x>
       <y>10</y>
-      <width>111</width>
+      <width>121</width>
       <height>271</height>
      </rect>
     </property>
@@ -741,9 +1084,12 @@
       <rect>
        <x>10</x>
        <y>31</y>
-       <width>91</width>
-       <height>201</height>
+       <width>101</width>
+       <height>171</height>
       </rect>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
      </property>
      <item>
       <property name="text">
@@ -771,12 +1117,12 @@
       </property>
      </item>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="cmdAddEnergy">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>90</x>
        <y>240</y>
-       <width>41</width>
+       <width>21</width>
        <height>25</height>
       </rect>
      </property>
@@ -784,27 +1130,43 @@
       <string>+</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="cmdDeleteEnergy">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>240</y>
-       <width>41</width>
+       <x>10</x>
+       <y>210</y>
+       <width>101</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
-      <string>-</string>
+      <string>löschen</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spbNewEnergy">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>240</y>
+       <width>71</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>0</number>
+     </property>
+     <property name="maximum">
+      <number>99999</number>
      </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_16">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>190</y>
-      <width>581</width>
-      <height>91</height>
+      <x>560</x>
+      <y>290</y>
+      <width>391</width>
+      <height>121</height>
      </rect>
     </property>
     <property name="title">
@@ -815,8 +1177,8 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>561</width>
-       <height>51</height>
+       <width>371</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="html">
@@ -831,21 +1193,21 @@ p, li { white-space: pre-wrap; }
    <widget class="QGroupBox" name="groupBox_18">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>960</x>
       <y>290</y>
-      <width>361</width>
+      <width>311</width>
       <height>121</height>
      </rect>
     </property>
     <property name="title">
      <string>Note</string>
     </property>
-    <widget class="QPlainTextEdit" name="plainTextEdit_2">
+    <widget class="QPlainTextEdit" name="txtScanNote">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>281</width>
+       <width>231</width>
        <height>81</height>
       </rect>
      </property>
@@ -856,8 +1218,8 @@ p, li { white-space: pre-wrap; }
     <widget class="QPushButton" name="pushButton_5">
      <property name="geometry">
       <rect>
-       <x>300</x>
-       <y>87</y>
+       <x>250</x>
+       <y>30</y>
        <width>51</width>
        <height>24</height>
       </rect>
@@ -872,7 +1234,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>290</y>
-      <width>701</width>
+      <width>541</width>
       <height>121</height>
      </rect>
     </property>
@@ -901,6 +1263,9 @@ p, li { white-space: pre-wrap; }
        <height>24</height>
       </rect>
      </property>
+     <property name="maximum">
+      <double>99999.000000000000000</double>
+     </property>
     </widget>
     <widget class="QLabel" name="label_12">
      <property name="geometry">
@@ -924,6 +1289,9 @@ p, li { white-space: pre-wrap; }
        <height>24</height>
       </rect>
      </property>
+     <property name="maximum">
+      <double>99999.000000000000000</double>
+     </property>
     </widget>
     <widget class="QLabel" name="label_13">
      <property name="geometry">
@@ -938,7 +1306,7 @@ p, li { white-space: pre-wrap; }
       <string>Name:</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="txtSampleName">
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -961,7 +1329,7 @@ p, li { white-space: pre-wrap; }
       <string>Rotation:</string>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox">
+    <widget class="QDoubleSpinBox" name="dsbSampleRotationAngle">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -969,6 +1337,9 @@ p, li { white-space: pre-wrap; }
        <width>111</width>
        <height>24</height>
       </rect>
+     </property>
+     <property name="maximum">
+      <double>360.000000000000000</double>
      </property>
     </widget>
     <widget class="QLabel" name="label_15">
@@ -984,7 +1355,7 @@ p, li { white-space: pre-wrap; }
       <string>Type:</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="txtSampleType">
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -994,12 +1365,12 @@ p, li { white-space: pre-wrap; }
       </rect>
      </property>
     </widget>
-    <widget class="QPlainTextEdit" name="plainTextEdit">
+    <widget class="QPlainTextEdit" name="txtSampleNote">
      <property name="geometry">
       <rect>
        <x>390</x>
        <y>30</y>
-       <width>301</width>
+       <width>141</width>
        <height>81</height>
       </rect>
      </property>
@@ -1020,7 +1391,7 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>User settings</string>
     </property>
-    <widget class="QPlainTextEdit" name="plainTextEdit_3">
+    <widget class="QPlainTextEdit" name="txtUserInfo">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1034,13 +1405,72 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_20">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>190</y>
+      <width>441</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>File settings</string>
+    </property>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>61</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>file path</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>file name</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txtFilePath">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>25</y>
+       <width>351</width>
+       <height>23</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txtFileName">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>55</y>
+       <width>351</width>
+       <height>23</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1176</width>
+     <width>1280</width>
      <height>21</height>
     </rect>
    </property>

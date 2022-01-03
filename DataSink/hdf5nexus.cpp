@@ -7,6 +7,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QDateTime>
+#include <QDate>
 
 hdf5nexus::hdf5nexus()
 {
@@ -15,6 +17,14 @@ hdf5nexus::hdf5nexus()
 }
 
 void hdf5nexus::closeDataFile() {
+    // write current timestamp to "/measurement/end_time"
+    QDate cd = QDate::currentDate();
+    QTime ct = QTime::currentTime();
+
+    QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
+    newNeXusScalarDataSet("/measurement/end_time", "NX_DATE_TIME", datetime.toStdString(), true);
+
+    // close file
     file->close();
     delete file;
 }
@@ -54,6 +64,27 @@ void hdf5nexus::newNeXusDatasetStringAttribute(DataSet* dataset, std::string loc
     str_type.close();
     att_space.close();
 }
+
+/*DataSet* hdf5nexus::newNeXusScalarDataSet(std::string location, std::string type, bool content, bool close) {
+
+    DataSpace att_space(H5S_SCALAR);
+    hsize_t fdim[] = {1};
+    DataSpace fspace(1, fdim);
+
+    DataSet* dataset = new DataSet(file->createDataSet(location, PredType::NATIVE_HBOOL, fspace));
+    newNeXusDatasetStringAttribute(dataset, "type", type);
+    dataset->write(&content, PredType::NATIVE_HBOOL, att_space);
+
+    att_space.close();
+    fspace.close();
+
+    if (close) {
+        dataset->close();
+        delete dataset;
+    }
+
+    return dataset;
+}*/
 
 DataSet* hdf5nexus::newNeXusScalarDataSet(std::string location, std::string type, std::string content, bool close) {
     StrType str_type(PredType::C_S1, H5T_VARIABLE);
@@ -489,27 +520,31 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     char versionstring[10];
     std::sprintf(versionstring, "%d.%d.%d", majver, minnum, relnum);
 
+    QDate cd = QDate::currentDate();
+    QTime ct = QTime::currentTime();
+
+    QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
+
     newNeXusFileStringAttribute("HDF5_Version", versionstring);
-    newNeXusFileStringAttribute("default", "entry");
-    newNeXusFileStringAttribute("detectorRank", "detectorRank");
-    newNeXusFileStringAttribute("file_name", "scantest.h5");
-    newNeXusFileStringAttribute("file_time", "2021-03-29T15:51:42.829454");
-    newNeXusFileStringAttribute("nE", "number of energies scanned");
-    newNeXusFileStringAttribute("nP", "total number of scan points");
-    newNeXusFileStringAttribute("nX", "number of pixels in X direction");
-    newNeXusFileStringAttribute("nY", "number of pixels in Y direction");
+    newNeXusFileStringAttribute("default", "measurement");
+    newNeXusFileStringAttribute("detectorRank", "2");
+    newNeXusFileStringAttribute("file_name", filename.toStdString());
+    newNeXusFileStringAttribute("file_time", datetime.toStdString());
+    newNeXusFileStringAttribute("nE", "1");
+    newNeXusFileStringAttribute("nP", QString::number(settings.scanHeight*settings.scanWidth).toStdString());
+    newNeXusFileStringAttribute("nX", QString::number(settings.scanWidth).toStdString());
+    newNeXusFileStringAttribute("nY", QString::number(settings.scanHeight).toStdString());
 
     newNeXusGroup("/measurement", "NX_class", "NXentry", true);
-    newNeXusScalarDataSet("/measurement/start_time", "NX_DATE_TIME", "2021-03-29T15:51:42.829454", true);
-    newNeXusScalarDataSet("/measurement/end_time", "NX_DATE_TIME", "2021-03-29T15:52:42.829454", true);
+    newNeXusScalarDataSet("/measurement/start_time", "NX_DATE_TIME", datetime.toStdString(), true);
     newNeXusScalarDataSet("/measurement/definition", "NX_CHAR", "NXstxm", true);
-    newNeXusScalarDataSet("/measurement/title", "NX_CHAR", "TITLE", true);
+    newNeXusScalarDataSet("/measurement/title", "NX_CHAR", settings.sample_name, true);
 
     newNeXusGroup("/measurement/monitor", "NX_class", "NXmonitor", true);
     newNeXusScalarDataSet("/measurement/monitor/data", "NX_FLOAT", 123, true);
 
     newNeXusGroup("/measurement/data", "NX_class", "NXdata", true);
-    newNeXusScalarDataSet("/measurement/data/energy", "NX_FLOAT", 100, true);
+    //newNeXusScalarDataSet("/measurement/data/energy", "NX_FLOAT", 100, true);
     newNeXusScalarDataSet("/measurement/data/sample_x", "NX_FLOAT", 99, true);
     newNeXusScalarDataSet("/measurement/data/sample_y", "NX_FLOAT", 87, true);
     newNeXusScalarDataSet("/measurement/data/stxm_scan_type", "NX_CHAR", "sample image", true);
@@ -519,15 +554,40 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusGroup("/measurement/instruments/sdd", "NX_class", "NXdetector", true);
     newNeXusGroup("/measurement/instruments/monochromator", "NX_class", "NXmonochromator", true);
 
-    newNeXusScalarDataSet("/measurement/instruments/monochromator/energy", "NX_FLOAT", 11, true);
+    //newNeXusScalarDataSet("/measurement/instruments/monochromator/energy", "NX_FLOAT", 11, true);
 
     newNeXusGroup("/measurement/instruments/source", "NX_class", "NXsource", true);
     newNeXusScalarDataSet("/measurement/instruments/source/name", "NX_CHAR", "PETRA III", true);
     newNeXusScalarDataSet("/measurement/instruments/source/probe", "NX_CHAR", "probe name", true);
     newNeXusScalarDataSet("/measurement/instruments/source/type", "NX_CHAR", "synchrotron", true);
 
+    // sample group
     newNeXusGroup("/measurement/sample", "NX_class", "NXsample", true);
-    newNeXusScalarDataSet("/measurement/sample/rotation_angle", "NX_FLOAT", 0, true);
+
+    // sample parameters
+    newNeXusScalarDataSet("/measurement/sample/name", "NX_CHAR", settings.sample_name, true);
+    newNeXusScalarDataSet("/measurement/sample/type", "NX_CHAR", settings.sample_type, true);
+    newNeXusScalarDataSet("/measurement/sample/note", "NX_CHAR", settings.sample_note, true);
+    newNeXusScalarDataSet("/measurement/sample/width", "NX_FLOAT", settings.sample_width, true);
+    newNeXusScalarDataSet("/measurement/sample/height", "NX_FLOAT", settings.sample_height, true);
+    newNeXusScalarDataSet("/measurement/sample/rotation_angle", "NX_FLOAT", settings.sample_rotation_angle, true);
+
+    // sdd parameters
+    newNeXusScalarDataSet("/measurement/instruments/sdd/sebitcount", "NX_INT", settings.sebitcount, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/filter", "NX_INT", settings.filter, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/energyrange", "NX_INT", settings.energyrange, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/tempmode", "NX_INT", settings.tempmode, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/zeropeakperiod", "NX_INT", settings.zeropeakperiod, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/acquisitionmode", "NX_INT", settings.acquisitionmode, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/checktemperature", "NX_INT", settings.checktemperature, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/sdd1", "NX_BOOLEAN", settings.sdd1, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/sdd2", "NX_BOOLEAN", settings.sdd2, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/sdd3", "NX_BOOLEAN", settings.sdd3, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/sdd4", "NX_BOOLEAN", settings.sdd4, true);
+
+    // ccd parameters
+    // newNeXusScalarDataSet("/measurement/instruments/ccd/height", "NX_INT", settings.ccdHeight, true);
+    // newNeXusScalarDataSet("/measurement/instruments/ccd/width", "NX_INT", settings.ccdWidth, true);
 
     newNeXusChunkedCCDDataSet("/measurement/instruments/ccd/data", ccdX, ccdY, PredType::STD_U16LE, "NX_INT", true);
 
@@ -561,20 +621,39 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     }
 
     // create settings group and datasets
-    newNeXusGroup("/measurement/settings", "class", "measurement settings", true);
-    newNeXusScalarDataSet("/measurement/settings/scanWidth", "NX_INT", settings.scanWidth, true);
-    newNeXusScalarDataSet("/measurement/settings/scanHeight", "NX_INT", settings.scanHeight, true);
-    newNeXusScalarDataSet("/measurement/settings/ccdHeight", "NX_INT", settings.ccdHeight, true);
-    newNeXusScalarDataSet("/measurement/settings/ccdWidth", "NX_INT", settings.ccdWidth, true);
+    // newNeXusGroup("/measurement/settings", "class", "measurement settings", true);
+    // newNeXusScalarDataSet("/measurement/settings/scanWidth", "NX_INT", settings.scanWidth, true);
+    // newNeXusScalarDataSet("/measurement/settings/scanHeight", "NX_INT", settings.scanHeight, true);
 
     // create metadata group and datasets
     newNeXusGroup("/measurement/metadata", "class", "metadata", true);
-    newNeXusChunkedSDDLogDataSet("/measurement/metadata/beamline_energy", PredType::STD_I32LE, "beamline energy", true);
-    newNeXusChunkedSDDLogDataSet("/measurement/metadata/acquisition_number", PredType::STD_I32LE, "acquisition number", true);
+    //newNeXusChunkedSDDLogDataSet("/measurement/metadata/beamline_energy", PredType::STD_I32LE, "beamline energy", true);
+    //newNeXusChunkedSDDLogDataSet("/measurement/metadata/acquisition_number", PredType::STD_I32LE, "acquisition number", true);
 }
 
 void hdf5nexus::writeMetadata(metadata metadata) {
+    // write current energy setpoint
+    newNeXusScalarDataSet("/measurement/data/energy", "NX_FLOAT", metadata.set_energy, true);
+
+    // write metadata
+    newNeXusScalarDataSet("/measurement/metadata/acquisition_number", "NX_INT", metadata.acquisition_number, true);
+    newNeXusScalarDataSet("/measurement/metadata/acquisition_time", "NX_CHAR", metadata.acquisition_time, true);
+    newNeXusScalarDataSet("/measurement/metadata/beamline_energy", "NX_FLOAT", metadata.beamline_energy, true);
+    newNeXusScalarDataSet("/measurement/metadata/ringcurrent", "NX_FLOAT", metadata.ringcurrent, true);
+    newNeXusScalarDataSet("/measurement/metadata/horizontal_shutter", "NX_BOOLEAN", metadata.horizontal_shutter, true);
+    newNeXusScalarDataSet("/measurement/metadata/vertical_shutter", "NX_BOOLEAN", metadata.vertical_shutter, true);
+    newNeXusScalarDataSet("/measurement/instruments/monochromator/energy", "NX_FLOAT", metadata.beamline_energy, true);
+
+    std::cout<<metadata.acquisition_number<<std::endl;
+    std::cout<<metadata.acquisition_time<<std::endl;
+    std::cout<<metadata.beamline_energy<<std::endl;
+    std::cout<<metadata.ringcurrent<<std::endl;
+    std::cout<<metadata.horizontal_shutter<<std::endl;
+    std::cout<<metadata.vertical_shutter<<std::endl;
+    std::cout<<metadata.set_energy<<std::endl;
+
     /* WRITE BEAMLINE PARAMETER TO FILE */
+    /*
     hsize_t dimsext[2] = {1, 1}; // extend dimensions
 
     DataSet *dataset = new DataSet(file->openDataSet("/measurement/metadata/acquisition_number"));
@@ -616,7 +695,7 @@ void hdf5nexus::writeMetadata(metadata metadata) {
     filespacenew->close();
     delete filespacenew;
     memspacenew->close();
-    delete memspacenew;
+    delete memspacenew;*/
 }
 
 void hdf5nexus::writeSDDData(int32_t pxnum, spectrumdata specdata) {
@@ -663,7 +742,10 @@ void hdf5nexus::writeSDDData(int32_t pxnum, spectrumdata specdata) {
 }
 
 void hdf5nexus::writeCCDSettings(int width, int height) {
-    hsize_t fdim[] = {1};
+    newNeXusScalarDataSet("/measurement/instruments/ccd/height", "NX_INT", height, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/width", "NX_INT", width, true);
+
+    /*hsize_t fdim[] = {1};
     DataSpace fspace(1, fdim);
 
     DataSet* settingsgroupccdWidth = new DataSet(file->openDataSet("/measurement/settings/ccdWidth"));
@@ -678,6 +760,6 @@ void hdf5nexus::writeCCDSettings(int width, int height) {
     settingsgroupccdHeight->close();
     delete settingsgroupccdHeight;
 
-    fspace.close();
+    fspace.close();*/
 }
 
