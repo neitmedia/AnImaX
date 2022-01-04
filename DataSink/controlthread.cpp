@@ -42,6 +42,7 @@ void controlThread::run()
     subscriber.connect("tcp://"+ip.toStdString());
     subscriber.set(zmq::sockopt::subscribe, "settings");
     subscriber.set(zmq::sockopt::subscribe, "metadata");
+    subscriber.set(zmq::sockopt::subscribe, "scannote");
 
     zmq::socket_t gui(ctx, zmq::socket_type::pub);
 
@@ -156,7 +157,15 @@ void controlThread::run()
                     emit sendMetadataToGUI(metadata);
                     waitForMetadata = false;
                 }
+            } else if (env_str == "scannote") {
+                    std::cout<<"received scan note!"<<std::endl;
+                    animax::scannote ScanNote;
+                    ScanNote.ParseFromArray(msg.data(), msg.size());
+                    emit sendScanNoteToGUI(ScanNote.text());
             }
+
+
+
         }
 
         // check if stxm preview needs to be sent
@@ -241,6 +250,24 @@ void controlThread::run()
 
             partScanFinished = false;
             waitForMetadata = true;
+        }
+
+        // check if a whole scan is ready
+        // if so, tell GUI
+        if (wholeScanFinished) {
+            animax::scanstatus scanstatus;
+            scanstatus.set_status("whole scan finished");
+            size_t size = scanstatus.ByteSizeLong();
+            void *sendbuffer = malloc(size);
+            scanstatus.SerializeToArray(sendbuffer, size);
+            zmq::message_t request(size);
+            memcpy ((void *) request.data (), sendbuffer, size);
+
+            // send "scanstatus" envelope with status info
+            gui.send(zmq::str_buffer("scanstatus"), zmq::send_flags::sndmore);
+            gui.send(request, zmq::send_flags::none);
+
+            wholeScanFinished = false;
         }
     }
 }

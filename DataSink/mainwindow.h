@@ -9,6 +9,7 @@
 #include <QVector>
 #include <QDateTime>
 #include <hdf5nexus.h>
+#include <QList>
 
 typedef QVector<QVector<uint32_t>> imagepixeldata;
 typedef QVector<uint32_t> spectrumdata;
@@ -39,6 +40,7 @@ public slots:
     void writeLineBreakData(roidata, int, int, int);
     void getScanSettings(settingsdata);
     void getMetadata(metadata);
+    void getScanNote(std::string);
     void ccdReady();
     void sddReady();
     void checkIfScanIsFinished();
@@ -87,6 +89,8 @@ private:
 
     bool sddReceived = false;
     bool ccdReceived = false;
+
+    QList<QString> scanFiles;
 
     uint16_t realccdX;
     uint16_t realccdY;

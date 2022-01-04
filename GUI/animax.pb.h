@@ -46,7 +46,7 @@ struct TableStruct_animax_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[8]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[9]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -72,6 +72,9 @@ extern ccdsettingsDefaultTypeInternal _ccdsettings_default_instance_;
 class preview;
 struct previewDefaultTypeInternal;
 extern previewDefaultTypeInternal _preview_default_instance_;
+class scannote;
+struct scannoteDefaultTypeInternal;
+extern scannoteDefaultTypeInternal _scannote_default_instance_;
 class scanstatus;
 struct scanstatusDefaultTypeInternal;
 extern scanstatusDefaultTypeInternal _scanstatus_default_instance_;
@@ -86,6 +89,7 @@ template<> ::animax::ROI* Arena::CreateMaybeMessage<::animax::ROI>(Arena*);
 template<> ::animax::ccd* Arena::CreateMaybeMessage<::animax::ccd>(Arena*);
 template<> ::animax::ccdsettings* Arena::CreateMaybeMessage<::animax::ccdsettings>(Arena*);
 template<> ::animax::preview* Arena::CreateMaybeMessage<::animax::preview>(Arena*);
+template<> ::animax::scannote* Arena::CreateMaybeMessage<::animax::scannote>(Arena*);
 template<> ::animax::scanstatus* Arena::CreateMaybeMessage<::animax::scanstatus>(Arena*);
 template<> ::animax::sdd* Arena::CreateMaybeMessage<::animax::sdd>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -1828,6 +1832,150 @@ class scanstatus final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_animax_2eproto;
 };
+// -------------------------------------------------------------------
+
+class scannote final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:animax.scannote) */ {
+ public:
+  inline scannote() : scannote(nullptr) {}
+  ~scannote() override;
+  explicit constexpr scannote(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  scannote(const scannote& from);
+  scannote(scannote&& from) noexcept
+    : scannote() {
+    *this = ::std::move(from);
+  }
+
+  inline scannote& operator=(const scannote& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline scannote& operator=(scannote&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const scannote& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const scannote* internal_default_instance() {
+    return reinterpret_cast<const scannote*>(
+               &_scannote_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(scannote& a, scannote& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(scannote* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(scannote* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline scannote* New() const final {
+    return new scannote();
+  }
+
+  scannote* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<scannote>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const scannote& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const scannote& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(scannote* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "animax.scannote";
+  }
+  protected:
+  explicit scannote(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTextFieldNumber = 1,
+  };
+  // string text = 1;
+  void clear_text();
+  const std::string& text() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_text(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_text();
+  PROTOBUF_MUST_USE_RESULT std::string* release_text();
+  void set_allocated_text(std::string* text);
+  private:
+  const std::string& _internal_text() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_text(const std::string& value);
+  std::string* _internal_mutable_text();
+  public:
+
+  // @@protoc_insertion_point(class_scope:animax.scannote)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_animax_2eproto;
+};
 // ===================================================================
 
 
@@ -3520,9 +3668,61 @@ inline void scanstatus::set_allocated_status(std::string* status) {
   // @@protoc_insertion_point(field_set_allocated:animax.scanstatus.status)
 }
 
+// -------------------------------------------------------------------
+
+// scannote
+
+// string text = 1;
+inline void scannote::clear_text() {
+  text_.ClearToEmpty();
+}
+inline const std::string& scannote::text() const {
+  // @@protoc_insertion_point(field_get:animax.scannote.text)
+  return _internal_text();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void scannote::set_text(ArgT0&& arg0, ArgT... args) {
+ 
+ text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.scannote.text)
+}
+inline std::string* scannote::mutable_text() {
+  std::string* _s = _internal_mutable_text();
+  // @@protoc_insertion_point(field_mutable:animax.scannote.text)
+  return _s;
+}
+inline const std::string& scannote::_internal_text() const {
+  return text_.Get();
+}
+inline void scannote::_internal_set_text(const std::string& value) {
+  
+  text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* scannote::_internal_mutable_text() {
+  
+  return text_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* scannote::release_text() {
+  // @@protoc_insertion_point(field_release:animax.scannote.text)
+  return text_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void scannote::set_allocated_text(std::string* text) {
+  if (text != nullptr) {
+    
+  } else {
+    
+  }
+  text_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), text,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.scannote.text)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

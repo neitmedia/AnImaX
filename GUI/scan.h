@@ -19,6 +19,7 @@ signals:
    void sendDeviceStatusToGUI(QString, QString);
    void sendPreviewDataToGUI(std::string, std::string);
    void sendROIDataToGUI(std::string, std::string);
+   void sendScanFinished();
 
 public:
     // constructor
@@ -30,6 +31,7 @@ public:
     bool stop = false;
     settingsdata settings;
     int acquisition_number = 1;
+    std::string scannote = "";
 
 private:
     //QString ip;

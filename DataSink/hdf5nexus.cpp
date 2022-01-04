@@ -17,16 +17,18 @@ hdf5nexus::hdf5nexus()
 }
 
 void hdf5nexus::closeDataFile() {
+    // close file
+    file->close();
+    delete file;
+}
+
+void hdf5nexus::writeEndTimeStamp() {
     // write current timestamp to "/measurement/end_time"
     QDate cd = QDate::currentDate();
     QTime ct = QTime::currentTime();
 
     QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
     newNeXusScalarDataSet("/measurement/end_time", "NX_DATE_TIME", datetime.toStdString(), true);
-
-    // close file
-    file->close();
-    delete file;
 }
 
 void hdf5nexus::newNeXusFileStringAttribute(std::string location, std::string content) {
@@ -585,6 +587,11 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusScalarDataSet("/measurement/instruments/sdd/sdd3", "NX_BOOLEAN", settings.sdd3, true);
     newNeXusScalarDataSet("/measurement/instruments/sdd/sdd4", "NX_BOOLEAN", settings.sdd4, true);
 
+    // additional settings
+    newNeXusGroup("/measurement/user", "NX_class", "NXuser", true);
+    newNeXusScalarDataSet("/measurement/user/info", "NX_CHAR", settings.userdata, true);
+    newNeXusScalarDataSet("/measurement/notes", "NX_CHAR", settings.notes, true);
+
     // ccd parameters
     // newNeXusScalarDataSet("/measurement/instruments/ccd/height", "NX_INT", settings.ccdHeight, true);
     // newNeXusScalarDataSet("/measurement/instruments/ccd/width", "NX_INT", settings.ccdWidth, true);
@@ -629,6 +636,10 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusGroup("/measurement/metadata", "class", "metadata", true);
     //newNeXusChunkedSDDLogDataSet("/measurement/metadata/beamline_energy", PredType::STD_I32LE, "beamline energy", true);
     //newNeXusChunkedSDDLogDataSet("/measurement/metadata/acquisition_number", PredType::STD_I32LE, "acquisition number", true);
+}
+
+void hdf5nexus::openDataFile(QString fname) {
+    file = new H5File(fname.toLocal8Bit(), H5F_ACC_RDWR);
 }
 
 void hdf5nexus::writeMetadata(metadata metadata) {
@@ -763,3 +774,17 @@ void hdf5nexus::writeCCDSettings(int width, int height) {
     fspace.close();*/
 }
 
+void hdf5nexus::writeScanNote(std::string scannote) {
+    StrType str_type(PredType::C_S1, H5T_VARIABLE);
+    str_type.setCset(H5T_CSET_UTF8);
+    DataSpace att_space(H5S_SCALAR);
+    hsize_t fdim[] = {1};
+    DataSpace fspace(1, fdim);
+
+    DataSet* dataset = new DataSet(file->openDataSet("/measurement/notes"));
+    dataset->write(scannote, str_type, att_space);
+    fspace.close();
+
+    dataset->close();
+    delete dataset;
+}

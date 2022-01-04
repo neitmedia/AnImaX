@@ -21,6 +21,7 @@ signals:
     //void sendBeamlineDataToGUI(float, float, float);
     void sendSettingsToGUI(settingsdata);
     void sendMetadataToGUI(metadata);
+    void sendScanNoteToGUI(std::string);
 
 public:
     // constructor
@@ -36,6 +37,7 @@ public:
     bool ccdReady = false;
     bool sddReady = false;
     bool partScanFinished = false;
+    bool wholeScanFinished = false;
     bool waitForMetadata = false;
     QString ip;
 

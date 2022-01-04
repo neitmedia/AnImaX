@@ -38,6 +38,10 @@ private slots:
 
     void on_cmdAddEnergy_clicked();
 
+    void on_ScanFinished();
+
+    void on_cmdSaveScanNote_clicked();
+
 private:
     Ui::GUI *ui;
     scan* Scan;

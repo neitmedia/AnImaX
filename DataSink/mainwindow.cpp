@@ -88,6 +88,7 @@ void MainWindow::showEvent( QShowEvent* event ) {
     controlth = new controlThread(guiIP+':'+guiPort);
     const bool connected = connect(controlth, SIGNAL(sendSettingsToGUI(settingsdata)),this,SLOT(getScanSettings(settingsdata)));
     const bool connected2 = connect(controlth, SIGNAL(sendMetadataToGUI(metadata)),this,SLOT(getMetadata(metadata)));
+    const bool connected3 = connect(controlth, SIGNAL(sendScanNoteToGUI(std::string)),this,SLOT(getScanNote(std::string)));
     controlth->start();
 
     // add log item
@@ -164,6 +165,8 @@ void MainWindow::getScanSettings(settingsdata settings) {
     // create HDF5/NeXus file
     nexusfile = new hdf5nexus();
     nexusfile->createDataFile(hdf5filename, scansettings);
+    // add file to scan file list
+    scanFiles.append(hdf5filename);
 
     // show filename in GUI
     ui->lblFilename->setText("current file: "+hdf5filename);
@@ -562,6 +565,7 @@ void MainWindow::getCCDSettings(int width, int height) {
 
 void MainWindow::checkIfScanIsFinished() {
     if ((sddReceived) && (ccdReceived)) {
+        nexusfile->writeEndTimeStamp();
         nexusfile->closeDataFile();
         addLogItem("closed file "+hdf5filename);
         sddReceived = false;
@@ -599,6 +603,9 @@ void MainWindow::checkIfScanIsFinished() {
             nexusfile = new hdf5nexus();
             nexusfile->createDataFile(hdf5filename, scansettings);
 
+            // add file to scan file list
+            scanFiles.append(hdf5filename);
+
             addLogItem("created file "+hdf5filename);
 
             ui->lblFilename->setText("current file: "+hdf5filename);
@@ -618,8 +625,8 @@ void MainWindow::checkIfScanIsFinished() {
             controlth->partScanFinished = true;
             controlth->waitForMetadata = true;
         } else {
-            // stop communication threads
-            controlth->stop = true;
+            // tell GUI that whole scan is finished
+            controlth->wholeScanFinished = true;
             sdd->stop = true;
             ccd->stop = true;
         }
@@ -638,3 +645,14 @@ void MainWindow::on_cmdSelectLogFile_clicked()
     ui->txtLogFileName->setText(logFileName);
 }
 
+void MainWindow::getScanNote(std::string scannote) {
+    addLogItem("new scan note: "+QString::fromStdString(scannote));
+
+    foreach (QString fname, scanFiles)
+    {
+        nexusfile->openDataFile(fname);
+        nexusfile->writeScanNote(scannote);
+        nexusfile->closeDataFile();
+        addLogItem("added scan note to file '"+fname+"'");
+    }
+}

@@ -14,6 +14,8 @@ public:
     hdf5nexus();
 
     void createDataFile(QString, settingsdata);
+    void openDataFile(QString);
+    void writeEndTimeStamp();
     void closeDataFile();
     void newNeXusFileStringAttribute(std::string, std::string);
     void newNeXusGroupStringAttribute(Group*, std::string, std::string);
@@ -25,6 +27,8 @@ public:
     void writeMetadata(metadata);
     void writeSDDData(int32_t, spectrumdata);
     void writeCCDSettings(int width, int height);
+
+    void writeScanNote(std::string);
 
     //DataSet* newNeXusScalarDataSet(std::string, std::string, bool, bool);
     DataSet* newNeXusScalarDataSet(std::string, std::string, std::string, bool);

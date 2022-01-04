@@ -35,6 +35,11 @@ void GUI::on_cmdStartScan_clicked()
        5) start scan
     */
 
+    // disable start scan button, note input field and note save button
+    ui->cmdStartScan->setDisabled(true);
+    ui->txtScanNote->setDisabled(true);
+    ui->cmdSaveScanNote->setDisabled(true);
+
     // get settings from UI and put them in a variable of type "settingsdata"
     settingsdata settings;
 
@@ -122,6 +127,7 @@ void GUI::on_cmdStartScan_clicked()
     QObject::connect(Scan,SIGNAL(sendDeviceStatusToGUI(QString, QString)),this,SLOT(showDeviceStatus(QString, QString)));
     QObject::connect(Scan,SIGNAL(sendPreviewDataToGUI(std::string, std::string)),this,SLOT(showPreview(std::string, std::string)));
     QObject::connect(Scan,SIGNAL(sendROIDataToGUI(std::string, std::string)),this,SLOT(showROI(std::string, std::string)));
+    QObject::connect(Scan,SIGNAL(sendScanFinished()),this,SLOT(on_ScanFinished()));
 
     Scan->start();
 }
@@ -342,5 +348,17 @@ void GUI::on_cmdDeleteEnergy_clicked()
 void GUI::on_cmdAddEnergy_clicked()
 {
     ui->lstEnergies->addItem(QString::number(ui->spbNewEnergy->value()));
+}
+
+void GUI::on_ScanFinished()
+{
+    ui->txtScanNote->setDisabled(false);
+    ui->cmdSaveScanNote->setDisabled(false);
+}
+
+void GUI::on_cmdSaveScanNote_clicked()
+{
+    // get scan note from GUI and write it into thread variable
+    Scan->scannote = ui->txtScanNote->toPlainText().toStdString();
 }
 

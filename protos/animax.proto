@@ -90,3 +90,7 @@ message ROI {
 message scanstatus {
   string status = 1;
 }
+
+message scannote {
+  string text = 1;
+}

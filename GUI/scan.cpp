@@ -314,47 +314,76 @@ void scan::run()
                         scanstatus.ParseFromArray(scanstatusmsg.data(), scanstatusmsg.size());
                         std::string scanstatusstr = scanstatus.status();
 
-                        std::cout<<"received scanstatus message: "<<scanstatusstr<<std::endl;
+                        if (scanstatusstr == "part finished") {
+                            std::cout<<"received scanstatus message: "<<scanstatusstr<<std::endl;
 
-                        QThread::sleep(5);
+                            QThread::sleep(5);
 
-                        sdd_detector_ready = false;
-                        ccd_detector_ready = false;
-                        // image is ready: change settings of beamline, positioner etc.
-                        // if finished, get new metadata and send out new metadata
-                        // send beamline parameter
+                            sdd_detector_ready = false;
+                            ccd_detector_ready = false;
+                            // image is ready: change settings of beamline, positioner etc.
+                            // if finished, get new metadata and send out new metadata
+                            // send beamline parameter
 
-                        // HERE: get beamline parameter
-                        animax::Metadata Metadata;
-                        // define protobuf values
-                        acquisition_number++;
+                            // HERE: get beamline parameter
+                            animax::Metadata Metadata;
+                            // define protobuf values
+                            acquisition_number++;
 
-                        // get current time
-                        QDate cd = QDate::currentDate();
-                        QTime ct = QTime::currentTime();
+                            // get current time
+                            QDate cd = QDate::currentDate();
+                            QTime ct = QTime::currentTime();
 
-                        QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
+                            QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
 
-                        // define protobuf values
-                        Metadata.set_acquisition_number(acquisition_number);
-                        Metadata.set_acquisition_time(datetime.toStdString());
-                        Metadata.set_set_energy(settings.energies[acquisition_number-1]);
-                        Metadata.set_beamline_energy(settings.energies[acquisition_number-1]+0.5);
-                        Metadata.set_ringcurrent(198);
-                        Metadata.set_horizontal_shutter(true);
-                        Metadata.set_vertical_shutter(true);
+                            // define protobuf values
+                            Metadata.set_acquisition_number(acquisition_number);
+                            Metadata.set_acquisition_time(datetime.toStdString());
+                            Metadata.set_set_energy(settings.energies[acquisition_number-1]);
+                            Metadata.set_beamline_energy(settings.energies[acquisition_number-1]+0.5);
+                            Metadata.set_ringcurrent(198);
+                            Metadata.set_horizontal_shutter(true);
+                            Metadata.set_vertical_shutter(true);
 
-                        // publish settings
-                        publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
-                        size_t metadatasize = Metadata.ByteSizeLong();
-                        void *metadatabuffer = malloc(metadatasize);
-                        Metadata.SerializeToArray(metadatabuffer, metadatasize);
-                        zmq::message_t request(metadatasize);
-                        memcpy((void *)request.data(), metadatabuffer, metadatasize);
-                        publisher.send(request, zmq::send_flags::none);
-                        std::cout<<"sent metadata!"<<std::endl;
+                            // publish settings
+                            publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
+                            size_t metadatasize = Metadata.ByteSizeLong();
+                            void *metadatabuffer = malloc(metadatasize);
+                            Metadata.SerializeToArray(metadatabuffer, metadatasize);
+                            zmq::message_t request(metadatasize);
+                            memcpy((void *)request.data(), metadatabuffer, metadatasize);
+                            publisher.send(request, zmq::send_flags::none);
+                            std::cout<<"sent metadata!"<<std::endl;
+                        }
+
+                        if (scanstatusstr == "whole scan finished") {
+                            std::cout<<"received scanstatus message: "<<scanstatusstr<<std::endl;
+                            emit sendScanFinished();
+                        }
                     }
                 }
+            }
+
+            if (scannote != "") {
+                // declare ScanNote object
+                animax::scannote ScanNote;
+
+                // define protobuf values
+                ScanNote.set_text(scannote);
+
+                // publish scan note
+                publisher.send(zmq::str_buffer("scannote"), zmq::send_flags::sndmore);
+                size_t scannotedatasize = ScanNote.ByteSizeLong();
+                void *scannotedatabuffer = malloc(scannotedatasize);
+                ScanNote.SerializeToArray(scannotedatabuffer, scannotedatasize);
+                zmq::message_t request(scannotedatasize);
+                memcpy((void *)request.data(), scannotedatabuffer, scannotedatasize);
+                publisher.send(request, zmq::send_flags::none);
+
+                std::cout<<"sent scan note!"<<std::endl;
+
+                // clear scan note
+                scannote = "";
             }
         }
 }
