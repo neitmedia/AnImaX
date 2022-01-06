@@ -45,6 +45,7 @@ void GUI::on_cmdStartScan_clicked()
 
     settings.scanHeight = ui->spbScanHeight->value();
     settings.scanWidth = ui->spbScanWidth->value();
+    settings.scantitle = ui->txtScanTitle->text().toStdString();
 
     settings.save_path = ui->txtFilePath->text().toStdString();
     settings.save_file = ui->txtFileName->text().toStdString();
@@ -360,5 +361,22 @@ void GUI::on_cmdSaveScanNote_clicked()
 {
     // get scan note from GUI and write it into thread variable
     Scan->scannote = ui->txtScanNote->toPlainText().toStdString();
+}
+
+void GUI::on_cmdStopScan_clicked()
+{
+    Scan->stopscan = true;
+}
+
+
+void GUI::on_cmdPauseScan_clicked()
+{
+    if (ui->cmdPauseScan->text() == "Pause") {
+        Scan->pausescan = true;
+        ui->cmdPauseScan->setText("Resume");
+    } else {
+        Scan->resumescan = true;
+        ui->cmdPauseScan->setText("Pause");
+    }
 }
 

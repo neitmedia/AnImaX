@@ -24,10 +24,11 @@ constexpr Measurement::Measurement(
   , scantype_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , save_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , save_file_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , roidefinitions_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , scantitle_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , datasinkip_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , sddip_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , ccdip_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , roidefinitions_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , sample_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , sample_type_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , sample_note_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -192,6 +193,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animax_2eproto::offsets[] PROT
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, energy_count_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, energies_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, roidefinitions_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, scantitle_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, datasinkip_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, datasinkport_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, sddip_),
@@ -281,14 +283,14 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animax_2eproto::offsets[] PROT
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::animax::Measurement)},
-  { 41, -1, sizeof(::animax::Metadata)},
-  { 53, -1, sizeof(::animax::sdd)},
-  { 59, -1, sizeof(::animax::ccd)},
-  { 66, -1, sizeof(::animax::ccdsettings)},
-  { 73, -1, sizeof(::animax::preview)},
-  { 80, -1, sizeof(::animax::ROI)},
-  { 88, -1, sizeof(::animax::scanstatus)},
-  { 94, -1, sizeof(::animax::scannote)},
+  { 42, -1, sizeof(::animax::Metadata)},
+  { 54, -1, sizeof(::animax::sdd)},
+  { 60, -1, sizeof(::animax::ccd)},
+  { 67, -1, sizeof(::animax::ccdsettings)},
+  { 74, -1, sizeof(::animax::preview)},
+  { 81, -1, sizeof(::animax::ROI)},
+  { 89, -1, sizeof(::animax::scanstatus)},
+  { 95, -1, sizeof(::animax::scannote)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -304,40 +306,41 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_animax_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014animax.proto\022\006animax\"\307\005\n\013Measurement\022\r"
+  "\n\014animax.proto\022\006animax\"\332\005\n\013Measurement\022\r"
   "\n\005width\030\001 \001(\005\022\016\n\006height\030\002 \001(\005\022\030\n\020acquisi"
   "tion_time\030\003 \001(\005\022\020\n\010scantype\030\004 \001(\t\022\021\n\tsav"
   "e_path\030\005 \001(\t\022\021\n\tsave_file\030\006 \001(\t\022\024\n\014energ"
   "y_count\030\007 \001(\005\022\020\n\010energies\030\010 \003(\005\022\026\n\016ROIde"
-  "finitions\030\017 \001(\t\022\022\n\ndatasinkIP\030\t \001(\t\022\024\n\014d"
-  "atasinkPort\030\n \001(\005\022\r\n\005sddIP\030\013 \001(\t\022\017\n\007sddP"
-  "ort\030\014 \001(\005\022\r\n\005ccdIP\030\r \001(\t\022\017\n\007ccdPort\030\016 \001("
-  "\005\022\022\n\nsebitcount\030\020 \001(\005\022\016\n\006filter\030\021 \001(\005\022\023\n"
-  "\013energyrange\030\022 \001(\005\022\020\n\010tempmode\030\023 \001(\005\022\026\n\016"
-  "zeropeakperiod\030\024 \001(\005\022\027\n\017acquisitionmode\030"
-  "\025 \001(\005\022\030\n\020checktemperature\030\026 \001(\005\022\014\n\004sdd1\030"
-  "\027 \001(\010\022\014\n\004sdd2\030\030 \001(\010\022\014\n\004sdd3\030\031 \001(\010\022\014\n\004sdd"
-  "4\030\032 \001(\010\022\021\n\tccdheight\030\033 \001(\005\022\020\n\010ccdwidth\030\034"
-  " \001(\005\022\023\n\013sample_name\030\035 \001(\t\022\023\n\013sample_type"
-  "\030\036 \001(\t\022\023\n\013sample_note\030\037 \001(\t\022\024\n\014sample_wi"
-  "dth\030  \001(\002\022\025\n\rsample_height\030! \001(\002\022\035\n\025samp"
-  "le_rotation_angle\030\" \001(\002\022\r\n\005notes\030# \001(\t\022\020"
-  "\n\010userdata\030$ \001(\t\"\270\001\n\010Metadata\022\032\n\022acquisi"
-  "tion_number\030\001 \001(\005\022\030\n\020acquisition_time\030\002 "
-  "\001(\t\022\022\n\nset_energy\030\003 \001(\002\022\027\n\017beamline_ener"
-  "gy\030\004 \001(\002\022\023\n\013ringcurrent\030\005 \001(\002\022\032\n\022horizon"
-  "tal_shutter\030\006 \001(\010\022\030\n\020vertical_shutter\030\007 "
-  "\001(\010\"\030\n\003sdd\022\021\n\tpixeldata\030\001 \001(\014\"%\n\003ccd\022\013\n\003"
-  "cnt\030\001 \001(\005\022\021\n\tpixeldata\030\002 \001(\014\",\n\013ccdsetti"
-  "ngs\022\r\n\005width\030\001 \001(\005\022\016\n\006height\030\002 \001(\005\",\n\007pr"
-  "eview\022\014\n\004type\030\001 \001(\t\022\023\n\013previewdata\030\002 \001(\014"
-  "\"5\n\003ROI\022\017\n\007element\030\001 \001(\t\022\014\n\004line\030\002 \001(\t\022\017"
-  "\n\007roidata\030\003 \001(\014\"\034\n\nscanstatus\022\016\n\006status\030"
-  "\001 \001(\t\"\030\n\010scannote\022\014\n\004text\030\001 \001(\tb\006proto3"
+  "finitions\030\t \001(\t\022\021\n\tscantitle\030\n \001(\t\022\022\n\nda"
+  "tasinkIP\030\013 \001(\t\022\024\n\014datasinkPort\030\014 \001(\005\022\r\n\005"
+  "sddIP\030\r \001(\t\022\017\n\007sddPort\030\016 \001(\005\022\r\n\005ccdIP\030\017 "
+  "\001(\t\022\017\n\007ccdPort\030\020 \001(\005\022\022\n\nsebitcount\030\021 \001(\005"
+  "\022\016\n\006filter\030\022 \001(\005\022\023\n\013energyrange\030\023 \001(\005\022\020\n"
+  "\010tempmode\030\024 \001(\005\022\026\n\016zeropeakperiod\030\025 \001(\005\022"
+  "\027\n\017acquisitionmode\030\026 \001(\005\022\030\n\020checktempera"
+  "ture\030\027 \001(\005\022\014\n\004sdd1\030\030 \001(\010\022\014\n\004sdd2\030\031 \001(\010\022\014"
+  "\n\004sdd3\030\032 \001(\010\022\014\n\004sdd4\030\033 \001(\010\022\021\n\tccdheight\030"
+  "\034 \001(\005\022\020\n\010ccdwidth\030\035 \001(\005\022\023\n\013sample_name\030\036"
+  " \001(\t\022\023\n\013sample_type\030\037 \001(\t\022\023\n\013sample_note"
+  "\030  \001(\t\022\024\n\014sample_width\030! \001(\002\022\025\n\rsample_h"
+  "eight\030\" \001(\002\022\035\n\025sample_rotation_angle\030# \001"
+  "(\002\022\r\n\005notes\030$ \001(\t\022\020\n\010userdata\030% \001(\t\"\270\001\n\010"
+  "Metadata\022\032\n\022acquisition_number\030\001 \001(\005\022\030\n\020"
+  "acquisition_time\030\002 \001(\t\022\022\n\nset_energy\030\003 \001"
+  "(\002\022\027\n\017beamline_energy\030\004 \001(\002\022\023\n\013ringcurre"
+  "nt\030\005 \001(\002\022\032\n\022horizontal_shutter\030\006 \001(\010\022\030\n\020"
+  "vertical_shutter\030\007 \001(\010\"\030\n\003sdd\022\021\n\tpixelda"
+  "ta\030\001 \001(\014\"%\n\003ccd\022\013\n\003cnt\030\001 \001(\005\022\021\n\tpixeldat"
+  "a\030\002 \001(\014\",\n\013ccdsettings\022\r\n\005width\030\001 \001(\005\022\016\n"
+  "\006height\030\002 \001(\005\",\n\007preview\022\014\n\004type\030\001 \001(\t\022\023"
+  "\n\013previewdata\030\002 \001(\014\"5\n\003ROI\022\017\n\007element\030\001 "
+  "\001(\t\022\014\n\004line\030\002 \001(\t\022\017\n\007roidata\030\003 \001(\014\"\034\n\nsc"
+  "anstatus\022\016\n\006status\030\001 \001(\t\"\030\n\010scannote\022\014\n\004"
+  "text\030\001 \001(\tb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_animax_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_animax_2eproto = {
-  false, false, 1199, descriptor_table_protodef_animax_2eproto, "animax.proto", 
+  false, false, 1218, descriptor_table_protodef_animax_2eproto, "animax.proto", 
   &descriptor_table_animax_2eproto_once, nullptr, 0, 9,
   schemas, file_default_instances, TableStruct_animax_2eproto::offsets,
   file_level_metadata_animax_2eproto, file_level_enum_descriptors_animax_2eproto, file_level_service_descriptors_animax_2eproto,
@@ -385,6 +388,16 @@ Measurement::Measurement(const Measurement& from)
     save_file_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_save_file(), 
       GetArenaForAllocation());
   }
+  roidefinitions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_roidefinitions().empty()) {
+    roidefinitions_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_roidefinitions(), 
+      GetArenaForAllocation());
+  }
+  scantitle_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_scantitle().empty()) {
+    scantitle_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_scantitle(), 
+      GetArenaForAllocation());
+  }
   datasinkip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_datasinkip().empty()) {
     datasinkip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_datasinkip(), 
@@ -398,11 +411,6 @@ Measurement::Measurement(const Measurement& from)
   ccdip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_ccdip().empty()) {
     ccdip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_ccdip(), 
-      GetArenaForAllocation());
-  }
-  roidefinitions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_roidefinitions().empty()) {
-    roidefinitions_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_roidefinitions(), 
       GetArenaForAllocation());
   }
   sample_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -440,10 +448,11 @@ inline void Measurement::SharedCtor() {
 scantype_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 save_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 save_file_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+roidefinitions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+scantitle_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 datasinkip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 sddip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ccdip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-roidefinitions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 sample_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 sample_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 sample_note_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -467,10 +476,11 @@ inline void Measurement::SharedDtor() {
   scantype_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   save_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   save_file_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  roidefinitions_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  scantitle_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   datasinkip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   sddip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ccdip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  roidefinitions_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   sample_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   sample_type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   sample_note_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -498,10 +508,11 @@ void Measurement::Clear() {
   scantype_.ClearToEmpty();
   save_path_.ClearToEmpty();
   save_file_.ClearToEmpty();
+  roidefinitions_.ClearToEmpty();
+  scantitle_.ClearToEmpty();
   datasinkip_.ClearToEmpty();
   sddip_.ClearToEmpty();
   ccdip_.ClearToEmpty();
-  roidefinitions_.ClearToEmpty();
   sample_name_.ClearToEmpty();
   sample_type_.ClearToEmpty();
   sample_note_.ClearToEmpty();
@@ -584,214 +595,223 @@ const char* Measurement::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string datasinkIP = 9;
+      // string ROIdefinitions = 9;
       case 9:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 74)) {
-          auto str = _internal_mutable_datasinkip();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.datasinkIP"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // int32 datasinkPort = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 80)) {
-          datasinkport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string sddIP = 11;
-      case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
-          auto str = _internal_mutable_sddip();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.sddIP"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // int32 sddPort = 12;
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 96)) {
-          sddport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string ccdIP = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
-          auto str = _internal_mutable_ccdip();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.ccdIP"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // int32 ccdPort = 14;
-      case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 112)) {
-          ccdport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string ROIdefinitions = 15;
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
           auto str = _internal_mutable_roidefinitions();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.ROIdefinitions"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 sebitcount = 16;
+      // string scantitle = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+          auto str = _internal_mutable_scantitle();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.scantitle"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string datasinkIP = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
+          auto str = _internal_mutable_datasinkip();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.datasinkIP"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 datasinkPort = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 96)) {
+          datasinkport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string sddIP = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
+          auto str = _internal_mutable_sddip();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.sddIP"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 sddPort = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 112)) {
+          sddport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string ccdIP = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
+          auto str = _internal_mutable_ccdip();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.ccdIP"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 ccdPort = 16;
       case 16:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 128)) {
+          ccdport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 sebitcount = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 136)) {
           sebitcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 filter = 17;
-      case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 136)) {
+      // int32 filter = 18;
+      case 18:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 144)) {
           filter_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 energyrange = 18;
-      case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 144)) {
+      // int32 energyrange = 19;
+      case 19:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 152)) {
           energyrange_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 tempmode = 19;
-      case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 152)) {
+      // int32 tempmode = 20;
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 160)) {
           tempmode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 zeropeakperiod = 20;
-      case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 160)) {
+      // int32 zeropeakperiod = 21;
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 168)) {
           zeropeakperiod_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 acquisitionmode = 21;
-      case 21:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 168)) {
+      // int32 acquisitionmode = 22;
+      case 22:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 176)) {
           acquisitionmode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 checktemperature = 22;
-      case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 176)) {
+      // int32 checktemperature = 23;
+      case 23:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 184)) {
           checktemperature_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool sdd1 = 23;
-      case 23:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 184)) {
+      // bool sdd1 = 24;
+      case 24:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 192)) {
           sdd1_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool sdd2 = 24;
-      case 24:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 192)) {
+      // bool sdd2 = 25;
+      case 25:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 200)) {
           sdd2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool sdd3 = 25;
-      case 25:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 200)) {
+      // bool sdd3 = 26;
+      case 26:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 208)) {
           sdd3_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool sdd4 = 26;
-      case 26:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 208)) {
+      // bool sdd4 = 27;
+      case 27:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 216)) {
           sdd4_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 ccdheight = 27;
-      case 27:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 216)) {
+      // int32 ccdheight = 28;
+      case 28:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 224)) {
           ccdheight_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 ccdwidth = 28;
-      case 28:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 224)) {
+      // int32 ccdwidth = 29;
+      case 29:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 232)) {
           ccdwidth_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string sample_name = 29;
-      case 29:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 234)) {
+      // string sample_name = 30;
+      case 30:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 242)) {
           auto str = _internal_mutable_sample_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.sample_name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string sample_type = 30;
-      case 30:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 242)) {
+      // string sample_type = 31;
+      case 31:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 250)) {
           auto str = _internal_mutable_sample_type();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.sample_type"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string sample_note = 31;
-      case 31:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 250)) {
+      // string sample_note = 32;
+      case 32:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 2)) {
           auto str = _internal_mutable_sample_note();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.sample_note"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // float sample_width = 32;
-      case 32:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 5)) {
+      // float sample_width = 33;
+      case 33:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
           sample_width_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float sample_height = 33;
-      case 33:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
+      // float sample_height = 34;
+      case 34:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
           sample_height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float sample_rotation_angle = 34;
-      case 34:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
+      // float sample_rotation_angle = 35;
+      case 35:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
           sample_rotation_angle_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // string notes = 35;
-      case 35:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+      // string notes = 36;
+      case 36:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           auto str = _internal_mutable_notes();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.notes"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string userdata = 36;
-      case 36:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+      // string userdata = 37;
+      case 37:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           auto str = _internal_mutable_userdata();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.userdata"));
@@ -890,208 +910,218 @@ failure:
     }
   }
 
-  // string datasinkIP = 9;
-  if (!this->_internal_datasinkip().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_datasinkip().data(), static_cast<int>(this->_internal_datasinkip().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "animax.Measurement.datasinkIP");
-    target = stream->WriteStringMaybeAliased(
-        9, this->_internal_datasinkip(), target);
-  }
-
-  // int32 datasinkPort = 10;
-  if (this->_internal_datasinkport() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(10, this->_internal_datasinkport(), target);
-  }
-
-  // string sddIP = 11;
-  if (!this->_internal_sddip().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_sddip().data(), static_cast<int>(this->_internal_sddip().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "animax.Measurement.sddIP");
-    target = stream->WriteStringMaybeAliased(
-        11, this->_internal_sddip(), target);
-  }
-
-  // int32 sddPort = 12;
-  if (this->_internal_sddport() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(12, this->_internal_sddport(), target);
-  }
-
-  // string ccdIP = 13;
-  if (!this->_internal_ccdip().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_ccdip().data(), static_cast<int>(this->_internal_ccdip().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "animax.Measurement.ccdIP");
-    target = stream->WriteStringMaybeAliased(
-        13, this->_internal_ccdip(), target);
-  }
-
-  // int32 ccdPort = 14;
-  if (this->_internal_ccdport() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(14, this->_internal_ccdport(), target);
-  }
-
-  // string ROIdefinitions = 15;
+  // string ROIdefinitions = 9;
   if (!this->_internal_roidefinitions().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_roidefinitions().data(), static_cast<int>(this->_internal_roidefinitions().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.ROIdefinitions");
     target = stream->WriteStringMaybeAliased(
-        15, this->_internal_roidefinitions(), target);
+        9, this->_internal_roidefinitions(), target);
   }
 
-  // int32 sebitcount = 16;
+  // string scantitle = 10;
+  if (!this->_internal_scantitle().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_scantitle().data(), static_cast<int>(this->_internal_scantitle().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "animax.Measurement.scantitle");
+    target = stream->WriteStringMaybeAliased(
+        10, this->_internal_scantitle(), target);
+  }
+
+  // string datasinkIP = 11;
+  if (!this->_internal_datasinkip().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_datasinkip().data(), static_cast<int>(this->_internal_datasinkip().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "animax.Measurement.datasinkIP");
+    target = stream->WriteStringMaybeAliased(
+        11, this->_internal_datasinkip(), target);
+  }
+
+  // int32 datasinkPort = 12;
+  if (this->_internal_datasinkport() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(12, this->_internal_datasinkport(), target);
+  }
+
+  // string sddIP = 13;
+  if (!this->_internal_sddip().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_sddip().data(), static_cast<int>(this->_internal_sddip().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "animax.Measurement.sddIP");
+    target = stream->WriteStringMaybeAliased(
+        13, this->_internal_sddip(), target);
+  }
+
+  // int32 sddPort = 14;
+  if (this->_internal_sddport() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(14, this->_internal_sddport(), target);
+  }
+
+  // string ccdIP = 15;
+  if (!this->_internal_ccdip().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_ccdip().data(), static_cast<int>(this->_internal_ccdip().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "animax.Measurement.ccdIP");
+    target = stream->WriteStringMaybeAliased(
+        15, this->_internal_ccdip(), target);
+  }
+
+  // int32 ccdPort = 16;
+  if (this->_internal_ccdport() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(16, this->_internal_ccdport(), target);
+  }
+
+  // int32 sebitcount = 17;
   if (this->_internal_sebitcount() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(16, this->_internal_sebitcount(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(17, this->_internal_sebitcount(), target);
   }
 
-  // int32 filter = 17;
+  // int32 filter = 18;
   if (this->_internal_filter() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(17, this->_internal_filter(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(18, this->_internal_filter(), target);
   }
 
-  // int32 energyrange = 18;
+  // int32 energyrange = 19;
   if (this->_internal_energyrange() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(18, this->_internal_energyrange(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(19, this->_internal_energyrange(), target);
   }
 
-  // int32 tempmode = 19;
+  // int32 tempmode = 20;
   if (this->_internal_tempmode() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(19, this->_internal_tempmode(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(20, this->_internal_tempmode(), target);
   }
 
-  // int32 zeropeakperiod = 20;
+  // int32 zeropeakperiod = 21;
   if (this->_internal_zeropeakperiod() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(20, this->_internal_zeropeakperiod(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(21, this->_internal_zeropeakperiod(), target);
   }
 
-  // int32 acquisitionmode = 21;
+  // int32 acquisitionmode = 22;
   if (this->_internal_acquisitionmode() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(21, this->_internal_acquisitionmode(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(22, this->_internal_acquisitionmode(), target);
   }
 
-  // int32 checktemperature = 22;
+  // int32 checktemperature = 23;
   if (this->_internal_checktemperature() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(22, this->_internal_checktemperature(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(23, this->_internal_checktemperature(), target);
   }
 
-  // bool sdd1 = 23;
+  // bool sdd1 = 24;
   if (this->_internal_sdd1() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(23, this->_internal_sdd1(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(24, this->_internal_sdd1(), target);
   }
 
-  // bool sdd2 = 24;
+  // bool sdd2 = 25;
   if (this->_internal_sdd2() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(24, this->_internal_sdd2(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(25, this->_internal_sdd2(), target);
   }
 
-  // bool sdd3 = 25;
+  // bool sdd3 = 26;
   if (this->_internal_sdd3() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(25, this->_internal_sdd3(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(26, this->_internal_sdd3(), target);
   }
 
-  // bool sdd4 = 26;
+  // bool sdd4 = 27;
   if (this->_internal_sdd4() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(26, this->_internal_sdd4(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(27, this->_internal_sdd4(), target);
   }
 
-  // int32 ccdheight = 27;
+  // int32 ccdheight = 28;
   if (this->_internal_ccdheight() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(27, this->_internal_ccdheight(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(28, this->_internal_ccdheight(), target);
   }
 
-  // int32 ccdwidth = 28;
+  // int32 ccdwidth = 29;
   if (this->_internal_ccdwidth() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(28, this->_internal_ccdwidth(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(29, this->_internal_ccdwidth(), target);
   }
 
-  // string sample_name = 29;
+  // string sample_name = 30;
   if (!this->_internal_sample_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_sample_name().data(), static_cast<int>(this->_internal_sample_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.sample_name");
     target = stream->WriteStringMaybeAliased(
-        29, this->_internal_sample_name(), target);
+        30, this->_internal_sample_name(), target);
   }
 
-  // string sample_type = 30;
+  // string sample_type = 31;
   if (!this->_internal_sample_type().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_sample_type().data(), static_cast<int>(this->_internal_sample_type().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.sample_type");
     target = stream->WriteStringMaybeAliased(
-        30, this->_internal_sample_type(), target);
+        31, this->_internal_sample_type(), target);
   }
 
-  // string sample_note = 31;
+  // string sample_note = 32;
   if (!this->_internal_sample_note().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_sample_note().data(), static_cast<int>(this->_internal_sample_note().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.sample_note");
     target = stream->WriteStringMaybeAliased(
-        31, this->_internal_sample_note(), target);
+        32, this->_internal_sample_note(), target);
   }
 
-  // float sample_width = 32;
+  // float sample_width = 33;
   if (!(this->_internal_sample_width() <= 0 && this->_internal_sample_width() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(32, this->_internal_sample_width(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(33, this->_internal_sample_width(), target);
   }
 
-  // float sample_height = 33;
+  // float sample_height = 34;
   if (!(this->_internal_sample_height() <= 0 && this->_internal_sample_height() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(33, this->_internal_sample_height(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(34, this->_internal_sample_height(), target);
   }
 
-  // float sample_rotation_angle = 34;
+  // float sample_rotation_angle = 35;
   if (!(this->_internal_sample_rotation_angle() <= 0 && this->_internal_sample_rotation_angle() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(34, this->_internal_sample_rotation_angle(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(35, this->_internal_sample_rotation_angle(), target);
   }
 
-  // string notes = 35;
+  // string notes = 36;
   if (!this->_internal_notes().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_notes().data(), static_cast<int>(this->_internal_notes().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.notes");
     target = stream->WriteStringMaybeAliased(
-        35, this->_internal_notes(), target);
+        36, this->_internal_notes(), target);
   }
 
-  // string userdata = 36;
+  // string userdata = 37;
   if (!this->_internal_userdata().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_userdata().data(), static_cast<int>(this->_internal_userdata().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.userdata");
     target = stream->WriteStringMaybeAliased(
-        36, this->_internal_userdata(), target);
+        37, this->_internal_userdata(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1146,63 +1176,70 @@ size_t Measurement::ByteSizeLong() const {
         this->_internal_save_file());
   }
 
-  // string datasinkIP = 9;
-  if (!this->_internal_datasinkip().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_datasinkip());
-  }
-
-  // string sddIP = 11;
-  if (!this->_internal_sddip().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_sddip());
-  }
-
-  // string ccdIP = 13;
-  if (!this->_internal_ccdip().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_ccdip());
-  }
-
-  // string ROIdefinitions = 15;
+  // string ROIdefinitions = 9;
   if (!this->_internal_roidefinitions().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_roidefinitions());
   }
 
-  // string sample_name = 29;
+  // string scantitle = 10;
+  if (!this->_internal_scantitle().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_scantitle());
+  }
+
+  // string datasinkIP = 11;
+  if (!this->_internal_datasinkip().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_datasinkip());
+  }
+
+  // string sddIP = 13;
+  if (!this->_internal_sddip().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_sddip());
+  }
+
+  // string ccdIP = 15;
+  if (!this->_internal_ccdip().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_ccdip());
+  }
+
+  // string sample_name = 30;
   if (!this->_internal_sample_name().empty()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_sample_name());
   }
 
-  // string sample_type = 30;
+  // string sample_type = 31;
   if (!this->_internal_sample_type().empty()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_sample_type());
   }
 
-  // string sample_note = 31;
+  // string sample_note = 32;
   if (!this->_internal_sample_note().empty()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_sample_note());
   }
 
-  // string notes = 35;
+  // string notes = 36;
   if (!this->_internal_notes().empty()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_notes());
   }
 
-  // string userdata = 36;
+  // string userdata = 37;
   if (!this->_internal_userdata().empty()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -1237,121 +1274,121 @@ size_t Measurement::ByteSizeLong() const {
         this->_internal_energy_count());
   }
 
-  // int32 datasinkPort = 10;
+  // int32 datasinkPort = 12;
   if (this->_internal_datasinkport() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_datasinkport());
   }
 
-  // int32 sddPort = 12;
+  // int32 sddPort = 14;
   if (this->_internal_sddport() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_sddport());
   }
 
-  // int32 ccdPort = 14;
+  // int32 ccdPort = 16;
   if (this->_internal_ccdport() != 0) {
-    total_size += 1 +
+    total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_ccdport());
   }
 
-  // int32 sebitcount = 16;
+  // int32 sebitcount = 17;
   if (this->_internal_sebitcount() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_sebitcount());
   }
 
-  // int32 filter = 17;
+  // int32 filter = 18;
   if (this->_internal_filter() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_filter());
   }
 
-  // int32 energyrange = 18;
+  // int32 energyrange = 19;
   if (this->_internal_energyrange() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_energyrange());
   }
 
-  // int32 tempmode = 19;
+  // int32 tempmode = 20;
   if (this->_internal_tempmode() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_tempmode());
   }
 
-  // int32 zeropeakperiod = 20;
+  // int32 zeropeakperiod = 21;
   if (this->_internal_zeropeakperiod() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_zeropeakperiod());
   }
 
-  // int32 acquisitionmode = 21;
+  // int32 acquisitionmode = 22;
   if (this->_internal_acquisitionmode() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_acquisitionmode());
   }
 
-  // int32 checktemperature = 22;
+  // int32 checktemperature = 23;
   if (this->_internal_checktemperature() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_checktemperature());
   }
 
-  // bool sdd1 = 23;
+  // bool sdd1 = 24;
   if (this->_internal_sdd1() != 0) {
     total_size += 2 + 1;
   }
 
-  // bool sdd2 = 24;
+  // bool sdd2 = 25;
   if (this->_internal_sdd2() != 0) {
     total_size += 2 + 1;
   }
 
-  // bool sdd3 = 25;
+  // bool sdd3 = 26;
   if (this->_internal_sdd3() != 0) {
     total_size += 2 + 1;
   }
 
-  // bool sdd4 = 26;
+  // bool sdd4 = 27;
   if (this->_internal_sdd4() != 0) {
     total_size += 2 + 1;
   }
 
-  // int32 ccdheight = 27;
+  // int32 ccdheight = 28;
   if (this->_internal_ccdheight() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_ccdheight());
   }
 
-  // int32 ccdwidth = 28;
+  // int32 ccdwidth = 29;
   if (this->_internal_ccdwidth() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_ccdwidth());
   }
 
-  // float sample_width = 32;
+  // float sample_width = 33;
   if (!(this->_internal_sample_width() <= 0 && this->_internal_sample_width() >= 0)) {
     total_size += 2 + 4;
   }
 
-  // float sample_height = 33;
+  // float sample_height = 34;
   if (!(this->_internal_sample_height() <= 0 && this->_internal_sample_height() >= 0)) {
     total_size += 2 + 4;
   }
 
-  // float sample_rotation_angle = 34;
+  // float sample_rotation_angle = 35;
   if (!(this->_internal_sample_rotation_angle() <= 0 && this->_internal_sample_rotation_angle() >= 0)) {
     total_size += 2 + 4;
   }
@@ -1394,6 +1431,12 @@ void Measurement::MergeFrom(const Measurement& from) {
   if (!from._internal_save_file().empty()) {
     _internal_set_save_file(from._internal_save_file());
   }
+  if (!from._internal_roidefinitions().empty()) {
+    _internal_set_roidefinitions(from._internal_roidefinitions());
+  }
+  if (!from._internal_scantitle().empty()) {
+    _internal_set_scantitle(from._internal_scantitle());
+  }
   if (!from._internal_datasinkip().empty()) {
     _internal_set_datasinkip(from._internal_datasinkip());
   }
@@ -1402,9 +1445,6 @@ void Measurement::MergeFrom(const Measurement& from) {
   }
   if (!from._internal_ccdip().empty()) {
     _internal_set_ccdip(from._internal_ccdip());
-  }
-  if (!from._internal_roidefinitions().empty()) {
-    _internal_set_roidefinitions(from._internal_roidefinitions());
   }
   if (!from._internal_sample_name().empty()) {
     _internal_set_sample_name(from._internal_sample_name());
@@ -1525,6 +1565,16 @@ void Measurement::InternalSwap(Measurement* other) {
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &roidefinitions_, GetArenaForAllocation(),
+      &other->roidefinitions_, other->GetArenaForAllocation()
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &scantitle_, GetArenaForAllocation(),
+      &other->scantitle_, other->GetArenaForAllocation()
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &datasinkip_, GetArenaForAllocation(),
       &other->datasinkip_, other->GetArenaForAllocation()
   );
@@ -1537,11 +1587,6 @@ void Measurement::InternalSwap(Measurement* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &ccdip_, GetArenaForAllocation(),
       &other->ccdip_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &roidefinitions_, GetArenaForAllocation(),
-      &other->roidefinitions_, other->GetArenaForAllocation()
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),

@@ -52,6 +52,7 @@ void scan::run()
         // general scan settings
         Measurement.set_width(settings.scanWidth);
         Measurement.set_height(settings.scanHeight);
+        Measurement.set_scantitle(settings.scantitle);
         Measurement.set_acquisition_time(10);
         Measurement.set_energy_count(settings.energycount);
         for (int i=0;i<settings.energycount;i++) {
@@ -364,23 +365,37 @@ void scan::run()
                 }
             }
 
-            if (scannote != "") {
+            if (stopscan || pausescan || resumescan) {
                 // declare ScanNote object
-                animax::scannote ScanNote;
+                animax::scannote scanstatus;
 
                 // define protobuf values
-                ScanNote.set_text(scannote);
+                if ((stopscan) && (!pausescan) && (!resumescan)) {
+                    scanstatus.set_text("stop");
+                }
 
-                // publish scan note
-                publisher.send(zmq::str_buffer("scannote"), zmq::send_flags::sndmore);
-                size_t scannotedatasize = ScanNote.ByteSizeLong();
-                void *scannotedatabuffer = malloc(scannotedatasize);
-                ScanNote.SerializeToArray(scannotedatabuffer, scannotedatasize);
-                zmq::message_t request(scannotedatasize);
-                memcpy((void *)request.data(), scannotedatabuffer, scannotedatasize);
+                if ((pausescan) && (!stopscan) && (!resumescan)) {
+                    scanstatus.set_text("pause");
+                }
+
+                if ((resumescan) && (!stopscan) && (!pausescan)) {
+                    scanstatus.set_text("resume");
+                }
+
+                stopscan = false;
+                pausescan = false;
+                resumescan = false;
+
+                // publish status data
+                publisher.send(zmq::str_buffer("scanstatus"), zmq::send_flags::sndmore);
+                size_t scanstatusdatasize = scanstatus.ByteSizeLong();
+                void *scanstatusdatabuffer = malloc(scanstatusdatasize);
+                scanstatus.SerializeToArray(scanstatusdatabuffer, scanstatusdatasize);
+                zmq::message_t request(scanstatusdatasize);
+                memcpy((void *)request.data(), scanstatusdatabuffer, scanstatusdatasize);
                 publisher.send(request, zmq::send_flags::none);
 
-                std::cout<<"sent scan note!"<<std::endl;
+                std::cout<<"sent scan '"<<scanstatus.text()<<"' message!"<<std::endl;
 
                 // clear scan note
                 scannote = "";

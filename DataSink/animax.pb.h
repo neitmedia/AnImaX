@@ -216,38 +216,39 @@ class Measurement final :
     kScantypeFieldNumber = 4,
     kSavePathFieldNumber = 5,
     kSaveFileFieldNumber = 6,
-    kDatasinkIPFieldNumber = 9,
-    kSddIPFieldNumber = 11,
-    kCcdIPFieldNumber = 13,
-    kROIdefinitionsFieldNumber = 15,
-    kSampleNameFieldNumber = 29,
-    kSampleTypeFieldNumber = 30,
-    kSampleNoteFieldNumber = 31,
-    kNotesFieldNumber = 35,
-    kUserdataFieldNumber = 36,
+    kROIdefinitionsFieldNumber = 9,
+    kScantitleFieldNumber = 10,
+    kDatasinkIPFieldNumber = 11,
+    kSddIPFieldNumber = 13,
+    kCcdIPFieldNumber = 15,
+    kSampleNameFieldNumber = 30,
+    kSampleTypeFieldNumber = 31,
+    kSampleNoteFieldNumber = 32,
+    kNotesFieldNumber = 36,
+    kUserdataFieldNumber = 37,
     kWidthFieldNumber = 1,
     kHeightFieldNumber = 2,
     kAcquisitionTimeFieldNumber = 3,
     kEnergyCountFieldNumber = 7,
-    kDatasinkPortFieldNumber = 10,
-    kSddPortFieldNumber = 12,
-    kCcdPortFieldNumber = 14,
-    kSebitcountFieldNumber = 16,
-    kFilterFieldNumber = 17,
-    kEnergyrangeFieldNumber = 18,
-    kTempmodeFieldNumber = 19,
-    kZeropeakperiodFieldNumber = 20,
-    kAcquisitionmodeFieldNumber = 21,
-    kChecktemperatureFieldNumber = 22,
-    kSdd1FieldNumber = 23,
-    kSdd2FieldNumber = 24,
-    kSdd3FieldNumber = 25,
-    kSdd4FieldNumber = 26,
-    kCcdheightFieldNumber = 27,
-    kCcdwidthFieldNumber = 28,
-    kSampleWidthFieldNumber = 32,
-    kSampleHeightFieldNumber = 33,
-    kSampleRotationAngleFieldNumber = 34,
+    kDatasinkPortFieldNumber = 12,
+    kSddPortFieldNumber = 14,
+    kCcdPortFieldNumber = 16,
+    kSebitcountFieldNumber = 17,
+    kFilterFieldNumber = 18,
+    kEnergyrangeFieldNumber = 19,
+    kTempmodeFieldNumber = 20,
+    kZeropeakperiodFieldNumber = 21,
+    kAcquisitionmodeFieldNumber = 22,
+    kChecktemperatureFieldNumber = 23,
+    kSdd1FieldNumber = 24,
+    kSdd2FieldNumber = 25,
+    kSdd3FieldNumber = 26,
+    kSdd4FieldNumber = 27,
+    kCcdheightFieldNumber = 28,
+    kCcdwidthFieldNumber = 29,
+    kSampleWidthFieldNumber = 33,
+    kSampleHeightFieldNumber = 34,
+    kSampleRotationAngleFieldNumber = 35,
   };
   // repeated int32 energies = 8;
   int energies_size() const;
@@ -313,49 +314,7 @@ class Measurement final :
   std::string* _internal_mutable_save_file();
   public:
 
-  // string datasinkIP = 9;
-  void clear_datasinkip();
-  const std::string& datasinkip() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_datasinkip(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_datasinkip();
-  PROTOBUF_MUST_USE_RESULT std::string* release_datasinkip();
-  void set_allocated_datasinkip(std::string* datasinkip);
-  private:
-  const std::string& _internal_datasinkip() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_datasinkip(const std::string& value);
-  std::string* _internal_mutable_datasinkip();
-  public:
-
-  // string sddIP = 11;
-  void clear_sddip();
-  const std::string& sddip() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_sddip(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_sddip();
-  PROTOBUF_MUST_USE_RESULT std::string* release_sddip();
-  void set_allocated_sddip(std::string* sddip);
-  private:
-  const std::string& _internal_sddip() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sddip(const std::string& value);
-  std::string* _internal_mutable_sddip();
-  public:
-
-  // string ccdIP = 13;
-  void clear_ccdip();
-  const std::string& ccdip() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_ccdip(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_ccdip();
-  PROTOBUF_MUST_USE_RESULT std::string* release_ccdip();
-  void set_allocated_ccdip(std::string* ccdip);
-  private:
-  const std::string& _internal_ccdip() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_ccdip(const std::string& value);
-  std::string* _internal_mutable_ccdip();
-  public:
-
-  // string ROIdefinitions = 15;
+  // string ROIdefinitions = 9;
   void clear_roidefinitions();
   const std::string& roidefinitions() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -369,7 +328,63 @@ class Measurement final :
   std::string* _internal_mutable_roidefinitions();
   public:
 
-  // string sample_name = 29;
+  // string scantitle = 10;
+  void clear_scantitle();
+  const std::string& scantitle() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_scantitle(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_scantitle();
+  PROTOBUF_MUST_USE_RESULT std::string* release_scantitle();
+  void set_allocated_scantitle(std::string* scantitle);
+  private:
+  const std::string& _internal_scantitle() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_scantitle(const std::string& value);
+  std::string* _internal_mutable_scantitle();
+  public:
+
+  // string datasinkIP = 11;
+  void clear_datasinkip();
+  const std::string& datasinkip() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_datasinkip(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_datasinkip();
+  PROTOBUF_MUST_USE_RESULT std::string* release_datasinkip();
+  void set_allocated_datasinkip(std::string* datasinkip);
+  private:
+  const std::string& _internal_datasinkip() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_datasinkip(const std::string& value);
+  std::string* _internal_mutable_datasinkip();
+  public:
+
+  // string sddIP = 13;
+  void clear_sddip();
+  const std::string& sddip() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sddip(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sddip();
+  PROTOBUF_MUST_USE_RESULT std::string* release_sddip();
+  void set_allocated_sddip(std::string* sddip);
+  private:
+  const std::string& _internal_sddip() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sddip(const std::string& value);
+  std::string* _internal_mutable_sddip();
+  public:
+
+  // string ccdIP = 15;
+  void clear_ccdip();
+  const std::string& ccdip() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_ccdip(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_ccdip();
+  PROTOBUF_MUST_USE_RESULT std::string* release_ccdip();
+  void set_allocated_ccdip(std::string* ccdip);
+  private:
+  const std::string& _internal_ccdip() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_ccdip(const std::string& value);
+  std::string* _internal_mutable_ccdip();
+  public:
+
+  // string sample_name = 30;
   void clear_sample_name();
   const std::string& sample_name() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -383,7 +398,7 @@ class Measurement final :
   std::string* _internal_mutable_sample_name();
   public:
 
-  // string sample_type = 30;
+  // string sample_type = 31;
   void clear_sample_type();
   const std::string& sample_type() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -397,7 +412,7 @@ class Measurement final :
   std::string* _internal_mutable_sample_type();
   public:
 
-  // string sample_note = 31;
+  // string sample_note = 32;
   void clear_sample_note();
   const std::string& sample_note() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -411,7 +426,7 @@ class Measurement final :
   std::string* _internal_mutable_sample_note();
   public:
 
-  // string notes = 35;
+  // string notes = 36;
   void clear_notes();
   const std::string& notes() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -425,7 +440,7 @@ class Measurement final :
   std::string* _internal_mutable_notes();
   public:
 
-  // string userdata = 36;
+  // string userdata = 37;
   void clear_userdata();
   const std::string& userdata() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -475,7 +490,7 @@ class Measurement final :
   void _internal_set_energy_count(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 datasinkPort = 10;
+  // int32 datasinkPort = 12;
   void clear_datasinkport();
   ::PROTOBUF_NAMESPACE_ID::int32 datasinkport() const;
   void set_datasinkport(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -484,7 +499,7 @@ class Measurement final :
   void _internal_set_datasinkport(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 sddPort = 12;
+  // int32 sddPort = 14;
   void clear_sddport();
   ::PROTOBUF_NAMESPACE_ID::int32 sddport() const;
   void set_sddport(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -493,7 +508,7 @@ class Measurement final :
   void _internal_set_sddport(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 ccdPort = 14;
+  // int32 ccdPort = 16;
   void clear_ccdport();
   ::PROTOBUF_NAMESPACE_ID::int32 ccdport() const;
   void set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -502,7 +517,7 @@ class Measurement final :
   void _internal_set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 sebitcount = 16;
+  // int32 sebitcount = 17;
   void clear_sebitcount();
   ::PROTOBUF_NAMESPACE_ID::int32 sebitcount() const;
   void set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -511,7 +526,7 @@ class Measurement final :
   void _internal_set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 filter = 17;
+  // int32 filter = 18;
   void clear_filter();
   ::PROTOBUF_NAMESPACE_ID::int32 filter() const;
   void set_filter(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -520,7 +535,7 @@ class Measurement final :
   void _internal_set_filter(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 energyrange = 18;
+  // int32 energyrange = 19;
   void clear_energyrange();
   ::PROTOBUF_NAMESPACE_ID::int32 energyrange() const;
   void set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -529,7 +544,7 @@ class Measurement final :
   void _internal_set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 tempmode = 19;
+  // int32 tempmode = 20;
   void clear_tempmode();
   ::PROTOBUF_NAMESPACE_ID::int32 tempmode() const;
   void set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -538,7 +553,7 @@ class Measurement final :
   void _internal_set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 zeropeakperiod = 20;
+  // int32 zeropeakperiod = 21;
   void clear_zeropeakperiod();
   ::PROTOBUF_NAMESPACE_ID::int32 zeropeakperiod() const;
   void set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -547,7 +562,7 @@ class Measurement final :
   void _internal_set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 acquisitionmode = 21;
+  // int32 acquisitionmode = 22;
   void clear_acquisitionmode();
   ::PROTOBUF_NAMESPACE_ID::int32 acquisitionmode() const;
   void set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -556,7 +571,7 @@ class Measurement final :
   void _internal_set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 checktemperature = 22;
+  // int32 checktemperature = 23;
   void clear_checktemperature();
   ::PROTOBUF_NAMESPACE_ID::int32 checktemperature() const;
   void set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -565,7 +580,7 @@ class Measurement final :
   void _internal_set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // bool sdd1 = 23;
+  // bool sdd1 = 24;
   void clear_sdd1();
   bool sdd1() const;
   void set_sdd1(bool value);
@@ -574,7 +589,7 @@ class Measurement final :
   void _internal_set_sdd1(bool value);
   public:
 
-  // bool sdd2 = 24;
+  // bool sdd2 = 25;
   void clear_sdd2();
   bool sdd2() const;
   void set_sdd2(bool value);
@@ -583,7 +598,7 @@ class Measurement final :
   void _internal_set_sdd2(bool value);
   public:
 
-  // bool sdd3 = 25;
+  // bool sdd3 = 26;
   void clear_sdd3();
   bool sdd3() const;
   void set_sdd3(bool value);
@@ -592,7 +607,7 @@ class Measurement final :
   void _internal_set_sdd3(bool value);
   public:
 
-  // bool sdd4 = 26;
+  // bool sdd4 = 27;
   void clear_sdd4();
   bool sdd4() const;
   void set_sdd4(bool value);
@@ -601,7 +616,7 @@ class Measurement final :
   void _internal_set_sdd4(bool value);
   public:
 
-  // int32 ccdheight = 27;
+  // int32 ccdheight = 28;
   void clear_ccdheight();
   ::PROTOBUF_NAMESPACE_ID::int32 ccdheight() const;
   void set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -610,7 +625,7 @@ class Measurement final :
   void _internal_set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 ccdwidth = 28;
+  // int32 ccdwidth = 29;
   void clear_ccdwidth();
   ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth() const;
   void set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -619,7 +634,7 @@ class Measurement final :
   void _internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // float sample_width = 32;
+  // float sample_width = 33;
   void clear_sample_width();
   float sample_width() const;
   void set_sample_width(float value);
@@ -628,7 +643,7 @@ class Measurement final :
   void _internal_set_sample_width(float value);
   public:
 
-  // float sample_height = 33;
+  // float sample_height = 34;
   void clear_sample_height();
   float sample_height() const;
   void set_sample_height(float value);
@@ -637,7 +652,7 @@ class Measurement final :
   void _internal_set_sample_height(float value);
   public:
 
-  // float sample_rotation_angle = 34;
+  // float sample_rotation_angle = 35;
   void clear_sample_rotation_angle();
   float sample_rotation_angle() const;
   void set_sample_rotation_angle(float value);
@@ -658,10 +673,11 @@ class Measurement final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr scantype_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr save_path_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr save_file_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roidefinitions_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr scantitle_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr datasinkip_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sddip_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ccdip_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roidefinitions_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sample_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sample_type_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sample_note_;
@@ -2252,7 +2268,7 @@ Measurement::mutable_energies() {
   return _internal_mutable_energies();
 }
 
-// string ROIdefinitions = 15;
+// string ROIdefinitions = 9;
 inline void Measurement::clear_roidefinitions() {
   roidefinitions_.ClearToEmpty();
 }
@@ -2298,7 +2314,53 @@ inline void Measurement::set_allocated_roidefinitions(std::string* roidefinition
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.ROIdefinitions)
 }
 
-// string datasinkIP = 9;
+// string scantitle = 10;
+inline void Measurement::clear_scantitle() {
+  scantitle_.ClearToEmpty();
+}
+inline const std::string& Measurement::scantitle() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.scantitle)
+  return _internal_scantitle();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Measurement::set_scantitle(ArgT0&& arg0, ArgT... args) {
+ 
+ scantitle_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:animax.Measurement.scantitle)
+}
+inline std::string* Measurement::mutable_scantitle() {
+  std::string* _s = _internal_mutable_scantitle();
+  // @@protoc_insertion_point(field_mutable:animax.Measurement.scantitle)
+  return _s;
+}
+inline const std::string& Measurement::_internal_scantitle() const {
+  return scantitle_.Get();
+}
+inline void Measurement::_internal_set_scantitle(const std::string& value) {
+  
+  scantitle_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Measurement::_internal_mutable_scantitle() {
+  
+  return scantitle_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Measurement::release_scantitle() {
+  // @@protoc_insertion_point(field_release:animax.Measurement.scantitle)
+  return scantitle_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Measurement::set_allocated_scantitle(std::string* scantitle) {
+  if (scantitle != nullptr) {
+    
+  } else {
+    
+  }
+  scantitle_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), scantitle,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:animax.Measurement.scantitle)
+}
+
+// string datasinkIP = 11;
 inline void Measurement::clear_datasinkip() {
   datasinkip_.ClearToEmpty();
 }
@@ -2344,7 +2406,7 @@ inline void Measurement::set_allocated_datasinkip(std::string* datasinkip) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.datasinkIP)
 }
 
-// int32 datasinkPort = 10;
+// int32 datasinkPort = 12;
 inline void Measurement::clear_datasinkport() {
   datasinkport_ = 0;
 }
@@ -2364,7 +2426,7 @@ inline void Measurement::set_datasinkport(::PROTOBUF_NAMESPACE_ID::int32 value) 
   // @@protoc_insertion_point(field_set:animax.Measurement.datasinkPort)
 }
 
-// string sddIP = 11;
+// string sddIP = 13;
 inline void Measurement::clear_sddip() {
   sddip_.ClearToEmpty();
 }
@@ -2410,7 +2472,7 @@ inline void Measurement::set_allocated_sddip(std::string* sddip) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sddIP)
 }
 
-// int32 sddPort = 12;
+// int32 sddPort = 14;
 inline void Measurement::clear_sddport() {
   sddport_ = 0;
 }
@@ -2430,7 +2492,7 @@ inline void Measurement::set_sddport(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sddPort)
 }
 
-// string ccdIP = 13;
+// string ccdIP = 15;
 inline void Measurement::clear_ccdip() {
   ccdip_.ClearToEmpty();
 }
@@ -2476,7 +2538,7 @@ inline void Measurement::set_allocated_ccdip(std::string* ccdip) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.ccdIP)
 }
 
-// int32 ccdPort = 14;
+// int32 ccdPort = 16;
 inline void Measurement::clear_ccdport() {
   ccdport_ = 0;
 }
@@ -2496,7 +2558,7 @@ inline void Measurement::set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.ccdPort)
 }
 
-// int32 sebitcount = 16;
+// int32 sebitcount = 17;
 inline void Measurement::clear_sebitcount() {
   sebitcount_ = 0;
 }
@@ -2516,7 +2578,7 @@ inline void Measurement::set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sebitcount)
 }
 
-// int32 filter = 17;
+// int32 filter = 18;
 inline void Measurement::clear_filter() {
   filter_ = 0;
 }
@@ -2536,7 +2598,7 @@ inline void Measurement::set_filter(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.filter)
 }
 
-// int32 energyrange = 18;
+// int32 energyrange = 19;
 inline void Measurement::clear_energyrange() {
   energyrange_ = 0;
 }
@@ -2556,7 +2618,7 @@ inline void Measurement::set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.energyrange)
 }
 
-// int32 tempmode = 19;
+// int32 tempmode = 20;
 inline void Measurement::clear_tempmode() {
   tempmode_ = 0;
 }
@@ -2576,7 +2638,7 @@ inline void Measurement::set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.tempmode)
 }
 
-// int32 zeropeakperiod = 20;
+// int32 zeropeakperiod = 21;
 inline void Measurement::clear_zeropeakperiod() {
   zeropeakperiod_ = 0;
 }
@@ -2596,7 +2658,7 @@ inline void Measurement::set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value
   // @@protoc_insertion_point(field_set:animax.Measurement.zeropeakperiod)
 }
 
-// int32 acquisitionmode = 21;
+// int32 acquisitionmode = 22;
 inline void Measurement::clear_acquisitionmode() {
   acquisitionmode_ = 0;
 }
@@ -2616,7 +2678,7 @@ inline void Measurement::set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 valu
   // @@protoc_insertion_point(field_set:animax.Measurement.acquisitionmode)
 }
 
-// int32 checktemperature = 22;
+// int32 checktemperature = 23;
 inline void Measurement::clear_checktemperature() {
   checktemperature_ = 0;
 }
@@ -2636,7 +2698,7 @@ inline void Measurement::set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 val
   // @@protoc_insertion_point(field_set:animax.Measurement.checktemperature)
 }
 
-// bool sdd1 = 23;
+// bool sdd1 = 24;
 inline void Measurement::clear_sdd1() {
   sdd1_ = false;
 }
@@ -2656,7 +2718,7 @@ inline void Measurement::set_sdd1(bool value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sdd1)
 }
 
-// bool sdd2 = 24;
+// bool sdd2 = 25;
 inline void Measurement::clear_sdd2() {
   sdd2_ = false;
 }
@@ -2676,7 +2738,7 @@ inline void Measurement::set_sdd2(bool value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sdd2)
 }
 
-// bool sdd3 = 25;
+// bool sdd3 = 26;
 inline void Measurement::clear_sdd3() {
   sdd3_ = false;
 }
@@ -2696,7 +2758,7 @@ inline void Measurement::set_sdd3(bool value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sdd3)
 }
 
-// bool sdd4 = 26;
+// bool sdd4 = 27;
 inline void Measurement::clear_sdd4() {
   sdd4_ = false;
 }
@@ -2716,7 +2778,7 @@ inline void Measurement::set_sdd4(bool value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sdd4)
 }
 
-// int32 ccdheight = 27;
+// int32 ccdheight = 28;
 inline void Measurement::clear_ccdheight() {
   ccdheight_ = 0;
 }
@@ -2736,7 +2798,7 @@ inline void Measurement::set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.ccdheight)
 }
 
-// int32 ccdwidth = 28;
+// int32 ccdwidth = 29;
 inline void Measurement::clear_ccdwidth() {
   ccdwidth_ = 0;
 }
@@ -2756,7 +2818,7 @@ inline void Measurement::set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.ccdwidth)
 }
 
-// string sample_name = 29;
+// string sample_name = 30;
 inline void Measurement::clear_sample_name() {
   sample_name_.ClearToEmpty();
 }
@@ -2802,7 +2864,7 @@ inline void Measurement::set_allocated_sample_name(std::string* sample_name) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sample_name)
 }
 
-// string sample_type = 30;
+// string sample_type = 31;
 inline void Measurement::clear_sample_type() {
   sample_type_.ClearToEmpty();
 }
@@ -2848,7 +2910,7 @@ inline void Measurement::set_allocated_sample_type(std::string* sample_type) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sample_type)
 }
 
-// string sample_note = 31;
+// string sample_note = 32;
 inline void Measurement::clear_sample_note() {
   sample_note_.ClearToEmpty();
 }
@@ -2894,7 +2956,7 @@ inline void Measurement::set_allocated_sample_note(std::string* sample_note) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sample_note)
 }
 
-// float sample_width = 32;
+// float sample_width = 33;
 inline void Measurement::clear_sample_width() {
   sample_width_ = 0;
 }
@@ -2914,7 +2976,7 @@ inline void Measurement::set_sample_width(float value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sample_width)
 }
 
-// float sample_height = 33;
+// float sample_height = 34;
 inline void Measurement::clear_sample_height() {
   sample_height_ = 0;
 }
@@ -2934,7 +2996,7 @@ inline void Measurement::set_sample_height(float value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sample_height)
 }
 
-// float sample_rotation_angle = 34;
+// float sample_rotation_angle = 35;
 inline void Measurement::clear_sample_rotation_angle() {
   sample_rotation_angle_ = 0;
 }
@@ -2954,7 +3016,7 @@ inline void Measurement::set_sample_rotation_angle(float value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sample_rotation_angle)
 }
 
-// string notes = 35;
+// string notes = 36;
 inline void Measurement::clear_notes() {
   notes_.ClearToEmpty();
 }
@@ -3000,7 +3062,7 @@ inline void Measurement::set_allocated_notes(std::string* notes) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.notes)
 }
 
-// string userdata = 36;
+// string userdata = 37;
 inline void Measurement::clear_userdata() {
   userdata_.ClearToEmpty();
 }

@@ -32,6 +32,9 @@ public:
     settingsdata settings;
     int acquisition_number = 1;
     std::string scannote = "";
+    bool stopscan = false;
+    bool pausescan = false;
+    bool resumescan = false;
 
 private:
     //QString ip;

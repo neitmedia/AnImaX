@@ -18,6 +18,7 @@
 #include <QJsonParseError>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QTimer>
 
 #include "H5Cpp.h"
 using namespace H5;
@@ -89,6 +90,8 @@ void MainWindow::showEvent( QShowEvent* event ) {
     const bool connected = connect(controlth, SIGNAL(sendSettingsToGUI(settingsdata)),this,SLOT(getScanSettings(settingsdata)));
     const bool connected2 = connect(controlth, SIGNAL(sendMetadataToGUI(metadata)),this,SLOT(getMetadata(metadata)));
     const bool connected3 = connect(controlth, SIGNAL(sendScanNoteToGUI(std::string)),this,SLOT(getScanNote(std::string)));
+    const bool connected4 = connect(controlth, SIGNAL(sendScanStatusToGUI(std::string)),this,SLOT(getScanStatus(std::string)));
+
     controlth->start();
 
     // add log item
@@ -165,6 +168,7 @@ void MainWindow::getScanSettings(settingsdata settings) {
     // create HDF5/NeXus file
     nexusfile = new hdf5nexus();
     nexusfile->createDataFile(hdf5filename, scansettings);
+    addLogItem("created file "+hdf5filename);
     // add file to scan file list
     scanFiles.append(hdf5filename);
 
@@ -655,4 +659,30 @@ void MainWindow::getScanNote(std::string scannote) {
         nexusfile->closeDataFile();
         addLogItem("added scan note to file '"+fname+"'");
     }
+}
+
+void MainWindow::getScanStatus(std::string scanstatus) {
+    if (scanstatus == "stop") {
+        sdd->stop = true;
+        ccd->stop = true;
+        controlth->stop = true;
+
+        addLogItem("stopping scan...");
+
+        // Start Timer with timeout of 5 seconds to make sure everything is written to file before file is closed
+        QTimer *timer = new QTimer(this);
+        timer->setSingleShot(true);
+        connect(timer, &QTimer::timeout, this, &MainWindow::saveAndClose);
+        timer->start(5000);
+    }
+
+    if (scanstatus == "pause") {
+        addLogItem("scan paused");
+    }
+}
+
+void MainWindow::saveAndClose() {
+    nexusfile->writeEndTimeStamp();
+    nexusfile->closeDataFile();
+    addLogItem("closed datafile and stopped scan");
 }

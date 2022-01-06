@@ -42,6 +42,10 @@ private slots:
 
     void on_cmdSaveScanNote_clicked();
 
+    void on_cmdStopScan_clicked();
+
+    void on_cmdPauseScan_clicked();
+
 private:
     Ui::GUI *ui;
     scan* Scan;

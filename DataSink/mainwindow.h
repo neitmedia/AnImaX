@@ -41,9 +41,11 @@ public slots:
     void getScanSettings(settingsdata);
     void getMetadata(metadata);
     void getScanNote(std::string);
+    void getScanStatus(std::string);
     void ccdReady();
     void sddReady();
     void checkIfScanIsFinished();
+    void saveAndClose();
 
 private slots:
     void addLogItem(QString);

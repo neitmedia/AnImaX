@@ -13,6 +13,7 @@ struct settingsdata {
     float *energies;
     std::string scantype;
     std::string roidefinitions;
+    std::string scantitle;
 
     // network settings
     std::string datasinkIP;

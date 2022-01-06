@@ -43,6 +43,7 @@ void controlThread::run()
     subscriber.set(zmq::sockopt::subscribe, "settings");
     subscriber.set(zmq::sockopt::subscribe, "metadata");
     subscriber.set(zmq::sockopt::subscribe, "scannote");
+    subscriber.set(zmq::sockopt::subscribe, "scanstatus");
 
     zmq::socket_t gui(ctx, zmq::socket_type::pub);
 
@@ -67,6 +68,7 @@ void controlThread::run()
                 // general scan settings
                 settings.scanWidth = Measurement.width();
                 settings.scanHeight = Measurement.height();
+                settings.scantitle = Measurement.scantitle();
                 settings.energycount = Measurement.energy_count();
                 settings.roidefinitions = Measurement.roidefinitions();
                 settings.scantype = Measurement.scantype();
@@ -91,7 +93,7 @@ void controlThread::run()
                 settings.energyrange = Measurement.energyrange();
                 settings.tempmode = Measurement.tempmode();
                 settings.zeropeakperiod = Measurement.zeropeakperiod();
-                settings.acquisitionmode = Measurement.zeropeakperiod();
+                settings.acquisitionmode = Measurement.acquisitionmode();
                 settings.checktemperature = Measurement.checktemperature();
                 settings.sdd1 = Measurement.sdd1();
                 settings.sdd2 = Measurement.sdd2();
@@ -123,16 +125,7 @@ void controlThread::run()
                 std::cout<<"ccd height: "<<settings.ccdHeight<<std::endl;
 
                 if (!filecreated) {
-                    /*
-                    // create HDF5/NeXus file
-                    hdf5filename = "measurement_"+QString::number(QDateTime::currentMSecsSinceEpoch())+".h5";
-                    nexusfile = new hdf5nexus();
-                    nexusfile->createDataFile(hdf5filename, settings);
                     filecreated = true;
-                    */
-
-                    filecreated = true;
-
                     emit sendSettingsToGUI(settings);
                 }
 
@@ -158,13 +151,17 @@ void controlThread::run()
                     waitForMetadata = false;
                 }
             } else if (env_str == "scannote") {
-                    std::cout<<"received scan note!"<<std::endl;
-                    animax::scannote ScanNote;
-                    ScanNote.ParseFromArray(msg.data(), msg.size());
-                    emit sendScanNoteToGUI(ScanNote.text());
+                std::cout<<"received scan note!"<<std::endl;
+                animax::scannote ScanNote;
+                ScanNote.ParseFromArray(msg.data(), msg.size());
+                emit sendScanNoteToGUI(ScanNote.text());
+
+            } else if (env_str == "scanstatus") {
+                std::cout<<"received scan status!"<<std::endl;
+                animax::scanstatus scanstatus;
+                scanstatus.ParseFromArray(msg.data(), msg.size());
+                emit sendScanStatusToGUI(scanstatus.status());
             }
-
-
 
         }
 

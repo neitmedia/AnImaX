@@ -540,10 +540,9 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusGroup("/measurement", "NX_class", "NXentry", true);
     newNeXusScalarDataSet("/measurement/start_time", "NX_DATE_TIME", datetime.toStdString(), true);
     newNeXusScalarDataSet("/measurement/definition", "NX_CHAR", "NXstxm", true);
-    newNeXusScalarDataSet("/measurement/title", "NX_CHAR", settings.sample_name, true);
+    newNeXusScalarDataSet("/measurement/title", "NX_CHAR", settings.scantitle, true);
 
-    newNeXusGroup("/measurement/monitor", "NX_class", "NXmonitor", true);
-    newNeXusScalarDataSet("/measurement/monitor/data", "NX_FLOAT", 123, true);
+    //newNeXusScalarDataSet("/measurement/monitor/data", "NX_FLOAT", 123, true);
 
     newNeXusGroup("/measurement/data", "NX_class", "NXdata", true);
     //newNeXusScalarDataSet("/measurement/data/energy", "NX_FLOAT", 100, true);
@@ -555,6 +554,17 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusGroup("/measurement/instruments/ccd", "NX_class", "NXdetector", true);
     newNeXusGroup("/measurement/instruments/sdd", "NX_class", "NXdetector", true);
     newNeXusGroup("/measurement/instruments/monochromator", "NX_class", "NXmonochromator", true);
+
+    // create group for photodiode
+    newNeXusGroup("/measurement/instruments/photodiode", "class", "NXdetector", true);
+    newNeXusScalarDataSet("/measurement/instruments/photodiode/data", "NX_INT", 1, true);
+    // link photodiode data with monitor data
+    newNeXusGroup("/measurement/monitor", "NX_class", "NXmonitor", true);
+    file->link(H5L_TYPE_HARD, "/measurement/instruments/photodiode/data", "/measurement/monitor/data");
+
+    // create group for function generator
+    newNeXusGroup("/measurement/instruments/function_generator", "class", "function generator", true);
+    //newNeXusScalarDataSet("/measurement/instruments/function_generator/", "NX_INT", 1, true);
 
     //newNeXusScalarDataSet("/measurement/instruments/monochromator/energy", "NX_FLOAT", 11, true);
 
@@ -636,6 +646,7 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusGroup("/measurement/metadata", "class", "metadata", true);
     //newNeXusChunkedSDDLogDataSet("/measurement/metadata/beamline_energy", PredType::STD_I32LE, "beamline energy", true);
     //newNeXusChunkedSDDLogDataSet("/measurement/metadata/acquisition_number", PredType::STD_I32LE, "acquisition number", true);
+
 }
 
 void hdf5nexus::openDataFile(QString fname) {

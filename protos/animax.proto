@@ -12,44 +12,45 @@ message Measurement {
   string save_file = 6;
   int32 energy_count = 7;
   repeated int32 energies = 8;
-  string ROIdefinitions = 15;
+  string ROIdefinitions = 9;
+  string scantitle = 10;
   
   // network settings
-  string datasinkIP = 9;
-  int32 datasinkPort = 10;
-  string sddIP = 11;
-  int32 sddPort = 12;
-  string ccdIP = 13;
-  int32 ccdPort = 14;
+  string datasinkIP = 11;
+  int32 datasinkPort = 12;
+  string sddIP = 13;
+  int32 sddPort = 14;
+  string ccdIP = 15;
+  int32 ccdPort = 16;
   
   // sdd settings
-  int32 sebitcount = 16;
-  int32 filter = 17;
-  int32 energyrange = 18;
-  int32 tempmode = 19;
-  int32 zeropeakperiod = 20;
-  int32 acquisitionmode = 21;
-  int32 checktemperature = 22;
-  bool sdd1 = 23;
-  bool sdd2 = 24;
-  bool sdd3 = 25;
-  bool sdd4 = 26;
+  int32 sebitcount = 17;
+  int32 filter = 18;
+  int32 energyrange = 19;
+  int32 tempmode = 20;
+  int32 zeropeakperiod = 21;
+  int32 acquisitionmode = 22;
+  int32 checktemperature = 23;
+  bool sdd1 = 24;
+  bool sdd2 = 25;
+  bool sdd3 = 26;
+  bool sdd4 = 27;
   
   //ccd settings
-  int32 ccdheight = 27;
-  int32 ccdwidth = 28;
+  int32 ccdheight = 28;
+  int32 ccdwidth = 29;
   
   // sample settings
-  string sample_name = 29;
-  string sample_type = 30;
-  string sample_note = 31;
-  float sample_width = 32;
-  float sample_height = 33;
-  float sample_rotation_angle = 34;
+  string sample_name = 30;
+  string sample_type = 31;
+  string sample_note = 32;
+  float sample_width = 33;
+  float sample_height = 34;
+  float sample_rotation_angle = 35;
   
   // additional settings
-  string notes = 35;
-  string userdata = 36;
+  string notes = 36;
+  string userdata = 37;
 }
 
 message Metadata {

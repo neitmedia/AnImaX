@@ -33,6 +33,7 @@ int main (int argc, char** argv)
     // subscribe to "settings" and "metadata"
     subscriber.set(zmq::sockopt::subscribe, "settings");
     subscriber.set(zmq::sockopt::subscribe, "metadata");
+    subscriber.set(zmq::sockopt::subscribe, "scanstatus");
     
     // Prepare publisher
     zmq::socket_t gui(ctx, zmq::socket_type::pub);
@@ -123,6 +124,8 @@ int main (int argc, char** argv)
         	ready = true;
         }
     }
+    
+    bool stopscan = false;
 
     for (int scanc = 0; scanc < energy_count; scanc++) {
             // tell the GUI that detector is ready ("statusdata" envelope with content "detector ready")
@@ -162,6 +165,47 @@ int main (int argc, char** argv)
             
             // iterate through the images
             while(counter<pixelanzahl) {
+                
+                
+                // check for scan status changes
+                // declare ZMQ envelope message
+                zmq::message_t recvenv;
+                // receive envelope
+                (void)subscriber.recv(recvenv, zmq::recv_flags::dontwait);
+                // read out envelope content
+                std::string env_str = std::string(static_cast<char*>(recvenv.data()), recvenv.size());
+                
+                if (env_str == "scanstatus") {
+                    zmq::message_t msg;
+                    (void)subscriber.recv(msg, zmq::recv_flags::dontwait);
+                    // if the received envelope is the "scanstatus" envelope, it means that the GUI sent a scan status change request
+                    animax::scanstatus scanstatus;
+                    scanstatus.ParseFromArray(msg.data(), msg.size());
+                    std::string scanstatusstr = scanstatus.status();
+                    
+                    if (scanstatusstr == "stop") {
+                        stopscan = true;
+                    }
+                    
+                    if (scanstatusstr == "pause") {
+                        while (scanstatusstr != "resume") {
+                            (void)subscriber.recv(recvenv);
+                            // read out envelope content
+                            env_str = std::string(static_cast<char*>(recvenv.data()), recvenv.size());
+                            if (env_str == "scanstatus") {
+                                (void)subscriber.recv(msg, zmq::recv_flags::dontwait);
+                                // if the received envelope is the "scanstatus" envelope, it means that the GUI sent a scan status change request
+                                animax::scanstatus scanstatus;
+                                scanstatus.ParseFromArray(msg.data(), msg.size());
+                                scanstatusstr = scanstatus.status();
+                                if (scanstatusstr == "stop") {
+                                    stopscan = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
             
                 zmq::message_t env1(3);
                 memcpy(env1.data(), "ccd", 3);
@@ -201,6 +245,10 @@ int main (int argc, char** argv)
                 free(buffersend);
                         
                 usleep(5000);
+                
+                if (stopscan) {
+                    break;
+                }
         
             }
             // tell the GUI that measurement is finished ("statusdata" envelope with content "finished measurement")
@@ -209,5 +257,9 @@ int main (int argc, char** argv)
         
             // give out debug info
             std::cout<<"finished sending data"<<std::endl;
+            
+            if (stopscan) {
+                break;
+            }
         }
 }

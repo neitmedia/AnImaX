@@ -22,6 +22,7 @@ signals:
     void sendSettingsToGUI(settingsdata);
     void sendMetadataToGUI(metadata);
     void sendScanNoteToGUI(std::string);
+    void sendScanStatusToGUI(std::string);
 
 public:
     // constructor
