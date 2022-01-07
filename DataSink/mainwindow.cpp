@@ -185,7 +185,7 @@ void MainWindow::getScanSettings(settingsdata settings) {
     }
 
     // start ccd thread
-    ccd = new zmqThread(QString::fromStdString(scansettings.ccdIP+':'+std::to_string(scansettings.ccdPort)), scanX, scanY);
+    ccd = new ccdThread(QString::fromStdString(scansettings.ccdIP+':'+std::to_string(scansettings.ccdPort)), scanX, scanY);
     connect(ccd, SIGNAL(ccdReady()),this,SLOT(ccdReady()));
 
     const bool connected = connect(ccd, SIGNAL(sendImageData(int, std::string)),this,SLOT(getImageData(int, std::string)));

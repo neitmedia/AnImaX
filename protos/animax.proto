@@ -3,95 +3,95 @@ syntax = "proto3";
 package animax;
 
 message Measurement {
-  // general scan settings
-  int32 width = 1;
-  int32 height = 2;
-  int32 acquisition_time = 3;
-  string scantype = 4;
-  string save_path = 5;
-  string save_file = 6;
-  int32 energy_count = 7;
-  repeated int32 energies = 8;
-  string ROIdefinitions = 9;
-  string scantitle = 10;
+    // general scan settings
+    int32 width = 1;
+    int32 height = 2;
+    int32 acquisition_time = 3;
+    string scantype = 4;
+    string save_path = 5;
+    string save_file = 6;
+    int32 energy_count = 7;
+    repeated int32 energies = 8;
+    string ROIdefinitions = 9;
+    string scantitle = 10;
   
-  // network settings
-  string datasinkIP = 11;
-  int32 datasinkPort = 12;
-  string sddIP = 13;
-  int32 sddPort = 14;
-  string ccdIP = 15;
-  int32 ccdPort = 16;
+    // network settings
+    string datasinkIP = 11;
+    int32 datasinkPort = 12;
+    string sddIP = 13;
+    int32 sddPort = 14;
+    string ccdIP = 15;
+    int32 ccdPort = 16;
   
-  // sdd settings
-  int32 sebitcount = 17;
-  int32 filter = 18;
-  int32 energyrange = 19;
-  int32 tempmode = 20;
-  int32 zeropeakperiod = 21;
-  int32 acquisitionmode = 22;
-  int32 checktemperature = 23;
-  bool sdd1 = 24;
-  bool sdd2 = 25;
-  bool sdd3 = 26;
-  bool sdd4 = 27;
+    // sdd settings
+    int32 sebitcount = 17;
+    int32 filter = 18;
+    int32 energyrange = 19;
+    int32 tempmode = 20;
+    int32 zeropeakperiod = 21;
+    int32 acquisitionmode = 22;
+    int32 checktemperature = 23;
+    bool sdd1 = 24;
+    bool sdd2 = 25;
+    bool sdd3 = 26;
+    bool sdd4 = 27;
   
-  //ccd settings
-  int32 ccdheight = 28;
-  int32 ccdwidth = 29;
+    //ccd settings
+    int32 ccdheight = 28;
+    int32 ccdwidth = 29;
   
-  // sample settings
-  string sample_name = 30;
-  string sample_type = 31;
-  string sample_note = 32;
-  float sample_width = 33;
-  float sample_height = 34;
-  float sample_rotation_angle = 35;
+    // sample settings
+    string sample_name = 30;
+    string sample_type = 31;
+    string sample_note = 32;
+    float sample_width = 33;
+    float sample_height = 34;
+    float sample_rotation_angle = 35;
   
-  // additional settings
-  string notes = 36;
-  string userdata = 37;
+    // additional settings
+    string notes = 36;
+    string userdata = 37;
 }
 
 message Metadata {
-  int32 acquisition_number = 1;
-  string acquisition_time = 2;
-  float set_energy = 3;
-  float beamline_energy = 4;
-  float ringcurrent = 5;
-  bool horizontal_shutter = 6;
-  bool vertical_shutter = 7;
+    int32 acquisition_number = 1;
+    string acquisition_time = 2;
+    float set_energy = 3;
+    float beamline_energy = 4;
+    float ringcurrent = 5;
+    bool horizontal_shutter = 6;
+    bool vertical_shutter = 7;
 }
 
 message sdd {
-  bytes pixeldata = 1;
+    bytes pixeldata = 1;
 }
 
 message ccd {
-  int32 cnt = 1;
-  bytes pixeldata = 2;
+    int32 cnt = 1;
+    bytes pixeldata = 2;
 }
 
 message ccdsettings {
-  int32 width = 1;
-  int32 height = 2;
+    int32 width = 1;
+    int32 height = 2;
 }
 
 message preview {
-  string type = 1;
-  bytes previewdata = 2;
+    string type = 1;
+    bytes previewdata = 2;
 }
 
 message ROI {
-  string element = 1;
-  string line = 2;
-  bytes roidata = 3;
+    string element = 1;
+    string line = 2;
+    bytes roidata = 3;
 }
 
 message scanstatus {
-  string status = 1;
+    string status = 1;
 }
 
 message scannote {
-  string text = 1;
+    string text = 1;
 }

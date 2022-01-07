@@ -1,4 +1,4 @@
-#include "zmqthread.h"
+#include "ccdthread.h"
 #include <QDebug>
 #include <stdio.h>
 #include <QThread>
@@ -13,7 +13,7 @@
 
 using namespace std::chrono;
 
-zmqThread::zmqThread(QString s, int scanX, int scanY) : ip(s), scanX(scanX), scanY(scanY)
+ccdThread::ccdThread(QString s, int scanX, int scanY) : ip(s), scanX(scanX), scanY(scanY)
 {
     qRegisterMetaType<std::string>();
 }
@@ -22,7 +22,7 @@ zmqThread::zmqThread(QString s, int scanX, int scanY) : ip(s), scanX(scanX), sca
 // run() will be called when a thread starts
 // the code will be shared by all threads
 
-void zmqThread::run()
+void ccdThread::run()
 {
         std::cout<<"started ccd thread"<<std::endl;
         zmq::context_t context(1);

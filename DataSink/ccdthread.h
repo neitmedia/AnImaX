@@ -1,5 +1,5 @@
-#ifndef ZMQTHREAD_H
-#define ZMQTHREAD_H
+#ifndef CCDTHREAD_H
+#define CCDTHREAD_H
 #include <QThread>
 #include <QString>
 #include "animax.pb.h"
@@ -10,7 +10,7 @@ typedef QVector<QVector<uint32_t>> imagepixeldata;
 
 Q_DECLARE_METATYPE(std::string)
 
-class zmqThread : public QThread
+class ccdThread : public QThread
 {
     Q_OBJECT
 
@@ -24,7 +24,7 @@ signals:
 public:
     // constructor
     // set name using initializer
-    explicit zmqThread(QString s, int scanX, int scanY);
+    explicit ccdThread(QString s, int scanX, int scanY);
 
     // overriding the QThread's run() method
     void run();
@@ -37,4 +37,4 @@ private:
 
 };
 
-#endif // ZMQTHREAD_H
+#endif // CCDTHREAD_H

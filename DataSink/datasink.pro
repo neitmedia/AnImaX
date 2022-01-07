@@ -10,21 +10,21 @@ CONFIG += c++11 console
 
 SOURCES += \
     animax.pb.cc \
+    ccdthread.cpp \
     controlthread.cpp \
     hdf5nexus.cpp \
     main.cpp \
     mainwindow.cpp \
-    sddthread.cpp \
-    zmqthread.cpp
+    sddthread.cpp
 
 HEADERS += \
     animax.pb.h \
+    ccdthread.h \
     controlthread.h \
     hdf5nexus.h \
     mainwindow.h \
     sddthread.h \
-    structs.h \
-    zmqthread.h
+    structs.h
 
 FORMS += \
     mainwindow.ui

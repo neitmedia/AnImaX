@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QFile>
-#include <zmqthread.h>
+#include <ccdthread.h>
 #include <sddthread.h>
 #include <controlthread.h>
 #include <QVector>
@@ -61,8 +61,7 @@ private:
     int currentimage = 10;
     QFile myfile;
     QFile myfluofile;
-    zmqThread* th;
-    zmqThread* ccd;
+    ccdThread* ccd;
     sddThread* sdd;
     sddThread* sddth;
     hdf5nexus* nexusfile;

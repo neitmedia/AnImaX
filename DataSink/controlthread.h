@@ -7,7 +7,7 @@
 #include <animax.pb.h>
 #include <structs.h>
 #include <QDateTime>
-#include <zmqthread.h>
+#include <ccdthread.h>
 #include <sddthread.h>
 
 typedef QVector<QVector<uint32_t>> imagepixeldata;
@@ -44,8 +44,6 @@ public:
 
 private:
     QString hdf5filename;
-    zmqThread* ccd;
-    sddThread* sdd;
     imagepreviewdata stxmpreview;
     roidata ROIdata;
     bool newSTXMpreview = false;
