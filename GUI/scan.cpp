@@ -29,6 +29,7 @@ void scan::run()
         ccd.connect("tcp://"+settings.ccdIP+":"+std::to_string(settings.ccdPort));
         std::cout<<"connected to ccd: "<<"tcp://"+settings.ccdIP+":"+std::to_string(settings.ccdPort)<<std::endl;
         ccd.set(zmq::sockopt::subscribe, "statusdata");
+        ccd.set(zmq::sockopt::subscribe, "ccdsettings");
 
         // Prepare sdd subscriber => open "statusdata" envelopes from sdd PC
         zmq::socket_t sdd(ctx, zmq::socket_type::sub);
@@ -103,6 +104,7 @@ void scan::run()
 
         bool ccd_connection_ready = false;
         bool ccd_detector_ready = false;
+        bool ccd_settings_ready = false;
         bool sdd_connection_ready = false;
         bool sdd_detector_ready = false;
         bool datasink_ready = false;
@@ -175,7 +177,10 @@ void scan::run()
                 QThread::msleep(100);
             }
 
-            if (!metadata_sent) {
+            if ((!metadata_sent) && (ccd_connection_ready) && (sdd_connection_ready) && (datasink_ready)) {
+
+                std::cout<<"all connected!"<<std::endl;
+
                 // send beamline parameter
                 // HERE: get beamline parameter
                 animax::Metadata Metadata;
@@ -203,46 +208,13 @@ void scan::run()
                 zmq::message_t request(metadatasize);
                 memcpy((void *)request.data(), metadatabuffer, metadatasize);
                 publisher.send(request, zmq::send_flags::none);
-                std::cout<<"sent metadata!"<<std::endl;
 
-                std::cout<<"all connected"<<std::endl;
+                std::cout<<"sent initial metadata!"<<std::endl;
+
+                metadata_sent = true;
             }
 
             while ((!sdd_detector_ready) || (!ccd_detector_ready)) {
-
-                if (!metadata_sent) {
-                    // send beamline parameter
-                    // HERE: get beamline parameter
-                    animax::Metadata Metadata;
-                    // get current time
-                    QDate cd = QDate::currentDate();
-                    QTime ct = QTime::currentTime();
-
-                    QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
-
-                    // define protobuf values
-                    Metadata.set_acquisition_number(acquisition_number);
-                    Metadata.set_acquisition_time(datetime.toStdString());
-                    Metadata.set_set_energy(settings.energies[acquisition_number-1]);
-                    Metadata.set_beamline_energy(settings.energies[acquisition_number-1]+0.5);
-                    Metadata.set_ringcurrent(198);
-                    Metadata.set_horizontal_shutter(true);
-                    Metadata.set_vertical_shutter(true);
-
-                    // publish settings
-                    publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
-                    size_t metadatasize = Metadata.ByteSizeLong();
-                    void *metadatabuffer = malloc(metadatasize);
-                    Metadata.SerializeToArray(metadatabuffer, metadatasize);
-                    zmq::message_t request(metadatasize);
-                    memcpy((void *)request.data(), metadatabuffer, metadatasize);
-                    publisher.send(request, zmq::send_flags::none);
-                    std::cout<<"sent metadata!"<<std::endl;
-
-                    std::cout<<"all connected"<<std::endl;
-                    metadata_sent = true;
-                }
-
                 if (!sdd_detector_ready) {
                 // check if sdd detector is ready
                     zmq::message_t sddreply;
@@ -260,25 +232,57 @@ void scan::run()
                     }
                 }
 
-                if (!ccd_detector_ready) {
-                // check if ccd detector is ready
+                if (!ccd_detector_ready || !ccd_settings_ready) {
+
                     zmq::message_t ccdreply;
                     (void)ccd.recv(ccdreply, zmq::recv_flags::dontwait);
                     std::string ccdenv_str = "";
                     ccdenv_str = std::string(static_cast<char*>(ccdreply.data()), ccdreply.size());
-                    if (ccdenv_str != "") {
-                        zmq::message_t ccdmsg;
-                        (void)ccd.recv(ccdmsg, zmq::recv_flags::none);
-                        std::string ccdmsg_str = std::string(static_cast<char*>(ccdmsg.data()), ccdmsg.size());
-                        if (ccdmsg_str == "detector ready") {
-                            ccd_detector_ready = true;
-                            emit sendDeviceStatusToGUI("ccd", QString::fromStdString(ccdmsg_str));
+
+                    if (!ccd_detector_ready) {
+                    // check if ccd detector is ready
+                        if (ccdenv_str == "statusdata") {
+                            zmq::message_t ccdmsg;
+                            (void)ccd.recv(ccdmsg, zmq::recv_flags::none);
+                            std::string ccdmsg_str = std::string(static_cast<char*>(ccdmsg.data()), ccdmsg.size());
+                            if (ccdmsg_str == "detector ready") {
+                                ccd_detector_ready = true;
+                                emit sendDeviceStatusToGUI("ccd", QString::fromStdString(ccdmsg_str));
+                            }
+                        }
+                    }
+
+                    if (!ccd_settings_ready) {
+                        if (ccdenv_str == "ccdsettings") {
+                            zmq::message_t ccdmsg;
+                            (void)ccd.recv(ccdmsg, zmq::recv_flags::none);
+
+                            std::cout<<"received calculated real ccd settings"<<std::endl;
+
+                            // deserialize ccdsettings protobuf
+                            animax::ccdsettings real_ccdsettings;
+                            real_ccdsettings.ParseFromArray(ccdmsg.data(), ccdmsg.size());
+                            int32_t set_kinetic_cycle_time = real_ccdsettings.set_kinetic_cycle_time();
+                            int32_t set_integration_time = real_ccdsettings.set_integration_time();
+                            int32_t exposure_time = real_ccdsettings.exposure_time();
+                            int32_t accumulation_time = real_ccdsettings.accumulation_time();
+                            int32_t kinetic_time = real_ccdsettings.kinetic_time();
+
+                            // Print values for debugging purposes
+                            std::cout<<"set kinetic cycle time: "<<set_kinetic_cycle_time<<std::endl;
+                            std::cout<<"set integration time: "<<set_integration_time<<std::endl;
+                            std::cout<<"exposure time: "<<exposure_time<<std::endl;
+                            std::cout<<"accumulation time: "<<accumulation_time<<std::endl;
+                            std::cout<<"kinetic time: "<<kinetic_time<<std::endl;
+
+                            ccd_settings_ready = true;
+                            metadata_sent = false;
                         }
                     }
                 }
             }
 
-            if ((datasink_ready) && (ccd_connection_ready) && (ccd_detector_ready) && (sdd_connection_ready) && (sdd_detector_ready) && (metadata_sent)) {
+            if ((datasink_ready) && (ccd_connection_ready) && (ccd_detector_ready) && (ccd_settings_ready) && (sdd_connection_ready) && (sdd_detector_ready) && (metadata_sent)) {
                 zmq::message_t previewmessage;
                 (void)datasink.recv(previewmessage, zmq::recv_flags::dontwait);
                 if (previewmessage.size() > 0) {
@@ -320,41 +324,12 @@ void scan::run()
 
                             QThread::sleep(5);
 
-                            sdd_detector_ready = false;
-                            ccd_detector_ready = false;
-                            // image is ready: change settings of beamline, positioner etc.
-                            // if finished, get new metadata and send out new metadata
-                            // send beamline parameter
-
-                            // HERE: get beamline parameter
-                            animax::Metadata Metadata;
-                            // define protobuf values
                             acquisition_number++;
 
-                            // get current time
-                            QDate cd = QDate::currentDate();
-                            QTime ct = QTime::currentTime();
+                            sdd_detector_ready = false;
+                            ccd_detector_ready = false;
 
-                            QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
-
-                            // define protobuf values
-                            Metadata.set_acquisition_number(acquisition_number);
-                            Metadata.set_acquisition_time(datetime.toStdString());
-                            Metadata.set_set_energy(settings.energies[acquisition_number-1]);
-                            Metadata.set_beamline_energy(settings.energies[acquisition_number-1]+0.5);
-                            Metadata.set_ringcurrent(198);
-                            Metadata.set_horizontal_shutter(true);
-                            Metadata.set_vertical_shutter(true);
-
-                            // publish settings
-                            publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
-                            size_t metadatasize = Metadata.ByteSizeLong();
-                            void *metadatabuffer = malloc(metadatasize);
-                            Metadata.SerializeToArray(metadatabuffer, metadatasize);
-                            zmq::message_t request(metadatasize);
-                            memcpy((void *)request.data(), metadatabuffer, metadatasize);
-                            publisher.send(request, zmq::send_flags::none);
-                            std::cout<<"sent metadata!"<<std::endl;
+                            metadata_sent = false;
                         }
 
                         if (scanstatusstr == "whole scan finished") {

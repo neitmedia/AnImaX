@@ -52,8 +52,32 @@ constexpr Measurement::Measurement(
   , sdd2_(false)
   , sdd3_(false)
   , sdd4_(false)
+  , binning_x_(0)
+  , binning_y_(0)
   , ccdheight_(0)
   , ccdwidth_(0)
+  , pixelcount_(0)
+  , frametransfer_mode_(0)
+  , number_of_accumulations_(0)
+  , number_of_scans_(0)
+  , set_kinetic_cycle_time_(0)
+  , read_mode_(0)
+  , acquision_mode_(0)
+  , shutter_mode_(0)
+  , shutter_output_signal_(0)
+  , shutter_open_time_(0)
+  , shutter_close_time_(0)
+  , triggermode_(0)
+  , set_integration_time_(0)
+  , exposure_time_(0)
+  , accumulation_time_(0)
+  , kinetic_time_(0)
+  , min_temp_(0)
+  , max_temp_(0)
+  , target_temp_(0)
+  , pre_amp_gain_(0)
+  , em_gain_mode_(0)
+  , em_gain_(0)
   , sample_width_(0)
   , sample_height_(0)
   , sample_rotation_angle_(0){}
@@ -111,8 +135,32 @@ struct ccdDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ccdDefaultTypeInternal _ccd_default_instance_;
 constexpr ccdsettings::ccdsettings(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : width_(0)
-  , height_(0){}
+  : binning_x_(0)
+  , binning_y_(0)
+  , ccdheight_(0)
+  , ccdwidth_(0)
+  , pixelcount_(0)
+  , frametransfer_mode_(0)
+  , number_of_accumulations_(0)
+  , number_of_scans_(0)
+  , set_kinetic_cycle_time_(0)
+  , read_mode_(0)
+  , acquision_mode_(0)
+  , shutter_mode_(0)
+  , shutter_output_signal_(0)
+  , shutter_open_time_(0)
+  , shutter_close_time_(0)
+  , triggermode_(0)
+  , set_integration_time_(0)
+  , exposure_time_(0)
+  , accumulation_time_(0)
+  , kinetic_time_(0)
+  , min_temp_(0)
+  , max_temp_(0)
+  , target_temp_(0)
+  , pre_amp_gain_(0)
+  , em_gain_mode_(0)
+  , em_gain_(0){}
 struct ccdsettingsDefaultTypeInternal {
   constexpr ccdsettingsDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -211,8 +259,32 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animax_2eproto::offsets[] PROT
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, sdd2_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, sdd3_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, sdd4_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, binning_x_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, binning_y_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, ccdheight_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, ccdwidth_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, pixelcount_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, frametransfer_mode_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, number_of_accumulations_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, number_of_scans_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, set_kinetic_cycle_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, read_mode_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, acquision_mode_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, shutter_mode_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, shutter_output_signal_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, shutter_open_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, shutter_close_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, triggermode_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, set_integration_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, exposure_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, accumulation_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, kinetic_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, min_temp_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, max_temp_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, target_temp_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, pre_amp_gain_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, em_gain_mode_),
+  PROTOBUF_FIELD_OFFSET(::animax::Measurement, em_gain_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, sample_name_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, sample_type_),
   PROTOBUF_FIELD_OFFSET(::animax::Measurement, sample_note_),
@@ -251,8 +323,32 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animax_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, width_),
-  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, height_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, binning_x_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, binning_y_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, ccdheight_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, ccdwidth_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, pixelcount_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, frametransfer_mode_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, number_of_accumulations_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, number_of_scans_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, set_kinetic_cycle_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, read_mode_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, acquision_mode_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, shutter_mode_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, shutter_output_signal_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, shutter_open_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, shutter_close_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, triggermode_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, set_integration_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, exposure_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, accumulation_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, kinetic_time_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, min_temp_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, max_temp_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, target_temp_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, pre_amp_gain_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, em_gain_mode_),
+  PROTOBUF_FIELD_OFFSET(::animax::ccdsettings, em_gain_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::animax::preview, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -283,14 +379,14 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animax_2eproto::offsets[] PROT
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::animax::Measurement)},
-  { 42, -1, sizeof(::animax::Metadata)},
-  { 54, -1, sizeof(::animax::sdd)},
-  { 60, -1, sizeof(::animax::ccd)},
-  { 67, -1, sizeof(::animax::ccdsettings)},
-  { 74, -1, sizeof(::animax::preview)},
-  { 81, -1, sizeof(::animax::ROI)},
-  { 89, -1, sizeof(::animax::scanstatus)},
-  { 95, -1, sizeof(::animax::scannote)},
+  { 66, -1, sizeof(::animax::Metadata)},
+  { 78, -1, sizeof(::animax::sdd)},
+  { 84, -1, sizeof(::animax::ccd)},
+  { 91, -1, sizeof(::animax::ccdsettings)},
+  { 122, -1, sizeof(::animax::preview)},
+  { 129, -1, sizeof(::animax::ROI)},
+  { 137, -1, sizeof(::animax::scanstatus)},
+  { 143, -1, sizeof(::animax::scannote)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -306,7 +402,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_animax_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014animax.proto\022\006animax\"\332\005\n\013Measurement\022\r"
+  "\n\014animax.proto\022\006animax\"\222\n\n\013Measurement\022\r"
   "\n\005width\030\001 \001(\005\022\016\n\006height\030\002 \001(\005\022\030\n\020acquisi"
   "tion_time\030\003 \001(\005\022\020\n\010scantype\030\004 \001(\t\022\021\n\tsav"
   "e_path\030\005 \001(\t\022\021\n\tsave_file\030\006 \001(\t\022\024\n\014energ"
@@ -319,28 +415,57 @@ const char descriptor_table_protodef_animax_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\010tempmode\030\024 \001(\005\022\026\n\016zeropeakperiod\030\025 \001(\005\022"
   "\027\n\017acquisitionmode\030\026 \001(\005\022\030\n\020checktempera"
   "ture\030\027 \001(\005\022\014\n\004sdd1\030\030 \001(\010\022\014\n\004sdd2\030\031 \001(\010\022\014"
-  "\n\004sdd3\030\032 \001(\010\022\014\n\004sdd4\030\033 \001(\010\022\021\n\tccdheight\030"
-  "\034 \001(\005\022\020\n\010ccdwidth\030\035 \001(\005\022\023\n\013sample_name\030\036"
-  " \001(\t\022\023\n\013sample_type\030\037 \001(\t\022\023\n\013sample_note"
-  "\030  \001(\t\022\024\n\014sample_width\030! \001(\002\022\025\n\rsample_h"
-  "eight\030\" \001(\002\022\035\n\025sample_rotation_angle\030# \001"
-  "(\002\022\r\n\005notes\030$ \001(\t\022\020\n\010userdata\030% \001(\t\"\270\001\n\010"
-  "Metadata\022\032\n\022acquisition_number\030\001 \001(\005\022\030\n\020"
-  "acquisition_time\030\002 \001(\t\022\022\n\nset_energy\030\003 \001"
-  "(\002\022\027\n\017beamline_energy\030\004 \001(\002\022\023\n\013ringcurre"
-  "nt\030\005 \001(\002\022\032\n\022horizontal_shutter\030\006 \001(\010\022\030\n\020"
-  "vertical_shutter\030\007 \001(\010\"\030\n\003sdd\022\021\n\tpixelda"
-  "ta\030\001 \001(\014\"%\n\003ccd\022\013\n\003cnt\030\001 \001(\005\022\021\n\tpixeldat"
-  "a\030\002 \001(\014\",\n\013ccdsettings\022\r\n\005width\030\001 \001(\005\022\016\n"
-  "\006height\030\002 \001(\005\",\n\007preview\022\014\n\004type\030\001 \001(\t\022\023"
-  "\n\013previewdata\030\002 \001(\014\"5\n\003ROI\022\017\n\007element\030\001 "
-  "\001(\t\022\014\n\004line\030\002 \001(\t\022\017\n\007roidata\030\003 \001(\014\"\034\n\nsc"
-  "anstatus\022\016\n\006status\030\001 \001(\t\"\030\n\010scannote\022\014\n\004"
-  "text\030\001 \001(\tb\006proto3"
+  "\n\004sdd3\030\032 \001(\010\022\014\n\004sdd4\030\033 \001(\010\022\021\n\tbinning_x\030"
+  "\034 \001(\005\022\021\n\tbinning_y\030\035 \001(\005\022\021\n\tccdheight\030\036 "
+  "\001(\005\022\020\n\010ccdwidth\030\037 \001(\005\022\022\n\npixelcount\030  \001("
+  "\005\022\032\n\022frametransfer_mode\030! \001(\005\022\037\n\027number_"
+  "of_accumulations\030\" \001(\005\022\027\n\017number_of_scan"
+  "s\030# \001(\005\022\036\n\026set_kinetic_cycle_time\030$ \001(\002\022"
+  "\021\n\tread_mode\030% \001(\005\022\026\n\016acquision_mode\030& \001"
+  "(\005\022\024\n\014shutter_mode\030\' \001(\005\022\035\n\025shutter_outp"
+  "ut_signal\030( \001(\005\022\031\n\021shutter_open_time\030) \001"
+  "(\005\022\032\n\022shutter_close_time\030* \001(\005\022\023\n\013trigge"
+  "rmode\030+ \001(\005\022\034\n\024set_integration_time\030, \001("
+  "\002\022\025\n\rexposure_time\030- \001(\002\022\031\n\021accumulation"
+  "_time\030. \001(\002\022\024\n\014kinetic_time\030/ \001(\002\022\020\n\010min"
+  "_temp\0300 \001(\005\022\020\n\010max_temp\0301 \001(\005\022\023\n\013target_"
+  "temp\0302 \001(\005\022\024\n\014pre_amp_gain\0303 \001(\005\022\024\n\014em_g"
+  "ain_mode\0304 \001(\005\022\017\n\007em_gain\0305 \001(\005\022\023\n\013sampl"
+  "e_name\0306 \001(\t\022\023\n\013sample_type\0307 \001(\t\022\023\n\013sam"
+  "ple_note\0308 \001(\t\022\024\n\014sample_width\0309 \001(\002\022\025\n\r"
+  "sample_height\030: \001(\002\022\035\n\025sample_rotation_a"
+  "ngle\030; \001(\002\022\r\n\005notes\030< \001(\t\022\020\n\010userdata\030= "
+  "\001(\t\"\270\001\n\010Metadata\022\032\n\022acquisition_number\030\001"
+  " \001(\005\022\030\n\020acquisition_time\030\002 \001(\t\022\022\n\nset_en"
+  "ergy\030\003 \001(\002\022\027\n\017beamline_energy\030\004 \001(\002\022\023\n\013r"
+  "ingcurrent\030\005 \001(\002\022\032\n\022horizontal_shutter\030\006"
+  " \001(\010\022\030\n\020vertical_shutter\030\007 \001(\010\"\030\n\003sdd\022\021\n"
+  "\tpixeldata\030\001 \001(\014\"%\n\003ccd\022\013\n\003cnt\030\001 \001(\005\022\021\n\t"
+  "pixeldata\030\002 \001(\014\"\352\004\n\013ccdsettings\022\021\n\tbinni"
+  "ng_x\030\001 \001(\005\022\021\n\tbinning_y\030\002 \001(\005\022\021\n\tccdheig"
+  "ht\030\003 \001(\005\022\020\n\010ccdwidth\030\004 \001(\005\022\022\n\npixelcount"
+  "\030\005 \001(\005\022\032\n\022frametransfer_mode\030\006 \001(\005\022\037\n\027nu"
+  "mber_of_accumulations\030\007 \001(\005\022\027\n\017number_of"
+  "_scans\030\010 \001(\005\022\036\n\026set_kinetic_cycle_time\030\t"
+  " \001(\002\022\021\n\tread_mode\030\n \001(\005\022\026\n\016acquision_mod"
+  "e\030\013 \001(\005\022\024\n\014shutter_mode\030\014 \001(\005\022\035\n\025shutter"
+  "_output_signal\030\r \001(\005\022\031\n\021shutter_open_tim"
+  "e\030\016 \001(\005\022\032\n\022shutter_close_time\030\017 \001(\005\022\023\n\013t"
+  "riggermode\030\020 \001(\005\022\034\n\024set_integration_time"
+  "\030\021 \001(\002\022\025\n\rexposure_time\030\022 \001(\002\022\031\n\021accumul"
+  "ation_time\030\023 \001(\002\022\024\n\014kinetic_time\030\024 \001(\002\022\020"
+  "\n\010min_temp\030\025 \001(\005\022\020\n\010max_temp\030\026 \001(\005\022\023\n\013ta"
+  "rget_temp\030\027 \001(\005\022\024\n\014pre_amp_gain\030\030 \001(\005\022\024\n"
+  "\014em_gain_mode\030\031 \001(\005\022\017\n\007em_gain\030\032 \001(\005\",\n\007"
+  "preview\022\014\n\004type\030\001 \001(\t\022\023\n\013previewdata\030\002 \001"
+  "(\014\"5\n\003ROI\022\017\n\007element\030\001 \001(\t\022\014\n\004line\030\002 \001(\t"
+  "\022\017\n\007roidata\030\003 \001(\014\"\034\n\nscanstatus\022\016\n\006statu"
+  "s\030\001 \001(\t\"\030\n\010scannote\022\014\n\004text\030\001 \001(\tb\006proto"
+  "3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_animax_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_animax_2eproto = {
-  false, false, 1218, descriptor_table_protodef_animax_2eproto, "animax.proto", 
+  false, false, 2361, descriptor_table_protodef_animax_2eproto, "animax.proto", 
   &descriptor_table_animax_2eproto_once, nullptr, 0, 9,
   schemas, file_default_instances, TableStruct_animax_2eproto::offsets,
   file_level_metadata_animax_2eproto, file_level_enum_descriptors_animax_2eproto, file_level_service_descriptors_animax_2eproto,
@@ -738,80 +863,248 @@ const char* Measurement::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 ccdheight = 28;
+      // int32 binning_x = 28;
       case 28:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 224)) {
+          binning_x_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 binning_y = 29;
+      case 29:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 232)) {
+          binning_y_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 ccdheight = 30;
+      case 30:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 240)) {
           ccdheight_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 ccdwidth = 29;
-      case 29:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 232)) {
+      // int32 ccdwidth = 31;
+      case 31:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 248)) {
           ccdwidth_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string sample_name = 30;
-      case 30:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 242)) {
+      // int32 pixelcount = 32;
+      case 32:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 0)) {
+          pixelcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 frametransfer_mode = 33;
+      case 33:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          frametransfer_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 number_of_accumulations = 34;
+      case 34:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          number_of_accumulations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 number_of_scans = 35;
+      case 35:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          number_of_scans_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // float set_kinetic_cycle_time = 36;
+      case 36:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+          set_kinetic_cycle_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // int32 read_mode = 37;
+      case 37:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+          read_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 acquision_mode = 38;
+      case 38:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+          acquision_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 shutter_mode = 39;
+      case 39:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+          shutter_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 shutter_output_signal = 40;
+      case 40:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
+          shutter_output_signal_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 shutter_open_time = 41;
+      case 41:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
+          shutter_open_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 shutter_close_time = 42;
+      case 42:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 80)) {
+          shutter_close_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 triggermode = 43;
+      case 43:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
+          triggermode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // float set_integration_time = 44;
+      case 44:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 101)) {
+          set_integration_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float exposure_time = 45;
+      case 45:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 109)) {
+          exposure_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float accumulation_time = 46;
+      case 46:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 117)) {
+          accumulation_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float kinetic_time = 47;
+      case 47:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 125)) {
+          kinetic_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // int32 min_temp = 48;
+      case 48:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 128)) {
+          min_temp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 max_temp = 49;
+      case 49:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 136)) {
+          max_temp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 target_temp = 50;
+      case 50:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 144)) {
+          target_temp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 pre_amp_gain = 51;
+      case 51:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 152)) {
+          pre_amp_gain_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 em_gain_mode = 52;
+      case 52:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 160)) {
+          em_gain_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 em_gain = 53;
+      case 53:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 168)) {
+          em_gain_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string sample_name = 54;
+      case 54:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 178)) {
           auto str = _internal_mutable_sample_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.sample_name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string sample_type = 31;
-      case 31:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 250)) {
+      // string sample_type = 55;
+      case 55:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 186)) {
           auto str = _internal_mutable_sample_type();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.sample_type"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string sample_note = 32;
-      case 32:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 2)) {
+      // string sample_note = 56;
+      case 56:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 194)) {
           auto str = _internal_mutable_sample_note();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.sample_note"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // float sample_width = 33;
-      case 33:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
+      // float sample_width = 57;
+      case 57:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 205)) {
           sample_width_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float sample_height = 34;
-      case 34:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
+      // float sample_height = 58;
+      case 58:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 213)) {
           sample_height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float sample_rotation_angle = 35;
-      case 35:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
+      // float sample_rotation_angle = 59;
+      case 59:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 221)) {
           sample_rotation_angle_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // string notes = 36;
-      case 36:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+      // string notes = 60;
+      case 60:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 226)) {
           auto str = _internal_mutable_notes();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.notes"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string userdata = 37;
-      case 37:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+      // string userdata = 61;
+      case 61:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 234)) {
           auto str = _internal_mutable_userdata();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "animax.Measurement.userdata"));
@@ -1044,84 +1337,228 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(27, this->_internal_sdd4(), target);
   }
 
-  // int32 ccdheight = 28;
+  // int32 binning_x = 28;
+  if (this->_internal_binning_x() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(28, this->_internal_binning_x(), target);
+  }
+
+  // int32 binning_y = 29;
+  if (this->_internal_binning_y() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(29, this->_internal_binning_y(), target);
+  }
+
+  // int32 ccdheight = 30;
   if (this->_internal_ccdheight() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(28, this->_internal_ccdheight(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(30, this->_internal_ccdheight(), target);
   }
 
-  // int32 ccdwidth = 29;
+  // int32 ccdwidth = 31;
   if (this->_internal_ccdwidth() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(29, this->_internal_ccdwidth(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(31, this->_internal_ccdwidth(), target);
   }
 
-  // string sample_name = 30;
+  // int32 pixelcount = 32;
+  if (this->_internal_pixelcount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(32, this->_internal_pixelcount(), target);
+  }
+
+  // int32 frametransfer_mode = 33;
+  if (this->_internal_frametransfer_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(33, this->_internal_frametransfer_mode(), target);
+  }
+
+  // int32 number_of_accumulations = 34;
+  if (this->_internal_number_of_accumulations() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(34, this->_internal_number_of_accumulations(), target);
+  }
+
+  // int32 number_of_scans = 35;
+  if (this->_internal_number_of_scans() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(35, this->_internal_number_of_scans(), target);
+  }
+
+  // float set_kinetic_cycle_time = 36;
+  if (!(this->_internal_set_kinetic_cycle_time() <= 0 && this->_internal_set_kinetic_cycle_time() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(36, this->_internal_set_kinetic_cycle_time(), target);
+  }
+
+  // int32 read_mode = 37;
+  if (this->_internal_read_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(37, this->_internal_read_mode(), target);
+  }
+
+  // int32 acquision_mode = 38;
+  if (this->_internal_acquision_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(38, this->_internal_acquision_mode(), target);
+  }
+
+  // int32 shutter_mode = 39;
+  if (this->_internal_shutter_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(39, this->_internal_shutter_mode(), target);
+  }
+
+  // int32 shutter_output_signal = 40;
+  if (this->_internal_shutter_output_signal() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(40, this->_internal_shutter_output_signal(), target);
+  }
+
+  // int32 shutter_open_time = 41;
+  if (this->_internal_shutter_open_time() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(41, this->_internal_shutter_open_time(), target);
+  }
+
+  // int32 shutter_close_time = 42;
+  if (this->_internal_shutter_close_time() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(42, this->_internal_shutter_close_time(), target);
+  }
+
+  // int32 triggermode = 43;
+  if (this->_internal_triggermode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(43, this->_internal_triggermode(), target);
+  }
+
+  // float set_integration_time = 44;
+  if (!(this->_internal_set_integration_time() <= 0 && this->_internal_set_integration_time() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(44, this->_internal_set_integration_time(), target);
+  }
+
+  // float exposure_time = 45;
+  if (!(this->_internal_exposure_time() <= 0 && this->_internal_exposure_time() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(45, this->_internal_exposure_time(), target);
+  }
+
+  // float accumulation_time = 46;
+  if (!(this->_internal_accumulation_time() <= 0 && this->_internal_accumulation_time() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(46, this->_internal_accumulation_time(), target);
+  }
+
+  // float kinetic_time = 47;
+  if (!(this->_internal_kinetic_time() <= 0 && this->_internal_kinetic_time() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(47, this->_internal_kinetic_time(), target);
+  }
+
+  // int32 min_temp = 48;
+  if (this->_internal_min_temp() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(48, this->_internal_min_temp(), target);
+  }
+
+  // int32 max_temp = 49;
+  if (this->_internal_max_temp() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(49, this->_internal_max_temp(), target);
+  }
+
+  // int32 target_temp = 50;
+  if (this->_internal_target_temp() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(50, this->_internal_target_temp(), target);
+  }
+
+  // int32 pre_amp_gain = 51;
+  if (this->_internal_pre_amp_gain() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(51, this->_internal_pre_amp_gain(), target);
+  }
+
+  // int32 em_gain_mode = 52;
+  if (this->_internal_em_gain_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(52, this->_internal_em_gain_mode(), target);
+  }
+
+  // int32 em_gain = 53;
+  if (this->_internal_em_gain() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(53, this->_internal_em_gain(), target);
+  }
+
+  // string sample_name = 54;
   if (!this->_internal_sample_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_sample_name().data(), static_cast<int>(this->_internal_sample_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.sample_name");
     target = stream->WriteStringMaybeAliased(
-        30, this->_internal_sample_name(), target);
+        54, this->_internal_sample_name(), target);
   }
 
-  // string sample_type = 31;
+  // string sample_type = 55;
   if (!this->_internal_sample_type().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_sample_type().data(), static_cast<int>(this->_internal_sample_type().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.sample_type");
     target = stream->WriteStringMaybeAliased(
-        31, this->_internal_sample_type(), target);
+        55, this->_internal_sample_type(), target);
   }
 
-  // string sample_note = 32;
+  // string sample_note = 56;
   if (!this->_internal_sample_note().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_sample_note().data(), static_cast<int>(this->_internal_sample_note().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.sample_note");
     target = stream->WriteStringMaybeAliased(
-        32, this->_internal_sample_note(), target);
+        56, this->_internal_sample_note(), target);
   }
 
-  // float sample_width = 33;
+  // float sample_width = 57;
   if (!(this->_internal_sample_width() <= 0 && this->_internal_sample_width() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(33, this->_internal_sample_width(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(57, this->_internal_sample_width(), target);
   }
 
-  // float sample_height = 34;
+  // float sample_height = 58;
   if (!(this->_internal_sample_height() <= 0 && this->_internal_sample_height() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(34, this->_internal_sample_height(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(58, this->_internal_sample_height(), target);
   }
 
-  // float sample_rotation_angle = 35;
+  // float sample_rotation_angle = 59;
   if (!(this->_internal_sample_rotation_angle() <= 0 && this->_internal_sample_rotation_angle() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(35, this->_internal_sample_rotation_angle(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(59, this->_internal_sample_rotation_angle(), target);
   }
 
-  // string notes = 36;
+  // string notes = 60;
   if (!this->_internal_notes().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_notes().data(), static_cast<int>(this->_internal_notes().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.notes");
     target = stream->WriteStringMaybeAliased(
-        36, this->_internal_notes(), target);
+        60, this->_internal_notes(), target);
   }
 
-  // string userdata = 37;
+  // string userdata = 61;
   if (!this->_internal_userdata().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_userdata().data(), static_cast<int>(this->_internal_userdata().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "animax.Measurement.userdata");
     target = stream->WriteStringMaybeAliased(
-        37, this->_internal_userdata(), target);
+        61, this->_internal_userdata(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1211,35 +1648,35 @@ size_t Measurement::ByteSizeLong() const {
         this->_internal_ccdip());
   }
 
-  // string sample_name = 30;
+  // string sample_name = 54;
   if (!this->_internal_sample_name().empty()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_sample_name());
   }
 
-  // string sample_type = 31;
+  // string sample_type = 55;
   if (!this->_internal_sample_type().empty()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_sample_type());
   }
 
-  // string sample_note = 32;
+  // string sample_note = 56;
   if (!this->_internal_sample_note().empty()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_sample_note());
   }
 
-  // string notes = 36;
+  // string notes = 60;
   if (!this->_internal_notes().empty()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_notes());
   }
 
-  // string userdata = 37;
+  // string userdata = 61;
   if (!this->_internal_userdata().empty()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -1364,31 +1801,189 @@ size_t Measurement::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // int32 ccdheight = 28;
+  // int32 binning_x = 28;
+  if (this->_internal_binning_x() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_binning_x());
+  }
+
+  // int32 binning_y = 29;
+  if (this->_internal_binning_y() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_binning_y());
+  }
+
+  // int32 ccdheight = 30;
   if (this->_internal_ccdheight() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_ccdheight());
   }
 
-  // int32 ccdwidth = 29;
+  // int32 ccdwidth = 31;
   if (this->_internal_ccdwidth() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_ccdwidth());
   }
 
-  // float sample_width = 33;
+  // int32 pixelcount = 32;
+  if (this->_internal_pixelcount() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_pixelcount());
+  }
+
+  // int32 frametransfer_mode = 33;
+  if (this->_internal_frametransfer_mode() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_frametransfer_mode());
+  }
+
+  // int32 number_of_accumulations = 34;
+  if (this->_internal_number_of_accumulations() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_number_of_accumulations());
+  }
+
+  // int32 number_of_scans = 35;
+  if (this->_internal_number_of_scans() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_number_of_scans());
+  }
+
+  // float set_kinetic_cycle_time = 36;
+  if (!(this->_internal_set_kinetic_cycle_time() <= 0 && this->_internal_set_kinetic_cycle_time() >= 0)) {
+    total_size += 2 + 4;
+  }
+
+  // int32 read_mode = 37;
+  if (this->_internal_read_mode() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_read_mode());
+  }
+
+  // int32 acquision_mode = 38;
+  if (this->_internal_acquision_mode() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_acquision_mode());
+  }
+
+  // int32 shutter_mode = 39;
+  if (this->_internal_shutter_mode() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shutter_mode());
+  }
+
+  // int32 shutter_output_signal = 40;
+  if (this->_internal_shutter_output_signal() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shutter_output_signal());
+  }
+
+  // int32 shutter_open_time = 41;
+  if (this->_internal_shutter_open_time() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shutter_open_time());
+  }
+
+  // int32 shutter_close_time = 42;
+  if (this->_internal_shutter_close_time() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shutter_close_time());
+  }
+
+  // int32 triggermode = 43;
+  if (this->_internal_triggermode() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_triggermode());
+  }
+
+  // float set_integration_time = 44;
+  if (!(this->_internal_set_integration_time() <= 0 && this->_internal_set_integration_time() >= 0)) {
+    total_size += 2 + 4;
+  }
+
+  // float exposure_time = 45;
+  if (!(this->_internal_exposure_time() <= 0 && this->_internal_exposure_time() >= 0)) {
+    total_size += 2 + 4;
+  }
+
+  // float accumulation_time = 46;
+  if (!(this->_internal_accumulation_time() <= 0 && this->_internal_accumulation_time() >= 0)) {
+    total_size += 2 + 4;
+  }
+
+  // float kinetic_time = 47;
+  if (!(this->_internal_kinetic_time() <= 0 && this->_internal_kinetic_time() >= 0)) {
+    total_size += 2 + 4;
+  }
+
+  // int32 min_temp = 48;
+  if (this->_internal_min_temp() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_min_temp());
+  }
+
+  // int32 max_temp = 49;
+  if (this->_internal_max_temp() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_max_temp());
+  }
+
+  // int32 target_temp = 50;
+  if (this->_internal_target_temp() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_target_temp());
+  }
+
+  // int32 pre_amp_gain = 51;
+  if (this->_internal_pre_amp_gain() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_pre_amp_gain());
+  }
+
+  // int32 em_gain_mode = 52;
+  if (this->_internal_em_gain_mode() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_em_gain_mode());
+  }
+
+  // int32 em_gain = 53;
+  if (this->_internal_em_gain() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_em_gain());
+  }
+
+  // float sample_width = 57;
   if (!(this->_internal_sample_width() <= 0 && this->_internal_sample_width() >= 0)) {
     total_size += 2 + 4;
   }
 
-  // float sample_height = 34;
+  // float sample_height = 58;
   if (!(this->_internal_sample_height() <= 0 && this->_internal_sample_height() >= 0)) {
     total_size += 2 + 4;
   }
 
-  // float sample_rotation_angle = 35;
+  // float sample_rotation_angle = 59;
   if (!(this->_internal_sample_rotation_angle() <= 0 && this->_internal_sample_rotation_angle() >= 0)) {
     total_size += 2 + 4;
   }
@@ -1515,11 +2110,83 @@ void Measurement::MergeFrom(const Measurement& from) {
   if (from._internal_sdd4() != 0) {
     _internal_set_sdd4(from._internal_sdd4());
   }
+  if (from._internal_binning_x() != 0) {
+    _internal_set_binning_x(from._internal_binning_x());
+  }
+  if (from._internal_binning_y() != 0) {
+    _internal_set_binning_y(from._internal_binning_y());
+  }
   if (from._internal_ccdheight() != 0) {
     _internal_set_ccdheight(from._internal_ccdheight());
   }
   if (from._internal_ccdwidth() != 0) {
     _internal_set_ccdwidth(from._internal_ccdwidth());
+  }
+  if (from._internal_pixelcount() != 0) {
+    _internal_set_pixelcount(from._internal_pixelcount());
+  }
+  if (from._internal_frametransfer_mode() != 0) {
+    _internal_set_frametransfer_mode(from._internal_frametransfer_mode());
+  }
+  if (from._internal_number_of_accumulations() != 0) {
+    _internal_set_number_of_accumulations(from._internal_number_of_accumulations());
+  }
+  if (from._internal_number_of_scans() != 0) {
+    _internal_set_number_of_scans(from._internal_number_of_scans());
+  }
+  if (!(from._internal_set_kinetic_cycle_time() <= 0 && from._internal_set_kinetic_cycle_time() >= 0)) {
+    _internal_set_set_kinetic_cycle_time(from._internal_set_kinetic_cycle_time());
+  }
+  if (from._internal_read_mode() != 0) {
+    _internal_set_read_mode(from._internal_read_mode());
+  }
+  if (from._internal_acquision_mode() != 0) {
+    _internal_set_acquision_mode(from._internal_acquision_mode());
+  }
+  if (from._internal_shutter_mode() != 0) {
+    _internal_set_shutter_mode(from._internal_shutter_mode());
+  }
+  if (from._internal_shutter_output_signal() != 0) {
+    _internal_set_shutter_output_signal(from._internal_shutter_output_signal());
+  }
+  if (from._internal_shutter_open_time() != 0) {
+    _internal_set_shutter_open_time(from._internal_shutter_open_time());
+  }
+  if (from._internal_shutter_close_time() != 0) {
+    _internal_set_shutter_close_time(from._internal_shutter_close_time());
+  }
+  if (from._internal_triggermode() != 0) {
+    _internal_set_triggermode(from._internal_triggermode());
+  }
+  if (!(from._internal_set_integration_time() <= 0 && from._internal_set_integration_time() >= 0)) {
+    _internal_set_set_integration_time(from._internal_set_integration_time());
+  }
+  if (!(from._internal_exposure_time() <= 0 && from._internal_exposure_time() >= 0)) {
+    _internal_set_exposure_time(from._internal_exposure_time());
+  }
+  if (!(from._internal_accumulation_time() <= 0 && from._internal_accumulation_time() >= 0)) {
+    _internal_set_accumulation_time(from._internal_accumulation_time());
+  }
+  if (!(from._internal_kinetic_time() <= 0 && from._internal_kinetic_time() >= 0)) {
+    _internal_set_kinetic_time(from._internal_kinetic_time());
+  }
+  if (from._internal_min_temp() != 0) {
+    _internal_set_min_temp(from._internal_min_temp());
+  }
+  if (from._internal_max_temp() != 0) {
+    _internal_set_max_temp(from._internal_max_temp());
+  }
+  if (from._internal_target_temp() != 0) {
+    _internal_set_target_temp(from._internal_target_temp());
+  }
+  if (from._internal_pre_amp_gain() != 0) {
+    _internal_set_pre_amp_gain(from._internal_pre_amp_gain());
+  }
+  if (from._internal_em_gain_mode() != 0) {
+    _internal_set_em_gain_mode(from._internal_em_gain_mode());
+  }
+  if (from._internal_em_gain() != 0) {
+    _internal_set_em_gain(from._internal_em_gain());
   }
   if (!(from._internal_sample_width() <= 0 && from._internal_sample_width() >= 0)) {
     _internal_set_sample_width(from._internal_sample_width());
@@ -2406,17 +3073,17 @@ ccdsettings::ccdsettings(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 ccdsettings::ccdsettings(const ccdsettings& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&width_, &from.width_,
-    static_cast<size_t>(reinterpret_cast<char*>(&height_) -
-    reinterpret_cast<char*>(&width_)) + sizeof(height_));
+  ::memcpy(&binning_x_, &from.binning_x_,
+    static_cast<size_t>(reinterpret_cast<char*>(&em_gain_) -
+    reinterpret_cast<char*>(&binning_x_)) + sizeof(em_gain_));
   // @@protoc_insertion_point(copy_constructor:animax.ccdsettings)
 }
 
 inline void ccdsettings::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&width_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&height_) -
-    reinterpret_cast<char*>(&width_)) + sizeof(height_));
+    reinterpret_cast<char*>(&binning_x_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&em_gain_) -
+    reinterpret_cast<char*>(&binning_x_)) + sizeof(em_gain_));
 }
 
 ccdsettings::~ccdsettings() {
@@ -2446,9 +3113,9 @@ void ccdsettings::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&width_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&height_) -
-      reinterpret_cast<char*>(&width_)) + sizeof(height_));
+  ::memset(&binning_x_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&em_gain_) -
+      reinterpret_cast<char*>(&binning_x_)) + sizeof(em_gain_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2458,17 +3125,185 @@ const char* ccdsettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // int32 width = 1;
+      // int32 binning_x = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          width_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          binning_x_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 height = 2;
+      // int32 binning_y = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          height_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          binning_y_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 ccdheight = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          ccdheight_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 ccdwidth = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          ccdwidth_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 pixelcount = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+          pixelcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 frametransfer_mode = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+          frametransfer_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 number_of_accumulations = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+          number_of_accumulations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 number_of_scans = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
+          number_of_scans_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // float set_kinetic_cycle_time = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 77)) {
+          set_kinetic_cycle_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // int32 read_mode = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 80)) {
+          read_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 acquision_mode = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
+          acquision_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 shutter_mode = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 96)) {
+          shutter_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 shutter_output_signal = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 104)) {
+          shutter_output_signal_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 shutter_open_time = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 112)) {
+          shutter_open_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 shutter_close_time = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 120)) {
+          shutter_close_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 triggermode = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 128)) {
+          triggermode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // float set_integration_time = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 141)) {
+          set_integration_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float exposure_time = 18;
+      case 18:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 149)) {
+          exposure_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float accumulation_time = 19;
+      case 19:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 157)) {
+          accumulation_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float kinetic_time = 20;
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 165)) {
+          kinetic_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // int32 min_temp = 21;
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 168)) {
+          min_temp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 max_temp = 22;
+      case 22:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 176)) {
+          max_temp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 target_temp = 23;
+      case 23:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 184)) {
+          target_temp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 pre_amp_gain = 24;
+      case 24:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 192)) {
+          pre_amp_gain_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 em_gain_mode = 25;
+      case 25:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 200)) {
+          em_gain_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 em_gain = 26;
+      case 26:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 208)) {
+          em_gain_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2501,16 +3336,160 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 width = 1;
-  if (this->_internal_width() != 0) {
+  // int32 binning_x = 1;
+  if (this->_internal_binning_x() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_width(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_binning_x(), target);
   }
 
-  // int32 height = 2;
-  if (this->_internal_height() != 0) {
+  // int32 binning_y = 2;
+  if (this->_internal_binning_y() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_height(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_binning_y(), target);
+  }
+
+  // int32 ccdheight = 3;
+  if (this->_internal_ccdheight() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_ccdheight(), target);
+  }
+
+  // int32 ccdwidth = 4;
+  if (this->_internal_ccdwidth() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_ccdwidth(), target);
+  }
+
+  // int32 pixelcount = 5;
+  if (this->_internal_pixelcount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_pixelcount(), target);
+  }
+
+  // int32 frametransfer_mode = 6;
+  if (this->_internal_frametransfer_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(6, this->_internal_frametransfer_mode(), target);
+  }
+
+  // int32 number_of_accumulations = 7;
+  if (this->_internal_number_of_accumulations() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(7, this->_internal_number_of_accumulations(), target);
+  }
+
+  // int32 number_of_scans = 8;
+  if (this->_internal_number_of_scans() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(8, this->_internal_number_of_scans(), target);
+  }
+
+  // float set_kinetic_cycle_time = 9;
+  if (!(this->_internal_set_kinetic_cycle_time() <= 0 && this->_internal_set_kinetic_cycle_time() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(9, this->_internal_set_kinetic_cycle_time(), target);
+  }
+
+  // int32 read_mode = 10;
+  if (this->_internal_read_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(10, this->_internal_read_mode(), target);
+  }
+
+  // int32 acquision_mode = 11;
+  if (this->_internal_acquision_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(11, this->_internal_acquision_mode(), target);
+  }
+
+  // int32 shutter_mode = 12;
+  if (this->_internal_shutter_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(12, this->_internal_shutter_mode(), target);
+  }
+
+  // int32 shutter_output_signal = 13;
+  if (this->_internal_shutter_output_signal() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(13, this->_internal_shutter_output_signal(), target);
+  }
+
+  // int32 shutter_open_time = 14;
+  if (this->_internal_shutter_open_time() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(14, this->_internal_shutter_open_time(), target);
+  }
+
+  // int32 shutter_close_time = 15;
+  if (this->_internal_shutter_close_time() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(15, this->_internal_shutter_close_time(), target);
+  }
+
+  // int32 triggermode = 16;
+  if (this->_internal_triggermode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(16, this->_internal_triggermode(), target);
+  }
+
+  // float set_integration_time = 17;
+  if (!(this->_internal_set_integration_time() <= 0 && this->_internal_set_integration_time() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(17, this->_internal_set_integration_time(), target);
+  }
+
+  // float exposure_time = 18;
+  if (!(this->_internal_exposure_time() <= 0 && this->_internal_exposure_time() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(18, this->_internal_exposure_time(), target);
+  }
+
+  // float accumulation_time = 19;
+  if (!(this->_internal_accumulation_time() <= 0 && this->_internal_accumulation_time() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(19, this->_internal_accumulation_time(), target);
+  }
+
+  // float kinetic_time = 20;
+  if (!(this->_internal_kinetic_time() <= 0 && this->_internal_kinetic_time() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(20, this->_internal_kinetic_time(), target);
+  }
+
+  // int32 min_temp = 21;
+  if (this->_internal_min_temp() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(21, this->_internal_min_temp(), target);
+  }
+
+  // int32 max_temp = 22;
+  if (this->_internal_max_temp() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(22, this->_internal_max_temp(), target);
+  }
+
+  // int32 target_temp = 23;
+  if (this->_internal_target_temp() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(23, this->_internal_target_temp(), target);
+  }
+
+  // int32 pre_amp_gain = 24;
+  if (this->_internal_pre_amp_gain() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(24, this->_internal_pre_amp_gain(), target);
+  }
+
+  // int32 em_gain_mode = 25;
+  if (this->_internal_em_gain_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(25, this->_internal_em_gain_mode(), target);
+  }
+
+  // int32 em_gain = 26;
+  if (this->_internal_em_gain() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(26, this->_internal_em_gain(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2529,18 +3508,176 @@ size_t ccdsettings::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // int32 width = 1;
-  if (this->_internal_width() != 0) {
+  // int32 binning_x = 1;
+  if (this->_internal_binning_x() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_width());
+        this->_internal_binning_x());
   }
 
-  // int32 height = 2;
-  if (this->_internal_height() != 0) {
+  // int32 binning_y = 2;
+  if (this->_internal_binning_y() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_height());
+        this->_internal_binning_y());
+  }
+
+  // int32 ccdheight = 3;
+  if (this->_internal_ccdheight() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_ccdheight());
+  }
+
+  // int32 ccdwidth = 4;
+  if (this->_internal_ccdwidth() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_ccdwidth());
+  }
+
+  // int32 pixelcount = 5;
+  if (this->_internal_pixelcount() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_pixelcount());
+  }
+
+  // int32 frametransfer_mode = 6;
+  if (this->_internal_frametransfer_mode() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_frametransfer_mode());
+  }
+
+  // int32 number_of_accumulations = 7;
+  if (this->_internal_number_of_accumulations() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_number_of_accumulations());
+  }
+
+  // int32 number_of_scans = 8;
+  if (this->_internal_number_of_scans() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_number_of_scans());
+  }
+
+  // float set_kinetic_cycle_time = 9;
+  if (!(this->_internal_set_kinetic_cycle_time() <= 0 && this->_internal_set_kinetic_cycle_time() >= 0)) {
+    total_size += 1 + 4;
+  }
+
+  // int32 read_mode = 10;
+  if (this->_internal_read_mode() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_read_mode());
+  }
+
+  // int32 acquision_mode = 11;
+  if (this->_internal_acquision_mode() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_acquision_mode());
+  }
+
+  // int32 shutter_mode = 12;
+  if (this->_internal_shutter_mode() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shutter_mode());
+  }
+
+  // int32 shutter_output_signal = 13;
+  if (this->_internal_shutter_output_signal() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shutter_output_signal());
+  }
+
+  // int32 shutter_open_time = 14;
+  if (this->_internal_shutter_open_time() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shutter_open_time());
+  }
+
+  // int32 shutter_close_time = 15;
+  if (this->_internal_shutter_close_time() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shutter_close_time());
+  }
+
+  // int32 triggermode = 16;
+  if (this->_internal_triggermode() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_triggermode());
+  }
+
+  // float set_integration_time = 17;
+  if (!(this->_internal_set_integration_time() <= 0 && this->_internal_set_integration_time() >= 0)) {
+    total_size += 2 + 4;
+  }
+
+  // float exposure_time = 18;
+  if (!(this->_internal_exposure_time() <= 0 && this->_internal_exposure_time() >= 0)) {
+    total_size += 2 + 4;
+  }
+
+  // float accumulation_time = 19;
+  if (!(this->_internal_accumulation_time() <= 0 && this->_internal_accumulation_time() >= 0)) {
+    total_size += 2 + 4;
+  }
+
+  // float kinetic_time = 20;
+  if (!(this->_internal_kinetic_time() <= 0 && this->_internal_kinetic_time() >= 0)) {
+    total_size += 2 + 4;
+  }
+
+  // int32 min_temp = 21;
+  if (this->_internal_min_temp() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_min_temp());
+  }
+
+  // int32 max_temp = 22;
+  if (this->_internal_max_temp() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_max_temp());
+  }
+
+  // int32 target_temp = 23;
+  if (this->_internal_target_temp() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_target_temp());
+  }
+
+  // int32 pre_amp_gain = 24;
+  if (this->_internal_pre_amp_gain() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_pre_amp_gain());
+  }
+
+  // int32 em_gain_mode = 25;
+  if (this->_internal_em_gain_mode() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_em_gain_mode());
+  }
+
+  // int32 em_gain = 26;
+  if (this->_internal_em_gain() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_em_gain());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2571,11 +3708,83 @@ void ccdsettings::MergeFrom(const ccdsettings& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_width() != 0) {
-    _internal_set_width(from._internal_width());
+  if (from._internal_binning_x() != 0) {
+    _internal_set_binning_x(from._internal_binning_x());
   }
-  if (from._internal_height() != 0) {
-    _internal_set_height(from._internal_height());
+  if (from._internal_binning_y() != 0) {
+    _internal_set_binning_y(from._internal_binning_y());
+  }
+  if (from._internal_ccdheight() != 0) {
+    _internal_set_ccdheight(from._internal_ccdheight());
+  }
+  if (from._internal_ccdwidth() != 0) {
+    _internal_set_ccdwidth(from._internal_ccdwidth());
+  }
+  if (from._internal_pixelcount() != 0) {
+    _internal_set_pixelcount(from._internal_pixelcount());
+  }
+  if (from._internal_frametransfer_mode() != 0) {
+    _internal_set_frametransfer_mode(from._internal_frametransfer_mode());
+  }
+  if (from._internal_number_of_accumulations() != 0) {
+    _internal_set_number_of_accumulations(from._internal_number_of_accumulations());
+  }
+  if (from._internal_number_of_scans() != 0) {
+    _internal_set_number_of_scans(from._internal_number_of_scans());
+  }
+  if (!(from._internal_set_kinetic_cycle_time() <= 0 && from._internal_set_kinetic_cycle_time() >= 0)) {
+    _internal_set_set_kinetic_cycle_time(from._internal_set_kinetic_cycle_time());
+  }
+  if (from._internal_read_mode() != 0) {
+    _internal_set_read_mode(from._internal_read_mode());
+  }
+  if (from._internal_acquision_mode() != 0) {
+    _internal_set_acquision_mode(from._internal_acquision_mode());
+  }
+  if (from._internal_shutter_mode() != 0) {
+    _internal_set_shutter_mode(from._internal_shutter_mode());
+  }
+  if (from._internal_shutter_output_signal() != 0) {
+    _internal_set_shutter_output_signal(from._internal_shutter_output_signal());
+  }
+  if (from._internal_shutter_open_time() != 0) {
+    _internal_set_shutter_open_time(from._internal_shutter_open_time());
+  }
+  if (from._internal_shutter_close_time() != 0) {
+    _internal_set_shutter_close_time(from._internal_shutter_close_time());
+  }
+  if (from._internal_triggermode() != 0) {
+    _internal_set_triggermode(from._internal_triggermode());
+  }
+  if (!(from._internal_set_integration_time() <= 0 && from._internal_set_integration_time() >= 0)) {
+    _internal_set_set_integration_time(from._internal_set_integration_time());
+  }
+  if (!(from._internal_exposure_time() <= 0 && from._internal_exposure_time() >= 0)) {
+    _internal_set_exposure_time(from._internal_exposure_time());
+  }
+  if (!(from._internal_accumulation_time() <= 0 && from._internal_accumulation_time() >= 0)) {
+    _internal_set_accumulation_time(from._internal_accumulation_time());
+  }
+  if (!(from._internal_kinetic_time() <= 0 && from._internal_kinetic_time() >= 0)) {
+    _internal_set_kinetic_time(from._internal_kinetic_time());
+  }
+  if (from._internal_min_temp() != 0) {
+    _internal_set_min_temp(from._internal_min_temp());
+  }
+  if (from._internal_max_temp() != 0) {
+    _internal_set_max_temp(from._internal_max_temp());
+  }
+  if (from._internal_target_temp() != 0) {
+    _internal_set_target_temp(from._internal_target_temp());
+  }
+  if (from._internal_pre_amp_gain() != 0) {
+    _internal_set_pre_amp_gain(from._internal_pre_amp_gain());
+  }
+  if (from._internal_em_gain_mode() != 0) {
+    _internal_set_em_gain_mode(from._internal_em_gain_mode());
+  }
+  if (from._internal_em_gain() != 0) {
+    _internal_set_em_gain(from._internal_em_gain());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -2595,11 +3804,11 @@ void ccdsettings::InternalSwap(ccdsettings* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ccdsettings, height_)
-      + sizeof(ccdsettings::height_)
-      - PROTOBUF_FIELD_OFFSET(ccdsettings, width_)>(
-          reinterpret_cast<char*>(&width_),
-          reinterpret_cast<char*>(&other->width_));
+      PROTOBUF_FIELD_OFFSET(ccdsettings, em_gain_)
+      + sizeof(ccdsettings::em_gain_)
+      - PROTOBUF_FIELD_OFFSET(ccdsettings, binning_x_)>(
+          reinterpret_cast<char*>(&binning_x_),
+          reinterpret_cast<char*>(&other->binning_x_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ccdsettings::GetMetadata() const {

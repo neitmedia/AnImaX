@@ -97,18 +97,18 @@ void sddThread::run()
                     // iterate through the data buffer
                     for (unsigned long i=0;i<=text_str.size()-1;i=i+2) {
                         dataindex++;
-                        // in each iteration, write 2 bytes into dummy variable
-                        uint16_t dummy = ((uint16_t) text_str[i+1] << 8) | (uint8_t)text_str[i];
-                        // print content of the dummy variable to the terminal for debugging purposes
+                        // in each iteration, write 2 bytes into variable
+                        uint16_t eventdata = ((uint16_t) text_str[i+1] << 8) | (uint8_t)text_str[i];
+                        // print content of the variable to the terminal for debugging purposes
                         // count data if first 4 bit of the short is "0001",
                         // other bits stand for the pixel where the count was detected
-                        if ((dummy >> 12) == 1) {
-                            y = dummy%4096;
+                        if ((eventdata >> 12) == 1) {
+                            y = eventdata%4096;
                             // increment the value of the spectrum array at the specified position
                             spekdata[y]++;
                         }
 
-                        if ((dummy >> 12) == 8) {
+                        if ((eventdata >> 12) == 8) {
                             //std::cout << " spectrum finished +"<<x<< std::endl;
 
                             //std::cout<<"spektrum an position 391: "<<spekdata.at(391)<<std::endl;
@@ -159,14 +159,14 @@ void sddThread::run()
                             x++;
                         }
 
-                        if ((dummy >> 12) == 10) {
-                            int xstop = dummy%4096;
+                        if ((eventdata >> 12) == 10) {
+                            int xstop = eventdata%4096;
                             int nopx = x;
                             //std::cout << "scan index is given: "<< dataindex-1 << " " << nopx << " " << xstop << std::endl;
                             emit sendScanIndexDataToGUI(dataindex-1, nopx, xstop);
                         }
-                        if ((dummy >> 12) == 11) {
-                            int xstop = dummy%4096;
+                        if ((eventdata >> 12) == 11) {
+                            int xstop = eventdata%4096;
                             //std::cout << "line break is given: "<< dataindex-1 << " " << x << " " << xstop << std::endl;
                             emit sendLineBreakDataToGUI(ROImap, dataindex-1, x, xstop);
 

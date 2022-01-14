@@ -36,21 +36,45 @@ message Measurement {
     bool sdd3 = 26;
     bool sdd4 = 27;
   
-    //ccd settings
-    int32 ccdheight = 28;
-    int32 ccdwidth = 29;
+    // ccd settings
+    int32 binning_x = 28;
+    int32 binning_y = 29;
+    int32 ccdheight = 30;
+    int32 ccdwidth = 31;
+    int32 pixelcount = 32;
+    int32 frametransfer_mode = 33;
+    int32 number_of_accumulations = 34;
+    int32 number_of_scans = 35;
+    float set_kinetic_cycle_time = 36;
+    int32 read_mode = 37;
+    int32 acquision_mode = 38;
+    int32 shutter_mode = 39;
+    int32 shutter_output_signal = 40;
+    int32 shutter_open_time = 41;
+    int32 shutter_close_time = 42;
+    int32 triggermode = 43;
+    float set_integration_time = 44;
+    float exposure_time = 45;
+    float accumulation_time = 46;
+    float kinetic_time = 47;
+    int32 min_temp = 48;
+    int32 max_temp = 49;
+    int32 target_temp = 50;
+    int32 pre_amp_gain = 51;
+    int32 em_gain_mode = 52;
+    int32 em_gain = 53;
   
     // sample settings
-    string sample_name = 30;
-    string sample_type = 31;
-    string sample_note = 32;
-    float sample_width = 33;
-    float sample_height = 34;
-    float sample_rotation_angle = 35;
+    string sample_name = 54;
+    string sample_type = 55;
+    string sample_note = 56;
+    float sample_width = 57;
+    float sample_height = 58;
+    float sample_rotation_angle = 59;
   
     // additional settings
-    string notes = 36;
-    string userdata = 37;
+    string notes = 60;
+    string userdata = 61;
 }
 
 message Metadata {
@@ -73,8 +97,32 @@ message ccd {
 }
 
 message ccdsettings {
-    int32 width = 1;
-    int32 height = 2;
+    int32 binning_x = 1;
+    int32 binning_y = 2;
+    int32 ccdheight = 3;
+    int32 ccdwidth = 4;
+    int32 pixelcount = 5;
+    int32 frametransfer_mode = 6;
+    int32 number_of_accumulations = 7;
+    int32 number_of_scans = 8;
+    float set_kinetic_cycle_time = 9;
+    int32 read_mode = 10;
+    int32 acquision_mode = 11;
+    int32 shutter_mode = 12;
+    int32 shutter_output_signal = 13;
+    int32 shutter_open_time = 14;
+    int32 shutter_close_time = 15;
+    int32 triggermode = 16;
+    float set_integration_time = 17;
+    float exposure_time = 18;
+    float accumulation_time = 19;
+    float kinetic_time = 20;
+    int32 min_temp = 21;
+    int32 max_temp = 22;
+    int32 target_temp = 23;
+    int32 pre_amp_gain = 24;
+    int32 em_gain_mode = 25;
+    int32 em_gain = 26;
 }
 
 message preview {

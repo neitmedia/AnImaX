@@ -221,11 +221,11 @@ class Measurement final :
     kDatasinkIPFieldNumber = 11,
     kSddIPFieldNumber = 13,
     kCcdIPFieldNumber = 15,
-    kSampleNameFieldNumber = 30,
-    kSampleTypeFieldNumber = 31,
-    kSampleNoteFieldNumber = 32,
-    kNotesFieldNumber = 36,
-    kUserdataFieldNumber = 37,
+    kSampleNameFieldNumber = 54,
+    kSampleTypeFieldNumber = 55,
+    kSampleNoteFieldNumber = 56,
+    kNotesFieldNumber = 60,
+    kUserdataFieldNumber = 61,
     kWidthFieldNumber = 1,
     kHeightFieldNumber = 2,
     kAcquisitionTimeFieldNumber = 3,
@@ -244,11 +244,35 @@ class Measurement final :
     kSdd2FieldNumber = 25,
     kSdd3FieldNumber = 26,
     kSdd4FieldNumber = 27,
-    kCcdheightFieldNumber = 28,
-    kCcdwidthFieldNumber = 29,
-    kSampleWidthFieldNumber = 33,
-    kSampleHeightFieldNumber = 34,
-    kSampleRotationAngleFieldNumber = 35,
+    kBinningXFieldNumber = 28,
+    kBinningYFieldNumber = 29,
+    kCcdheightFieldNumber = 30,
+    kCcdwidthFieldNumber = 31,
+    kPixelcountFieldNumber = 32,
+    kFrametransferModeFieldNumber = 33,
+    kNumberOfAccumulationsFieldNumber = 34,
+    kNumberOfScansFieldNumber = 35,
+    kSetKineticCycleTimeFieldNumber = 36,
+    kReadModeFieldNumber = 37,
+    kAcquisionModeFieldNumber = 38,
+    kShutterModeFieldNumber = 39,
+    kShutterOutputSignalFieldNumber = 40,
+    kShutterOpenTimeFieldNumber = 41,
+    kShutterCloseTimeFieldNumber = 42,
+    kTriggermodeFieldNumber = 43,
+    kSetIntegrationTimeFieldNumber = 44,
+    kExposureTimeFieldNumber = 45,
+    kAccumulationTimeFieldNumber = 46,
+    kKineticTimeFieldNumber = 47,
+    kMinTempFieldNumber = 48,
+    kMaxTempFieldNumber = 49,
+    kTargetTempFieldNumber = 50,
+    kPreAmpGainFieldNumber = 51,
+    kEmGainModeFieldNumber = 52,
+    kEmGainFieldNumber = 53,
+    kSampleWidthFieldNumber = 57,
+    kSampleHeightFieldNumber = 58,
+    kSampleRotationAngleFieldNumber = 59,
   };
   // repeated int32 energies = 8;
   int energies_size() const;
@@ -384,7 +408,7 @@ class Measurement final :
   std::string* _internal_mutable_ccdip();
   public:
 
-  // string sample_name = 30;
+  // string sample_name = 54;
   void clear_sample_name();
   const std::string& sample_name() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -398,7 +422,7 @@ class Measurement final :
   std::string* _internal_mutable_sample_name();
   public:
 
-  // string sample_type = 31;
+  // string sample_type = 55;
   void clear_sample_type();
   const std::string& sample_type() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -412,7 +436,7 @@ class Measurement final :
   std::string* _internal_mutable_sample_type();
   public:
 
-  // string sample_note = 32;
+  // string sample_note = 56;
   void clear_sample_note();
   const std::string& sample_note() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -426,7 +450,7 @@ class Measurement final :
   std::string* _internal_mutable_sample_note();
   public:
 
-  // string notes = 36;
+  // string notes = 60;
   void clear_notes();
   const std::string& notes() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -440,7 +464,7 @@ class Measurement final :
   std::string* _internal_mutable_notes();
   public:
 
-  // string userdata = 37;
+  // string userdata = 61;
   void clear_userdata();
   const std::string& userdata() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -616,7 +640,25 @@ class Measurement final :
   void _internal_set_sdd4(bool value);
   public:
 
-  // int32 ccdheight = 28;
+  // int32 binning_x = 28;
+  void clear_binning_x();
+  ::PROTOBUF_NAMESPACE_ID::int32 binning_x() const;
+  void set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_binning_x() const;
+  void _internal_set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 binning_y = 29;
+  void clear_binning_y();
+  ::PROTOBUF_NAMESPACE_ID::int32 binning_y() const;
+  void set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_binning_y() const;
+  void _internal_set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 ccdheight = 30;
   void clear_ccdheight();
   ::PROTOBUF_NAMESPACE_ID::int32 ccdheight() const;
   void set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -625,7 +667,7 @@ class Measurement final :
   void _internal_set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 ccdwidth = 29;
+  // int32 ccdwidth = 31;
   void clear_ccdwidth();
   ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth() const;
   void set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -634,7 +676,205 @@ class Measurement final :
   void _internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // float sample_width = 33;
+  // int32 pixelcount = 32;
+  void clear_pixelcount();
+  ::PROTOBUF_NAMESPACE_ID::int32 pixelcount() const;
+  void set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pixelcount() const;
+  void _internal_set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 frametransfer_mode = 33;
+  void clear_frametransfer_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 frametransfer_mode() const;
+  void set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_frametransfer_mode() const;
+  void _internal_set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 number_of_accumulations = 34;
+  void clear_number_of_accumulations();
+  ::PROTOBUF_NAMESPACE_ID::int32 number_of_accumulations() const;
+  void set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_number_of_accumulations() const;
+  void _internal_set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 number_of_scans = 35;
+  void clear_number_of_scans();
+  ::PROTOBUF_NAMESPACE_ID::int32 number_of_scans() const;
+  void set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_number_of_scans() const;
+  void _internal_set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // float set_kinetic_cycle_time = 36;
+  void clear_set_kinetic_cycle_time();
+  float set_kinetic_cycle_time() const;
+  void set_set_kinetic_cycle_time(float value);
+  private:
+  float _internal_set_kinetic_cycle_time() const;
+  void _internal_set_set_kinetic_cycle_time(float value);
+  public:
+
+  // int32 read_mode = 37;
+  void clear_read_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 read_mode() const;
+  void set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_read_mode() const;
+  void _internal_set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 acquision_mode = 38;
+  void clear_acquision_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 acquision_mode() const;
+  void set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_acquision_mode() const;
+  void _internal_set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 shutter_mode = 39;
+  void clear_shutter_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_mode() const;
+  void set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_mode() const;
+  void _internal_set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 shutter_output_signal = 40;
+  void clear_shutter_output_signal();
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_output_signal() const;
+  void set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_output_signal() const;
+  void _internal_set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 shutter_open_time = 41;
+  void clear_shutter_open_time();
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_open_time() const;
+  void set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_open_time() const;
+  void _internal_set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 shutter_close_time = 42;
+  void clear_shutter_close_time();
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_close_time() const;
+  void set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_close_time() const;
+  void _internal_set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 triggermode = 43;
+  void clear_triggermode();
+  ::PROTOBUF_NAMESPACE_ID::int32 triggermode() const;
+  void set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_triggermode() const;
+  void _internal_set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // float set_integration_time = 44;
+  void clear_set_integration_time();
+  float set_integration_time() const;
+  void set_set_integration_time(float value);
+  private:
+  float _internal_set_integration_time() const;
+  void _internal_set_set_integration_time(float value);
+  public:
+
+  // float exposure_time = 45;
+  void clear_exposure_time();
+  float exposure_time() const;
+  void set_exposure_time(float value);
+  private:
+  float _internal_exposure_time() const;
+  void _internal_set_exposure_time(float value);
+  public:
+
+  // float accumulation_time = 46;
+  void clear_accumulation_time();
+  float accumulation_time() const;
+  void set_accumulation_time(float value);
+  private:
+  float _internal_accumulation_time() const;
+  void _internal_set_accumulation_time(float value);
+  public:
+
+  // float kinetic_time = 47;
+  void clear_kinetic_time();
+  float kinetic_time() const;
+  void set_kinetic_time(float value);
+  private:
+  float _internal_kinetic_time() const;
+  void _internal_set_kinetic_time(float value);
+  public:
+
+  // int32 min_temp = 48;
+  void clear_min_temp();
+  ::PROTOBUF_NAMESPACE_ID::int32 min_temp() const;
+  void set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_min_temp() const;
+  void _internal_set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 max_temp = 49;
+  void clear_max_temp();
+  ::PROTOBUF_NAMESPACE_ID::int32 max_temp() const;
+  void set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_max_temp() const;
+  void _internal_set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 target_temp = 50;
+  void clear_target_temp();
+  ::PROTOBUF_NAMESPACE_ID::int32 target_temp() const;
+  void set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_target_temp() const;
+  void _internal_set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 pre_amp_gain = 51;
+  void clear_pre_amp_gain();
+  ::PROTOBUF_NAMESPACE_ID::int32 pre_amp_gain() const;
+  void set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pre_amp_gain() const;
+  void _internal_set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 em_gain_mode = 52;
+  void clear_em_gain_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 em_gain_mode() const;
+  void set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_em_gain_mode() const;
+  void _internal_set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 em_gain = 53;
+  void clear_em_gain();
+  ::PROTOBUF_NAMESPACE_ID::int32 em_gain() const;
+  void set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_em_gain() const;
+  void _internal_set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // float sample_width = 57;
   void clear_sample_width();
   float sample_width() const;
   void set_sample_width(float value);
@@ -643,7 +883,7 @@ class Measurement final :
   void _internal_set_sample_width(float value);
   public:
 
-  // float sample_height = 34;
+  // float sample_height = 58;
   void clear_sample_height();
   float sample_height() const;
   void set_sample_height(float value);
@@ -652,7 +892,7 @@ class Measurement final :
   void _internal_set_sample_height(float value);
   public:
 
-  // float sample_rotation_angle = 35;
+  // float sample_rotation_angle = 59;
   void clear_sample_rotation_angle();
   float sample_rotation_angle() const;
   void set_sample_rotation_angle(float value);
@@ -701,8 +941,32 @@ class Measurement final :
   bool sdd2_;
   bool sdd3_;
   bool sdd4_;
+  ::PROTOBUF_NAMESPACE_ID::int32 binning_x_;
+  ::PROTOBUF_NAMESPACE_ID::int32 binning_y_;
   ::PROTOBUF_NAMESPACE_ID::int32 ccdheight_;
   ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth_;
+  ::PROTOBUF_NAMESPACE_ID::int32 pixelcount_;
+  ::PROTOBUF_NAMESPACE_ID::int32 frametransfer_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 number_of_accumulations_;
+  ::PROTOBUF_NAMESPACE_ID::int32 number_of_scans_;
+  float set_kinetic_cycle_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 read_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 acquision_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_output_signal_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_open_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_close_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 triggermode_;
+  float set_integration_time_;
+  float exposure_time_;
+  float accumulation_time_;
+  float kinetic_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 min_temp_;
+  ::PROTOBUF_NAMESPACE_ID::int32 max_temp_;
+  ::PROTOBUF_NAMESPACE_ID::int32 target_temp_;
+  ::PROTOBUF_NAMESPACE_ID::int32 pre_amp_gain_;
+  ::PROTOBUF_NAMESPACE_ID::int32 em_gain_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 em_gain_;
   float sample_width_;
   float sample_height_;
   float sample_rotation_angle_;
@@ -1335,25 +1599,265 @@ class ccdsettings final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kWidthFieldNumber = 1,
-    kHeightFieldNumber = 2,
+    kBinningXFieldNumber = 1,
+    kBinningYFieldNumber = 2,
+    kCcdheightFieldNumber = 3,
+    kCcdwidthFieldNumber = 4,
+    kPixelcountFieldNumber = 5,
+    kFrametransferModeFieldNumber = 6,
+    kNumberOfAccumulationsFieldNumber = 7,
+    kNumberOfScansFieldNumber = 8,
+    kSetKineticCycleTimeFieldNumber = 9,
+    kReadModeFieldNumber = 10,
+    kAcquisionModeFieldNumber = 11,
+    kShutterModeFieldNumber = 12,
+    kShutterOutputSignalFieldNumber = 13,
+    kShutterOpenTimeFieldNumber = 14,
+    kShutterCloseTimeFieldNumber = 15,
+    kTriggermodeFieldNumber = 16,
+    kSetIntegrationTimeFieldNumber = 17,
+    kExposureTimeFieldNumber = 18,
+    kAccumulationTimeFieldNumber = 19,
+    kKineticTimeFieldNumber = 20,
+    kMinTempFieldNumber = 21,
+    kMaxTempFieldNumber = 22,
+    kTargetTempFieldNumber = 23,
+    kPreAmpGainFieldNumber = 24,
+    kEmGainModeFieldNumber = 25,
+    kEmGainFieldNumber = 26,
   };
-  // int32 width = 1;
-  void clear_width();
-  ::PROTOBUF_NAMESPACE_ID::int32 width() const;
-  void set_width(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 binning_x = 1;
+  void clear_binning_x();
+  ::PROTOBUF_NAMESPACE_ID::int32 binning_x() const;
+  void set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_width() const;
-  void _internal_set_width(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_binning_x() const;
+  void _internal_set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 height = 2;
-  void clear_height();
-  ::PROTOBUF_NAMESPACE_ID::int32 height() const;
-  void set_height(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 binning_y = 2;
+  void clear_binning_y();
+  ::PROTOBUF_NAMESPACE_ID::int32 binning_y() const;
+  void set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_height() const;
-  void _internal_set_height(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_binning_y() const;
+  void _internal_set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 ccdheight = 3;
+  void clear_ccdheight();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccdheight() const;
+  void set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccdheight() const;
+  void _internal_set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 ccdwidth = 4;
+  void clear_ccdwidth();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth() const;
+  void set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccdwidth() const;
+  void _internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 pixelcount = 5;
+  void clear_pixelcount();
+  ::PROTOBUF_NAMESPACE_ID::int32 pixelcount() const;
+  void set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pixelcount() const;
+  void _internal_set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 frametransfer_mode = 6;
+  void clear_frametransfer_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 frametransfer_mode() const;
+  void set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_frametransfer_mode() const;
+  void _internal_set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 number_of_accumulations = 7;
+  void clear_number_of_accumulations();
+  ::PROTOBUF_NAMESPACE_ID::int32 number_of_accumulations() const;
+  void set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_number_of_accumulations() const;
+  void _internal_set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 number_of_scans = 8;
+  void clear_number_of_scans();
+  ::PROTOBUF_NAMESPACE_ID::int32 number_of_scans() const;
+  void set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_number_of_scans() const;
+  void _internal_set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // float set_kinetic_cycle_time = 9;
+  void clear_set_kinetic_cycle_time();
+  float set_kinetic_cycle_time() const;
+  void set_set_kinetic_cycle_time(float value);
+  private:
+  float _internal_set_kinetic_cycle_time() const;
+  void _internal_set_set_kinetic_cycle_time(float value);
+  public:
+
+  // int32 read_mode = 10;
+  void clear_read_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 read_mode() const;
+  void set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_read_mode() const;
+  void _internal_set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 acquision_mode = 11;
+  void clear_acquision_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 acquision_mode() const;
+  void set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_acquision_mode() const;
+  void _internal_set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 shutter_mode = 12;
+  void clear_shutter_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_mode() const;
+  void set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_mode() const;
+  void _internal_set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 shutter_output_signal = 13;
+  void clear_shutter_output_signal();
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_output_signal() const;
+  void set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_output_signal() const;
+  void _internal_set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 shutter_open_time = 14;
+  void clear_shutter_open_time();
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_open_time() const;
+  void set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_open_time() const;
+  void _internal_set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 shutter_close_time = 15;
+  void clear_shutter_close_time();
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_close_time() const;
+  void set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_close_time() const;
+  void _internal_set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 triggermode = 16;
+  void clear_triggermode();
+  ::PROTOBUF_NAMESPACE_ID::int32 triggermode() const;
+  void set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_triggermode() const;
+  void _internal_set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // float set_integration_time = 17;
+  void clear_set_integration_time();
+  float set_integration_time() const;
+  void set_set_integration_time(float value);
+  private:
+  float _internal_set_integration_time() const;
+  void _internal_set_set_integration_time(float value);
+  public:
+
+  // float exposure_time = 18;
+  void clear_exposure_time();
+  float exposure_time() const;
+  void set_exposure_time(float value);
+  private:
+  float _internal_exposure_time() const;
+  void _internal_set_exposure_time(float value);
+  public:
+
+  // float accumulation_time = 19;
+  void clear_accumulation_time();
+  float accumulation_time() const;
+  void set_accumulation_time(float value);
+  private:
+  float _internal_accumulation_time() const;
+  void _internal_set_accumulation_time(float value);
+  public:
+
+  // float kinetic_time = 20;
+  void clear_kinetic_time();
+  float kinetic_time() const;
+  void set_kinetic_time(float value);
+  private:
+  float _internal_kinetic_time() const;
+  void _internal_set_kinetic_time(float value);
+  public:
+
+  // int32 min_temp = 21;
+  void clear_min_temp();
+  ::PROTOBUF_NAMESPACE_ID::int32 min_temp() const;
+  void set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_min_temp() const;
+  void _internal_set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 max_temp = 22;
+  void clear_max_temp();
+  ::PROTOBUF_NAMESPACE_ID::int32 max_temp() const;
+  void set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_max_temp() const;
+  void _internal_set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 target_temp = 23;
+  void clear_target_temp();
+  ::PROTOBUF_NAMESPACE_ID::int32 target_temp() const;
+  void set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_target_temp() const;
+  void _internal_set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 pre_amp_gain = 24;
+  void clear_pre_amp_gain();
+  ::PROTOBUF_NAMESPACE_ID::int32 pre_amp_gain() const;
+  void set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pre_amp_gain() const;
+  void _internal_set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 em_gain_mode = 25;
+  void clear_em_gain_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 em_gain_mode() const;
+  void set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_em_gain_mode() const;
+  void _internal_set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 em_gain = 26;
+  void clear_em_gain();
+  ::PROTOBUF_NAMESPACE_ID::int32 em_gain() const;
+  void set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_em_gain() const;
+  void _internal_set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:animax.ccdsettings)
@@ -1363,8 +1867,32 @@ class ccdsettings final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::int32 width_;
-  ::PROTOBUF_NAMESPACE_ID::int32 height_;
+  ::PROTOBUF_NAMESPACE_ID::int32 binning_x_;
+  ::PROTOBUF_NAMESPACE_ID::int32 binning_y_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccdheight_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth_;
+  ::PROTOBUF_NAMESPACE_ID::int32 pixelcount_;
+  ::PROTOBUF_NAMESPACE_ID::int32 frametransfer_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 number_of_accumulations_;
+  ::PROTOBUF_NAMESPACE_ID::int32 number_of_scans_;
+  float set_kinetic_cycle_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 read_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 acquision_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_output_signal_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_open_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shutter_close_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 triggermode_;
+  float set_integration_time_;
+  float exposure_time_;
+  float accumulation_time_;
+  float kinetic_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 min_temp_;
+  ::PROTOBUF_NAMESPACE_ID::int32 max_temp_;
+  ::PROTOBUF_NAMESPACE_ID::int32 target_temp_;
+  ::PROTOBUF_NAMESPACE_ID::int32 pre_amp_gain_;
+  ::PROTOBUF_NAMESPACE_ID::int32 em_gain_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 em_gain_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_animax_2eproto;
 };
@@ -2778,7 +3306,47 @@ inline void Measurement::set_sdd4(bool value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sdd4)
 }
 
-// int32 ccdheight = 28;
+// int32 binning_x = 28;
+inline void Measurement::clear_binning_x() {
+  binning_x_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_binning_x() const {
+  return binning_x_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::binning_x() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.binning_x)
+  return _internal_binning_x();
+}
+inline void Measurement::_internal_set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  binning_x_ = value;
+}
+inline void Measurement::set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_binning_x(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.binning_x)
+}
+
+// int32 binning_y = 29;
+inline void Measurement::clear_binning_y() {
+  binning_y_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_binning_y() const {
+  return binning_y_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::binning_y() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.binning_y)
+  return _internal_binning_y();
+}
+inline void Measurement::_internal_set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  binning_y_ = value;
+}
+inline void Measurement::set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_binning_y(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.binning_y)
+}
+
+// int32 ccdheight = 30;
 inline void Measurement::clear_ccdheight() {
   ccdheight_ = 0;
 }
@@ -2798,7 +3366,7 @@ inline void Measurement::set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.ccdheight)
 }
 
-// int32 ccdwidth = 29;
+// int32 ccdwidth = 31;
 inline void Measurement::clear_ccdwidth() {
   ccdwidth_ = 0;
 }
@@ -2818,7 +3386,447 @@ inline void Measurement::set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.ccdwidth)
 }
 
-// string sample_name = 30;
+// int32 pixelcount = 32;
+inline void Measurement::clear_pixelcount() {
+  pixelcount_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_pixelcount() const {
+  return pixelcount_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::pixelcount() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.pixelcount)
+  return _internal_pixelcount();
+}
+inline void Measurement::_internal_set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  pixelcount_ = value;
+}
+inline void Measurement::set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_pixelcount(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.pixelcount)
+}
+
+// int32 frametransfer_mode = 33;
+inline void Measurement::clear_frametransfer_mode() {
+  frametransfer_mode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_frametransfer_mode() const {
+  return frametransfer_mode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::frametransfer_mode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.frametransfer_mode)
+  return _internal_frametransfer_mode();
+}
+inline void Measurement::_internal_set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  frametransfer_mode_ = value;
+}
+inline void Measurement::set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_frametransfer_mode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.frametransfer_mode)
+}
+
+// int32 number_of_accumulations = 34;
+inline void Measurement::clear_number_of_accumulations() {
+  number_of_accumulations_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_number_of_accumulations() const {
+  return number_of_accumulations_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::number_of_accumulations() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.number_of_accumulations)
+  return _internal_number_of_accumulations();
+}
+inline void Measurement::_internal_set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  number_of_accumulations_ = value;
+}
+inline void Measurement::set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_number_of_accumulations(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.number_of_accumulations)
+}
+
+// int32 number_of_scans = 35;
+inline void Measurement::clear_number_of_scans() {
+  number_of_scans_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_number_of_scans() const {
+  return number_of_scans_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::number_of_scans() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.number_of_scans)
+  return _internal_number_of_scans();
+}
+inline void Measurement::_internal_set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  number_of_scans_ = value;
+}
+inline void Measurement::set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_number_of_scans(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.number_of_scans)
+}
+
+// float set_kinetic_cycle_time = 36;
+inline void Measurement::clear_set_kinetic_cycle_time() {
+  set_kinetic_cycle_time_ = 0;
+}
+inline float Measurement::_internal_set_kinetic_cycle_time() const {
+  return set_kinetic_cycle_time_;
+}
+inline float Measurement::set_kinetic_cycle_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.set_kinetic_cycle_time)
+  return _internal_set_kinetic_cycle_time();
+}
+inline void Measurement::_internal_set_set_kinetic_cycle_time(float value) {
+  
+  set_kinetic_cycle_time_ = value;
+}
+inline void Measurement::set_set_kinetic_cycle_time(float value) {
+  _internal_set_set_kinetic_cycle_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.set_kinetic_cycle_time)
+}
+
+// int32 read_mode = 37;
+inline void Measurement::clear_read_mode() {
+  read_mode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_read_mode() const {
+  return read_mode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::read_mode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.read_mode)
+  return _internal_read_mode();
+}
+inline void Measurement::_internal_set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  read_mode_ = value;
+}
+inline void Measurement::set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_read_mode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.read_mode)
+}
+
+// int32 acquision_mode = 38;
+inline void Measurement::clear_acquision_mode() {
+  acquision_mode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_acquision_mode() const {
+  return acquision_mode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::acquision_mode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.acquision_mode)
+  return _internal_acquision_mode();
+}
+inline void Measurement::_internal_set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  acquision_mode_ = value;
+}
+inline void Measurement::set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_acquision_mode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.acquision_mode)
+}
+
+// int32 shutter_mode = 39;
+inline void Measurement::clear_shutter_mode() {
+  shutter_mode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_shutter_mode() const {
+  return shutter_mode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::shutter_mode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.shutter_mode)
+  return _internal_shutter_mode();
+}
+inline void Measurement::_internal_set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shutter_mode_ = value;
+}
+inline void Measurement::set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shutter_mode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.shutter_mode)
+}
+
+// int32 shutter_output_signal = 40;
+inline void Measurement::clear_shutter_output_signal() {
+  shutter_output_signal_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_shutter_output_signal() const {
+  return shutter_output_signal_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::shutter_output_signal() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.shutter_output_signal)
+  return _internal_shutter_output_signal();
+}
+inline void Measurement::_internal_set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shutter_output_signal_ = value;
+}
+inline void Measurement::set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shutter_output_signal(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.shutter_output_signal)
+}
+
+// int32 shutter_open_time = 41;
+inline void Measurement::clear_shutter_open_time() {
+  shutter_open_time_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_shutter_open_time() const {
+  return shutter_open_time_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::shutter_open_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.shutter_open_time)
+  return _internal_shutter_open_time();
+}
+inline void Measurement::_internal_set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shutter_open_time_ = value;
+}
+inline void Measurement::set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shutter_open_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.shutter_open_time)
+}
+
+// int32 shutter_close_time = 42;
+inline void Measurement::clear_shutter_close_time() {
+  shutter_close_time_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_shutter_close_time() const {
+  return shutter_close_time_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::shutter_close_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.shutter_close_time)
+  return _internal_shutter_close_time();
+}
+inline void Measurement::_internal_set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shutter_close_time_ = value;
+}
+inline void Measurement::set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shutter_close_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.shutter_close_time)
+}
+
+// int32 triggermode = 43;
+inline void Measurement::clear_triggermode() {
+  triggermode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_triggermode() const {
+  return triggermode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::triggermode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.triggermode)
+  return _internal_triggermode();
+}
+inline void Measurement::_internal_set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  triggermode_ = value;
+}
+inline void Measurement::set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_triggermode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.triggermode)
+}
+
+// float set_integration_time = 44;
+inline void Measurement::clear_set_integration_time() {
+  set_integration_time_ = 0;
+}
+inline float Measurement::_internal_set_integration_time() const {
+  return set_integration_time_;
+}
+inline float Measurement::set_integration_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.set_integration_time)
+  return _internal_set_integration_time();
+}
+inline void Measurement::_internal_set_set_integration_time(float value) {
+  
+  set_integration_time_ = value;
+}
+inline void Measurement::set_set_integration_time(float value) {
+  _internal_set_set_integration_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.set_integration_time)
+}
+
+// float exposure_time = 45;
+inline void Measurement::clear_exposure_time() {
+  exposure_time_ = 0;
+}
+inline float Measurement::_internal_exposure_time() const {
+  return exposure_time_;
+}
+inline float Measurement::exposure_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.exposure_time)
+  return _internal_exposure_time();
+}
+inline void Measurement::_internal_set_exposure_time(float value) {
+  
+  exposure_time_ = value;
+}
+inline void Measurement::set_exposure_time(float value) {
+  _internal_set_exposure_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.exposure_time)
+}
+
+// float accumulation_time = 46;
+inline void Measurement::clear_accumulation_time() {
+  accumulation_time_ = 0;
+}
+inline float Measurement::_internal_accumulation_time() const {
+  return accumulation_time_;
+}
+inline float Measurement::accumulation_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.accumulation_time)
+  return _internal_accumulation_time();
+}
+inline void Measurement::_internal_set_accumulation_time(float value) {
+  
+  accumulation_time_ = value;
+}
+inline void Measurement::set_accumulation_time(float value) {
+  _internal_set_accumulation_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.accumulation_time)
+}
+
+// float kinetic_time = 47;
+inline void Measurement::clear_kinetic_time() {
+  kinetic_time_ = 0;
+}
+inline float Measurement::_internal_kinetic_time() const {
+  return kinetic_time_;
+}
+inline float Measurement::kinetic_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.kinetic_time)
+  return _internal_kinetic_time();
+}
+inline void Measurement::_internal_set_kinetic_time(float value) {
+  
+  kinetic_time_ = value;
+}
+inline void Measurement::set_kinetic_time(float value) {
+  _internal_set_kinetic_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.kinetic_time)
+}
+
+// int32 min_temp = 48;
+inline void Measurement::clear_min_temp() {
+  min_temp_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_min_temp() const {
+  return min_temp_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::min_temp() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.min_temp)
+  return _internal_min_temp();
+}
+inline void Measurement::_internal_set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  min_temp_ = value;
+}
+inline void Measurement::set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_min_temp(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.min_temp)
+}
+
+// int32 max_temp = 49;
+inline void Measurement::clear_max_temp() {
+  max_temp_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_max_temp() const {
+  return max_temp_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::max_temp() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.max_temp)
+  return _internal_max_temp();
+}
+inline void Measurement::_internal_set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  max_temp_ = value;
+}
+inline void Measurement::set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_max_temp(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.max_temp)
+}
+
+// int32 target_temp = 50;
+inline void Measurement::clear_target_temp() {
+  target_temp_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_target_temp() const {
+  return target_temp_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::target_temp() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.target_temp)
+  return _internal_target_temp();
+}
+inline void Measurement::_internal_set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  target_temp_ = value;
+}
+inline void Measurement::set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_target_temp(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.target_temp)
+}
+
+// int32 pre_amp_gain = 51;
+inline void Measurement::clear_pre_amp_gain() {
+  pre_amp_gain_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_pre_amp_gain() const {
+  return pre_amp_gain_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::pre_amp_gain() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.pre_amp_gain)
+  return _internal_pre_amp_gain();
+}
+inline void Measurement::_internal_set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  pre_amp_gain_ = value;
+}
+inline void Measurement::set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_pre_amp_gain(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.pre_amp_gain)
+}
+
+// int32 em_gain_mode = 52;
+inline void Measurement::clear_em_gain_mode() {
+  em_gain_mode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_em_gain_mode() const {
+  return em_gain_mode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::em_gain_mode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.em_gain_mode)
+  return _internal_em_gain_mode();
+}
+inline void Measurement::_internal_set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  em_gain_mode_ = value;
+}
+inline void Measurement::set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_em_gain_mode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.em_gain_mode)
+}
+
+// int32 em_gain = 53;
+inline void Measurement::clear_em_gain() {
+  em_gain_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_em_gain() const {
+  return em_gain_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::em_gain() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.em_gain)
+  return _internal_em_gain();
+}
+inline void Measurement::_internal_set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  em_gain_ = value;
+}
+inline void Measurement::set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_em_gain(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.em_gain)
+}
+
+// string sample_name = 54;
 inline void Measurement::clear_sample_name() {
   sample_name_.ClearToEmpty();
 }
@@ -2864,7 +3872,7 @@ inline void Measurement::set_allocated_sample_name(std::string* sample_name) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sample_name)
 }
 
-// string sample_type = 31;
+// string sample_type = 55;
 inline void Measurement::clear_sample_type() {
   sample_type_.ClearToEmpty();
 }
@@ -2910,7 +3918,7 @@ inline void Measurement::set_allocated_sample_type(std::string* sample_type) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sample_type)
 }
 
-// string sample_note = 32;
+// string sample_note = 56;
 inline void Measurement::clear_sample_note() {
   sample_note_.ClearToEmpty();
 }
@@ -2956,7 +3964,7 @@ inline void Measurement::set_allocated_sample_note(std::string* sample_note) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.sample_note)
 }
 
-// float sample_width = 33;
+// float sample_width = 57;
 inline void Measurement::clear_sample_width() {
   sample_width_ = 0;
 }
@@ -2976,7 +3984,7 @@ inline void Measurement::set_sample_width(float value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sample_width)
 }
 
-// float sample_height = 34;
+// float sample_height = 58;
 inline void Measurement::clear_sample_height() {
   sample_height_ = 0;
 }
@@ -2996,7 +4004,7 @@ inline void Measurement::set_sample_height(float value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sample_height)
 }
 
-// float sample_rotation_angle = 35;
+// float sample_rotation_angle = 59;
 inline void Measurement::clear_sample_rotation_angle() {
   sample_rotation_angle_ = 0;
 }
@@ -3016,7 +4024,7 @@ inline void Measurement::set_sample_rotation_angle(float value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.sample_rotation_angle)
 }
 
-// string notes = 36;
+// string notes = 60;
 inline void Measurement::clear_notes() {
   notes_.ClearToEmpty();
 }
@@ -3062,7 +4070,7 @@ inline void Measurement::set_allocated_notes(std::string* notes) {
   // @@protoc_insertion_point(field_set_allocated:animax.Measurement.notes)
 }
 
-// string userdata = 37;
+// string userdata = 61;
 inline void Measurement::clear_userdata() {
   userdata_.ClearToEmpty();
 }
@@ -3402,44 +4410,524 @@ inline void ccd::set_allocated_pixeldata(std::string* pixeldata) {
 
 // ccdsettings
 
-// int32 width = 1;
-inline void ccdsettings::clear_width() {
-  width_ = 0;
+// int32 binning_x = 1;
+inline void ccdsettings::clear_binning_x() {
+  binning_x_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_width() const {
-  return width_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_binning_x() const {
+  return binning_x_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::width() const {
-  // @@protoc_insertion_point(field_get:animax.ccdsettings.width)
-  return _internal_width();
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::binning_x() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.binning_x)
+  return _internal_binning_x();
 }
-inline void ccdsettings::_internal_set_width(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void ccdsettings::_internal_set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  width_ = value;
+  binning_x_ = value;
 }
-inline void ccdsettings::set_width(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_width(value);
-  // @@protoc_insertion_point(field_set:animax.ccdsettings.width)
+inline void ccdsettings::set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_binning_x(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.binning_x)
 }
 
-// int32 height = 2;
-inline void ccdsettings::clear_height() {
-  height_ = 0;
+// int32 binning_y = 2;
+inline void ccdsettings::clear_binning_y() {
+  binning_y_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_height() const {
-  return height_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_binning_y() const {
+  return binning_y_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::height() const {
-  // @@protoc_insertion_point(field_get:animax.ccdsettings.height)
-  return _internal_height();
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::binning_y() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.binning_y)
+  return _internal_binning_y();
 }
-inline void ccdsettings::_internal_set_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void ccdsettings::_internal_set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  height_ = value;
+  binning_y_ = value;
 }
-inline void ccdsettings::set_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_height(value);
-  // @@protoc_insertion_point(field_set:animax.ccdsettings.height)
+inline void ccdsettings::set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_binning_y(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.binning_y)
+}
+
+// int32 ccdheight = 3;
+inline void ccdsettings::clear_ccdheight() {
+  ccdheight_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_ccdheight() const {
+  return ccdheight_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::ccdheight() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.ccdheight)
+  return _internal_ccdheight();
+}
+inline void ccdsettings::_internal_set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  ccdheight_ = value;
+}
+inline void ccdsettings::set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccdheight(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.ccdheight)
+}
+
+// int32 ccdwidth = 4;
+inline void ccdsettings::clear_ccdwidth() {
+  ccdwidth_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_ccdwidth() const {
+  return ccdwidth_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::ccdwidth() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.ccdwidth)
+  return _internal_ccdwidth();
+}
+inline void ccdsettings::_internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  ccdwidth_ = value;
+}
+inline void ccdsettings::set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccdwidth(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.ccdwidth)
+}
+
+// int32 pixelcount = 5;
+inline void ccdsettings::clear_pixelcount() {
+  pixelcount_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_pixelcount() const {
+  return pixelcount_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::pixelcount() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.pixelcount)
+  return _internal_pixelcount();
+}
+inline void ccdsettings::_internal_set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  pixelcount_ = value;
+}
+inline void ccdsettings::set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_pixelcount(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.pixelcount)
+}
+
+// int32 frametransfer_mode = 6;
+inline void ccdsettings::clear_frametransfer_mode() {
+  frametransfer_mode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_frametransfer_mode() const {
+  return frametransfer_mode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::frametransfer_mode() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.frametransfer_mode)
+  return _internal_frametransfer_mode();
+}
+inline void ccdsettings::_internal_set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  frametransfer_mode_ = value;
+}
+inline void ccdsettings::set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_frametransfer_mode(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.frametransfer_mode)
+}
+
+// int32 number_of_accumulations = 7;
+inline void ccdsettings::clear_number_of_accumulations() {
+  number_of_accumulations_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_number_of_accumulations() const {
+  return number_of_accumulations_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::number_of_accumulations() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.number_of_accumulations)
+  return _internal_number_of_accumulations();
+}
+inline void ccdsettings::_internal_set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  number_of_accumulations_ = value;
+}
+inline void ccdsettings::set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_number_of_accumulations(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.number_of_accumulations)
+}
+
+// int32 number_of_scans = 8;
+inline void ccdsettings::clear_number_of_scans() {
+  number_of_scans_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_number_of_scans() const {
+  return number_of_scans_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::number_of_scans() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.number_of_scans)
+  return _internal_number_of_scans();
+}
+inline void ccdsettings::_internal_set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  number_of_scans_ = value;
+}
+inline void ccdsettings::set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_number_of_scans(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.number_of_scans)
+}
+
+// float set_kinetic_cycle_time = 9;
+inline void ccdsettings::clear_set_kinetic_cycle_time() {
+  set_kinetic_cycle_time_ = 0;
+}
+inline float ccdsettings::_internal_set_kinetic_cycle_time() const {
+  return set_kinetic_cycle_time_;
+}
+inline float ccdsettings::set_kinetic_cycle_time() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.set_kinetic_cycle_time)
+  return _internal_set_kinetic_cycle_time();
+}
+inline void ccdsettings::_internal_set_set_kinetic_cycle_time(float value) {
+  
+  set_kinetic_cycle_time_ = value;
+}
+inline void ccdsettings::set_set_kinetic_cycle_time(float value) {
+  _internal_set_set_kinetic_cycle_time(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.set_kinetic_cycle_time)
+}
+
+// int32 read_mode = 10;
+inline void ccdsettings::clear_read_mode() {
+  read_mode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_read_mode() const {
+  return read_mode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::read_mode() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.read_mode)
+  return _internal_read_mode();
+}
+inline void ccdsettings::_internal_set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  read_mode_ = value;
+}
+inline void ccdsettings::set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_read_mode(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.read_mode)
+}
+
+// int32 acquision_mode = 11;
+inline void ccdsettings::clear_acquision_mode() {
+  acquision_mode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_acquision_mode() const {
+  return acquision_mode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::acquision_mode() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.acquision_mode)
+  return _internal_acquision_mode();
+}
+inline void ccdsettings::_internal_set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  acquision_mode_ = value;
+}
+inline void ccdsettings::set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_acquision_mode(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.acquision_mode)
+}
+
+// int32 shutter_mode = 12;
+inline void ccdsettings::clear_shutter_mode() {
+  shutter_mode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_shutter_mode() const {
+  return shutter_mode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::shutter_mode() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.shutter_mode)
+  return _internal_shutter_mode();
+}
+inline void ccdsettings::_internal_set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shutter_mode_ = value;
+}
+inline void ccdsettings::set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shutter_mode(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.shutter_mode)
+}
+
+// int32 shutter_output_signal = 13;
+inline void ccdsettings::clear_shutter_output_signal() {
+  shutter_output_signal_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_shutter_output_signal() const {
+  return shutter_output_signal_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::shutter_output_signal() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.shutter_output_signal)
+  return _internal_shutter_output_signal();
+}
+inline void ccdsettings::_internal_set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shutter_output_signal_ = value;
+}
+inline void ccdsettings::set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shutter_output_signal(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.shutter_output_signal)
+}
+
+// int32 shutter_open_time = 14;
+inline void ccdsettings::clear_shutter_open_time() {
+  shutter_open_time_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_shutter_open_time() const {
+  return shutter_open_time_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::shutter_open_time() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.shutter_open_time)
+  return _internal_shutter_open_time();
+}
+inline void ccdsettings::_internal_set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shutter_open_time_ = value;
+}
+inline void ccdsettings::set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shutter_open_time(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.shutter_open_time)
+}
+
+// int32 shutter_close_time = 15;
+inline void ccdsettings::clear_shutter_close_time() {
+  shutter_close_time_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_shutter_close_time() const {
+  return shutter_close_time_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::shutter_close_time() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.shutter_close_time)
+  return _internal_shutter_close_time();
+}
+inline void ccdsettings::_internal_set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shutter_close_time_ = value;
+}
+inline void ccdsettings::set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shutter_close_time(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.shutter_close_time)
+}
+
+// int32 triggermode = 16;
+inline void ccdsettings::clear_triggermode() {
+  triggermode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_triggermode() const {
+  return triggermode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::triggermode() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.triggermode)
+  return _internal_triggermode();
+}
+inline void ccdsettings::_internal_set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  triggermode_ = value;
+}
+inline void ccdsettings::set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_triggermode(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.triggermode)
+}
+
+// float set_integration_time = 17;
+inline void ccdsettings::clear_set_integration_time() {
+  set_integration_time_ = 0;
+}
+inline float ccdsettings::_internal_set_integration_time() const {
+  return set_integration_time_;
+}
+inline float ccdsettings::set_integration_time() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.set_integration_time)
+  return _internal_set_integration_time();
+}
+inline void ccdsettings::_internal_set_set_integration_time(float value) {
+  
+  set_integration_time_ = value;
+}
+inline void ccdsettings::set_set_integration_time(float value) {
+  _internal_set_set_integration_time(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.set_integration_time)
+}
+
+// float exposure_time = 18;
+inline void ccdsettings::clear_exposure_time() {
+  exposure_time_ = 0;
+}
+inline float ccdsettings::_internal_exposure_time() const {
+  return exposure_time_;
+}
+inline float ccdsettings::exposure_time() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.exposure_time)
+  return _internal_exposure_time();
+}
+inline void ccdsettings::_internal_set_exposure_time(float value) {
+  
+  exposure_time_ = value;
+}
+inline void ccdsettings::set_exposure_time(float value) {
+  _internal_set_exposure_time(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.exposure_time)
+}
+
+// float accumulation_time = 19;
+inline void ccdsettings::clear_accumulation_time() {
+  accumulation_time_ = 0;
+}
+inline float ccdsettings::_internal_accumulation_time() const {
+  return accumulation_time_;
+}
+inline float ccdsettings::accumulation_time() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.accumulation_time)
+  return _internal_accumulation_time();
+}
+inline void ccdsettings::_internal_set_accumulation_time(float value) {
+  
+  accumulation_time_ = value;
+}
+inline void ccdsettings::set_accumulation_time(float value) {
+  _internal_set_accumulation_time(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.accumulation_time)
+}
+
+// float kinetic_time = 20;
+inline void ccdsettings::clear_kinetic_time() {
+  kinetic_time_ = 0;
+}
+inline float ccdsettings::_internal_kinetic_time() const {
+  return kinetic_time_;
+}
+inline float ccdsettings::kinetic_time() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.kinetic_time)
+  return _internal_kinetic_time();
+}
+inline void ccdsettings::_internal_set_kinetic_time(float value) {
+  
+  kinetic_time_ = value;
+}
+inline void ccdsettings::set_kinetic_time(float value) {
+  _internal_set_kinetic_time(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.kinetic_time)
+}
+
+// int32 min_temp = 21;
+inline void ccdsettings::clear_min_temp() {
+  min_temp_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_min_temp() const {
+  return min_temp_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::min_temp() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.min_temp)
+  return _internal_min_temp();
+}
+inline void ccdsettings::_internal_set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  min_temp_ = value;
+}
+inline void ccdsettings::set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_min_temp(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.min_temp)
+}
+
+// int32 max_temp = 22;
+inline void ccdsettings::clear_max_temp() {
+  max_temp_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_max_temp() const {
+  return max_temp_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::max_temp() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.max_temp)
+  return _internal_max_temp();
+}
+inline void ccdsettings::_internal_set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  max_temp_ = value;
+}
+inline void ccdsettings::set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_max_temp(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.max_temp)
+}
+
+// int32 target_temp = 23;
+inline void ccdsettings::clear_target_temp() {
+  target_temp_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_target_temp() const {
+  return target_temp_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::target_temp() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.target_temp)
+  return _internal_target_temp();
+}
+inline void ccdsettings::_internal_set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  target_temp_ = value;
+}
+inline void ccdsettings::set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_target_temp(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.target_temp)
+}
+
+// int32 pre_amp_gain = 24;
+inline void ccdsettings::clear_pre_amp_gain() {
+  pre_amp_gain_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_pre_amp_gain() const {
+  return pre_amp_gain_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::pre_amp_gain() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.pre_amp_gain)
+  return _internal_pre_amp_gain();
+}
+inline void ccdsettings::_internal_set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  pre_amp_gain_ = value;
+}
+inline void ccdsettings::set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_pre_amp_gain(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.pre_amp_gain)
+}
+
+// int32 em_gain_mode = 25;
+inline void ccdsettings::clear_em_gain_mode() {
+  em_gain_mode_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_em_gain_mode() const {
+  return em_gain_mode_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::em_gain_mode() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.em_gain_mode)
+  return _internal_em_gain_mode();
+}
+inline void ccdsettings::_internal_set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  em_gain_mode_ = value;
+}
+inline void ccdsettings::set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_em_gain_mode(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.em_gain_mode)
+}
+
+// int32 em_gain = 26;
+inline void ccdsettings::clear_em_gain() {
+  em_gain_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_em_gain() const {
+  return em_gain_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::em_gain() const {
+  // @@protoc_insertion_point(field_get:animax.ccdsettings.em_gain)
+  return _internal_em_gain();
+}
+inline void ccdsettings::_internal_set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  em_gain_ = value;
+}
+inline void ccdsettings::set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_em_gain(value);
+  // @@protoc_insertion_point(field_set:animax.ccdsettings.em_gain)
 }
 
 // -------------------------------------------------------------------

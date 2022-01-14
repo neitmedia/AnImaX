@@ -60,7 +60,7 @@ void ccdThread::run()
 
                 animax::ccdsettings ccdsettings;
                 ccdsettings.ParseFromArray(msg.data(), msg.size());
-                emit sendCCDSettings(ccdsettings.width(), ccdsettings.height());
+                emit sendCCDSettings(ccdsettings.ccdwidth(), ccdsettings.ccdheight());
             }
         }
 
