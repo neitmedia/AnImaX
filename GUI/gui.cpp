@@ -83,8 +83,32 @@ void GUI::on_cmdStartScan_clicked()
     settings.guiPort = ui->spbGUIPort->value();
 
     // ccd settings
+    settings.binning_x = ui->spbCCDBinningX->value();
+    settings.binning_y = ui->spbCCDBinningY->value();
     settings.ccdHeight = ui->spbCCDHeight->value();
     settings.ccdWidth = ui->spbCCDWidth->value();
+    settings.pixelcount = ui->txtPixelCount->text().toInt();
+    settings.frametransfer_mode = ui->spbCCDFTMode->value();
+    settings.number_of_accumulations = ui->spbNumberOfAccumulations->value();
+    settings.number_of_scans = ui->spbNumberOfScans->value();
+    settings.set_kinetic_cycle_time = ui->dsbKineticCycleTime->value();
+    settings.read_mode = ui->spbReadMode->value();
+    settings.acquision_mode = ui->spbAcquisitionMode->value();
+    settings.shutter_mode = ui->spbShutterMode->value();
+    settings.shutter_output_signal = ui->spbShutterOutputSignal->value();
+    settings.shutter_open_time = ui->dsbShutterOpenTime->value();
+    settings.shutter_close_time = ui->dsbShutterCloseTime->value();
+    settings.triggermode = ui->spbTriggerMode->value();
+    settings.set_integration_time = ui->dsbSetIntegrationTime->value();
+    settings.exposure_time = ui->dsbExposureTime->value();
+    settings.accumulation_time = ui->dsbAccumulationTime->value();
+    settings.kinetic_time = ui->dsbKineticTime->value();
+    settings.min_temp = ui->spbMinTemp->value();
+    settings.max_temp = ui->spbMaxTemp->value();
+    settings.target_temp = ui->spbTargetTemp->value();
+    settings.pre_amp_gain = ui->spbPreAmpGain->value();
+    settings.em_gain_mode = ui->spbEMGainMode->value();
+    settings.em_gain = ui->spbEMGain->value();
     // write ccd width and height into global variables
     ccdX = settings.ccdWidth;
     ccdY = settings.ccdHeight;
@@ -378,5 +402,24 @@ void GUI::on_cmdPauseScan_clicked()
         Scan->resumescan = true;
         ui->cmdPauseScan->setText("Pause");
     }
+}
+
+
+void GUI::on_spbCCDWidth_valueChanged(int arg1)
+{
+    ui->txtPixelCount->setText(QString::number(ui->spbCCDHeight->value()*ui->spbCCDWidth->value()));
+}
+
+
+void GUI::on_spbCCDHeight_valueChanged(int arg1)
+{
+    ui->txtPixelCount->setText(QString::number(ui->spbCCDHeight->value()*ui->spbCCDWidth->value()));
+}
+
+
+void GUI::on_tabWidget_currentChanged(int index)
+{
+    ui->spbNumberOfScans->setValue(ui->spbScanWidth->value()*ui->spbScanHeight->value());
+    ui->txtPixelCount->setText(QString::number(ui->spbCCDHeight->value()*ui->spbCCDWidth->value()));
 }
 

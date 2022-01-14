@@ -544,11 +544,15 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
 
     //newNeXusScalarDataSet("/measurement/monitor/data", "NX_FLOAT", 123, true);
 
-    newNeXusGroup("/measurement/data", "NX_class", "NXdata", true);
-    //newNeXusScalarDataSet("/measurement/data/energy", "NX_FLOAT", 100, true);
-    newNeXusScalarDataSet("/measurement/data/sample_x", "NX_FLOAT", 99, true);
-    newNeXusScalarDataSet("/measurement/data/sample_y", "NX_FLOAT", 87, true);
-    newNeXusScalarDataSet("/measurement/data/stxm_scan_type", "NX_CHAR", "sample image", true);
+    newNeXusGroup("/measurement/transmission", "NX_class", "NXdata", true);
+    newNeXusScalarDataSet("/measurement/transmission/sample_x", "NX_FLOAT", 99, true);
+    newNeXusScalarDataSet("/measurement/transmission/sample_y", "NX_FLOAT", 87, true);
+    newNeXusScalarDataSet("/measurement/transmission/stxm_scan_type", "NX_CHAR", "sample image", true);
+
+    newNeXusGroup("/measurement/fluorescence", "NX_class", "NXdata", true);
+    newNeXusScalarDataSet("/measurement/fluorescence/sample_x", "NX_FLOAT", 99, true);
+    newNeXusScalarDataSet("/measurement/fluorescence/sample_y", "NX_FLOAT", 87, true);
+    newNeXusScalarDataSet("/measurement/fluorescence/stxm_scan_type", "NX_CHAR", "generic scan", true);
 
     newNeXusGroup("/measurement/instruments", "NX_class", "NXinstrument", true);
     newNeXusGroup("/measurement/instruments/ccd", "NX_class", "NXdetector", true);
@@ -584,18 +588,51 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusScalarDataSet("/measurement/sample/height", "NX_FLOAT", settings.sample_height, true);
     newNeXusScalarDataSet("/measurement/sample/rotation_angle", "NX_FLOAT", settings.sample_rotation_angle, true);
 
+    // ccd parameters
+    newNeXusGroup("/measurement/instruments/ccd/settings", "class", "ccd_parameters", true);
+    newNeXusGroup("/measurement/instruments/ccd/settings/user", "class", "ccd_parameters_user_input", true);
+    newNeXusGroup("/measurement/instruments/ccd/settings/driver", "class", "ccd_parameters_calculated", true);
+
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/binning_x", "NX_INT", settings.binning_x, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/binning_y", "NX_INT", settings.binning_y, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/ccd_height", "NX_INT", settings.ccdHeight, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/ccd_width", "NX_INT", settings.ccdWidth, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/pixelcount", "NX_INT", settings.pixelcount, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/frametransfer_mode", "NX_INT", settings.frametransfer_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/number_of_accumulations", "NX_INT", settings.number_of_accumulations, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/number_of_scans", "NX_INT", settings.number_of_scans, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/set_kinetic_cycle_time", "NX_FLOAT", settings.set_kinetic_cycle_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/read_mode", "NX_INT", settings.read_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/acquision_mode", "NX_INT", settings.acquision_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/shutter_mode", "NX_INT", settings.shutter_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/shutter_output_signal", "NX_INT", settings.shutter_output_signal, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/shutter_open_time", "NX_FLOAT", settings.shutter_open_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/shutter_close_time", "NX_FLOAT", settings.shutter_close_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/triggermode", "NX_INT", settings.triggermode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/set_integration_time", "NX_FLOAT", settings.set_integration_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/exposure_time", "NX_FLOAT", settings.exposure_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/accumulation_time", "NX_FLOAT", settings.accumulation_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/kinetic_time", "NX_FLOAT", settings.kinetic_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/min_temp", "NX_INT", settings.min_temp, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/max_temp", "NX_INT", settings.max_temp, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/target_temp", "NX_INT", settings.target_temp, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/pre_amp_gain", "NX_INT", settings.pre_amp_gain, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/em_gain_mode", "NX_INT", settings.em_gain_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/user/em_gain", "NX_INT", settings.em_gain, true);
+
+    newNeXusGroup("/measurement/instruments/sdd/settings", "class", "log", true);
     // sdd parameters
-    newNeXusScalarDataSet("/measurement/instruments/sdd/sebitcount", "NX_INT", settings.sebitcount, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/filter", "NX_INT", settings.filter, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/energyrange", "NX_INT", settings.energyrange, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/tempmode", "NX_INT", settings.tempmode, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/zeropeakperiod", "NX_INT", settings.zeropeakperiod, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/acquisitionmode", "NX_INT", settings.acquisitionmode, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/checktemperature", "NX_INT", settings.checktemperature, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/sdd1", "NX_BOOLEAN", settings.sdd1, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/sdd2", "NX_BOOLEAN", settings.sdd2, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/sdd3", "NX_BOOLEAN", settings.sdd3, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/sdd4", "NX_BOOLEAN", settings.sdd4, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sebitcount", "NX_INT", settings.sebitcount, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/filter", "NX_INT", settings.filter, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/energyrange", "NX_INT", settings.energyrange, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/tempmode", "NX_INT", settings.tempmode, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/zeropeakperiod", "NX_INT", settings.zeropeakperiod, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/acquisitionmode", "NX_INT", settings.acquisitionmode, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/checktemperature", "NX_INT", settings.checktemperature, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd1", "NX_BOOLEAN", settings.sdd1, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd2", "NX_BOOLEAN", settings.sdd2, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd3", "NX_BOOLEAN", settings.sdd3, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd4", "NX_BOOLEAN", settings.sdd4, true);
 
     // additional settings
     newNeXusGroup("/measurement/user", "NX_class", "NXuser", true);
@@ -608,13 +645,16 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
 
     newNeXusChunkedCCDDataSet("/measurement/instruments/ccd/data", ccdX, ccdY, PredType::STD_U16LE, "NX_INT", true);
 
-    DataSet* transmissionpreviewdataset = newNeXusChunkedTransmissionPreviewDataSet("/measurement/data/data", PredType::STD_I64LE, "NX_INT", false);
+    DataSet* transmissionpreviewdataset = newNeXusChunkedTransmissionPreviewDataSet("/measurement/transmission/data", PredType::STD_I64LE, "NX_INT", false);
     newNeXusDatasetStringAttribute(transmissionpreviewdataset, "signal", "1");
     transmissionpreviewdataset->close();
     delete transmissionpreviewdataset;
 
-    newNeXusChunkedSpectraDataSet("/measurement/instruments/sdd/data", PredType::STD_I16LE, "NX_INT", true);
-    file->link(H5L_TYPE_HARD, "/measurement/instruments/sdd/data", "/measurement/data/sdd");
+    DataSet* fluorescencedataset = newNeXusChunkedSpectraDataSet("/measurement/instruments/sdd/data", PredType::STD_I16LE, "NX_INT", false);
+    newNeXusDatasetStringAttribute(fluorescencedataset, "signal", "1");
+    fluorescencedataset->close();
+    delete fluorescencedataset;
+    file->link(H5L_TYPE_HARD, "/measurement/instruments/sdd/data", "/measurement/fluorescence/data");
 
     newNeXusGroup("/measurement/instruments/sdd/log", "class", "log", true);
 
@@ -655,7 +695,8 @@ void hdf5nexus::openDataFile(QString fname) {
 
 void hdf5nexus::writeMetadata(metadata metadata) {
     // write current energy setpoint
-    newNeXusScalarDataSet("/measurement/data/energy", "NX_FLOAT", metadata.set_energy, true);
+    newNeXusScalarDataSet("/measurement/transmission/energy", "NX_FLOAT", metadata.set_energy, true);
+    newNeXusScalarDataSet("/measurement/fluorescence/energy", "NX_FLOAT", metadata.set_energy, true);
 
     // write metadata
     newNeXusScalarDataSet("/measurement/metadata/acquisition_number", "NX_INT", metadata.acquisition_number, true);
@@ -763,26 +804,34 @@ void hdf5nexus::writeSDDData(int32_t pxnum, spectrumdata specdata) {
     delete memspace;
 }
 
-void hdf5nexus::writeCCDSettings(int width, int height) {
-    newNeXusScalarDataSet("/measurement/instruments/ccd/height", "NX_INT", height, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/width", "NX_INT", width, true);
-
-    /*hsize_t fdim[] = {1};
-    DataSpace fspace(1, fdim);
-
-    DataSet* settingsgroupccdWidth = new DataSet(file->openDataSet("/measurement/settings/ccdWidth"));
-    int ccdWidth = width;
-    settingsgroupccdWidth->write(&ccdWidth, PredType::STD_I32LE, fspace);
-    settingsgroupccdWidth->close();
-    delete settingsgroupccdWidth;
-
-    DataSet* settingsgroupccdHeight = new DataSet(file->openDataSet("/measurement/settings/ccdHeight"));
-    int ccdHeight = height;
-    settingsgroupccdHeight->write(&ccdHeight, PredType::STD_I32LE, fspace);
-    settingsgroupccdHeight->close();
-    delete settingsgroupccdHeight;
-
-    fspace.close();*/
+void hdf5nexus::writeCCDSettings(ccdsettings ccdsettingsdata) {
+    // write calculated ccd settings to data file
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/binning_x", "NX_INT", ccdsettingsdata.binning_x, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/binning_y", "NX_INT", ccdsettingsdata.binning_y, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/ccd_height", "NX_INT", ccdsettingsdata.ccdHeight, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/ccd_width", "NX_INT", ccdsettingsdata.ccdWidth, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/pixelcount", "NX_INT", ccdsettingsdata.pixelcount, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/frametransfer_mode", "NX_INT", ccdsettingsdata.frametransfer_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/number_of_accumulations", "NX_INT", ccdsettingsdata.number_of_accumulations, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/number_of_scans", "NX_INT", ccdsettingsdata.number_of_scans, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/set_kinetic_cycle_time", "NX_FLOAT", ccdsettingsdata.set_kinetic_cycle_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/read_mode", "NX_INT", ccdsettingsdata.read_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/acquision_mode", "NX_INT", ccdsettingsdata.acquision_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/shutter_mode", "NX_INT", ccdsettingsdata.shutter_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/shutter_output_signal", "NX_INT", ccdsettingsdata.shutter_output_signal, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/shutter_open_time", "NX_FLOAT", ccdsettingsdata.shutter_open_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/shutter_close_time", "NX_FLOAT", ccdsettingsdata.shutter_close_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/triggermode", "NX_INT", ccdsettingsdata.triggermode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/set_integration_time", "NX_FLOAT", ccdsettingsdata.set_integration_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/exposure_time", "NX_FLOAT", ccdsettingsdata.exposure_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/accumulation_time", "NX_FLOAT", ccdsettingsdata.accumulation_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/kinetic_time", "NX_FLOAT", ccdsettingsdata.kinetic_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/min_temp", "NX_INT", ccdsettingsdata.min_temp, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/max_temp", "NX_INT", ccdsettingsdata.max_temp, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/target_temp", "NX_INT", ccdsettingsdata.target_temp, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/pre_amp_gain", "NX_INT", ccdsettingsdata.pre_amp_gain, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/em_gain_mode", "NX_INT", ccdsettingsdata.em_gain_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/driver/em_gain", "NX_INT", ccdsettingsdata.em_gain, true);
 }
 
 void hdf5nexus::writeScanNote(std::string scannote) {

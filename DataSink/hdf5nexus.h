@@ -26,7 +26,7 @@ public:
 
     void writeMetadata(metadata);
     void writeSDDData(int32_t, spectrumdata);
-    void writeCCDSettings(int width, int height);
+    void writeCCDSettings(ccdsettings);
 
     void writeScanNote(std::string);
 

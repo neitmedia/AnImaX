@@ -450,7 +450,7 @@ const char descriptor_table_protodef_animax_2eproto[] PROTOBUF_SECTION_VARIABLE(
   " \001(\002\022\021\n\tread_mode\030\n \001(\005\022\026\n\016acquision_mod"
   "e\030\013 \001(\005\022\024\n\014shutter_mode\030\014 \001(\005\022\035\n\025shutter"
   "_output_signal\030\r \001(\005\022\031\n\021shutter_open_tim"
-  "e\030\016 \001(\005\022\032\n\022shutter_close_time\030\017 \001(\005\022\023\n\013t"
+  "e\030\016 \001(\002\022\032\n\022shutter_close_time\030\017 \001(\002\022\023\n\013t"
   "riggermode\030\020 \001(\005\022\034\n\024set_integration_time"
   "\030\021 \001(\002\022\025\n\rexposure_time\030\022 \001(\002\022\031\n\021accumul"
   "ation_time\030\023 \001(\002\022\024\n\014kinetic_time\030\024 \001(\002\022\020"
@@ -3216,18 +3216,18 @@ const char* ccdsettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 shutter_open_time = 14;
+      // float shutter_open_time = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 112)) {
-          shutter_open_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 117)) {
+          shutter_open_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // int32 shutter_close_time = 15;
+      // float shutter_close_time = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 120)) {
-          shutter_close_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 125)) {
+          shutter_close_time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
       // int32 triggermode = 16;
@@ -3414,16 +3414,16 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(13, this->_internal_shutter_output_signal(), target);
   }
 
-  // int32 shutter_open_time = 14;
-  if (this->_internal_shutter_open_time() != 0) {
+  // float shutter_open_time = 14;
+  if (!(this->_internal_shutter_open_time() <= 0 && this->_internal_shutter_open_time() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(14, this->_internal_shutter_open_time(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(14, this->_internal_shutter_open_time(), target);
   }
 
-  // int32 shutter_close_time = 15;
-  if (this->_internal_shutter_close_time() != 0) {
+  // float shutter_close_time = 15;
+  if (!(this->_internal_shutter_close_time() <= 0 && this->_internal_shutter_close_time() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(15, this->_internal_shutter_close_time(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(15, this->_internal_shutter_close_time(), target);
   }
 
   // int32 triggermode = 16;
@@ -3597,18 +3597,14 @@ size_t ccdsettings::ByteSizeLong() const {
         this->_internal_shutter_output_signal());
   }
 
-  // int32 shutter_open_time = 14;
-  if (this->_internal_shutter_open_time() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_shutter_open_time());
+  // float shutter_open_time = 14;
+  if (!(this->_internal_shutter_open_time() <= 0 && this->_internal_shutter_open_time() >= 0)) {
+    total_size += 1 + 4;
   }
 
-  // int32 shutter_close_time = 15;
-  if (this->_internal_shutter_close_time() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_shutter_close_time());
+  // float shutter_close_time = 15;
+  if (!(this->_internal_shutter_close_time() <= 0 && this->_internal_shutter_close_time() >= 0)) {
+    total_size += 1 + 4;
   }
 
   // int32 triggermode = 16;
@@ -3747,10 +3743,10 @@ void ccdsettings::MergeFrom(const ccdsettings& from) {
   if (from._internal_shutter_output_signal() != 0) {
     _internal_set_shutter_output_signal(from._internal_shutter_output_signal());
   }
-  if (from._internal_shutter_open_time() != 0) {
+  if (!(from._internal_shutter_open_time() <= 0 && from._internal_shutter_open_time() >= 0)) {
     _internal_set_shutter_open_time(from._internal_shutter_open_time());
   }
-  if (from._internal_shutter_close_time() != 0) {
+  if (!(from._internal_shutter_close_time() <= 0 && from._internal_shutter_close_time() >= 0)) {
     _internal_set_shutter_close_time(from._internal_shutter_close_time());
   }
   if (from._internal_triggermode() != 0) {

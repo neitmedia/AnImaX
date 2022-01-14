@@ -124,7 +124,9 @@ void MainWindow::getMetadata(metadata metadata) {
 
     if (ui->chbSaveData->isChecked()) {
         nexusfile->writeMetadata(metadata);
-        nexusfile->writeCCDSettings(realccdX, realccdY);
+        if (metadata.acquisition_number > 1) {
+            nexusfile->writeCCDSettings(ccdsettingsdata);
+        }
     }
 
     // add log item
@@ -195,7 +197,7 @@ void MainWindow::getScanSettings(settingsdata settings) {
         std::cout<<"getImageData not connected"<<std::endl;
     }
 
-    const bool connected1 = connect(ccd, SIGNAL(sendCCDSettings(int, int)),this,SLOT(getCCDSettings(int, int)));
+    const bool connected1 = connect(ccd, SIGNAL(sendCCDSettings(ccdsettings)),this,SLOT(getCCDSettings(ccdsettings)));
     if (connected1) {
         std::cout<<"getCCDSettings connected"<<std::endl;
     } else {
@@ -423,7 +425,7 @@ void MainWindow::getImageData(int cntx, std::string datax) {
             offsetsumimage[0] = scancountery-1;
             offsetsumimage[1] = scancounterx-1;
 
-            DataSet *datasetsumimage = new DataSet(nexusfile->file->openDataSet("/measurement/data/data"));
+            DataSet *datasetsumimage = new DataSet(nexusfile->file->openDataSet("/measurement/transmission/data"));
 
             datasetsumimage->extend(sizesumimage);
 
@@ -560,11 +562,12 @@ void MainWindow::writeLineBreakData(roidata ROImap, int dataindex, int nopx, int
     }
 }
 
-void MainWindow::getCCDSettings(int width, int height) {
-    std::cout<<"real ccd width: "<<width;
-    std::cout<<"real ccd height: "<<height;
-    realccdX = width;
-    realccdY = height;
+void MainWindow::getCCDSettings(ccdsettings newccdsettingsdata) {
+    std::cout<<"real binning x: "<<newccdsettingsdata.binning_x;
+    std::cout<<"real binning y: "<<newccdsettingsdata.binning_y;
+    ccdsettingsdata = newccdsettingsdata;
+    // write settings to file
+    nexusfile->writeCCDSettings(ccdsettingsdata);
 }
 
 void MainWindow::checkIfScanIsFinished() {

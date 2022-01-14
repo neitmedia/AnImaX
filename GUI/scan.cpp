@@ -73,8 +73,32 @@ void scan::run()
         Measurement.set_datasinkport(settings.datasinkPort);
 
         // ccd settings
+        Measurement.set_binning_x(settings.binning_x);
+        Measurement.set_binning_y(settings.binning_y);
         Measurement.set_ccdheight(settings.ccdHeight);
         Measurement.set_ccdwidth(settings.ccdWidth);
+        Measurement.set_pixelcount(settings.pixelcount);
+        Measurement.set_frametransfer_mode(settings.frametransfer_mode);
+        Measurement.set_number_of_accumulations(settings.number_of_accumulations);
+        Measurement.set_number_of_scans(settings.number_of_scans);
+        Measurement.set_set_kinetic_cycle_time(settings.set_kinetic_cycle_time);
+        Measurement.set_read_mode(settings.read_mode);
+        Measurement.set_acquision_mode(settings.acquision_mode);
+        Measurement.set_shutter_mode(settings.shutter_mode);
+        Measurement.set_shutter_output_signal(settings.shutter_output_signal);
+        Measurement.set_shutter_open_time(settings.shutter_open_time);
+        Measurement.set_shutter_close_time(settings.shutter_close_time);
+        Measurement.set_triggermode(settings.triggermode);
+        Measurement.set_set_integration_time(settings.set_integration_time);
+        Measurement.set_exposure_time(settings.exposure_time);
+        Measurement.set_accumulation_time(settings.accumulation_time);
+        Measurement.set_kinetic_time(settings.kinetic_time);
+        Measurement.set_min_temp(settings.min_temp);
+        Measurement.set_max_temp(settings.max_temp);
+        Measurement.set_target_temp(settings.target_temp);
+        Measurement.set_pre_amp_gain(settings.pre_amp_gain);
+        Measurement.set_em_gain_mode(settings.em_gain_mode);
+        Measurement.set_em_gain(settings.em_gain);
 
         // sdd settings
         Measurement.set_sebitcount(settings.sebitcount);
@@ -342,19 +366,19 @@ void scan::run()
 
             if (stopscan || pausescan || resumescan) {
                 // declare ScanNote object
-                animax::scannote scanstatus;
+                animax::scanstatus scanstatus;
 
                 // define protobuf values
                 if ((stopscan) && (!pausescan) && (!resumescan)) {
-                    scanstatus.set_text("stop");
+                    scanstatus.set_status("stop");
                 }
 
                 if ((pausescan) && (!stopscan) && (!resumescan)) {
-                    scanstatus.set_text("pause");
+                    scanstatus.set_status("pause");
                 }
 
                 if ((resumescan) && (!stopscan) && (!pausescan)) {
-                    scanstatus.set_text("resume");
+                    scanstatus.set_status("resume");
                 }
 
                 stopscan = false;
@@ -370,7 +394,24 @@ void scan::run()
                 memcpy((void *)request.data(), scanstatusdatabuffer, scanstatusdatasize);
                 publisher.send(request, zmq::send_flags::none);
 
-                std::cout<<"sent scan '"<<scanstatus.text()<<"' message!"<<std::endl;
+                std::cout<<"sent scan '"<<scanstatus.status()<<"' message!"<<std::endl;
+            }
+
+
+            if (scannote != "") {
+                // declare ScanNote object
+                animax::scannote scannotebuf;
+                scannotebuf.set_text(scannote);
+                // publish status data
+                publisher.send(zmq::str_buffer("scannote"), zmq::send_flags::sndmore);
+                size_t scannotedatasize = scannotebuf.ByteSizeLong();
+                void *scannotedatabuffer = malloc(scannotedatasize);
+                scannotebuf.SerializeToArray(scannotedatabuffer, scannotedatasize);
+                zmq::message_t request(scannotedatasize);
+                memcpy((void *)request.data(), scannotedatabuffer, scannotedatasize);
+                publisher.send(request, zmq::send_flags::none);
+
+                std::cout<<"sent scan note '"<<scannotebuf.text()<<"'!"<<std::endl;
 
                 // clear scan note
                 scannote = "";

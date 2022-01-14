@@ -1743,22 +1743,22 @@ class ccdsettings final :
   void _internal_set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 shutter_open_time = 14;
+  // float shutter_open_time = 14;
   void clear_shutter_open_time();
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_open_time() const;
-  void set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  float shutter_open_time() const;
+  void set_shutter_open_time(float value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_open_time() const;
-  void _internal_set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  float _internal_shutter_open_time() const;
+  void _internal_set_shutter_open_time(float value);
   public:
 
-  // int32 shutter_close_time = 15;
+  // float shutter_close_time = 15;
   void clear_shutter_close_time();
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_close_time() const;
-  void set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  float shutter_close_time() const;
+  void set_shutter_close_time(float value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_close_time() const;
-  void _internal_set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  float _internal_shutter_close_time() const;
+  void _internal_set_shutter_close_time(float value);
   public:
 
   // int32 triggermode = 16;
@@ -1880,8 +1880,8 @@ class ccdsettings final :
   ::PROTOBUF_NAMESPACE_ID::int32 acquision_mode_;
   ::PROTOBUF_NAMESPACE_ID::int32 shutter_mode_;
   ::PROTOBUF_NAMESPACE_ID::int32 shutter_output_signal_;
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_open_time_;
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_close_time_;
+  float shutter_open_time_;
+  float shutter_close_time_;
   ::PROTOBUF_NAMESPACE_ID::int32 triggermode_;
   float set_integration_time_;
   float exposure_time_;
@@ -4670,42 +4670,42 @@ inline void ccdsettings::set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int3
   // @@protoc_insertion_point(field_set:animax.ccdsettings.shutter_output_signal)
 }
 
-// int32 shutter_open_time = 14;
+// float shutter_open_time = 14;
 inline void ccdsettings::clear_shutter_open_time() {
   shutter_open_time_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_shutter_open_time() const {
+inline float ccdsettings::_internal_shutter_open_time() const {
   return shutter_open_time_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::shutter_open_time() const {
+inline float ccdsettings::shutter_open_time() const {
   // @@protoc_insertion_point(field_get:animax.ccdsettings.shutter_open_time)
   return _internal_shutter_open_time();
 }
-inline void ccdsettings::_internal_set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void ccdsettings::_internal_set_shutter_open_time(float value) {
   
   shutter_open_time_ = value;
 }
-inline void ccdsettings::set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void ccdsettings::set_shutter_open_time(float value) {
   _internal_set_shutter_open_time(value);
   // @@protoc_insertion_point(field_set:animax.ccdsettings.shutter_open_time)
 }
 
-// int32 shutter_close_time = 15;
+// float shutter_close_time = 15;
 inline void ccdsettings::clear_shutter_close_time() {
   shutter_close_time_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::_internal_shutter_close_time() const {
+inline float ccdsettings::_internal_shutter_close_time() const {
   return shutter_close_time_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 ccdsettings::shutter_close_time() const {
+inline float ccdsettings::shutter_close_time() const {
   // @@protoc_insertion_point(field_get:animax.ccdsettings.shutter_close_time)
   return _internal_shutter_close_time();
 }
-inline void ccdsettings::_internal_set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void ccdsettings::_internal_set_shutter_close_time(float value) {
   
   shutter_close_time_ = value;
 }
-inline void ccdsettings::set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void ccdsettings::set_shutter_close_time(float value) {
   _internal_set_shutter_close_time(value);
   // @@protoc_insertion_point(field_set:animax.ccdsettings.shutter_close_time)
 }

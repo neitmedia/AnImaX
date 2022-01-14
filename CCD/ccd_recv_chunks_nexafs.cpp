@@ -99,8 +99,32 @@ int main (int argc, char** argv)
             
             // send real settings
             animax::ccdsettings ccdsettings;
-            ccdsettings.set_ccdwidth(ccdX);
-            ccdsettings.set_ccdheight(ccdY);
+            ccdsettings.set_binning_x(2);
+            ccdsettings.set_binning_y(3);
+            ccdsettings.set_ccdheight(4);
+            ccdsettings.set_ccdwidth(5);
+            ccdsettings.set_pixelcount(6);
+            ccdsettings.set_frametransfer_mode(7);
+            ccdsettings.set_number_of_accumulations(8);
+            ccdsettings.set_number_of_scans(9);
+            ccdsettings.set_set_kinetic_cycle_time(10);
+            ccdsettings.set_read_mode(11);
+            ccdsettings.set_acquision_mode(12);
+            ccdsettings.set_shutter_mode(13);
+            ccdsettings.set_shutter_output_signal(14);
+            ccdsettings.set_shutter_open_time(15);
+            ccdsettings.set_shutter_close_time(16);
+            ccdsettings.set_triggermode(17);
+            ccdsettings.set_set_integration_time(18);
+            ccdsettings.set_exposure_time(19);
+            ccdsettings.set_accumulation_time(20);
+            ccdsettings.set_kinetic_time(21);
+            ccdsettings.set_min_temp(22);
+            ccdsettings.set_max_temp(23);
+            ccdsettings.set_target_temp(24);
+            ccdsettings.set_pre_amp_gain(25);
+            ccdsettings.set_em_gain_mode(26);
+            ccdsettings.set_em_gain(27);
             
             size_t ccdsettingssize = ccdsettings.ByteSizeLong(); 
         

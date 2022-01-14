@@ -46,6 +46,12 @@ private slots:
 
     void on_cmdPauseScan_clicked();
 
+    void on_spbCCDWidth_valueChanged(int arg1);
+
+    void on_spbCCDHeight_valueChanged(int arg1);
+
+    void on_tabWidget_currentChanged(int index);
+
 private:
     Ui::GUI *ui;
     scan* Scan;

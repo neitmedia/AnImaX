@@ -5,20 +5,20 @@
 #include "animax.pb.h"
 #include <google/protobuf/text_format.h>
 #include <QVector>
+#include <structs.h>
 
 typedef QVector<QVector<uint32_t>> imagepixeldata;
 
-Q_DECLARE_METATYPE(std::string)
+Q_DECLARE_METATYPE(std::string);
+Q_DECLARE_METATYPE(ccdsettings);
 
 class ccdThread : public QThread
 {
     Q_OBJECT
 
-
-
 signals:
     void sendImageData(int, std::string);
-    void sendCCDSettings(int, int);
+    void sendCCDSettings(ccdsettings);
     void ccdReady();
 
 public:

@@ -110,8 +110,8 @@ message ccdsettings {
     int32 acquision_mode = 11;
     int32 shutter_mode = 12;
     int32 shutter_output_signal = 13;
-    int32 shutter_open_time = 14;
-    int32 shutter_close_time = 15;
+    float shutter_open_time = 14;
+    float shutter_close_time = 15;
     int32 triggermode = 16;
     float set_integration_time = 17;
     float exposure_time = 18;

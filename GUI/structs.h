@@ -2,6 +2,37 @@
 #define STRUCTS_H
 #include <string>
 
+// define "ccdsettings" struct
+struct ccdsettings {
+    // ccd settings
+    int binning_x;
+    int binning_y;
+    int ccdHeight;
+    int ccdWidth;
+    int pixelcount;
+    int frametransfer_mode;
+    int number_of_accumulations;
+    int number_of_scans;
+    float set_kinetic_cycle_time;
+    int read_mode;
+    int acquision_mode;
+    int shutter_mode;
+    int shutter_output_signal;
+    float shutter_open_time;
+    float shutter_close_time;
+    int triggermode;
+    float set_integration_time;
+    float exposure_time;
+    float accumulation_time;
+    float kinetic_time;
+    int min_temp;
+    int max_temp;
+    int target_temp;
+    int pre_amp_gain;
+    int em_gain_mode;
+    int em_gain;
+};
+
 // define "settingsdata" struct
 struct settingsdata {
 
@@ -34,8 +65,32 @@ struct settingsdata {
     float sample_rotation_angle;
 
     // ccd settings
+    int binning_x;
+    int binning_y;
     int ccdHeight;
     int ccdWidth;
+    int pixelcount;
+    int frametransfer_mode;
+    int number_of_accumulations;
+    int number_of_scans;
+    float set_kinetic_cycle_time;
+    int read_mode;
+    int acquision_mode;
+    int shutter_mode;
+    int shutter_output_signal;
+    float shutter_open_time;
+    float shutter_close_time;
+    int triggermode;
+    float set_integration_time;
+    float exposure_time;
+    float accumulation_time;
+    float kinetic_time;
+    int min_temp;
+    int max_temp;
+    int target_temp;
+    int pre_amp_gain;
+    int em_gain_mode;
+    int em_gain;
 
     // sdd settings
     int sebitcount;

@@ -84,8 +84,32 @@ void controlThread::run()
                 settings.datasinkPort = Measurement.datasinkport();
 
                 // ccd settings
+                settings.binning_x = Measurement.binning_x();
+                settings.binning_y = Measurement.binning_y();
                 settings.ccdHeight = Measurement.ccdheight();
                 settings.ccdWidth = Measurement.ccdwidth();
+                settings.pixelcount = Measurement.pixelcount();
+                settings.frametransfer_mode = Measurement.frametransfer_mode();
+                settings.number_of_accumulations = Measurement.number_of_accumulations();
+                settings.number_of_scans = Measurement.number_of_scans();
+                settings.set_kinetic_cycle_time = Measurement.set_kinetic_cycle_time();
+                settings.read_mode = Measurement.read_mode();
+                settings.acquision_mode = Measurement.acquision_mode();
+                settings.shutter_mode = Measurement.shutter_mode();
+                settings.shutter_output_signal = Measurement.shutter_output_signal();
+                settings.shutter_open_time = Measurement.shutter_open_time();
+                settings.shutter_close_time = Measurement.shutter_close_time();
+                settings.triggermode = Measurement.triggermode();
+                settings.set_integration_time = Measurement.set_integration_time();
+                settings.exposure_time = Measurement.exposure_time();
+                settings.accumulation_time = Measurement.accumulation_time();
+                settings.kinetic_time = Measurement.kinetic_time();
+                settings.min_temp = Measurement.min_temp();
+                settings.max_temp = Measurement.max_temp();
+                settings.target_temp = Measurement.target_temp();
+                settings.pre_amp_gain = Measurement.pre_amp_gain();
+                settings.em_gain_mode = Measurement.em_gain_mode();
+                settings.em_gain = Measurement.em_gain();
 
                 // sdd settings
                 settings.sebitcount = Measurement.sebitcount();

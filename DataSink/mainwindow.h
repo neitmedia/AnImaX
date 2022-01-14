@@ -34,7 +34,7 @@ public:
 
 public slots:
     void getImageData(int, std::string);
-    void getCCDSettings(int, int);
+    void getCCDSettings(ccdsettings);
     void showIncomingSpectrum(int, spectrumdata);
     void writeScanIndexData(int, int, int);
     void writeLineBreakData(roidata, int, int, int);
@@ -74,6 +74,7 @@ private:
     imagepreviewdata stxmpreviewvec;
     settingsdata scansettings;
     metadata currentmetadata;
+    ccdsettings ccdsettingsdata;
 
     int savestarttime;
     int saveendtime;
@@ -92,9 +93,6 @@ private:
     bool ccdReceived = false;
 
     QList<QString> scanFiles;
-
-    uint16_t realccdX;
-    uint16_t realccdY;
 
 };
 #endif // MAINWINDOW_H

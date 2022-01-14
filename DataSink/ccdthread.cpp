@@ -16,6 +16,7 @@ using namespace std::chrono;
 ccdThread::ccdThread(QString s, int scanX, int scanY) : ip(s), scanX(scanX), scanY(scanY)
 {
     qRegisterMetaType<std::string>();
+    qRegisterMetaType<ccdsettings>();
 }
 
 // We overrides the QThread's run() method here
@@ -58,9 +59,38 @@ void ccdThread::run()
                 zmq::message_t msg;
                 subscriber.recv(msg);
 
-                animax::ccdsettings ccdsettings;
-                ccdsettings.ParseFromArray(msg.data(), msg.size());
-                emit sendCCDSettings(ccdsettings.ccdwidth(), ccdsettings.ccdheight());
+                animax::ccdsettings ccdsettingsbuf;
+                ccdsettingsbuf.ParseFromArray(msg.data(), msg.size());
+
+                ccdsettings ccdsettings;
+                ccdsettings.binning_x = ccdsettingsbuf.binning_x();
+                ccdsettings.binning_y = ccdsettingsbuf.binning_y();
+                ccdsettings.ccdWidth = ccdsettingsbuf.ccdwidth();
+                ccdsettings.ccdHeight = ccdsettingsbuf.ccdheight();
+                ccdsettings.pixelcount = ccdsettingsbuf.pixelcount();
+                ccdsettings.frametransfer_mode = ccdsettingsbuf.frametransfer_mode();
+                ccdsettings.number_of_accumulations = ccdsettingsbuf.number_of_accumulations();
+                ccdsettings.number_of_scans = ccdsettingsbuf.number_of_scans();
+                ccdsettings.set_kinetic_cycle_time = ccdsettingsbuf.set_kinetic_cycle_time();
+                ccdsettings.read_mode = ccdsettingsbuf.read_mode();
+                ccdsettings.acquision_mode = ccdsettingsbuf.acquision_mode();
+                ccdsettings.shutter_mode = ccdsettingsbuf.shutter_mode();
+                ccdsettings.shutter_output_signal = ccdsettingsbuf.shutter_output_signal();
+                ccdsettings.shutter_open_time = ccdsettingsbuf.shutter_open_time();
+                ccdsettings.shutter_close_time = ccdsettingsbuf.shutter_close_time();
+                ccdsettings.triggermode = ccdsettingsbuf.triggermode();
+                ccdsettings.set_integration_time = ccdsettingsbuf.set_integration_time();
+                ccdsettings.exposure_time = ccdsettingsbuf.exposure_time();
+                ccdsettings.accumulation_time = ccdsettingsbuf.accumulation_time();
+                ccdsettings.kinetic_time = ccdsettingsbuf.kinetic_time();
+                ccdsettings.min_temp = ccdsettingsbuf.min_temp();
+                ccdsettings.max_temp = ccdsettingsbuf.max_temp();
+                ccdsettings.target_temp = ccdsettingsbuf.target_temp();
+                ccdsettings.pre_amp_gain = ccdsettingsbuf.pre_amp_gain();
+                ccdsettings.em_gain_mode = ccdsettingsbuf.em_gain_mode();
+                ccdsettings.em_gain = ccdsettingsbuf.em_gain();
+
+                emit sendCCDSettings(ccdsettings);
             }
         }
 
