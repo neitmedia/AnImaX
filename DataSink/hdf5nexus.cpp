@@ -209,6 +209,34 @@ DataSet* hdf5nexus::newNeXusChunkedCCDDataSet(std::string location, int x, int y
     return dataset;
 }
 
+DataSet* hdf5nexus::newNeXusChunked1DDataSet(std::string location, H5::PredType predtype, std::string typestr, bool close) {
+    hsize_t dims[1];
+    dims[0] = 0;
+
+    hsize_t maxdims[1] = {H5S_UNLIMITED};
+    hsize_t chunk_dims[1] = {1};
+
+    DataSpace *dataspace = new DataSpace(1, dims, maxdims);
+
+    // Modify dataset creation property to enable chunking
+    DSetCreatPropList prop;
+    prop.setChunk(1, chunk_dims);
+
+    // Create the chunked dataset.
+    DataSet *dataset = new DataSet(file->createDataSet(location, predtype, *dataspace, prop));
+    newNeXusDatasetStringAttribute(dataset, "type", typestr);
+
+    prop.close();
+    delete dataspace;
+
+    if (close) {
+        dataset->close();
+        delete dataset;
+    }
+
+    return dataset;
+}
+
 DataSet* hdf5nexus::newNeXusChunkedTransmissionPreviewDataSet(std::string location, H5::PredType predtype, std::string typestr, bool close) {
     // set variables
     hsize_t maxdimssumimage[2]    = {H5S_UNLIMITED, H5S_UNLIMITED};
@@ -545,13 +573,16 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     //newNeXusScalarDataSet("/measurement/monitor/data", "NX_FLOAT", 123, true);
 
     newNeXusGroup("/measurement/transmission", "NX_class", "NXdata", true);
-    newNeXusScalarDataSet("/measurement/transmission/sample_x", "NX_FLOAT", 99, true);
-    newNeXusScalarDataSet("/measurement/transmission/sample_y", "NX_FLOAT", 87, true);
+    //newNeXusScalarDataSet("/measurement/transmission/sample_x", "NX_FLOAT", 99, true);
+    newNeXusChunked1DDataSet("/measurement/transmission/sample_x", PredType::NATIVE_FLOAT, "NX_FLOAT", true);
+    newNeXusChunked1DDataSet("/measurement/transmission/sample_y", PredType::NATIVE_FLOAT, "NX_FLOAT", true);
     newNeXusScalarDataSet("/measurement/transmission/stxm_scan_type", "NX_CHAR", "sample image", true);
 
     newNeXusGroup("/measurement/fluorescence", "NX_class", "NXdata", true);
-    newNeXusScalarDataSet("/measurement/fluorescence/sample_x", "NX_FLOAT", 99, true);
-    newNeXusScalarDataSet("/measurement/fluorescence/sample_y", "NX_FLOAT", 87, true);
+    //newNeXusChunked1DDataSet("/measurement/fluorescence/sample_x", PredType::NATIVE_FLOAT, "NX_FLOAT", true);
+    //newNeXusChunked1DDataSet("/measurement/fluorescence/sample_y", PredType::NATIVE_FLOAT, "NX_FLOAT", true);
+    file->link(H5L_TYPE_HARD, "/measurement/transmission/sample_x", "/measurement/fluorescence/sample_x");
+    file->link(H5L_TYPE_HARD, "/measurement/transmission/sample_y", "/measurement/fluorescence/sample_y");
     newNeXusScalarDataSet("/measurement/fluorescence/stxm_scan_type", "NX_CHAR", "generic scan", true);
 
     newNeXusGroup("/measurement/instruments", "NX_class", "NXinstrument", true);
@@ -847,4 +878,38 @@ void hdf5nexus::writeScanNote(std::string scannote) {
 
     dataset->close();
     delete dataset;
+}
+
+void hdf5nexus::appendValueTo1DDataSet(std::string location, int position, float value) {
+    // write data to file
+    hsize_t size[1];
+
+    hsize_t offset[1];
+
+    float dataarr[1];
+    dataarr[0] = value;
+
+    // WRITE DETECTOR DATA TO FILE
+    size[0] = position+1;
+    offset[0] = position;
+
+    hsize_t dimsext[1] = {1}; // extend dimensions
+
+    DataSet *dataset = new DataSet(this->file->openDataSet(location));
+    dataset->extend(size);
+
+    // Select a hyperslab in extended portion of the dataset.
+    DataSpace *filespace = new DataSpace(dataset->getSpace());
+
+    filespace->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
+
+    // Define memory space.
+    DataSpace *memspace = new DataSpace(1, dimsext, NULL);
+
+    // Write data to the extended portion of the dataset.
+    dataset->write(dataarr, PredType::NATIVE_FLOAT, *memspace, *filespace);
+
+    filespace->close();
+    memspace->close();
+    dataset->close();
 }

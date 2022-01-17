@@ -42,6 +42,9 @@ public:
     DataSet* newNeXusChunkedSDDLogDataSet(std::string, H5::PredType, std::string, bool);
     DataSet* newNeXusROIDataSet(std::string, int, int, H5::PredType, std::string, bool);
     DataSet* newNeXusChunkedMetadataDataSet(std::string, H5::PredType, std::string, bool);
+    DataSet* newNeXusChunked1DDataSet(std::string, H5::PredType, std::string, bool);
+
+    void appendValueTo1DDataSet(std::string, int, float);
 
     H5File *file;
 

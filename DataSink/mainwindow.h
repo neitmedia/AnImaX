@@ -75,6 +75,8 @@ private:
     settingsdata scansettings;
     metadata currentmetadata;
     ccdsettings ccdsettingsdata;
+    int row = 0;
+    int col = 0;
 
     int savestarttime;
     int saveendtime;

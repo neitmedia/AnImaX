@@ -367,6 +367,20 @@ void MainWindow::getImageData(int cntx, std::string datax) {
         stxmpreviewvec.append(sum);
 
         if (ui->chbSaveData->isChecked()) {
+
+            float stepwidthX = 0.0123;
+            float stepwidthY = 0.0123;
+
+            col = cntx%scanX;
+
+            // write scan position to file
+            nexusfile->appendValueTo1DDataSet("/measurement/transmission/sample_x", cntx, col*stepwidthX);
+            nexusfile->appendValueTo1DDataSet("/measurement/transmission/sample_y", cntx, row*stepwidthY);
+
+            if (col == 39) {
+                row++;
+            }
+
             // write data to file
             hsize_t size[3];
             size[1] = ccdX;
