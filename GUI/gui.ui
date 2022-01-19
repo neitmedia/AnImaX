@@ -65,13 +65,13 @@
       </rect>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>30</y>
        <width>128</width>
-       <height>61</height>
+       <height>80</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -358,7 +358,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -370,7 +370,7 @@
         <x>10</x>
         <y>10</y>
         <width>201</width>
-        <height>151</height>
+        <height>211</height>
        </rect>
       </property>
       <property name="title">
@@ -380,7 +380,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>120</y>
+         <y>180</y>
          <width>51</width>
          <height>23</height>
         </rect>
@@ -396,7 +396,7 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>120</y>
+         <y>180</y>
          <width>81</width>
          <height>23</height>
         </rect>
@@ -405,13 +405,13 @@
         <string>NEXAFS</string>
        </property>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
-         <width>181</width>
-         <height>85</height>
+         <y>31</y>
+         <width>188</width>
+         <height>145</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
@@ -458,6 +458,40 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="txtScanTitle"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_39">
+          <property name="text">
+           <string>x step size:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QDoubleSpinBox" name="dsbXStepSize">
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="value">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_49">
+          <property name="text">
+           <string>y step size:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QDoubleSpinBox" name="dsbYStepSize">
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="value">
+           <double>0.200000000000000</double>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -683,10 +717,86 @@ p, li { white-space: pre-wrap; }
         <rect>
          <x>80</x>
          <y>55</y>
-         <width>651</width>
+         <width>441</width>
          <height>23</height>
         </rect>
        </property>
+      </widget>
+      <widget class="QCheckBox" name="chbEnableCompression">
+       <property name="geometry">
+        <rect>
+         <x>530</x>
+         <y>55</y>
+         <width>151</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>enable compression</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="cmbCompressionLevel">
+       <property name="geometry">
+        <rect>
+         <x>690</x>
+         <y>55</y>
+         <width>41</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="currentIndex">
+        <number>9</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>0</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>4</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>5</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>6</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>8</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>9</string>
+        </property>
+       </item>
       </widget>
      </widget>
     </widget>
@@ -706,7 +816,7 @@ p, li { white-space: pre-wrap; }
       <property name="title">
        <string>SDD Settings</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -770,12 +880,12 @@ p, li { white-space: pre-wrap; }
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>25</y>
-         <width>311</width>
+         <width>363</width>
          <height>228</height>
         </rect>
        </property>
@@ -981,7 +1091,7 @@ p, li { white-space: pre-wrap; }
       <property name="title">
        <string>CCD Settings</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1025,23 +1135,6 @@ p, li { white-space: pre-wrap; }
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
-         <widget class="QLabel" name="label_41">
-          <property name="text">
-           <string>Accumulation time:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="5">
-         <widget class="QDoubleSpinBox" name="dsbAccumulationTime">
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="value">
-           <double>0.502180000000000</double>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_4">
           <property name="text">
@@ -1073,23 +1166,6 @@ p, li { white-space: pre-wrap; }
           </property>
           <property name="value">
            <number>3</number>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <widget class="QLabel" name="label_42">
-          <property name="text">
-           <string>Kinetic time:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="5">
-         <widget class="QDoubleSpinBox" name="dsbKineticTime">
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="value">
-           <double>0.502180000000000</double>
           </property>
          </widget>
         </item>
@@ -1130,26 +1206,6 @@ p, li { white-space: pre-wrap; }
           </property>
          </widget>
         </item>
-        <item row="2" column="4">
-         <widget class="QLabel" name="label_43">
-          <property name="text">
-           <string>Min temp:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="5">
-         <widget class="QSpinBox" name="spbMinTemp">
-          <property name="minimum">
-           <number>-273</number>
-          </property>
-          <property name="maximum">
-           <number>128</number>
-          </property>
-          <property name="value">
-           <number>-120</number>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_25">
           <property name="text">
@@ -1184,26 +1240,6 @@ p, li { white-space: pre-wrap; }
           </property>
          </widget>
         </item>
-        <item row="3" column="4">
-         <widget class="QLabel" name="label_44">
-          <property name="text">
-           <string>Max temp:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="5">
-         <widget class="QSpinBox" name="spbMaxTemp">
-          <property name="minimum">
-           <number>-273</number>
-          </property>
-          <property name="maximum">
-           <number>128</number>
-          </property>
-          <property name="value">
-           <number>20</number>
-          </property>
-         </widget>
-        </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_26">
           <property name="text">
@@ -1228,26 +1264,6 @@ p, li { white-space: pre-wrap; }
           </property>
          </widget>
         </item>
-        <item row="4" column="4">
-         <widget class="QLabel" name="label_45">
-          <property name="text">
-           <string>Target temp:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="5">
-         <widget class="QSpinBox" name="spbTargetTemp">
-          <property name="minimum">
-           <number>-273</number>
-          </property>
-          <property name="maximum">
-           <number>128</number>
-          </property>
-          <property name="value">
-           <number>-30</number>
-          </property>
-         </widget>
-        </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_28">
           <property name="text">
@@ -1269,23 +1285,6 @@ p, li { white-space: pre-wrap; }
          <widget class="QLabel" name="label_37">
           <property name="text">
            <string>Shutter close time:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="4">
-         <widget class="QLabel" name="label_46">
-          <property name="text">
-           <string>Pre amp gain:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="5">
-         <widget class="QSpinBox" name="spbPreAmpGain">
-          <property name="maximum">
-           <number>128</number>
-          </property>
-          <property name="value">
-           <number>1</number>
           </property>
          </widget>
         </item>
@@ -1323,23 +1322,6 @@ p, li { white-space: pre-wrap; }
           </property>
          </widget>
         </item>
-        <item row="6" column="4">
-         <widget class="QLabel" name="label_47">
-          <property name="text">
-           <string>EM gain mode:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="5">
-         <widget class="QSpinBox" name="spbEMGainMode">
-          <property name="maximum">
-           <number>128</number>
-          </property>
-          <property name="value">
-           <number>2</number>
-          </property>
-         </widget>
-        </item>
         <item row="7" column="0">
          <widget class="QLabel" name="label_30">
           <property name="text">
@@ -1360,40 +1342,6 @@ p, li { white-space: pre-wrap; }
           </property>
          </widget>
         </item>
-        <item row="7" column="2">
-         <widget class="QLabel" name="label_39">
-          <property name="text">
-           <string>Set integration time:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="3">
-         <widget class="QDoubleSpinBox" name="dsbSetIntegrationTime">
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="value">
-           <double>0.500000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="4">
-         <widget class="QLabel" name="label_48">
-          <property name="text">
-           <string>EM gain:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="5">
-         <widget class="QSpinBox" name="spbEMGain">
-          <property name="maximum">
-           <number>128</number>
-          </property>
-          <property name="value">
-           <number>20</number>
-          </property>
-         </widget>
-        </item>
         <item row="8" column="0">
          <widget class="QLabel" name="label_31">
           <property name="text">
@@ -1411,23 +1359,6 @@ p, li { white-space: pre-wrap; }
           </property>
          </widget>
         </item>
-        <item row="8" column="2">
-         <widget class="QLabel" name="label_40">
-          <property name="text">
-           <string>Exposure time:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="3">
-         <widget class="QDoubleSpinBox" name="dsbExposureTime">
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="value">
-           <double>0.500000000000000</double>
-          </property>
-         </widget>
-        </item>
         <item row="4" column="3">
          <widget class="QDoubleSpinBox" name="dsbShutterOpenTime">
           <property name="decimals">
@@ -1442,6 +1373,168 @@ p, li { white-space: pre-wrap; }
          <widget class="QDoubleSpinBox" name="dsbShutterCloseTime">
           <property name="decimals">
            <number>6</number>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QLabel" name="label_40">
+          <property name="text">
+           <string>Exposure time:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="3">
+         <widget class="QDoubleSpinBox" name="dsbExposureTime">
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="value">
+           <double>0.500000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="2">
+         <widget class="QLabel" name="label_41">
+          <property name="text">
+           <string>Accumulation time:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="3">
+         <widget class="QDoubleSpinBox" name="dsbAccumulationTime">
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="value">
+           <double>0.502180000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QLabel" name="label_42">
+          <property name="text">
+           <string>Kinetic time:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QDoubleSpinBox" name="dsbKineticTime">
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="value">
+           <double>0.502180000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QLabel" name="label_43">
+          <property name="text">
+           <string>Min temp:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QSpinBox" name="spbMinTemp">
+          <property name="minimum">
+           <number>-273</number>
+          </property>
+          <property name="maximum">
+           <number>128</number>
+          </property>
+          <property name="value">
+           <number>-120</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="QLabel" name="label_44">
+          <property name="text">
+           <string>Max temp:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="5">
+         <widget class="QSpinBox" name="spbMaxTemp">
+          <property name="minimum">
+           <number>-273</number>
+          </property>
+          <property name="maximum">
+           <number>128</number>
+          </property>
+          <property name="value">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="4">
+         <widget class="QLabel" name="label_45">
+          <property name="text">
+           <string>Target temp:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="5">
+         <widget class="QSpinBox" name="spbTargetTemp">
+          <property name="minimum">
+           <number>-273</number>
+          </property>
+          <property name="maximum">
+           <number>128</number>
+          </property>
+          <property name="value">
+           <number>-30</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="4">
+         <widget class="QLabel" name="label_46">
+          <property name="text">
+           <string>Pre amp gain:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="5">
+         <widget class="QSpinBox" name="spbPreAmpGain">
+          <property name="maximum">
+           <number>128</number>
+          </property>
+          <property name="value">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="4">
+         <widget class="QLabel" name="label_47">
+          <property name="text">
+           <string>EM gain mode:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="5">
+         <widget class="QSpinBox" name="spbEMGainMode">
+          <property name="maximum">
+           <number>128</number>
+          </property>
+          <property name="value">
+           <number>2</number>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="4">
+         <widget class="QLabel" name="label_48">
+          <property name="text">
+           <string>EM gain:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="5">
+         <widget class="QSpinBox" name="spbEMGain">
+          <property name="maximum">
+           <number>128</number>
+          </property>
+          <property name="value">
+           <number>20</number>
           </property>
          </widget>
         </item>
@@ -1473,6 +1566,9 @@ p, li { white-space: pre-wrap; }
          <width>1061</width>
          <height>231</height>
         </rect>
+       </property>
+       <property name="plainText">
+        <string>[{&quot;name&quot;:&quot;Max Mustermann&quot;,&quot;role&quot;:&quot;1&quot;,&quot;affiliation&quot;:&quot;IXO&quot;, &quot;address&quot;:&quot;2&quot;, &quot;telephone_number&quot;:&quot;3&quot;, &quot;fax_number&quot;:&quot;4&quot;, &quot;email&quot;:&quot;max.mustermann@hs-koblenz.de&quot;, &quot;facility_user_id&quot;:&quot;5&quot;, &quot;ORCID&quot;:&quot;6&quot;},{&quot;name&quot;:&quot;Monika Musterfrau&quot;,&quot;role&quot;:&quot;1&quot;,&quot;affiliation&quot;:&quot;2&quot;, &quot;address&quot;:&quot;3&quot;, &quot;telephone_number&quot;:&quot;4&quot;, &quot;fax_number&quot;:&quot;5&quot;, &quot;email&quot;:&quot;6&quot;, &quot;facility_user_id&quot;:&quot;7&quot;, &quot;ORCID&quot;:&quot;8&quot;}]</string>
        </property>
        <property name="placeholderText">
         <string>user info</string>
@@ -1555,7 +1651,7 @@ p, li { white-space: pre-wrap; }
         <string>Note / Description</string>
        </property>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1611,6 +1707,109 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab_6">
+     <attribute name="title">
+      <string>Source settings</string>
+     </attribute>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>293</width>
+        <height>85</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_51">
+         <property name="text">
+          <string>Source name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_52">
+         <property name="text">
+          <string>Probe:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_50">
+         <property name="text">
+          <string>Source type:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="txtSourceName">
+         <property name="text">
+          <string>PETRA III / P04</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="cmbSourceType">
+         <item>
+          <property name="text">
+           <string>Synchrotron X-ray Source</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Rotating Anode X-ray</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Fixed Tube X-ray</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>UV Laser</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Free-Electron Laser</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>UV Plasma Source</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Metal Jet X-ray</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="cmbSourceProbe">
+         <item>
+          <property name="text">
+           <string>x-ray</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ultraviolet</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>visible light</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
     <widget class="QWidget" name="tab_5">
      <attribute name="title">
       <string>Network settings</string>
@@ -1627,7 +1826,7 @@ p, li { white-space: pre-wrap; }
       <property name="title">
        <string>Network settings</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>

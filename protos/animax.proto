@@ -6,75 +6,83 @@ message Measurement {
     // general scan settings
     int32 width = 1;
     int32 height = 2;
-    int32 acquisition_time = 3;
-    string scantype = 4;
-    string save_path = 5;
-    string save_file = 6;
-    int32 energy_count = 7;
-    repeated int32 energies = 8;
-    string ROIdefinitions = 9;
-    string scantitle = 10;
+    float x_step_size = 3;
+    float y_step_Size = 4;
+    int32 acquisition_time = 5;
+    string scantype = 6;
+    string save_path = 7;
+    string save_file = 8;
+    bool file_compression = 9;
+    int32 file_compression_level = 10;
+    int32 energy_count = 11;
+    repeated int32 energies = 12;
+    string ROIdefinitions = 13;
+    string scantitle = 14;
   
     // network settings
-    string datasinkIP = 11;
-    int32 datasinkPort = 12;
-    string sddIP = 13;
-    int32 sddPort = 14;
-    string ccdIP = 15;
-    int32 ccdPort = 16;
+    string datasinkIP = 15;
+    int32 datasinkPort = 16;
+    string sddIP = 17;
+    int32 sddPort = 18;
+    string ccdIP = 19;
+    int32 ccdPort = 20;
   
     // sdd settings
-    int32 sebitcount = 17;
-    int32 filter = 18;
-    int32 energyrange = 19;
-    int32 tempmode = 20;
-    int32 zeropeakperiod = 21;
-    int32 acquisitionmode = 22;
-    int32 checktemperature = 23;
-    bool sdd1 = 24;
-    bool sdd2 = 25;
-    bool sdd3 = 26;
-    bool sdd4 = 27;
+    int32 sebitcount = 21;
+    int32 filter = 22;
+    int32 energyrange = 23;
+    int32 tempmode = 24;
+    int32 zeropeakperiod = 25;
+    int32 acquisitionmode = 26;
+    int32 checktemperature = 27;
+    bool sdd1 = 28;
+    bool sdd2 = 29;
+    bool sdd3 = 30;
+    bool sdd4 = 31;
   
     // ccd settings
-    int32 binning_x = 28;
-    int32 binning_y = 29;
-    int32 ccdheight = 30;
-    int32 ccdwidth = 31;
-    int32 pixelcount = 32;
-    int32 frametransfer_mode = 33;
-    int32 number_of_accumulations = 34;
-    int32 number_of_scans = 35;
-    float set_kinetic_cycle_time = 36;
-    int32 read_mode = 37;
-    int32 acquision_mode = 38;
-    int32 shutter_mode = 39;
-    int32 shutter_output_signal = 40;
-    int32 shutter_open_time = 41;
-    int32 shutter_close_time = 42;
-    int32 triggermode = 43;
-    float set_integration_time = 44;
-    float exposure_time = 45;
-    float accumulation_time = 46;
-    float kinetic_time = 47;
-    int32 min_temp = 48;
-    int32 max_temp = 49;
-    int32 target_temp = 50;
-    int32 pre_amp_gain = 51;
-    int32 em_gain_mode = 52;
-    int32 em_gain = 53;
+    int32 binning_x = 32;
+    int32 binning_y = 33;
+    int32 ccdheight = 34;
+    int32 ccdwidth = 35;
+    int32 pixelcount = 36;
+    int32 frametransfer_mode = 37;
+    int32 number_of_accumulations = 38;
+    int32 number_of_scans = 39;
+    float set_kinetic_cycle_time = 40;
+    int32 read_mode = 41;
+    int32 acquision_mode = 42;
+    int32 shutter_mode = 43;
+    int32 shutter_output_signal = 44;
+    int32 shutter_open_time = 45;
+    int32 shutter_close_time = 46;
+    int32 triggermode = 47;
+    float exposure_time = 48;
+    float accumulation_time = 49;
+    float kinetic_time = 50;
+    int32 min_temp = 51;
+    int32 max_temp = 52;
+    int32 target_temp = 53;
+    int32 pre_amp_gain = 54;
+    int32 em_gain_mode = 55;
+    int32 em_gain = 56;
   
     // sample settings
-    string sample_name = 54;
-    string sample_type = 55;
-    string sample_note = 56;
-    float sample_width = 57;
-    float sample_height = 58;
-    float sample_rotation_angle = 59;
+    string sample_name = 57;
+    string sample_type = 58;
+    string sample_note = 59;
+    float sample_width = 60;
+    float sample_height = 61;
+    float sample_rotation_angle = 62;
+  
+    // source settings
+    string source_name = 63;
+    string source_probe = 64;
+    string source_type = 65;
   
     // additional settings
-    string notes = 60;
-    string userdata = 61;
+    string notes = 66;
+    string userdata = 67;
 }
 
 message Metadata {
@@ -97,32 +105,10 @@ message ccd {
 }
 
 message ccdsettings {
-    int32 binning_x = 1;
-    int32 binning_y = 2;
-    int32 ccdheight = 3;
-    int32 ccdwidth = 4;
-    int32 pixelcount = 5;
-    int32 frametransfer_mode = 6;
-    int32 number_of_accumulations = 7;
-    int32 number_of_scans = 8;
-    float set_kinetic_cycle_time = 9;
-    int32 read_mode = 10;
-    int32 acquision_mode = 11;
-    int32 shutter_mode = 12;
-    int32 shutter_output_signal = 13;
-    float shutter_open_time = 14;
-    float shutter_close_time = 15;
-    int32 triggermode = 16;
-    float set_integration_time = 17;
-    float exposure_time = 18;
-    float accumulation_time = 19;
-    float kinetic_time = 20;
-    int32 min_temp = 21;
-    int32 max_temp = 22;
-    int32 target_temp = 23;
-    int32 pre_amp_gain = 24;
-    int32 em_gain_mode = 25;
-    int32 em_gain = 26;
+    float set_kinetic_cycle_time = 1;
+    float exposure_time = 2;
+    float accumulation_time = 3;
+    float kinetic_time = 4;
 }
 
 message preview {

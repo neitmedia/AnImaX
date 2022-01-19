@@ -1,6 +1,7 @@
 #include "gui.h"
 #include "ui_gui.h"
 #include "math.h"
+#include <QMessageBox>
 
 GUI::GUI(QWidget *parent)
     : QMainWindow(parent)
@@ -45,10 +46,14 @@ void GUI::on_cmdStartScan_clicked()
 
     settings.scanHeight = ui->spbScanHeight->value();
     settings.scanWidth = ui->spbScanWidth->value();
+    settings.x_step_size = ui->dsbXStepSize->value();
+    settings.y_step_size = ui->dsbYStepSize->value();
     settings.scantitle = ui->txtScanTitle->text().toStdString();
 
     settings.save_path = ui->txtFilePath->text().toStdString();
     settings.save_file = ui->txtFileName->text().toStdString();
+    settings.file_compression = ui->chbEnableCompression->isChecked();
+    settings.file_compression_level = ui->cmbCompressionLevel->currentIndex();
 
     // write scan width and height into global variables
     scanX = settings.scanWidth;
@@ -99,7 +104,6 @@ void GUI::on_cmdStartScan_clicked()
     settings.shutter_open_time = ui->dsbShutterOpenTime->value();
     settings.shutter_close_time = ui->dsbShutterCloseTime->value();
     settings.triggermode = ui->spbTriggerMode->value();
-    settings.set_integration_time = ui->dsbSetIntegrationTime->value();
     settings.exposure_time = ui->dsbExposureTime->value();
     settings.accumulation_time = ui->dsbAccumulationTime->value();
     settings.kinetic_time = ui->dsbKineticTime->value();
@@ -141,6 +145,11 @@ void GUI::on_cmdStartScan_clicked()
     settings.sample_width = ui->dsbSampleWidth->value();
     settings.sample_height = ui->dsbSampleHeight->value();
     settings.sample_rotation_angle = ui->dsbSampleRotationAngle->value();
+
+    // source settings
+    settings.source_name = ui->txtSourceName->text().toStdString();
+    settings.source_probe = ui->cmbSourceProbe->currentText().toStdString();
+    settings.source_type = ui->cmbSourceType->currentText().toStdString();
 
     // additional settings
     settings.notes = ui->txtScanNote->toPlainText().toStdString();
@@ -379,6 +388,11 @@ void GUI::on_ScanFinished()
 {
     ui->txtScanNote->setDisabled(false);
     ui->cmdSaveScanNote->setDisabled(false);
+    // give info message
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setText("Scan finished!");
+    msgBox.exec();
 }
 
 void GUI::on_cmdSaveScanNote_clicked()

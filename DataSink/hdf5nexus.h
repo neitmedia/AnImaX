@@ -28,7 +28,7 @@ public:
     void writeSDDData(int32_t, spectrumdata);
     void writeCCDSettings(ccdsettings);
 
-    void writeScanNote(std::string);
+    void writeScanNote(std::string, int notecounter);
 
     //DataSet* newNeXusScalarDataSet(std::string, std::string, bool, bool);
     DataSet* newNeXusScalarDataSet(std::string, std::string, std::string, bool);
@@ -36,13 +36,12 @@ public:
     DataSet* newNeXusScalarDataSet(std::string, std::string, int32_t, bool);
 
     Group* newNeXusGroup(std::string, std::string, std::string, bool);
-    DataSet* newNeXusChunkedCCDDataSet(std::string, int, int, H5::PredType, std::string, bool);
-    DataSet* newNeXusChunkedTransmissionPreviewDataSet(std::string, H5::PredType, std::string, bool);
-    DataSet* newNeXusChunkedSpectraDataSet(std::string, H5::PredType, std::string, bool);
-    DataSet* newNeXusChunkedSDDLogDataSet(std::string, H5::PredType, std::string, bool);
-    DataSet* newNeXusROIDataSet(std::string, int, int, H5::PredType, std::string, bool);
-    DataSet* newNeXusChunkedMetadataDataSet(std::string, H5::PredType, std::string, bool);
-    DataSet* newNeXusChunked1DDataSet(std::string, H5::PredType, std::string, bool);
+    DataSet* newNeXusChunkedCCDDataSet(std::string, int, int, H5::PredType, std::string, bool, int, bool);
+    DataSet* newNeXusChunkedTransmissionPreviewDataSet(std::string, H5::PredType, std::string, bool, int, bool);
+    DataSet* newNeXusChunkedSpectraDataSet(std::string, H5::PredType, std::string, bool, int, bool);
+    DataSet* newNeXusChunkedSDDLogDataSet(std::string, H5::PredType, std::string, bool, int, bool);
+    DataSet* newNeXusROIDataSet(std::string, int, int, H5::PredType, std::string, bool, int, bool);
+    DataSet* newNeXusChunked1DDataSet(std::string, H5::PredType, std::string, bool, int, bool);
 
     void appendValueTo1DDataSet(std::string, int, float);
 

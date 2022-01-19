@@ -79,7 +79,7 @@ void sddThread::run()
                 zmq::message_t env;
                 subscriber.recv(env);
                 std::string env_str = std::string(static_cast<char*>(env.data()), env.size());
-                std::cout << "Received envelope '" << env_str << "'" << std::endl;
+                //std::cout << "Received envelope '" << env_str << "'" << std::endl;
 
                 if (env_str == "sdd") {
                     zmq::message_t msg;
@@ -90,7 +90,7 @@ void sddThread::run()
                     std::string text_str;
                     text_str = sdd.pixeldata();
 
-                    std::cout << "Received" << text_str.size() << std::endl;
+                    //std::cout << "Received" << text_str.size() << std::endl;
 
                     if (text_str.size() > 0) {
 

@@ -53,6 +53,8 @@ void scan::run()
         // general scan settings
         Measurement.set_width(settings.scanWidth);
         Measurement.set_height(settings.scanHeight);
+        Measurement.set_x_step_size(settings.x_step_size);
+        Measurement.set_y_step_size(settings.y_step_size);
         Measurement.set_scantitle(settings.scantitle);
         Measurement.set_acquisition_time(10);
         Measurement.set_energy_count(settings.energycount);
@@ -63,6 +65,10 @@ void scan::run()
         Measurement.set_scantype(settings.scantype);
         Measurement.set_save_path(settings.save_path);
         Measurement.set_save_file(settings.save_file);
+        Measurement.set_file_compression(settings.file_compression);
+        Measurement.set_file_compression_level(settings.file_compression_level);
+
+        std::cout<<"file compression: "<<Measurement.file_compression()<<std::endl;
 
         // network settings
         Measurement.set_ccdip(settings.ccdIP);
@@ -89,7 +95,6 @@ void scan::run()
         Measurement.set_shutter_open_time(settings.shutter_open_time);
         Measurement.set_shutter_close_time(settings.shutter_close_time);
         Measurement.set_triggermode(settings.triggermode);
-        Measurement.set_set_integration_time(settings.set_integration_time);
         Measurement.set_exposure_time(settings.exposure_time);
         Measurement.set_accumulation_time(settings.accumulation_time);
         Measurement.set_kinetic_time(settings.kinetic_time);
@@ -120,6 +125,11 @@ void scan::run()
         Measurement.set_sample_width(settings.sample_width);
         Measurement.set_sample_height(settings.sample_height);
         Measurement.set_sample_rotation_angle(settings.sample_rotation_angle);
+
+        // source settings
+        Measurement.set_source_name(settings.source_name);
+        Measurement.set_source_probe(settings.source_probe);
+        Measurement.set_source_type(settings.source_type);
 
         // additional settings
         Measurement.set_notes(settings.notes);
@@ -287,14 +297,12 @@ void scan::run()
                             animax::ccdsettings real_ccdsettings;
                             real_ccdsettings.ParseFromArray(ccdmsg.data(), ccdmsg.size());
                             int32_t set_kinetic_cycle_time = real_ccdsettings.set_kinetic_cycle_time();
-                            int32_t set_integration_time = real_ccdsettings.set_integration_time();
                             int32_t exposure_time = real_ccdsettings.exposure_time();
                             int32_t accumulation_time = real_ccdsettings.accumulation_time();
                             int32_t kinetic_time = real_ccdsettings.kinetic_time();
 
                             // Print values for debugging purposes
                             std::cout<<"set kinetic cycle time: "<<set_kinetic_cycle_time<<std::endl;
-                            std::cout<<"set integration time: "<<set_integration_time<<std::endl;
                             std::cout<<"exposure time: "<<exposure_time<<std::endl;
                             std::cout<<"accumulation time: "<<accumulation_time<<std::endl;
                             std::cout<<"kinetic time: "<<kinetic_time<<std::endl;
@@ -346,7 +354,7 @@ void scan::run()
                         if (scanstatusstr == "part finished") {
                             std::cout<<"received scanstatus message: "<<scanstatusstr<<std::endl;
 
-                            QThread::sleep(5);
+                            //QThread::sleep(5);
 
                             acquisition_number++;
 

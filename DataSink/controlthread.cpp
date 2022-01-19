@@ -68,12 +68,18 @@ void controlThread::run()
                 // general scan settings
                 settings.scanWidth = Measurement.width();
                 settings.scanHeight = Measurement.height();
+                settings.x_step_size = Measurement.x_step_size();
+                settings.y_step_size = Measurement.y_step_size();
                 settings.scantitle = Measurement.scantitle();
                 settings.energycount = Measurement.energy_count();
                 settings.roidefinitions = Measurement.roidefinitions();
                 settings.scantype = Measurement.scantype();
                 settings.save_path = Measurement.save_path();
                 settings.save_file = Measurement.save_file();
+                settings.file_compression = Measurement.file_compression();
+                settings.file_compression_level = Measurement.file_compression_level();
+
+                std::cout<<"compression mode:"<<settings.file_compression<<std::endl;
 
                 // network settings
                 settings.ccdIP = Measurement.ccdip();
@@ -100,7 +106,6 @@ void controlThread::run()
                 settings.shutter_open_time = Measurement.shutter_open_time();
                 settings.shutter_close_time = Measurement.shutter_close_time();
                 settings.triggermode = Measurement.triggermode();
-                settings.set_integration_time = Measurement.set_integration_time();
                 settings.exposure_time = Measurement.exposure_time();
                 settings.accumulation_time = Measurement.accumulation_time();
                 settings.kinetic_time = Measurement.kinetic_time();
@@ -131,6 +136,11 @@ void controlThread::run()
                 settings.sample_height = Measurement.sample_height();
                 settings.sample_rotation_angle = Measurement.sample_rotation_angle();
                 settings.sample_note = Measurement.sample_note();
+
+                // source settings
+                settings.source_name = Measurement.source_name();
+                settings.source_probe = Measurement.source_probe();
+                settings.source_type = Measurement.source_type();
 
                 // additional settings
                 settings.notes = Measurement.notes();

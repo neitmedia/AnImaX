@@ -96,5 +96,7 @@ private:
 
     QList<QString> scanFiles;
 
+    int notecounter = 0;
+
 };
 #endif // MAINWINDOW_H

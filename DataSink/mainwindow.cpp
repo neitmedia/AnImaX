@@ -19,6 +19,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTimer>
+#include <QMessageBox>
 
 #include "H5Cpp.h"
 using namespace H5;
@@ -141,6 +142,16 @@ void MainWindow::getScanSettings(settingsdata settings) {
 
     scanX = scansettings.scanWidth;
     scanY = scansettings.scanHeight;
+
+    if (scansettings.file_compression) {
+        ui->chbCompressionEnabled->setChecked(true);
+    } else {
+        ui->chbCompressionEnabled->setChecked(false);
+    }
+
+    std::cout<<"file compression: "<<scansettings.file_compression<<std::endl;
+
+    ui->cmbCompressionLevel->setCurrentIndex(scansettings.file_compression_level);
 
     // allocate memory for STXM transmission preview image
     stxmimage = (uint32_t*) malloc(scanX*scanY*sizeof(uint32_t));
@@ -368,16 +379,22 @@ void MainWindow::getImageData(int cntx, std::string datax) {
 
         if (ui->chbSaveData->isChecked()) {
 
-            float stepwidthX = 0.0123;
-            float stepwidthY = 0.0123;
-
             col = cntx%scanX;
 
-            // write scan position to file
-            nexusfile->appendValueTo1DDataSet("/measurement/transmission/sample_x", cntx, col*stepwidthX);
-            nexusfile->appendValueTo1DDataSet("/measurement/transmission/sample_y", cntx, row*stepwidthY);
+            // calculate pixel position
+            float x_pos = col*scansettings.x_step_size;
+            float y_pos = row*scansettings.y_step_size;
 
-            if (col == 39) {
+            // write scan position to file
+            nexusfile->appendValueTo1DDataSet("/measurement/transmission/sample_x", cntx, x_pos);
+
+            if (cntx == 9) {
+                std::cout<<"x pos:"<<x_pos<<std::endl;
+            }
+
+            nexusfile->appendValueTo1DDataSet("/measurement/transmission/sample_y", cntx, y_pos);
+
+            if (col == scanX-1) {
                 row++;
             }
 
@@ -577,8 +594,6 @@ void MainWindow::writeLineBreakData(roidata ROImap, int dataindex, int nopx, int
 }
 
 void MainWindow::getCCDSettings(ccdsettings newccdsettingsdata) {
-    std::cout<<"real binning x: "<<newccdsettingsdata.binning_x;
-    std::cout<<"real binning y: "<<newccdsettingsdata.binning_y;
     ccdsettingsdata = newccdsettingsdata;
     // write settings to file
     nexusfile->writeCCDSettings(ccdsettingsdata);
@@ -605,6 +620,10 @@ void MainWindow::checkIfScanIsFinished() {
             for (int i=0;i<=scanX*scanY;i++) {
                 stxmimage[i] = 0;
             }
+
+            // clear col and row
+            col = 0;
+            row = 0;
 
             // incremement acquisition number
             currentmetadata.acquisition_number++;
@@ -650,6 +669,12 @@ void MainWindow::checkIfScanIsFinished() {
             controlth->wholeScanFinished = true;
             sdd->stop = true;
             ccd->stop = true;
+            std::cout<<"whole scan finished"<<std::endl;
+            // give info message
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setText("Scan finished!");
+            msgBox.exec();
         }
     }
 }
@@ -668,11 +693,11 @@ void MainWindow::on_cmdSelectLogFile_clicked()
 
 void MainWindow::getScanNote(std::string scannote) {
     addLogItem("new scan note: "+QString::fromStdString(scannote));
-
+    notecounter++;
     foreach (QString fname, scanFiles)
     {
         nexusfile->openDataFile(fname);
-        nexusfile->writeScanNote(scannote);
+        nexusfile->writeScanNote(scannote, notecounter);
         nexusfile->closeDataFile();
         addLogItem("added scan note to file '"+fname+"'");
     }
