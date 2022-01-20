@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="nxdlformat.xsl" ?>
+<definition name="animax" extends="NXobject" type="group"
+    category="application"
+    xmlns="http://definition.nexusformat.org/nxdl/3.1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://definition.nexusformat.org/nxdl/3.1 ../nxdl.xsd"
+    >
+    <symbols>
+        <doc>
+            These symbols will be used below to coordinate the shapes of the datasets.
+        </doc>
+        <symbol name="nP">
+            <doc>Total number of scan points</doc>
+        </symbol>
+        <symbol name="nE">
+            <doc>Number of photon energies scanned</doc>
+        </symbol>
+        <symbol name="nX">
+            <doc>Number of pixels in X direction</doc>
+        </symbol>
+        <symbol name="nY">
+            <doc>Number of pixels in Y direction</doc>
+        </symbol>
+        <symbol name="detectorRank">
+            <doc>Rank of data array provided by the detector for a single measurement</doc>
+        </symbol>
+    </symbols>
+    <doc>
+          Application definition for the AnImaX STXM instrument. 
+    </doc>
+    <group type="NXentry">
+        <field name="title"/>
+        <field name="start_time" type="NX_DATE_TIME"/>
+        <field name="end_time" type="NX_DATE_TIME"/>
+        <field name="acquisition_number" type="NX_INT"/>
+        <field name="acquisition_time" type="NX_DATE_TIME"/>
+        <field name="scan_type" type="NX_CHAR"/>
+        <field name="scan_width" type="NX_INT"/>
+        <field name="scan_height" type="NX_INT"/>
+        <field name="x_step_size" type="NX_FLOAT"/>
+        <field name="y_step_size" type="NX_FLOAT"/>
+        <field name="definition" type="NX_CHAR" minOccurs="1" maxOccurs="1">
+            <doc> Inofficial AnImax NeXus application definition </doc>
+            <enumeration>
+                <item value="NXstxm" />
+            </enumeration>
+        </field>
+        <group type="NXinstrument" minOccurs="1" maxOccurs="1"> 
+            <group type="NXsource" minOccurs="1" maxOccurs="1">
+                <field name="type" minOccurs="1" maxOccurs="1"/>
+                <field name="current" minOccurs="1" maxOccurs="1"/>
+                <field name="name" minOccurs="1" maxOccurs="1"/>
+                <field name="probe" minOccurs="1" maxOccurs="1"/>
+            </group>
+            <group type="NXmonochromator" name="monochromator" minOccurs="1" maxOccurs="1">
+              <field name="energy" minOccurs="1" maxOccurs="1" type="NX_FLOAT">
+                <dimensions rank="1">
+                  <dim index="1" value="nP" />
+                </dimensions>
+              </field>
+            </group>
+            <group type="NXcollection" name="beamline" minOccurs="1" maxOccurs="1">
+              <field name="energy" minOccurs="1" maxOccurs="1" type="NX_FLOAT">
+                <dimensions rank="1">
+                  <dim index="1" value="nP" />
+                </dimensions>
+              </field>
+              <field name="horizontal_shutter" minOccurs="1" maxOccurs="1" type="NX_BOOLEAN"></field>
+              <field name="vertical_shutter" minOccurs="1" maxOccurs="1" type="NX_BOOLEAN"></field>
+            </group>
+            <group type="NXdetector" name="ccd" minOccurs="1" maxOccurs="1">
+                <doc> Measurements of the ccd </doc>
+                <field name="data" type="NX_INT">
+                  <dimensions rank="3">
+                    <dim index="1" value="image_x" />
+                    <dim index="2" value="image_y" />
+                    <dim index="3" value="nP" />
+                  </dimensions>
+                </field>
+                <group type="NXcollection" name="settings" minOccurs="1" maxOccurs="1">
+                    <group type="NXcollection" name="calculated" minOccurs="1" maxOccurs="1">
+                        <field name="accumulation_time" minOccurs="1" maxOccurs="1" type="NX_FLOAT"></field>
+                        <field name="exposure_time" minOccurs="1" maxOccurs="1" type="NX_FLOAT"></field>
+                        <field name="kinetic_time" minOccurs="1" maxOccurs="1" type="NX_FLOAT"></field>
+                        <field name="set_kinetic_cycle_time" minOccurs="1" maxOccurs="1" type="NX_FLOAT"></field>
+                    </group>
+                    <group type="NXcollection" name="set" minOccurs="1" maxOccurs="1">
+                        <field name="accumulation_time" minOccurs="1" maxOccurs="1" type="NX_FLOAT"></field>
+                        <field name="acquisition_mode" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="binning_x" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="binning_y" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="ccd_height" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="ccd_width" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="em_gain" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="em_gain_mode" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="frametransfer_mode" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="kinetic_time" minOccurs="1" maxOccurs="1" type="NX_FLOAT"></field>
+                        <field name="max_temp" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="min_temp" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="number_of_accumulations" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="number_of_scans" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="pixelcount" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="pre_amp_gain" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="read_mode" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="set_integration_time" minOccurs="1" maxOccurs="1" type="NX_FLOAT"></field>
+                        <field name="set_kinetic_cycle_time" minOccurs="1" maxOccurs="1" type="NX_FLOAT"></field>
+                        <field name="shutter_close_time" minOccurs="1" maxOccurs="1" type="NX_FLOAT"></field>
+                        <field name="shutter_mode" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="shutter_open_time" minOccurs="1" maxOccurs="1" type="NX_FLOAT"></field>
+                        <field name="shutter_output_signal" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="target_temp" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                        <field name="triggermode" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    </group>
+                </group>
+            </group>
+            <group type="NXdetector" name="sdd" minOccurs="1" maxOccurs="1">
+                <doc> Measurements of the sdd</doc>
+                <field name="data" type="NX_INT">
+                  <dimensions rank="2">
+                    <dim index="1" value="channels" />
+                    <dim index="2" value="nP" />
+                  </dimensions>
+                </field>
+                <group type="NXcollection" name="log" minOccurs="1" maxOccurs="1">
+                    <field name="linebreaks" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="scanindex" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                </group>
+                <group type="NXcollection" name="roi" minOccurs="1" maxOccurs="1">
+                </group>
+                <group type="NXcollection" name="settings" minOccurs="1" maxOccurs="1">
+                    <field name="acquisitionmode" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="checktemperature" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="energyrange" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="filter" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="sdd1" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="sdd2" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="sdd3" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="sdd4" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="sebitcount" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="tempmode" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                    <field name="zeropeakperiod" minOccurs="1" maxOccurs="1" type="NX_INT"></field>
+                </group>
+            </group>
+            <group type="NXdetector" name="photodiode" minOccurs="0" maxOccurs="1">
+                <doc> Measurements of the photodiode</doc>
+                <field name="data" type="NX_INT">
+                  <dimensions rank="1">
+                    <dim index="1" value="nP" />
+                  </dimensions>
+                </field>
+            </group>
+            <group type="NXdetector" name="sample_x" minOccurs="1" maxOccurs="1">
+                <doc> Measurements of the sample position from the x-axis interferometer.</doc>
+                <field name="data" type="NX_FLOAT">
+                  <dimensions rank="1">
+                    <dim index="1" value="nP" />
+                  </dimensions>
+                </field>
+            </group>
+            <group type="NXdetector" name="sample_y" minOccurs="1" maxOccurs="1">
+                <doc> Measurements of the sample position from the y-axis interferometer.</doc>
+                <field name="data" type="NX_FLOAT">
+                  <dimensions rank="1">
+                    <dim index="1" value="nP" />
+                  </dimensions>
+                </field>
+            </group>
+        </group>
+        <group type="NXsample">
+            <field name="rotation_angle" type="NX_FLOAT" />
+            <field name="height" type="NX_FLOAT" />
+            <field name="width" type="NX_FLOAT" />
+            <field name="name" type="NX_CHAR" />
+            <field name="note" type="NX_CHAR" />
+            <field name="type" type="NX_CHAR" />
+        </group> 
+        <group type="NXdata" name="fluorescence">
+            <field name="stxm_scan_type" minOccurs="1" maxOccurs="1">
+                <doc></doc>
+                <enumeration>
+                    <item value="generic scan"/>
+                </enumeration>
+            </field>
+            <field name="data" type="NX_NUMBER" signal="1">
+              <doc> Detectors that provide more than one value per scan point should be summarised
+              to a single value per scan point for this array in order to simplify plotting.
+              
+              Note that 'Line scans' and focus type scans measure along one spatial dimension
+              but are not restricted to being parallel to the X or Y axes. Such scans 
+              should therefore use a single dimension for the positions along the spatial
+              line. The 'sample_x' and 'sample_y' fields should then contain lists of the
+              x- and y-positions and should both have the 'axis' attribute pointing to the same dimension.</doc>
+            </field>
+            <field name="energy" type="NX_FLOAT" minOccurs="1" maxOccurs="1">
+              <doc> List of photon energies of the X-ray beam. If scanned through multiple values,
+              then an 'axis' attribute will be required to link the field to the appropriate data array dimension.</doc>
+              <dimensions rank="1">
+                <dim index="1" value="nE" />
+              </dimensions>
+            </field>
+            <field name="sample_y" type="NX_FLOAT" minOccurs="1" maxOccurs="1">
+              <doc> List of Y positions on the sample. If scanned through multiple values,
+              then an 'axis' attribute will be required to link the field to the appropriate data array dimension.</doc>
+              <dimensions rank="1">
+                <dim index="1" value="nY" />
+              </dimensions>
+            </field>
+            <field name="sample_x" type="NX_FLOAT" minOccurs="1" maxOccurs="1">
+              <doc> List of X positions on the sample. If scanned through multiple values,
+              then an 'axis' attribute will be required to link the field to the appropriate data array dimension.</doc>
+              <dimensions rank="1">
+                <dim index="1" value="nX" />
+              </dimensions>
+            </field>
+        </group>
+        <group type="NXdata" name="transmission">
+            <field name="stxm_scan_type" minOccurs="1" maxOccurs="1">
+                <doc></doc>
+                <enumeration>
+                    <item value="sample image"/>
+                </enumeration>
+            </field>
+            <field name="data" type="NX_NUMBER" signal="1">
+              <doc> Detectors that provide more than one value per scan point should be summarised
+              to a single value per scan point for this array in order to simplify plotting.
+              
+              Note that 'Line scans' and focus type scans measure along one spatial dimension
+              but are not restricted to being parallel to the X or Y axes. Such scans 
+              should therefore use a single dimension for the positions along the spatial
+              line. The 'sample_x' and 'sample_y' fields should then contain lists of the
+              x- and y-positions and should both have the 'axis' attribute pointing to the same dimension.</doc>
+            </field>
+            <field name="energy" type="NX_FLOAT" minOccurs="1" maxOccurs="1">
+              <doc> List of photon energies of the X-ray beam. If scanned through multiple values,
+              then an 'axis' attribute will be required to link the field to the appropriate data array dimension.</doc>
+              <dimensions rank="1">
+                <dim index="1" value="nE" />
+              </dimensions>
+            </field>
+            <field name="sample_y" type="NX_FLOAT" minOccurs="1" maxOccurs="1">
+              <doc> List of Y positions on the sample. If scanned through multiple values,
+              then an 'axis' attribute will be required to link the field to the appropriate data array dimension.</doc>
+              <dimensions rank="1">
+                <dim index="1" value="nY" />
+              </dimensions>
+            </field>
+            <field name="sample_x" type="NX_FLOAT" minOccurs="1" maxOccurs="1">
+              <doc> List of X positions on the sample. If scanned through multiple values,
+              then an 'axis' attribute will be required to link the field to the appropriate data array dimension.</doc>
+              <dimensions rank="1">
+                <dim index="1" value="nX" />
+              </dimensions>
+            </field>
+        </group>
+        <group type="NXmonitor" name="control" minOccurs="0" maxOccurs="1">
+            <field name="data" type="NX_FLOAT">
+              <doc> Values to use to normalise for time-variations in photon flux. Typically, the synchrotron storage ring
+              electron beam current is used as a proxy for the X-ray beam intensity. Array must have same shape as the
+              NXdata groups.</doc>
+            </field>
+        </group>
+        <group type="NXnote">
+            <field name="description" type="NX_CHAR" />
+            <field name="date" type="NX_DATE_TIME" />
+        </group> 
+        <group type="NXuser">
+        </group> 
+    </group>
+</definition>
