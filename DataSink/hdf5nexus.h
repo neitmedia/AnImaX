@@ -30,7 +30,7 @@ public:
 
     void writeScanNote(std::string, int notecounter);
 
-    //DataSet* newNeXusScalarDataSet(std::string, std::string, bool, bool);
+    DataSet* newNeXusScalarBooleanDataSet(std::string, std::string, bool, bool);
     DataSet* newNeXusScalarDataSet(std::string, std::string, std::string, bool);
     DataSet* newNeXusScalarDataSet(std::string, std::string, float, bool);
     DataSet* newNeXusScalarDataSet(std::string, std::string, int32_t, bool);

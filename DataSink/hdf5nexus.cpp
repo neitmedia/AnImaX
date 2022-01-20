@@ -67,7 +67,7 @@ void hdf5nexus::newNeXusDatasetStringAttribute(DataSet* dataset, std::string loc
     att_space.close();
 }
 
-/*DataSet* hdf5nexus::newNeXusScalarDataSet(std::string location, std::string type, bool content, bool close) {
+DataSet* hdf5nexus::newNeXusScalarBooleanDataSet(std::string location, std::string type, bool content, bool close) {
 
     DataSpace att_space(H5S_SCALAR);
     hsize_t fdim[] = {1};
@@ -86,7 +86,7 @@ void hdf5nexus::newNeXusDatasetStringAttribute(DataSet* dataset, std::string loc
     }
 
     return dataset;
-}*/
+}
 
 DataSet* hdf5nexus::newNeXusScalarDataSet(std::string location, std::string type, std::string content, bool close) {
     StrType str_type(PredType::C_S1, H5T_VARIABLE);
@@ -181,12 +181,12 @@ Group* hdf5nexus::newNeXusGroup(std::string location, std::string attrname, std:
 
 DataSet* hdf5nexus::newNeXusChunkedCCDDataSet(std::string location, int x, int y, H5::PredType predtype, std::string typestr, bool compression, int compressionlevel, bool close) {
     hsize_t dims[3];
-    dims[0] = 0;
-    dims[1] = (hsize_t)x;
-    dims[2] = (hsize_t)y;
+    dims[0] = (hsize_t)x;
+    dims[1] = (hsize_t)y;
+    dims[2] = 0;
 
-    hsize_t maxdims[3] = {H5S_UNLIMITED, (hsize_t)x, (hsize_t)y};
-    hsize_t chunk_dims[3] = {1, (hsize_t)x, (hsize_t)y};
+    hsize_t maxdims[3] = {(hsize_t)x, (hsize_t)y, H5S_UNLIMITED};
+    hsize_t chunk_dims[3] = {(hsize_t)x, (hsize_t)y, 1};
 
     DataSpace *dataspace = new DataSpace(3, dims, maxdims);
 
@@ -525,8 +525,8 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
 
     std::string ROIdefinitions = settings.roidefinitions;
 
-    int ccdX = settings.ccdWidth;
-    int ccdY = settings.ccdHeight;
+    int ccdX = settings.ccd_width;
+    int ccdY = settings.ccd_height;
 
     int scanX = settings.scanWidth;
     int scanY = settings.scanHeight;
@@ -557,35 +557,69 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusFileStringAttribute("nX", QString::number(settings.scanWidth).toStdString());
     newNeXusFileStringAttribute("nY", QString::number(settings.scanHeight).toStdString());
 
-    newNeXusGroup("/measurement", "NX_class", "NXentry", true);
+    Group* measurement_group = newNeXusGroup("/measurement", "NX_class", "NXentry", false);
+    newNeXusGroupStringAttribute(measurement_group, "default", "transmission");
+    measurement_group->close();
     newNeXusScalarDataSet("/measurement/start_time", "NX_DATE_TIME", datetime.toStdString(), true);
     newNeXusScalarDataSet("/measurement/definition", "NX_CHAR", "NXstxm", true);
+    newNeXusScalarDataSet("/measurement/scan_type", "NX_CHAR", settings.scantype, true);
+    newNeXusScalarDataSet("/measurement/scan_width", "NX_CHAR", settings.scanWidth, true);
+    newNeXusScalarDataSet("/measurement/scan_height", "NX_CHAR", settings.scanHeight, true);
+
     newNeXusScalarDataSet("/measurement/title", "NX_CHAR", settings.scantitle, true);
     newNeXusScalarDataSet("/measurement/x_step_size", "NX_FLOAT", settings.x_step_size, true);
     newNeXusScalarDataSet("/measurement/y_step_size", "NX_FLOAT", settings.y_step_size, true);
 
-    newNeXusGroup("/measurement/transmission", "NX_class", "NXdata", true);
-    newNeXusChunked1DDataSet("/measurement/transmission/sample_x", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, true);
-    newNeXusChunked1DDataSet("/measurement/transmission/sample_y", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, true);
+    Group* transmission_group = newNeXusGroup("/measurement/transmission", "NX_class", "NXdata", false);
+    newNeXusGroupStringAttribute(transmission_group, "signal", "data");
+    newNeXusGroupStringAttribute(transmission_group, "axes", "[\"sample_x\",\"sample_y\"]");
+    transmission_group->close();
+
+    DataSet* transmission_sample_x_ds = newNeXusChunked1DDataSet("/measurement/transmission/sample_x", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, false);
+    newNeXusDatasetStringAttribute(transmission_sample_x_ds, "axis", "0");
+    transmission_sample_x_ds->close();
+    DataSet* transmission_sample_y_ds = newNeXusChunked1DDataSet("/measurement/transmission/sample_y", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, false);
+    newNeXusDatasetStringAttribute(transmission_sample_y_ds, "axis", "1");
+    transmission_sample_y_ds->close();
+
     newNeXusScalarDataSet("/measurement/transmission/stxm_scan_type", "NX_CHAR", "sample image", true);
 
-    newNeXusGroup("/measurement/fluorescence", "NX_class", "NXdata", true);
-    file->link(H5L_TYPE_HARD, "/measurement/transmission/sample_x", "/measurement/fluorescence/sample_x");
-    file->link(H5L_TYPE_HARD, "/measurement/transmission/sample_y", "/measurement/fluorescence/sample_y");
+    Group* fluorescence_group = newNeXusGroup("/measurement/fluorescence", "NX_class", "NXdata", false);
+    newNeXusGroupStringAttribute(fluorescence_group, "signal", "data");
+    newNeXusGroupStringAttribute(fluorescence_group, "axes", "[\".\",\".\"]");
+    fluorescence_group->close();
+
+    DataSet* fluorescence_sample_x_ds = newNeXusChunked1DDataSet("/measurement/fluorescence/sample_x", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, false);
+    newNeXusDatasetStringAttribute(fluorescence_sample_x_ds, "axis", "0");
+    fluorescence_sample_x_ds->close();
+    DataSet* fluorescence_sample_y_ds = newNeXusChunked1DDataSet("/measurement/fluorescence/sample_y", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, false);
+    newNeXusDatasetStringAttribute(fluorescence_sample_y_ds, "axis", "1");
+    fluorescence_sample_y_ds->close();
+    //file->link(H5L_TYPE_HARD, "/measurement/transmission/sample_x", "/measurement/fluorescence/sample_x");
+    //file->link(H5L_TYPE_HARD, "/measurement/transmission/sample_y", "/measurement/fluorescence/sample_y");
+
     newNeXusScalarDataSet("/measurement/fluorescence/stxm_scan_type", "NX_CHAR", "generic scan", true);
 
     newNeXusGroup("/measurement/instruments", "NX_class", "NXinstrument", true);
     newNeXusGroup("/measurement/instruments/ccd", "NX_class", "NXdetector", true);
     newNeXusGroup("/measurement/instruments/sdd", "NX_class", "NXdetector", true);
     newNeXusGroup("/measurement/instruments/monochromator", "NX_class", "NXmonochromator", true);
-    newNeXusGroup("/measurement/instruments/beamline", "NX_class", "beamline", true);
+    newNeXusGroup("/measurement/instruments/beamline", "NX_class", "NXcollection", true);
+
+    // TODO: if interferometer is included into system, create dataset and write interferometer values for every scan point
+    // up to then: empty data sets
+    newNeXusGroup("/measurement/instruments/sample_x", "NX_class", "NXdetector", true);
+    newNeXusChunked1DDataSet("/measurement/instruments/sample_x/data", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, true);
+    newNeXusGroup("/measurement/instruments/sample_y", "NX_class", "NXdetector", true);
+    newNeXusChunked1DDataSet("/measurement/instruments/sample_y/data", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, true);
 
     // create group for photodiode
-    newNeXusGroup("/measurement/instruments/photodiode", "class", "NXdetector", true);
+    newNeXusGroup("/measurement/instruments/photodiode", "NX_class", "NXdetector", true);
     newNeXusScalarDataSet("/measurement/instruments/photodiode/data", "NX_INT", 1, true);
     // link photodiode data with monitor data
-    newNeXusGroup("/measurement/monitor", "NX_class", "NXmonitor", true);
-    file->link(H5L_TYPE_HARD, "/measurement/instruments/photodiode/data", "/measurement/monitor/data");
+    // monitor data must have the same dimensions as data matrices => include, when monitoring is included into system (photodiode or electron flux)
+    // newNeXusGroup("/measurement/monitor", "NX_class", "NXmonitor", true);
+    // file->link(H5L_TYPE_HARD, "/measurement/instruments/photodiode/data", "/measurement/monitor/data");
 
     // create group source parameters
     newNeXusGroup("/measurement/instruments/source", "NX_class", "NXsource", true);
@@ -605,50 +639,50 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusScalarDataSet("/measurement/sample/rotation_angle", "NX_FLOAT", settings.sample_rotation_angle, true);
 
     // ccd parameters
-    newNeXusGroup("/measurement/instruments/ccd/settings", "class", "ccd_parameters", true);
-    newNeXusGroup("/measurement/instruments/ccd/settings/set", "class", "ccd_parameters_user_input", true);
-    newNeXusGroup("/measurement/instruments/ccd/settings/calculated", "class", "ccd_parameters_calculated", true);
+    newNeXusGroup("/measurement/instruments/ccd/settings", "NX_class", "NXcollection", true);
+    newNeXusGroup("/measurement/instruments/ccd/settings/set", "NX_class", "NXcollection", true);
+    newNeXusGroup("/measurement/instruments/ccd/settings/calculated", "NX_class", "NXcollection", true);
 
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/binning_x", "NX_INT", settings.binning_x, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/binning_y", "NX_INT", settings.binning_y, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/ccd_height", "NX_INT", settings.ccdHeight, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/ccd_width", "NX_INT", settings.ccdWidth, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/pixelcount", "NX_INT", settings.pixelcount, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/frametransfer_mode", "NX_INT", settings.frametransfer_mode, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/number_of_accumulations", "NX_INT", settings.number_of_accumulations, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/number_of_scans", "NX_INT", settings.number_of_scans, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/set_kinetic_cycle_time", "NX_FLOAT", settings.set_kinetic_cycle_time, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/read_mode", "NX_INT", settings.read_mode, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/acquision_mode", "NX_INT", settings.acquision_mode, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/shutter_mode", "NX_INT", settings.shutter_mode, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/shutter_output_signal", "NX_INT", settings.shutter_output_signal, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/shutter_open_time", "NX_FLOAT", settings.shutter_open_time, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/shutter_close_time", "NX_FLOAT", settings.shutter_close_time, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/triggermode", "NX_INT", settings.triggermode, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/set_integration_time", "NX_FLOAT", settings.set_integration_time, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/exposure_time", "NX_FLOAT", settings.exposure_time, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/accumulation_time", "NX_FLOAT", settings.accumulation_time, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/kinetic_time", "NX_FLOAT", settings.kinetic_time, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/min_temp", "NX_INT", settings.min_temp, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/max_temp", "NX_INT", settings.max_temp, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/target_temp", "NX_INT", settings.target_temp, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/pre_amp_gain", "NX_INT", settings.pre_amp_gain, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/em_gain_mode", "NX_INT", settings.em_gain_mode, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/em_gain", "NX_INT", settings.em_gain, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/binning_x", "NX_INT", settings.ccd_binning_x, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/binning_y", "NX_INT", settings.ccd_binning_y, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/ccd_height", "NX_INT", settings.ccd_height, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/ccd_width", "NX_INT", settings.ccd_width, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/pixelcount", "NX_INT", settings.ccd_pixelcount, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/frametransfer_mode", "NX_INT", settings.ccd_frametransfer_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/number_of_accumulations", "NX_INT", settings.ccd_number_of_accumulations, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/number_of_scans", "NX_INT", settings.ccd_number_of_scans, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/set_kinetic_cycle_time", "NX_FLOAT", settings.ccd_set_kinetic_cycle_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/read_mode", "NX_INT", settings.ccd_read_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/acquisition_mode", "NX_INT", settings.ccd_acquisition_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/shutter_mode", "NX_INT", settings.ccd_shutter_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/shutter_output_signal", "NX_INT", settings.ccd_shutter_output_signal, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/shutter_open_time", "NX_FLOAT", settings.ccd_shutter_open_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/shutter_close_time", "NX_FLOAT", settings.ccd_shutter_close_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/triggermode", "NX_INT", settings.ccd_triggermode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/set_integration_time", "NX_FLOAT", settings.ccd_set_integration_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/exposure_time", "NX_FLOAT", settings.ccd_exposure_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/accumulation_time", "NX_FLOAT", settings.ccd_accumulation_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/kinetic_time", "NX_FLOAT", settings.ccd_kinetic_time, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/min_temp", "NX_INT", settings.ccd_min_temp, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/max_temp", "NX_INT", settings.ccd_max_temp, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/target_temp", "NX_INT", settings.ccd_target_temp, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/pre_amp_gain", "NX_INT", settings.ccd_pre_amp_gain, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/em_gain_mode", "NX_INT", settings.ccd_em_gain_mode, true);
+    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/em_gain", "NX_INT", settings.ccd_em_gain, true);
 
-    newNeXusGroup("/measurement/instruments/sdd/settings", "class", "log", true);
+    newNeXusGroup("/measurement/instruments/sdd/settings", "NX_class", "NXcollection", true);
     // sdd parameters
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sebitcount", "NX_INT", settings.sebitcount, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/filter", "NX_INT", settings.filter, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/energyrange", "NX_INT", settings.energyrange, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/tempmode", "NX_INT", settings.tempmode, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/zeropeakperiod", "NX_INT", settings.zeropeakperiod, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/acquisitionmode", "NX_INT", settings.acquisitionmode, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/checktemperature", "NX_INT", settings.checktemperature, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd1", "NX_BOOLEAN", settings.sdd1, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd2", "NX_BOOLEAN", settings.sdd2, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd3", "NX_BOOLEAN", settings.sdd3, true);
-    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd4", "NX_BOOLEAN", settings.sdd4, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sebitcount", "NX_INT", settings.sdd_sebitcount, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/filter", "NX_INT", settings.sdd_filter, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/energyrange", "NX_INT", settings.sdd_energyrange, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/tempmode", "NX_INT", settings.sdd_tempmode, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/zeropeakperiod", "NX_INT", settings.sdd_zeropeakperiod, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/acquisitionmode", "NX_INT", settings.sdd_acquisitionmode, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/checktemperature", "NX_INT", settings.sdd_checktemperature, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd1", "NX_BOOLEAN", settings.sdd_sdd1, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd2", "NX_BOOLEAN", settings.sdd_sdd2, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd3", "NX_BOOLEAN", settings.sdd_sdd3, true);
+    newNeXusScalarDataSet("/measurement/instruments/sdd/settings/sdd4", "NX_BOOLEAN", settings.sdd_sdd4, true);
 
     // additional settings
     // newNeXusGroup("/measurement/user", "NX_class", "NXuser", true);
@@ -731,19 +765,19 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
         }
     }
 
-    newNeXusGroup("/measurement/pre_scan_note", "class", "NXnote", true);
+    newNeXusGroup("/measurement/pre_scan_note", "NX_class", "NXnote", true);
     cd = QDate::currentDate();
     ct = QTime::currentTime();
 
     datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
     newNeXusScalarDataSet("/measurement/pre_scan_note/date", "NX_CHAR", datetime.toStdString(), true);
-    newNeXusScalarDataSet("/measurement/pre_scan_note/type", "NX_CHAR", "text/plain", true);
-    newNeXusScalarDataSet("/measurement/pre_scan_note/data", "NX_BINARY", settings.notes, true);
+    newNeXusScalarDataSet("/measurement/pre_scan_note/description", "NX_CHAR", settings.notes, true);
 
     newNeXusChunkedCCDDataSet("/measurement/instruments/ccd/data", ccdX, ccdY, PredType::STD_U16LE, "NX_INT", settings.file_compression, settings.file_compression_level, true);
 
     DataSet* transmissionpreviewdataset = newNeXusChunkedTransmissionPreviewDataSet("/measurement/transmission/data", PredType::STD_I64LE, "NX_INT", settings.file_compression, settings.file_compression_level, false);
     newNeXusDatasetStringAttribute(transmissionpreviewdataset, "signal", "1");
+    newNeXusDatasetStringAttribute(transmissionpreviewdataset, "axes", "[\"sample_x\",\"sample_y\"]");
     transmissionpreviewdataset->close();
     delete transmissionpreviewdataset;
 
@@ -753,7 +787,7 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     delete fluorescencedataset;
     file->link(H5L_TYPE_HARD, "/measurement/instruments/sdd/data", "/measurement/fluorescence/data");
 
-    newNeXusGroup("/measurement/instruments/sdd/log", "class", "log", true);
+    newNeXusGroup("/measurement/instruments/sdd/log", "NX_class", "NXcollection", true);
 
     newNeXusChunkedSDDLogDataSet("/measurement/instruments/sdd/log/scanindex", PredType::STD_I32LE, "scan index log", settings.file_compression, settings.file_compression_level, true);
     newNeXusChunkedSDDLogDataSet("/measurement/instruments/sdd/log/linebreaks", PredType::STD_I32LE, "line break log", settings.file_compression, settings.file_compression_level, true);
@@ -761,7 +795,7 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     // if ROIs are enabled (ROIdefinitions != ""), create datasets for ROIs
     if (ROIdefinitions != "") {
         // create log group
-        newNeXusGroup("/measurement/instruments/sdd/roi", "class", "ROI", true);
+        newNeXusGroup("/measurement/instruments/sdd/roi", "NX_class", "NXcollection", true);
 
         // create ROI datasets
         QJsonParseError jsonError;
@@ -787,10 +821,10 @@ void hdf5nexus::writeMetadata(metadata metadata) {
 
     // write metadata
     newNeXusScalarDataSet("/measurement/acquisition_number", "NX_INT", metadata.acquisition_number, true);
-    newNeXusScalarDataSet("/measurement/acquisition_time", "NX_CHAR", metadata.acquisition_time, true);
+    newNeXusScalarDataSet("/measurement/acquisition_time", "NX_DATE_TIME", metadata.acquisition_time, true);
     newNeXusScalarDataSet("/measurement/instruments/source/current", "NX_FLOAT", metadata.ringcurrent, true);
-    newNeXusScalarDataSet("/measurement/instruments/beamline/horizontal_shutter", "NX_BOOLEAN", metadata.horizontal_shutter, true);
-    newNeXusScalarDataSet("/measurement/instruments/beamline/vertical_shutter", "NX_BOOLEAN", metadata.vertical_shutter, true);
+    newNeXusScalarBooleanDataSet("/measurement/instruments/beamline/horizontal_shutter", "NX_BOOLEAN", metadata.horizontal_shutter, true);
+    newNeXusScalarBooleanDataSet("/measurement/instruments/beamline/vertical_shutter", "NX_BOOLEAN", metadata.vertical_shutter, true);
     newNeXusScalarDataSet("/measurement/instruments/beamline/energy", "NX_FLOAT", metadata.beamline_energy, true);
 
     std::cout<<metadata.acquisition_number<<std::endl;
@@ -800,51 +834,6 @@ void hdf5nexus::writeMetadata(metadata metadata) {
     std::cout<<metadata.horizontal_shutter<<std::endl;
     std::cout<<metadata.vertical_shutter<<std::endl;
     std::cout<<metadata.set_energy<<std::endl;
-
-    /* WRITE BEAMLINE PARAMETER TO FILE */
-    /*
-    hsize_t dimsext[2] = {1, 1}; // extend dimensions
-
-    DataSet *dataset = new DataSet(file->openDataSet("/measurement/metadata/acquisition_number"));
-
-    hsize_t offset[2];
-
-    H5::ArrayType arrtype = dataset->getArrayType();
-
-    // Select a hyperslab in extended portion of the dataset.
-    DataSpace *filespace = new DataSpace(dataset->getSpace());
-    hsize_t size[2];
-    int n_dims = filespace->getSimpleExtentDims(size);
-
-    offset[0] = size[0];
-    offset[1] = 0;
-
-    size[0]++;
-    size[1] = 1;
-
-    dataset->extend(size);
-
-    // Select a hyperslab in extended portion of the dataset.
-    DataSpace *filespacenew = new DataSpace(dataset->getSpace());
-
-    filespacenew->selectHyperslab(H5S_SELECT_SET, dimsext, offset);
-
-    // Define memory space.
-    DataSpace *memspacenew = new DataSpace(2, dimsext, NULL);
-
-    int acquisition_number = metadata.acquisition_number;
-
-    // Write data to the extended portion of the dataset.
-    dataset->write(&acquisition_number, PredType::STD_I32LE, *memspacenew, *filespacenew);
-
-    dataset->close();
-    delete dataset;
-    filespace->close();
-    delete filespace;
-    filespacenew->close();
-    delete filespacenew;
-    memspacenew->close();
-    delete memspacenew;*/
 }
 
 void hdf5nexus::writeSDDData(int32_t pxnum, spectrumdata specdata) {
@@ -906,9 +895,7 @@ void hdf5nexus::writeScanNote(std::string scannote, int notecounter) {
 
     newNeXusGroup("/measurement/post_scan_note_"+QString::number(notecounter).toStdString(), "NX_class", "NXnote", true);
     newNeXusScalarDataSet("/measurement/post_scan_note_"+QString::number(notecounter).toStdString()+"/date", "NX_CHAR", datetime.toStdString(), true);
-    newNeXusScalarDataSet("/measurement/post_scan_note_"+QString::number(notecounter).toStdString()+"/type", "NX_CHAR", "text/plain", true);
-    newNeXusScalarDataSet("/measurement/post_scan_note_"+QString::number(notecounter).toStdString()+"/data", "NX_BINARY", scannote, true);
-
+    newNeXusScalarDataSet("/measurement/post_scan_note_"+QString::number(notecounter).toStdString()+"/description", "NX_CHAR", scannote, true);
 }
 
 void hdf5nexus::appendValueTo1DDataSet(std::string location, int position, float value) {

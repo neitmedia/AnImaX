@@ -90,44 +90,44 @@ void controlThread::run()
                 settings.datasinkPort = Measurement.datasinkport();
 
                 // ccd settings
-                settings.binning_x = Measurement.binning_x();
-                settings.binning_y = Measurement.binning_y();
-                settings.ccdHeight = Measurement.ccdheight();
-                settings.ccdWidth = Measurement.ccdwidth();
-                settings.pixelcount = Measurement.pixelcount();
-                settings.frametransfer_mode = Measurement.frametransfer_mode();
-                settings.number_of_accumulations = Measurement.number_of_accumulations();
-                settings.number_of_scans = Measurement.number_of_scans();
-                settings.set_kinetic_cycle_time = Measurement.set_kinetic_cycle_time();
-                settings.read_mode = Measurement.read_mode();
-                settings.acquision_mode = Measurement.acquision_mode();
-                settings.shutter_mode = Measurement.shutter_mode();
-                settings.shutter_output_signal = Measurement.shutter_output_signal();
-                settings.shutter_open_time = Measurement.shutter_open_time();
-                settings.shutter_close_time = Measurement.shutter_close_time();
-                settings.triggermode = Measurement.triggermode();
-                settings.exposure_time = Measurement.exposure_time();
-                settings.accumulation_time = Measurement.accumulation_time();
-                settings.kinetic_time = Measurement.kinetic_time();
-                settings.min_temp = Measurement.min_temp();
-                settings.max_temp = Measurement.max_temp();
-                settings.target_temp = Measurement.target_temp();
-                settings.pre_amp_gain = Measurement.pre_amp_gain();
-                settings.em_gain_mode = Measurement.em_gain_mode();
-                settings.em_gain = Measurement.em_gain();
+                settings.ccd_binning_x = Measurement.ccd_binning_x();
+                settings.ccd_binning_y = Measurement.ccd_binning_y();
+                settings.ccd_height = Measurement.ccd_height();
+                settings.ccd_width = Measurement.ccd_width();
+                settings.ccd_pixelcount = Measurement.ccd_pixelcount();
+                settings.ccd_frametransfer_mode = Measurement.ccd_frametransfer_mode();
+                settings.ccd_number_of_accumulations = Measurement.ccd_number_of_accumulations();
+                settings.ccd_number_of_scans = Measurement.ccd_number_of_scans();
+                settings.ccd_set_kinetic_cycle_time = Measurement.ccd_set_kinetic_cycle_time();
+                settings.ccd_read_mode = Measurement.ccd_read_mode();
+                settings.ccd_acquisition_mode = Measurement.ccd_acquisition_mode();
+                settings.ccd_shutter_mode = Measurement.ccd_shutter_mode();
+                settings.ccd_shutter_output_signal = Measurement.ccd_shutter_output_signal();
+                settings.ccd_shutter_open_time = Measurement.ccd_shutter_open_time();
+                settings.ccd_shutter_close_time = Measurement.ccd_shutter_close_time();
+                settings.ccd_triggermode = Measurement.ccd_triggermode();
+                settings.ccd_exposure_time = Measurement.ccd_exposure_time();
+                settings.ccd_accumulation_time = Measurement.ccd_accumulation_time();
+                settings.ccd_kinetic_time = Measurement.ccd_kinetic_time();
+                settings.ccd_min_temp = Measurement.ccd_min_temp();
+                settings.ccd_max_temp = Measurement.ccd_max_temp();
+                settings.ccd_target_temp = Measurement.ccd_target_temp();
+                settings.ccd_pre_amp_gain = Measurement.ccd_pre_amp_gain();
+                settings.ccd_em_gain_mode = Measurement.ccd_em_gain_mode();
+                settings.ccd_em_gain = Measurement.ccd_em_gain();
 
                 // sdd settings
-                settings.sebitcount = Measurement.sebitcount();
-                settings.filter = Measurement.filter();
-                settings.energyrange = Measurement.energyrange();
-                settings.tempmode = Measurement.tempmode();
-                settings.zeropeakperiod = Measurement.zeropeakperiod();
-                settings.acquisitionmode = Measurement.acquisitionmode();
-                settings.checktemperature = Measurement.checktemperature();
-                settings.sdd1 = Measurement.sdd1();
-                settings.sdd2 = Measurement.sdd2();
-                settings.sdd3 = Measurement.sdd3();
-                settings.sdd4 = Measurement.sdd4();
+                settings.sdd_sebitcount = Measurement.sdd_sebitcount();
+                settings.sdd_filter = Measurement.sdd_filter();
+                settings.sdd_energyrange = Measurement.sdd_energyrange();
+                settings.sdd_tempmode = Measurement.sdd_tempmode();
+                settings.sdd_zeropeakperiod = Measurement.sdd_zeropeakperiod();
+                settings.sdd_acquisitionmode = Measurement.sdd_acquisitionmode();
+                settings.sdd_checktemperature = Measurement.sdd_checktemperature();
+                settings.sdd_sdd1 = Measurement.sdd_sdd1();
+                settings.sdd_sdd2 = Measurement.sdd_sdd2();
+                settings.sdd_sdd3 = Measurement.sdd_sdd3();
+                settings.sdd_sdd4 = Measurement.sdd_sdd4();
 
                 // sample settings
                 settings.sample_name = Measurement.sample_name();
@@ -155,8 +155,8 @@ void controlThread::run()
                 // give out some debug info
                 std::cout<<"width: "<<settings.scanWidth<<std::endl;
                 std::cout<<"height: "<<settings.scanHeight<<std::endl;
-                std::cout<<"ccd width: "<<settings.ccdWidth<<std::endl;
-                std::cout<<"ccd height: "<<settings.ccdHeight<<std::endl;
+                std::cout<<"ccd width: "<<settings.ccd_width<<std::endl;
+                std::cout<<"ccd height: "<<settings.ccd_height<<std::endl;
 
                 if (!filecreated) {
                     filecreated = true;

@@ -137,8 +137,8 @@ void MainWindow::getMetadata(metadata metadata) {
 void MainWindow::getScanSettings(settingsdata settings) {
     scansettings = settings;
 
-    ccdX = scansettings.ccdWidth;
-    ccdY = scansettings.ccdHeight;
+    ccdX = scansettings.ccd_width;
+    ccdY = scansettings.ccd_height;
 
     scanX = scansettings.scanWidth;
     scanY = scansettings.scanHeight;
@@ -312,7 +312,7 @@ void MainWindow::getImageData(int cntx, std::string datax) {
      uint16_t max = 0;
      uint16_t min = 65535;
 
-     uint16_t savedata[1][ccdX][ccdY];
+     uint16_t savedata[ccdX][ccdY][1];
      uint32_t ccdpixelcount = ccdX*ccdY;
      uint32_t ccddatabytecount = ccdpixelcount * 2;
      uint16_t imagex[ccdpixelcount];
@@ -343,7 +343,7 @@ void MainWindow::getImageData(int cntx, std::string datax) {
                  }
              }
 
-             savedata[0][x][y] = value;
+             savedata[x][y][0] = value;
 
              sum = sum + value;
 
@@ -387,12 +387,14 @@ void MainWindow::getImageData(int cntx, std::string datax) {
 
             // write scan position to file
             nexusfile->appendValueTo1DDataSet("/measurement/transmission/sample_x", cntx, x_pos);
+            nexusfile->appendValueTo1DDataSet("/measurement/fluorescence/sample_x", cntx, x_pos);
 
             if (cntx == 9) {
                 std::cout<<"x pos:"<<x_pos<<std::endl;
             }
 
             nexusfile->appendValueTo1DDataSet("/measurement/transmission/sample_y", cntx, y_pos);
+            nexusfile->appendValueTo1DDataSet("/measurement/fluorescence/sample_y", cntx, y_pos);
 
             if (col == scanX-1) {
                 row++;
@@ -400,22 +402,22 @@ void MainWindow::getImageData(int cntx, std::string datax) {
 
             // write data to file
             hsize_t size[3];
-            size[1] = ccdX;
-            size[2] = ccdY;
+            size[0] = ccdX;
+            size[1] = ccdY;
 
             hsize_t offset[3];
+            offset[0] = 0;
             offset[1] = 0;
-            offset[2] = 0;
 
             long pixelvalue[1];
             pixelvalue[0] = 0;
 
 
             // WRITE DETECTOR DATA TO FILE
-            size[0] = cntx+1;
-            offset[0] = cntx;
+            size[2] = cntx+1;
+            offset[2] = cntx;
 
-            hsize_t dimsext[3] = {1, (hsize_t)ccdX, (hsize_t)ccdY}; // extend dimensions
+            hsize_t dimsext[3] = {(hsize_t)ccdX, (hsize_t)ccdY, 1}; // extend dimensions
 
             DataSet *dataset = new DataSet(nexusfile->file->openDataSet("/measurement/instruments/ccd/data"));
 

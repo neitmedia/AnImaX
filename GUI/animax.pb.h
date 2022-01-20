@@ -239,43 +239,43 @@ class Measurement final :
     kDatasinkPortFieldNumber = 16,
     kSddPortFieldNumber = 18,
     kCcdPortFieldNumber = 20,
-    kSebitcountFieldNumber = 21,
-    kFilterFieldNumber = 22,
-    kEnergyrangeFieldNumber = 23,
-    kTempmodeFieldNumber = 24,
+    kSddSebitcountFieldNumber = 21,
+    kSddFilterFieldNumber = 22,
+    kSddEnergyrangeFieldNumber = 23,
+    kSddTempmodeFieldNumber = 24,
     kFileCompressionFieldNumber = 9,
-    kSdd1FieldNumber = 28,
-    kSdd2FieldNumber = 29,
-    kSdd3FieldNumber = 30,
-    kZeropeakperiodFieldNumber = 25,
-    kAcquisitionmodeFieldNumber = 26,
-    kChecktemperatureFieldNumber = 27,
-    kSdd4FieldNumber = 31,
-    kBinningXFieldNumber = 32,
-    kBinningYFieldNumber = 33,
-    kCcdheightFieldNumber = 34,
-    kCcdwidthFieldNumber = 35,
-    kPixelcountFieldNumber = 36,
-    kFrametransferModeFieldNumber = 37,
-    kNumberOfAccumulationsFieldNumber = 38,
-    kNumberOfScansFieldNumber = 39,
-    kSetKineticCycleTimeFieldNumber = 40,
-    kReadModeFieldNumber = 41,
-    kAcquisionModeFieldNumber = 42,
-    kShutterModeFieldNumber = 43,
-    kShutterOutputSignalFieldNumber = 44,
-    kShutterOpenTimeFieldNumber = 45,
-    kShutterCloseTimeFieldNumber = 46,
-    kTriggermodeFieldNumber = 47,
-    kExposureTimeFieldNumber = 48,
-    kAccumulationTimeFieldNumber = 49,
-    kKineticTimeFieldNumber = 50,
-    kMinTempFieldNumber = 51,
-    kMaxTempFieldNumber = 52,
-    kTargetTempFieldNumber = 53,
-    kPreAmpGainFieldNumber = 54,
-    kEmGainModeFieldNumber = 55,
-    kEmGainFieldNumber = 56,
+    kSddSdd1FieldNumber = 28,
+    kSddSdd2FieldNumber = 29,
+    kSddSdd3FieldNumber = 30,
+    kSddZeropeakperiodFieldNumber = 25,
+    kSddAcquisitionmodeFieldNumber = 26,
+    kSddChecktemperatureFieldNumber = 27,
+    kSddSdd4FieldNumber = 31,
+    kCcdBinningXFieldNumber = 32,
+    kCcdBinningYFieldNumber = 33,
+    kCcdHeightFieldNumber = 34,
+    kCcdWidthFieldNumber = 35,
+    kCcdPixelcountFieldNumber = 36,
+    kCcdFrametransferModeFieldNumber = 37,
+    kCcdNumberOfAccumulationsFieldNumber = 38,
+    kCcdNumberOfScansFieldNumber = 39,
+    kCcdSetKineticCycleTimeFieldNumber = 40,
+    kCcdReadModeFieldNumber = 41,
+    kCcdAcquisitionModeFieldNumber = 42,
+    kCcdShutterModeFieldNumber = 43,
+    kCcdShutterOutputSignalFieldNumber = 44,
+    kCcdShutterOpenTimeFieldNumber = 45,
+    kCcdShutterCloseTimeFieldNumber = 46,
+    kCcdTriggermodeFieldNumber = 47,
+    kCcdExposureTimeFieldNumber = 48,
+    kCcdAccumulationTimeFieldNumber = 49,
+    kCcdKineticTimeFieldNumber = 50,
+    kCcdMinTempFieldNumber = 51,
+    kCcdMaxTempFieldNumber = 52,
+    kCcdTargetTempFieldNumber = 53,
+    kCcdPreAmpGainFieldNumber = 54,
+    kCcdEmGainModeFieldNumber = 55,
+    kCcdEmGainFieldNumber = 56,
     kSampleWidthFieldNumber = 60,
     kSampleHeightFieldNumber = 61,
     kSampleRotationAngleFieldNumber = 62,
@@ -616,40 +616,40 @@ class Measurement final :
   void _internal_set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 sebitcount = 21;
-  void clear_sebitcount();
-  ::PROTOBUF_NAMESPACE_ID::int32 sebitcount() const;
-  void set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 sdd_sebitcount = 21;
+  void clear_sdd_sebitcount();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_sebitcount() const;
+  void set_sdd_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sebitcount() const;
-  void _internal_set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd_sebitcount() const;
+  void _internal_set_sdd_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 filter = 22;
-  void clear_filter();
-  ::PROTOBUF_NAMESPACE_ID::int32 filter() const;
-  void set_filter(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 sdd_filter = 22;
+  void clear_sdd_filter();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_filter() const;
+  void set_sdd_filter(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_filter() const;
-  void _internal_set_filter(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd_filter() const;
+  void _internal_set_sdd_filter(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 energyrange = 23;
-  void clear_energyrange();
-  ::PROTOBUF_NAMESPACE_ID::int32 energyrange() const;
-  void set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 sdd_energyrange = 23;
+  void clear_sdd_energyrange();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_energyrange() const;
+  void set_sdd_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_energyrange() const;
-  void _internal_set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd_energyrange() const;
+  void _internal_set_sdd_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 tempmode = 24;
-  void clear_tempmode();
-  ::PROTOBUF_NAMESPACE_ID::int32 tempmode() const;
-  void set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 sdd_tempmode = 24;
+  void clear_sdd_tempmode();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_tempmode() const;
+  void set_sdd_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_tempmode() const;
-  void _internal_set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd_tempmode() const;
+  void _internal_set_sdd_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // bool file_compression = 9;
@@ -661,292 +661,292 @@ class Measurement final :
   void _internal_set_file_compression(bool value);
   public:
 
-  // bool sdd1 = 28;
-  void clear_sdd1();
-  bool sdd1() const;
-  void set_sdd1(bool value);
+  // bool sdd_sdd1 = 28;
+  void clear_sdd_sdd1();
+  bool sdd_sdd1() const;
+  void set_sdd_sdd1(bool value);
   private:
-  bool _internal_sdd1() const;
-  void _internal_set_sdd1(bool value);
+  bool _internal_sdd_sdd1() const;
+  void _internal_set_sdd_sdd1(bool value);
   public:
 
-  // bool sdd2 = 29;
-  void clear_sdd2();
-  bool sdd2() const;
-  void set_sdd2(bool value);
+  // bool sdd_sdd2 = 29;
+  void clear_sdd_sdd2();
+  bool sdd_sdd2() const;
+  void set_sdd_sdd2(bool value);
   private:
-  bool _internal_sdd2() const;
-  void _internal_set_sdd2(bool value);
+  bool _internal_sdd_sdd2() const;
+  void _internal_set_sdd_sdd2(bool value);
   public:
 
-  // bool sdd3 = 30;
-  void clear_sdd3();
-  bool sdd3() const;
-  void set_sdd3(bool value);
+  // bool sdd_sdd3 = 30;
+  void clear_sdd_sdd3();
+  bool sdd_sdd3() const;
+  void set_sdd_sdd3(bool value);
   private:
-  bool _internal_sdd3() const;
-  void _internal_set_sdd3(bool value);
+  bool _internal_sdd_sdd3() const;
+  void _internal_set_sdd_sdd3(bool value);
   public:
 
-  // int32 zeropeakperiod = 25;
-  void clear_zeropeakperiod();
-  ::PROTOBUF_NAMESPACE_ID::int32 zeropeakperiod() const;
-  void set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 sdd_zeropeakperiod = 25;
+  void clear_sdd_zeropeakperiod();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_zeropeakperiod() const;
+  void set_sdd_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_zeropeakperiod() const;
-  void _internal_set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd_zeropeakperiod() const;
+  void _internal_set_sdd_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 acquisitionmode = 26;
-  void clear_acquisitionmode();
-  ::PROTOBUF_NAMESPACE_ID::int32 acquisitionmode() const;
-  void set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 sdd_acquisitionmode = 26;
+  void clear_sdd_acquisitionmode();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_acquisitionmode() const;
+  void set_sdd_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_acquisitionmode() const;
-  void _internal_set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd_acquisitionmode() const;
+  void _internal_set_sdd_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 checktemperature = 27;
-  void clear_checktemperature();
-  ::PROTOBUF_NAMESPACE_ID::int32 checktemperature() const;
-  void set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 sdd_checktemperature = 27;
+  void clear_sdd_checktemperature();
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_checktemperature() const;
+  void set_sdd_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_checktemperature() const;
-  void _internal_set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_sdd_checktemperature() const;
+  void _internal_set_sdd_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // bool sdd4 = 31;
-  void clear_sdd4();
-  bool sdd4() const;
-  void set_sdd4(bool value);
+  // bool sdd_sdd4 = 31;
+  void clear_sdd_sdd4();
+  bool sdd_sdd4() const;
+  void set_sdd_sdd4(bool value);
   private:
-  bool _internal_sdd4() const;
-  void _internal_set_sdd4(bool value);
+  bool _internal_sdd_sdd4() const;
+  void _internal_set_sdd_sdd4(bool value);
   public:
 
-  // int32 binning_x = 32;
-  void clear_binning_x();
-  ::PROTOBUF_NAMESPACE_ID::int32 binning_x() const;
-  void set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_binning_x = 32;
+  void clear_ccd_binning_x();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_binning_x() const;
+  void set_ccd_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_binning_x() const;
-  void _internal_set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_binning_x() const;
+  void _internal_set_ccd_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 binning_y = 33;
-  void clear_binning_y();
-  ::PROTOBUF_NAMESPACE_ID::int32 binning_y() const;
-  void set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_binning_y = 33;
+  void clear_ccd_binning_y();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_binning_y() const;
+  void set_ccd_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_binning_y() const;
-  void _internal_set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_binning_y() const;
+  void _internal_set_ccd_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 ccdheight = 34;
-  void clear_ccdheight();
-  ::PROTOBUF_NAMESPACE_ID::int32 ccdheight() const;
-  void set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_height = 34;
+  void clear_ccd_height();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_height() const;
+  void set_ccd_height(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccdheight() const;
-  void _internal_set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_height() const;
+  void _internal_set_ccd_height(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 ccdwidth = 35;
-  void clear_ccdwidth();
-  ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth() const;
-  void set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_width = 35;
+  void clear_ccd_width();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_width() const;
+  void set_ccd_width(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccdwidth() const;
-  void _internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_width() const;
+  void _internal_set_ccd_width(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 pixelcount = 36;
-  void clear_pixelcount();
-  ::PROTOBUF_NAMESPACE_ID::int32 pixelcount() const;
-  void set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_pixelcount = 36;
+  void clear_ccd_pixelcount();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_pixelcount() const;
+  void set_ccd_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pixelcount() const;
-  void _internal_set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_pixelcount() const;
+  void _internal_set_ccd_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 frametransfer_mode = 37;
-  void clear_frametransfer_mode();
-  ::PROTOBUF_NAMESPACE_ID::int32 frametransfer_mode() const;
-  void set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_frametransfer_mode = 37;
+  void clear_ccd_frametransfer_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_frametransfer_mode() const;
+  void set_ccd_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_frametransfer_mode() const;
-  void _internal_set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_frametransfer_mode() const;
+  void _internal_set_ccd_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 number_of_accumulations = 38;
-  void clear_number_of_accumulations();
-  ::PROTOBUF_NAMESPACE_ID::int32 number_of_accumulations() const;
-  void set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_number_of_accumulations = 38;
+  void clear_ccd_number_of_accumulations();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_number_of_accumulations() const;
+  void set_ccd_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_number_of_accumulations() const;
-  void _internal_set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_number_of_accumulations() const;
+  void _internal_set_ccd_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 number_of_scans = 39;
-  void clear_number_of_scans();
-  ::PROTOBUF_NAMESPACE_ID::int32 number_of_scans() const;
-  void set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_number_of_scans = 39;
+  void clear_ccd_number_of_scans();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_number_of_scans() const;
+  void set_ccd_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_number_of_scans() const;
-  void _internal_set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_number_of_scans() const;
+  void _internal_set_ccd_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // float set_kinetic_cycle_time = 40;
-  void clear_set_kinetic_cycle_time();
-  float set_kinetic_cycle_time() const;
-  void set_set_kinetic_cycle_time(float value);
+  // float ccd_set_kinetic_cycle_time = 40;
+  void clear_ccd_set_kinetic_cycle_time();
+  float ccd_set_kinetic_cycle_time() const;
+  void set_ccd_set_kinetic_cycle_time(float value);
   private:
-  float _internal_set_kinetic_cycle_time() const;
-  void _internal_set_set_kinetic_cycle_time(float value);
+  float _internal_ccd_set_kinetic_cycle_time() const;
+  void _internal_set_ccd_set_kinetic_cycle_time(float value);
   public:
 
-  // int32 read_mode = 41;
-  void clear_read_mode();
-  ::PROTOBUF_NAMESPACE_ID::int32 read_mode() const;
-  void set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_read_mode = 41;
+  void clear_ccd_read_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_read_mode() const;
+  void set_ccd_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_read_mode() const;
-  void _internal_set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_read_mode() const;
+  void _internal_set_ccd_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 acquision_mode = 42;
-  void clear_acquision_mode();
-  ::PROTOBUF_NAMESPACE_ID::int32 acquision_mode() const;
-  void set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_acquisition_mode = 42;
+  void clear_ccd_acquisition_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_acquisition_mode() const;
+  void set_ccd_acquisition_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_acquision_mode() const;
-  void _internal_set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_acquisition_mode() const;
+  void _internal_set_ccd_acquisition_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 shutter_mode = 43;
-  void clear_shutter_mode();
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_mode() const;
-  void set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_shutter_mode = 43;
+  void clear_ccd_shutter_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_shutter_mode() const;
+  void set_ccd_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_mode() const;
-  void _internal_set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_shutter_mode() const;
+  void _internal_set_ccd_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 shutter_output_signal = 44;
-  void clear_shutter_output_signal();
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_output_signal() const;
-  void set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_shutter_output_signal = 44;
+  void clear_ccd_shutter_output_signal();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_shutter_output_signal() const;
+  void set_ccd_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_output_signal() const;
-  void _internal_set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_shutter_output_signal() const;
+  void _internal_set_ccd_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 shutter_open_time = 45;
-  void clear_shutter_open_time();
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_open_time() const;
-  void set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_shutter_open_time = 45;
+  void clear_ccd_shutter_open_time();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_shutter_open_time() const;
+  void set_ccd_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_open_time() const;
-  void _internal_set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_shutter_open_time() const;
+  void _internal_set_ccd_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 shutter_close_time = 46;
-  void clear_shutter_close_time();
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_close_time() const;
-  void set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_shutter_close_time = 46;
+  void clear_ccd_shutter_close_time();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_shutter_close_time() const;
+  void set_ccd_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shutter_close_time() const;
-  void _internal_set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_shutter_close_time() const;
+  void _internal_set_ccd_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 triggermode = 47;
-  void clear_triggermode();
-  ::PROTOBUF_NAMESPACE_ID::int32 triggermode() const;
-  void set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_triggermode = 47;
+  void clear_ccd_triggermode();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_triggermode() const;
+  void set_ccd_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_triggermode() const;
-  void _internal_set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_triggermode() const;
+  void _internal_set_ccd_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // float exposure_time = 48;
-  void clear_exposure_time();
-  float exposure_time() const;
-  void set_exposure_time(float value);
+  // float ccd_exposure_time = 48;
+  void clear_ccd_exposure_time();
+  float ccd_exposure_time() const;
+  void set_ccd_exposure_time(float value);
   private:
-  float _internal_exposure_time() const;
-  void _internal_set_exposure_time(float value);
+  float _internal_ccd_exposure_time() const;
+  void _internal_set_ccd_exposure_time(float value);
   public:
 
-  // float accumulation_time = 49;
-  void clear_accumulation_time();
-  float accumulation_time() const;
-  void set_accumulation_time(float value);
+  // float ccd_accumulation_time = 49;
+  void clear_ccd_accumulation_time();
+  float ccd_accumulation_time() const;
+  void set_ccd_accumulation_time(float value);
   private:
-  float _internal_accumulation_time() const;
-  void _internal_set_accumulation_time(float value);
+  float _internal_ccd_accumulation_time() const;
+  void _internal_set_ccd_accumulation_time(float value);
   public:
 
-  // float kinetic_time = 50;
-  void clear_kinetic_time();
-  float kinetic_time() const;
-  void set_kinetic_time(float value);
+  // float ccd_kinetic_time = 50;
+  void clear_ccd_kinetic_time();
+  float ccd_kinetic_time() const;
+  void set_ccd_kinetic_time(float value);
   private:
-  float _internal_kinetic_time() const;
-  void _internal_set_kinetic_time(float value);
+  float _internal_ccd_kinetic_time() const;
+  void _internal_set_ccd_kinetic_time(float value);
   public:
 
-  // int32 min_temp = 51;
-  void clear_min_temp();
-  ::PROTOBUF_NAMESPACE_ID::int32 min_temp() const;
-  void set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_min_temp = 51;
+  void clear_ccd_min_temp();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_min_temp() const;
+  void set_ccd_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_min_temp() const;
-  void _internal_set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_min_temp() const;
+  void _internal_set_ccd_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 max_temp = 52;
-  void clear_max_temp();
-  ::PROTOBUF_NAMESPACE_ID::int32 max_temp() const;
-  void set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_max_temp = 52;
+  void clear_ccd_max_temp();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_max_temp() const;
+  void set_ccd_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_max_temp() const;
-  void _internal_set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_max_temp() const;
+  void _internal_set_ccd_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 target_temp = 53;
-  void clear_target_temp();
-  ::PROTOBUF_NAMESPACE_ID::int32 target_temp() const;
-  void set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_target_temp = 53;
+  void clear_ccd_target_temp();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_target_temp() const;
+  void set_ccd_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_target_temp() const;
-  void _internal_set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_target_temp() const;
+  void _internal_set_ccd_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 pre_amp_gain = 54;
-  void clear_pre_amp_gain();
-  ::PROTOBUF_NAMESPACE_ID::int32 pre_amp_gain() const;
-  void set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_pre_amp_gain = 54;
+  void clear_ccd_pre_amp_gain();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_pre_amp_gain() const;
+  void set_ccd_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pre_amp_gain() const;
-  void _internal_set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_pre_amp_gain() const;
+  void _internal_set_ccd_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 em_gain_mode = 55;
-  void clear_em_gain_mode();
-  ::PROTOBUF_NAMESPACE_ID::int32 em_gain_mode() const;
-  void set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_em_gain_mode = 55;
+  void clear_ccd_em_gain_mode();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_em_gain_mode() const;
+  void set_ccd_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_em_gain_mode() const;
-  void _internal_set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_em_gain_mode() const;
+  void _internal_set_ccd_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 em_gain = 56;
-  void clear_em_gain();
-  ::PROTOBUF_NAMESPACE_ID::int32 em_gain() const;
-  void set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 ccd_em_gain = 56;
+  void clear_ccd_em_gain();
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_em_gain() const;
+  void set_ccd_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_em_gain() const;
-  void _internal_set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ccd_em_gain() const;
+  void _internal_set_ccd_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // float sample_width = 60;
@@ -1011,43 +1011,43 @@ class Measurement final :
   ::PROTOBUF_NAMESPACE_ID::int32 datasinkport_;
   ::PROTOBUF_NAMESPACE_ID::int32 sddport_;
   ::PROTOBUF_NAMESPACE_ID::int32 ccdport_;
-  ::PROTOBUF_NAMESPACE_ID::int32 sebitcount_;
-  ::PROTOBUF_NAMESPACE_ID::int32 filter_;
-  ::PROTOBUF_NAMESPACE_ID::int32 energyrange_;
-  ::PROTOBUF_NAMESPACE_ID::int32 tempmode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_sebitcount_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_filter_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_energyrange_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_tempmode_;
   bool file_compression_;
-  bool sdd1_;
-  bool sdd2_;
-  bool sdd3_;
-  ::PROTOBUF_NAMESPACE_ID::int32 zeropeakperiod_;
-  ::PROTOBUF_NAMESPACE_ID::int32 acquisitionmode_;
-  ::PROTOBUF_NAMESPACE_ID::int32 checktemperature_;
-  bool sdd4_;
-  ::PROTOBUF_NAMESPACE_ID::int32 binning_x_;
-  ::PROTOBUF_NAMESPACE_ID::int32 binning_y_;
-  ::PROTOBUF_NAMESPACE_ID::int32 ccdheight_;
-  ::PROTOBUF_NAMESPACE_ID::int32 ccdwidth_;
-  ::PROTOBUF_NAMESPACE_ID::int32 pixelcount_;
-  ::PROTOBUF_NAMESPACE_ID::int32 frametransfer_mode_;
-  ::PROTOBUF_NAMESPACE_ID::int32 number_of_accumulations_;
-  ::PROTOBUF_NAMESPACE_ID::int32 number_of_scans_;
-  float set_kinetic_cycle_time_;
-  ::PROTOBUF_NAMESPACE_ID::int32 read_mode_;
-  ::PROTOBUF_NAMESPACE_ID::int32 acquision_mode_;
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_mode_;
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_output_signal_;
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_open_time_;
-  ::PROTOBUF_NAMESPACE_ID::int32 shutter_close_time_;
-  ::PROTOBUF_NAMESPACE_ID::int32 triggermode_;
-  float exposure_time_;
-  float accumulation_time_;
-  float kinetic_time_;
-  ::PROTOBUF_NAMESPACE_ID::int32 min_temp_;
-  ::PROTOBUF_NAMESPACE_ID::int32 max_temp_;
-  ::PROTOBUF_NAMESPACE_ID::int32 target_temp_;
-  ::PROTOBUF_NAMESPACE_ID::int32 pre_amp_gain_;
-  ::PROTOBUF_NAMESPACE_ID::int32 em_gain_mode_;
-  ::PROTOBUF_NAMESPACE_ID::int32 em_gain_;
+  bool sdd_sdd1_;
+  bool sdd_sdd2_;
+  bool sdd_sdd3_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_zeropeakperiod_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_acquisitionmode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 sdd_checktemperature_;
+  bool sdd_sdd4_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_binning_x_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_binning_y_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_height_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_width_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_pixelcount_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_frametransfer_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_number_of_accumulations_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_number_of_scans_;
+  float ccd_set_kinetic_cycle_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_read_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_acquisition_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_shutter_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_shutter_output_signal_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_shutter_open_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_shutter_close_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_triggermode_;
+  float ccd_exposure_time_;
+  float ccd_accumulation_time_;
+  float ccd_kinetic_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_min_temp_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_max_temp_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_target_temp_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_pre_amp_gain_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_em_gain_mode_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ccd_em_gain_;
   float sample_width_;
   float sample_height_;
   float sample_rotation_angle_;
@@ -3005,724 +3005,724 @@ inline void Measurement::set_ccdport(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:animax.Measurement.ccdPort)
 }
 
-// int32 sebitcount = 21;
-inline void Measurement::clear_sebitcount() {
-  sebitcount_ = 0;
+// int32 sdd_sebitcount = 21;
+inline void Measurement::clear_sdd_sebitcount() {
+  sdd_sebitcount_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sebitcount() const {
-  return sebitcount_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd_sebitcount() const {
+  return sdd_sebitcount_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sebitcount() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.sebitcount)
-  return _internal_sebitcount();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd_sebitcount() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_sebitcount)
+  return _internal_sdd_sebitcount();
 }
-inline void Measurement::_internal_set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_sdd_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  sebitcount_ = value;
+  sdd_sebitcount_ = value;
 }
-inline void Measurement::set_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_sebitcount(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.sebitcount)
+inline void Measurement::set_sdd_sebitcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd_sebitcount(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_sebitcount)
 }
 
-// int32 filter = 22;
-inline void Measurement::clear_filter() {
-  filter_ = 0;
+// int32 sdd_filter = 22;
+inline void Measurement::clear_sdd_filter() {
+  sdd_filter_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_filter() const {
-  return filter_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd_filter() const {
+  return sdd_filter_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::filter() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.filter)
-  return _internal_filter();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd_filter() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_filter)
+  return _internal_sdd_filter();
 }
-inline void Measurement::_internal_set_filter(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_sdd_filter(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  filter_ = value;
+  sdd_filter_ = value;
 }
-inline void Measurement::set_filter(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_filter(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.filter)
+inline void Measurement::set_sdd_filter(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd_filter(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_filter)
 }
 
-// int32 energyrange = 23;
-inline void Measurement::clear_energyrange() {
-  energyrange_ = 0;
+// int32 sdd_energyrange = 23;
+inline void Measurement::clear_sdd_energyrange() {
+  sdd_energyrange_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_energyrange() const {
-  return energyrange_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd_energyrange() const {
+  return sdd_energyrange_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::energyrange() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.energyrange)
-  return _internal_energyrange();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd_energyrange() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_energyrange)
+  return _internal_sdd_energyrange();
 }
-inline void Measurement::_internal_set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_sdd_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  energyrange_ = value;
+  sdd_energyrange_ = value;
 }
-inline void Measurement::set_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_energyrange(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.energyrange)
+inline void Measurement::set_sdd_energyrange(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd_energyrange(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_energyrange)
 }
 
-// int32 tempmode = 24;
-inline void Measurement::clear_tempmode() {
-  tempmode_ = 0;
+// int32 sdd_tempmode = 24;
+inline void Measurement::clear_sdd_tempmode() {
+  sdd_tempmode_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_tempmode() const {
-  return tempmode_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd_tempmode() const {
+  return sdd_tempmode_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::tempmode() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.tempmode)
-  return _internal_tempmode();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd_tempmode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_tempmode)
+  return _internal_sdd_tempmode();
 }
-inline void Measurement::_internal_set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_sdd_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  tempmode_ = value;
+  sdd_tempmode_ = value;
 }
-inline void Measurement::set_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_tempmode(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.tempmode)
+inline void Measurement::set_sdd_tempmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd_tempmode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_tempmode)
 }
 
-// int32 zeropeakperiod = 25;
-inline void Measurement::clear_zeropeakperiod() {
-  zeropeakperiod_ = 0;
+// int32 sdd_zeropeakperiod = 25;
+inline void Measurement::clear_sdd_zeropeakperiod() {
+  sdd_zeropeakperiod_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_zeropeakperiod() const {
-  return zeropeakperiod_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd_zeropeakperiod() const {
+  return sdd_zeropeakperiod_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::zeropeakperiod() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.zeropeakperiod)
-  return _internal_zeropeakperiod();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd_zeropeakperiod() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_zeropeakperiod)
+  return _internal_sdd_zeropeakperiod();
 }
-inline void Measurement::_internal_set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_sdd_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  zeropeakperiod_ = value;
+  sdd_zeropeakperiod_ = value;
 }
-inline void Measurement::set_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_zeropeakperiod(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.zeropeakperiod)
+inline void Measurement::set_sdd_zeropeakperiod(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd_zeropeakperiod(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_zeropeakperiod)
 }
 
-// int32 acquisitionmode = 26;
-inline void Measurement::clear_acquisitionmode() {
-  acquisitionmode_ = 0;
+// int32 sdd_acquisitionmode = 26;
+inline void Measurement::clear_sdd_acquisitionmode() {
+  sdd_acquisitionmode_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_acquisitionmode() const {
-  return acquisitionmode_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd_acquisitionmode() const {
+  return sdd_acquisitionmode_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::acquisitionmode() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.acquisitionmode)
-  return _internal_acquisitionmode();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd_acquisitionmode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_acquisitionmode)
+  return _internal_sdd_acquisitionmode();
 }
-inline void Measurement::_internal_set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_sdd_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  acquisitionmode_ = value;
+  sdd_acquisitionmode_ = value;
 }
-inline void Measurement::set_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_acquisitionmode(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.acquisitionmode)
+inline void Measurement::set_sdd_acquisitionmode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd_acquisitionmode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_acquisitionmode)
 }
 
-// int32 checktemperature = 27;
-inline void Measurement::clear_checktemperature() {
-  checktemperature_ = 0;
+// int32 sdd_checktemperature = 27;
+inline void Measurement::clear_sdd_checktemperature() {
+  sdd_checktemperature_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_checktemperature() const {
-  return checktemperature_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_sdd_checktemperature() const {
+  return sdd_checktemperature_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::checktemperature() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.checktemperature)
-  return _internal_checktemperature();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::sdd_checktemperature() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_checktemperature)
+  return _internal_sdd_checktemperature();
 }
-inline void Measurement::_internal_set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_sdd_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  checktemperature_ = value;
+  sdd_checktemperature_ = value;
 }
-inline void Measurement::set_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_checktemperature(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.checktemperature)
+inline void Measurement::set_sdd_checktemperature(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_sdd_checktemperature(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_checktemperature)
 }
 
-// bool sdd1 = 28;
-inline void Measurement::clear_sdd1() {
-  sdd1_ = false;
+// bool sdd_sdd1 = 28;
+inline void Measurement::clear_sdd_sdd1() {
+  sdd_sdd1_ = false;
 }
-inline bool Measurement::_internal_sdd1() const {
-  return sdd1_;
+inline bool Measurement::_internal_sdd_sdd1() const {
+  return sdd_sdd1_;
 }
-inline bool Measurement::sdd1() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.sdd1)
-  return _internal_sdd1();
+inline bool Measurement::sdd_sdd1() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_sdd1)
+  return _internal_sdd_sdd1();
 }
-inline void Measurement::_internal_set_sdd1(bool value) {
+inline void Measurement::_internal_set_sdd_sdd1(bool value) {
   
-  sdd1_ = value;
+  sdd_sdd1_ = value;
 }
-inline void Measurement::set_sdd1(bool value) {
-  _internal_set_sdd1(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.sdd1)
+inline void Measurement::set_sdd_sdd1(bool value) {
+  _internal_set_sdd_sdd1(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_sdd1)
 }
 
-// bool sdd2 = 29;
-inline void Measurement::clear_sdd2() {
-  sdd2_ = false;
+// bool sdd_sdd2 = 29;
+inline void Measurement::clear_sdd_sdd2() {
+  sdd_sdd2_ = false;
 }
-inline bool Measurement::_internal_sdd2() const {
-  return sdd2_;
+inline bool Measurement::_internal_sdd_sdd2() const {
+  return sdd_sdd2_;
 }
-inline bool Measurement::sdd2() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.sdd2)
-  return _internal_sdd2();
+inline bool Measurement::sdd_sdd2() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_sdd2)
+  return _internal_sdd_sdd2();
 }
-inline void Measurement::_internal_set_sdd2(bool value) {
+inline void Measurement::_internal_set_sdd_sdd2(bool value) {
   
-  sdd2_ = value;
+  sdd_sdd2_ = value;
 }
-inline void Measurement::set_sdd2(bool value) {
-  _internal_set_sdd2(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.sdd2)
+inline void Measurement::set_sdd_sdd2(bool value) {
+  _internal_set_sdd_sdd2(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_sdd2)
 }
 
-// bool sdd3 = 30;
-inline void Measurement::clear_sdd3() {
-  sdd3_ = false;
+// bool sdd_sdd3 = 30;
+inline void Measurement::clear_sdd_sdd3() {
+  sdd_sdd3_ = false;
 }
-inline bool Measurement::_internal_sdd3() const {
-  return sdd3_;
+inline bool Measurement::_internal_sdd_sdd3() const {
+  return sdd_sdd3_;
 }
-inline bool Measurement::sdd3() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.sdd3)
-  return _internal_sdd3();
+inline bool Measurement::sdd_sdd3() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_sdd3)
+  return _internal_sdd_sdd3();
 }
-inline void Measurement::_internal_set_sdd3(bool value) {
+inline void Measurement::_internal_set_sdd_sdd3(bool value) {
   
-  sdd3_ = value;
+  sdd_sdd3_ = value;
 }
-inline void Measurement::set_sdd3(bool value) {
-  _internal_set_sdd3(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.sdd3)
+inline void Measurement::set_sdd_sdd3(bool value) {
+  _internal_set_sdd_sdd3(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_sdd3)
 }
 
-// bool sdd4 = 31;
-inline void Measurement::clear_sdd4() {
-  sdd4_ = false;
+// bool sdd_sdd4 = 31;
+inline void Measurement::clear_sdd_sdd4() {
+  sdd_sdd4_ = false;
 }
-inline bool Measurement::_internal_sdd4() const {
-  return sdd4_;
+inline bool Measurement::_internal_sdd_sdd4() const {
+  return sdd_sdd4_;
 }
-inline bool Measurement::sdd4() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.sdd4)
-  return _internal_sdd4();
+inline bool Measurement::sdd_sdd4() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.sdd_sdd4)
+  return _internal_sdd_sdd4();
 }
-inline void Measurement::_internal_set_sdd4(bool value) {
+inline void Measurement::_internal_set_sdd_sdd4(bool value) {
   
-  sdd4_ = value;
+  sdd_sdd4_ = value;
 }
-inline void Measurement::set_sdd4(bool value) {
-  _internal_set_sdd4(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.sdd4)
+inline void Measurement::set_sdd_sdd4(bool value) {
+  _internal_set_sdd_sdd4(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.sdd_sdd4)
 }
 
-// int32 binning_x = 32;
-inline void Measurement::clear_binning_x() {
-  binning_x_ = 0;
+// int32 ccd_binning_x = 32;
+inline void Measurement::clear_ccd_binning_x() {
+  ccd_binning_x_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_binning_x() const {
-  return binning_x_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_binning_x() const {
+  return ccd_binning_x_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::binning_x() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.binning_x)
-  return _internal_binning_x();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_binning_x() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_binning_x)
+  return _internal_ccd_binning_x();
 }
-inline void Measurement::_internal_set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  binning_x_ = value;
+  ccd_binning_x_ = value;
 }
-inline void Measurement::set_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_binning_x(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.binning_x)
+inline void Measurement::set_ccd_binning_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_binning_x(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_binning_x)
 }
 
-// int32 binning_y = 33;
-inline void Measurement::clear_binning_y() {
-  binning_y_ = 0;
+// int32 ccd_binning_y = 33;
+inline void Measurement::clear_ccd_binning_y() {
+  ccd_binning_y_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_binning_y() const {
-  return binning_y_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_binning_y() const {
+  return ccd_binning_y_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::binning_y() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.binning_y)
-  return _internal_binning_y();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_binning_y() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_binning_y)
+  return _internal_ccd_binning_y();
 }
-inline void Measurement::_internal_set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  binning_y_ = value;
+  ccd_binning_y_ = value;
 }
-inline void Measurement::set_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_binning_y(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.binning_y)
+inline void Measurement::set_ccd_binning_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_binning_y(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_binning_y)
 }
 
-// int32 ccdheight = 34;
-inline void Measurement::clear_ccdheight() {
-  ccdheight_ = 0;
+// int32 ccd_height = 34;
+inline void Measurement::clear_ccd_height() {
+  ccd_height_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccdheight() const {
-  return ccdheight_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_height() const {
+  return ccd_height_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccdheight() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.ccdheight)
-  return _internal_ccdheight();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_height() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_height)
+  return _internal_ccd_height();
 }
-inline void Measurement::_internal_set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  ccdheight_ = value;
+  ccd_height_ = value;
 }
-inline void Measurement::set_ccdheight(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_ccdheight(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.ccdheight)
+inline void Measurement::set_ccd_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_height(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_height)
 }
 
-// int32 ccdwidth = 35;
-inline void Measurement::clear_ccdwidth() {
-  ccdwidth_ = 0;
+// int32 ccd_width = 35;
+inline void Measurement::clear_ccd_width() {
+  ccd_width_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccdwidth() const {
-  return ccdwidth_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_width() const {
+  return ccd_width_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccdwidth() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.ccdwidth)
-  return _internal_ccdwidth();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_width() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_width)
+  return _internal_ccd_width();
 }
-inline void Measurement::_internal_set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_width(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  ccdwidth_ = value;
+  ccd_width_ = value;
 }
-inline void Measurement::set_ccdwidth(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_ccdwidth(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.ccdwidth)
+inline void Measurement::set_ccd_width(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_width(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_width)
 }
 
-// int32 pixelcount = 36;
-inline void Measurement::clear_pixelcount() {
-  pixelcount_ = 0;
+// int32 ccd_pixelcount = 36;
+inline void Measurement::clear_ccd_pixelcount() {
+  ccd_pixelcount_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_pixelcount() const {
-  return pixelcount_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_pixelcount() const {
+  return ccd_pixelcount_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::pixelcount() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.pixelcount)
-  return _internal_pixelcount();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_pixelcount() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_pixelcount)
+  return _internal_ccd_pixelcount();
 }
-inline void Measurement::_internal_set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  pixelcount_ = value;
+  ccd_pixelcount_ = value;
 }
-inline void Measurement::set_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_pixelcount(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.pixelcount)
+inline void Measurement::set_ccd_pixelcount(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_pixelcount(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_pixelcount)
 }
 
-// int32 frametransfer_mode = 37;
-inline void Measurement::clear_frametransfer_mode() {
-  frametransfer_mode_ = 0;
+// int32 ccd_frametransfer_mode = 37;
+inline void Measurement::clear_ccd_frametransfer_mode() {
+  ccd_frametransfer_mode_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_frametransfer_mode() const {
-  return frametransfer_mode_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_frametransfer_mode() const {
+  return ccd_frametransfer_mode_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::frametransfer_mode() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.frametransfer_mode)
-  return _internal_frametransfer_mode();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_frametransfer_mode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_frametransfer_mode)
+  return _internal_ccd_frametransfer_mode();
 }
-inline void Measurement::_internal_set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  frametransfer_mode_ = value;
+  ccd_frametransfer_mode_ = value;
 }
-inline void Measurement::set_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_frametransfer_mode(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.frametransfer_mode)
+inline void Measurement::set_ccd_frametransfer_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_frametransfer_mode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_frametransfer_mode)
 }
 
-// int32 number_of_accumulations = 38;
-inline void Measurement::clear_number_of_accumulations() {
-  number_of_accumulations_ = 0;
+// int32 ccd_number_of_accumulations = 38;
+inline void Measurement::clear_ccd_number_of_accumulations() {
+  ccd_number_of_accumulations_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_number_of_accumulations() const {
-  return number_of_accumulations_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_number_of_accumulations() const {
+  return ccd_number_of_accumulations_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::number_of_accumulations() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.number_of_accumulations)
-  return _internal_number_of_accumulations();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_number_of_accumulations() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_number_of_accumulations)
+  return _internal_ccd_number_of_accumulations();
 }
-inline void Measurement::_internal_set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  number_of_accumulations_ = value;
+  ccd_number_of_accumulations_ = value;
 }
-inline void Measurement::set_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_number_of_accumulations(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.number_of_accumulations)
+inline void Measurement::set_ccd_number_of_accumulations(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_number_of_accumulations(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_number_of_accumulations)
 }
 
-// int32 number_of_scans = 39;
-inline void Measurement::clear_number_of_scans() {
-  number_of_scans_ = 0;
+// int32 ccd_number_of_scans = 39;
+inline void Measurement::clear_ccd_number_of_scans() {
+  ccd_number_of_scans_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_number_of_scans() const {
-  return number_of_scans_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_number_of_scans() const {
+  return ccd_number_of_scans_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::number_of_scans() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.number_of_scans)
-  return _internal_number_of_scans();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_number_of_scans() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_number_of_scans)
+  return _internal_ccd_number_of_scans();
 }
-inline void Measurement::_internal_set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  number_of_scans_ = value;
+  ccd_number_of_scans_ = value;
 }
-inline void Measurement::set_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_number_of_scans(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.number_of_scans)
+inline void Measurement::set_ccd_number_of_scans(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_number_of_scans(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_number_of_scans)
 }
 
-// float set_kinetic_cycle_time = 40;
-inline void Measurement::clear_set_kinetic_cycle_time() {
-  set_kinetic_cycle_time_ = 0;
+// float ccd_set_kinetic_cycle_time = 40;
+inline void Measurement::clear_ccd_set_kinetic_cycle_time() {
+  ccd_set_kinetic_cycle_time_ = 0;
 }
-inline float Measurement::_internal_set_kinetic_cycle_time() const {
-  return set_kinetic_cycle_time_;
+inline float Measurement::_internal_ccd_set_kinetic_cycle_time() const {
+  return ccd_set_kinetic_cycle_time_;
 }
-inline float Measurement::set_kinetic_cycle_time() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.set_kinetic_cycle_time)
-  return _internal_set_kinetic_cycle_time();
+inline float Measurement::ccd_set_kinetic_cycle_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_set_kinetic_cycle_time)
+  return _internal_ccd_set_kinetic_cycle_time();
 }
-inline void Measurement::_internal_set_set_kinetic_cycle_time(float value) {
+inline void Measurement::_internal_set_ccd_set_kinetic_cycle_time(float value) {
   
-  set_kinetic_cycle_time_ = value;
+  ccd_set_kinetic_cycle_time_ = value;
 }
-inline void Measurement::set_set_kinetic_cycle_time(float value) {
-  _internal_set_set_kinetic_cycle_time(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.set_kinetic_cycle_time)
+inline void Measurement::set_ccd_set_kinetic_cycle_time(float value) {
+  _internal_set_ccd_set_kinetic_cycle_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_set_kinetic_cycle_time)
 }
 
-// int32 read_mode = 41;
-inline void Measurement::clear_read_mode() {
-  read_mode_ = 0;
+// int32 ccd_read_mode = 41;
+inline void Measurement::clear_ccd_read_mode() {
+  ccd_read_mode_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_read_mode() const {
-  return read_mode_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_read_mode() const {
+  return ccd_read_mode_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::read_mode() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.read_mode)
-  return _internal_read_mode();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_read_mode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_read_mode)
+  return _internal_ccd_read_mode();
 }
-inline void Measurement::_internal_set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  read_mode_ = value;
+  ccd_read_mode_ = value;
 }
-inline void Measurement::set_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_read_mode(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.read_mode)
+inline void Measurement::set_ccd_read_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_read_mode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_read_mode)
 }
 
-// int32 acquision_mode = 42;
-inline void Measurement::clear_acquision_mode() {
-  acquision_mode_ = 0;
+// int32 ccd_acquisition_mode = 42;
+inline void Measurement::clear_ccd_acquisition_mode() {
+  ccd_acquisition_mode_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_acquision_mode() const {
-  return acquision_mode_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_acquisition_mode() const {
+  return ccd_acquisition_mode_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::acquision_mode() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.acquision_mode)
-  return _internal_acquision_mode();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_acquisition_mode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_acquisition_mode)
+  return _internal_ccd_acquisition_mode();
 }
-inline void Measurement::_internal_set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_acquisition_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  acquision_mode_ = value;
+  ccd_acquisition_mode_ = value;
 }
-inline void Measurement::set_acquision_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_acquision_mode(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.acquision_mode)
+inline void Measurement::set_ccd_acquisition_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_acquisition_mode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_acquisition_mode)
 }
 
-// int32 shutter_mode = 43;
-inline void Measurement::clear_shutter_mode() {
-  shutter_mode_ = 0;
+// int32 ccd_shutter_mode = 43;
+inline void Measurement::clear_ccd_shutter_mode() {
+  ccd_shutter_mode_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_shutter_mode() const {
-  return shutter_mode_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_shutter_mode() const {
+  return ccd_shutter_mode_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::shutter_mode() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.shutter_mode)
-  return _internal_shutter_mode();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_shutter_mode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_shutter_mode)
+  return _internal_ccd_shutter_mode();
 }
-inline void Measurement::_internal_set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  shutter_mode_ = value;
+  ccd_shutter_mode_ = value;
 }
-inline void Measurement::set_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_shutter_mode(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.shutter_mode)
+inline void Measurement::set_ccd_shutter_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_shutter_mode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_shutter_mode)
 }
 
-// int32 shutter_output_signal = 44;
-inline void Measurement::clear_shutter_output_signal() {
-  shutter_output_signal_ = 0;
+// int32 ccd_shutter_output_signal = 44;
+inline void Measurement::clear_ccd_shutter_output_signal() {
+  ccd_shutter_output_signal_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_shutter_output_signal() const {
-  return shutter_output_signal_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_shutter_output_signal() const {
+  return ccd_shutter_output_signal_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::shutter_output_signal() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.shutter_output_signal)
-  return _internal_shutter_output_signal();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_shutter_output_signal() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_shutter_output_signal)
+  return _internal_ccd_shutter_output_signal();
 }
-inline void Measurement::_internal_set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  shutter_output_signal_ = value;
+  ccd_shutter_output_signal_ = value;
 }
-inline void Measurement::set_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_shutter_output_signal(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.shutter_output_signal)
+inline void Measurement::set_ccd_shutter_output_signal(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_shutter_output_signal(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_shutter_output_signal)
 }
 
-// int32 shutter_open_time = 45;
-inline void Measurement::clear_shutter_open_time() {
-  shutter_open_time_ = 0;
+// int32 ccd_shutter_open_time = 45;
+inline void Measurement::clear_ccd_shutter_open_time() {
+  ccd_shutter_open_time_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_shutter_open_time() const {
-  return shutter_open_time_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_shutter_open_time() const {
+  return ccd_shutter_open_time_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::shutter_open_time() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.shutter_open_time)
-  return _internal_shutter_open_time();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_shutter_open_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_shutter_open_time)
+  return _internal_ccd_shutter_open_time();
 }
-inline void Measurement::_internal_set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  shutter_open_time_ = value;
+  ccd_shutter_open_time_ = value;
 }
-inline void Measurement::set_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_shutter_open_time(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.shutter_open_time)
+inline void Measurement::set_ccd_shutter_open_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_shutter_open_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_shutter_open_time)
 }
 
-// int32 shutter_close_time = 46;
-inline void Measurement::clear_shutter_close_time() {
-  shutter_close_time_ = 0;
+// int32 ccd_shutter_close_time = 46;
+inline void Measurement::clear_ccd_shutter_close_time() {
+  ccd_shutter_close_time_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_shutter_close_time() const {
-  return shutter_close_time_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_shutter_close_time() const {
+  return ccd_shutter_close_time_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::shutter_close_time() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.shutter_close_time)
-  return _internal_shutter_close_time();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_shutter_close_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_shutter_close_time)
+  return _internal_ccd_shutter_close_time();
 }
-inline void Measurement::_internal_set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  shutter_close_time_ = value;
+  ccd_shutter_close_time_ = value;
 }
-inline void Measurement::set_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_shutter_close_time(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.shutter_close_time)
+inline void Measurement::set_ccd_shutter_close_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_shutter_close_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_shutter_close_time)
 }
 
-// int32 triggermode = 47;
-inline void Measurement::clear_triggermode() {
-  triggermode_ = 0;
+// int32 ccd_triggermode = 47;
+inline void Measurement::clear_ccd_triggermode() {
+  ccd_triggermode_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_triggermode() const {
-  return triggermode_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_triggermode() const {
+  return ccd_triggermode_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::triggermode() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.triggermode)
-  return _internal_triggermode();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_triggermode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_triggermode)
+  return _internal_ccd_triggermode();
 }
-inline void Measurement::_internal_set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  triggermode_ = value;
+  ccd_triggermode_ = value;
 }
-inline void Measurement::set_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_triggermode(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.triggermode)
+inline void Measurement::set_ccd_triggermode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_triggermode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_triggermode)
 }
 
-// float exposure_time = 48;
-inline void Measurement::clear_exposure_time() {
-  exposure_time_ = 0;
+// float ccd_exposure_time = 48;
+inline void Measurement::clear_ccd_exposure_time() {
+  ccd_exposure_time_ = 0;
 }
-inline float Measurement::_internal_exposure_time() const {
-  return exposure_time_;
+inline float Measurement::_internal_ccd_exposure_time() const {
+  return ccd_exposure_time_;
 }
-inline float Measurement::exposure_time() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.exposure_time)
-  return _internal_exposure_time();
+inline float Measurement::ccd_exposure_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_exposure_time)
+  return _internal_ccd_exposure_time();
 }
-inline void Measurement::_internal_set_exposure_time(float value) {
+inline void Measurement::_internal_set_ccd_exposure_time(float value) {
   
-  exposure_time_ = value;
+  ccd_exposure_time_ = value;
 }
-inline void Measurement::set_exposure_time(float value) {
-  _internal_set_exposure_time(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.exposure_time)
+inline void Measurement::set_ccd_exposure_time(float value) {
+  _internal_set_ccd_exposure_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_exposure_time)
 }
 
-// float accumulation_time = 49;
-inline void Measurement::clear_accumulation_time() {
-  accumulation_time_ = 0;
+// float ccd_accumulation_time = 49;
+inline void Measurement::clear_ccd_accumulation_time() {
+  ccd_accumulation_time_ = 0;
 }
-inline float Measurement::_internal_accumulation_time() const {
-  return accumulation_time_;
+inline float Measurement::_internal_ccd_accumulation_time() const {
+  return ccd_accumulation_time_;
 }
-inline float Measurement::accumulation_time() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.accumulation_time)
-  return _internal_accumulation_time();
+inline float Measurement::ccd_accumulation_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_accumulation_time)
+  return _internal_ccd_accumulation_time();
 }
-inline void Measurement::_internal_set_accumulation_time(float value) {
+inline void Measurement::_internal_set_ccd_accumulation_time(float value) {
   
-  accumulation_time_ = value;
+  ccd_accumulation_time_ = value;
 }
-inline void Measurement::set_accumulation_time(float value) {
-  _internal_set_accumulation_time(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.accumulation_time)
+inline void Measurement::set_ccd_accumulation_time(float value) {
+  _internal_set_ccd_accumulation_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_accumulation_time)
 }
 
-// float kinetic_time = 50;
-inline void Measurement::clear_kinetic_time() {
-  kinetic_time_ = 0;
+// float ccd_kinetic_time = 50;
+inline void Measurement::clear_ccd_kinetic_time() {
+  ccd_kinetic_time_ = 0;
 }
-inline float Measurement::_internal_kinetic_time() const {
-  return kinetic_time_;
+inline float Measurement::_internal_ccd_kinetic_time() const {
+  return ccd_kinetic_time_;
 }
-inline float Measurement::kinetic_time() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.kinetic_time)
-  return _internal_kinetic_time();
+inline float Measurement::ccd_kinetic_time() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_kinetic_time)
+  return _internal_ccd_kinetic_time();
 }
-inline void Measurement::_internal_set_kinetic_time(float value) {
+inline void Measurement::_internal_set_ccd_kinetic_time(float value) {
   
-  kinetic_time_ = value;
+  ccd_kinetic_time_ = value;
 }
-inline void Measurement::set_kinetic_time(float value) {
-  _internal_set_kinetic_time(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.kinetic_time)
+inline void Measurement::set_ccd_kinetic_time(float value) {
+  _internal_set_ccd_kinetic_time(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_kinetic_time)
 }
 
-// int32 min_temp = 51;
-inline void Measurement::clear_min_temp() {
-  min_temp_ = 0;
+// int32 ccd_min_temp = 51;
+inline void Measurement::clear_ccd_min_temp() {
+  ccd_min_temp_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_min_temp() const {
-  return min_temp_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_min_temp() const {
+  return ccd_min_temp_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::min_temp() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.min_temp)
-  return _internal_min_temp();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_min_temp() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_min_temp)
+  return _internal_ccd_min_temp();
 }
-inline void Measurement::_internal_set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  min_temp_ = value;
+  ccd_min_temp_ = value;
 }
-inline void Measurement::set_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_min_temp(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.min_temp)
+inline void Measurement::set_ccd_min_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_min_temp(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_min_temp)
 }
 
-// int32 max_temp = 52;
-inline void Measurement::clear_max_temp() {
-  max_temp_ = 0;
+// int32 ccd_max_temp = 52;
+inline void Measurement::clear_ccd_max_temp() {
+  ccd_max_temp_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_max_temp() const {
-  return max_temp_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_max_temp() const {
+  return ccd_max_temp_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::max_temp() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.max_temp)
-  return _internal_max_temp();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_max_temp() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_max_temp)
+  return _internal_ccd_max_temp();
 }
-inline void Measurement::_internal_set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  max_temp_ = value;
+  ccd_max_temp_ = value;
 }
-inline void Measurement::set_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_max_temp(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.max_temp)
+inline void Measurement::set_ccd_max_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_max_temp(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_max_temp)
 }
 
-// int32 target_temp = 53;
-inline void Measurement::clear_target_temp() {
-  target_temp_ = 0;
+// int32 ccd_target_temp = 53;
+inline void Measurement::clear_ccd_target_temp() {
+  ccd_target_temp_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_target_temp() const {
-  return target_temp_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_target_temp() const {
+  return ccd_target_temp_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::target_temp() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.target_temp)
-  return _internal_target_temp();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_target_temp() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_target_temp)
+  return _internal_ccd_target_temp();
 }
-inline void Measurement::_internal_set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  target_temp_ = value;
+  ccd_target_temp_ = value;
 }
-inline void Measurement::set_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_target_temp(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.target_temp)
+inline void Measurement::set_ccd_target_temp(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_target_temp(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_target_temp)
 }
 
-// int32 pre_amp_gain = 54;
-inline void Measurement::clear_pre_amp_gain() {
-  pre_amp_gain_ = 0;
+// int32 ccd_pre_amp_gain = 54;
+inline void Measurement::clear_ccd_pre_amp_gain() {
+  ccd_pre_amp_gain_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_pre_amp_gain() const {
-  return pre_amp_gain_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_pre_amp_gain() const {
+  return ccd_pre_amp_gain_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::pre_amp_gain() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.pre_amp_gain)
-  return _internal_pre_amp_gain();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_pre_amp_gain() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_pre_amp_gain)
+  return _internal_ccd_pre_amp_gain();
 }
-inline void Measurement::_internal_set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  pre_amp_gain_ = value;
+  ccd_pre_amp_gain_ = value;
 }
-inline void Measurement::set_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_pre_amp_gain(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.pre_amp_gain)
+inline void Measurement::set_ccd_pre_amp_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_pre_amp_gain(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_pre_amp_gain)
 }
 
-// int32 em_gain_mode = 55;
-inline void Measurement::clear_em_gain_mode() {
-  em_gain_mode_ = 0;
+// int32 ccd_em_gain_mode = 55;
+inline void Measurement::clear_ccd_em_gain_mode() {
+  ccd_em_gain_mode_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_em_gain_mode() const {
-  return em_gain_mode_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_em_gain_mode() const {
+  return ccd_em_gain_mode_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::em_gain_mode() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.em_gain_mode)
-  return _internal_em_gain_mode();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_em_gain_mode() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_em_gain_mode)
+  return _internal_ccd_em_gain_mode();
 }
-inline void Measurement::_internal_set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  em_gain_mode_ = value;
+  ccd_em_gain_mode_ = value;
 }
-inline void Measurement::set_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_em_gain_mode(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.em_gain_mode)
+inline void Measurement::set_ccd_em_gain_mode(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_em_gain_mode(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_em_gain_mode)
 }
 
-// int32 em_gain = 56;
-inline void Measurement::clear_em_gain() {
-  em_gain_ = 0;
+// int32 ccd_em_gain = 56;
+inline void Measurement::clear_ccd_em_gain() {
+  ccd_em_gain_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_em_gain() const {
-  return em_gain_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::_internal_ccd_em_gain() const {
+  return ccd_em_gain_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::em_gain() const {
-  // @@protoc_insertion_point(field_get:animax.Measurement.em_gain)
-  return _internal_em_gain();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Measurement::ccd_em_gain() const {
+  // @@protoc_insertion_point(field_get:animax.Measurement.ccd_em_gain)
+  return _internal_ccd_em_gain();
 }
-inline void Measurement::_internal_set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Measurement::_internal_set_ccd_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  em_gain_ = value;
+  ccd_em_gain_ = value;
 }
-inline void Measurement::set_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_em_gain(value);
-  // @@protoc_insertion_point(field_set:animax.Measurement.em_gain)
+inline void Measurement::set_ccd_em_gain(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ccd_em_gain(value);
+  // @@protoc_insertion_point(field_set:animax.Measurement.ccd_em_gain)
 }
 
 // string sample_name = 57;

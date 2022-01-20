@@ -88,55 +88,55 @@ void GUI::on_cmdStartScan_clicked()
     settings.guiPort = ui->spbGUIPort->value();
 
     // ccd settings
-    settings.binning_x = ui->spbCCDBinningX->value();
-    settings.binning_y = ui->spbCCDBinningY->value();
-    settings.ccdHeight = ui->spbCCDHeight->value();
-    settings.ccdWidth = ui->spbCCDWidth->value();
-    settings.pixelcount = ui->txtPixelCount->text().toInt();
-    settings.frametransfer_mode = ui->spbCCDFTMode->value();
-    settings.number_of_accumulations = ui->spbNumberOfAccumulations->value();
-    settings.number_of_scans = ui->spbNumberOfScans->value();
-    settings.set_kinetic_cycle_time = ui->dsbKineticCycleTime->value();
-    settings.read_mode = ui->spbReadMode->value();
-    settings.acquision_mode = ui->spbAcquisitionMode->value();
-    settings.shutter_mode = ui->spbShutterMode->value();
-    settings.shutter_output_signal = ui->spbShutterOutputSignal->value();
-    settings.shutter_open_time = ui->dsbShutterOpenTime->value();
-    settings.shutter_close_time = ui->dsbShutterCloseTime->value();
-    settings.triggermode = ui->spbTriggerMode->value();
-    settings.exposure_time = ui->dsbExposureTime->value();
-    settings.accumulation_time = ui->dsbAccumulationTime->value();
-    settings.kinetic_time = ui->dsbKineticTime->value();
-    settings.min_temp = ui->spbMinTemp->value();
-    settings.max_temp = ui->spbMaxTemp->value();
-    settings.target_temp = ui->spbTargetTemp->value();
-    settings.pre_amp_gain = ui->spbPreAmpGain->value();
-    settings.em_gain_mode = ui->spbEMGainMode->value();
-    settings.em_gain = ui->spbEMGain->value();
+    settings.ccd_binning_x = ui->spbCCDBinningX->value();
+    settings.ccd_binning_y = ui->spbCCDBinningY->value();
+    settings.ccd_height = ui->spbCCDHeight->value();
+    settings.ccd_width = ui->spbCCDWidth->value();
+    settings.ccd_pixelcount = ui->txtPixelCount->text().toInt();
+    settings.ccd_frametransfer_mode = ui->spbCCDFTMode->value();
+    settings.ccd_number_of_accumulations = ui->spbNumberOfAccumulations->value();
+    settings.ccd_number_of_scans = ui->spbNumberOfScans->value();
+    settings.ccd_set_kinetic_cycle_time = ui->dsbKineticCycleTime->value();
+    settings.ccd_read_mode = ui->spbReadMode->value();
+    settings.ccd_acquisition_mode = ui->spbAcquisitionMode->value();
+    settings.ccd_shutter_mode = ui->spbShutterMode->value();
+    settings.ccd_shutter_output_signal = ui->spbShutterOutputSignal->value();
+    settings.ccd_shutter_open_time = ui->dsbShutterOpenTime->value();
+    settings.ccd_shutter_close_time = ui->dsbShutterCloseTime->value();
+    settings.ccd_triggermode = ui->spbTriggerMode->value();
+    settings.ccd_exposure_time = ui->dsbExposureTime->value();
+    settings.ccd_accumulation_time = ui->dsbAccumulationTime->value();
+    settings.ccd_kinetic_time = ui->dsbKineticTime->value();
+    settings.ccd_min_temp = ui->spbMinTemp->value();
+    settings.ccd_max_temp = ui->spbMaxTemp->value();
+    settings.ccd_target_temp = ui->spbTargetTemp->value();
+    settings.ccd_pre_amp_gain = ui->spbPreAmpGain->value();
+    settings.ccd_em_gain_mode = ui->spbEMGainMode->value();
+    settings.ccd_em_gain = ui->spbEMGain->value();
     // write ccd width and height into global variables
-    ccdX = settings.ccdWidth;
-    ccdY = settings.ccdHeight;
+    ccdX = settings.ccd_width;
+    ccdY = settings.ccd_height;
 
     // sdd settings
-    settings.sebitcount = ui->spbSebitcount->value();
-    settings.filter = ui->cmbFilter->currentIndex();
-    settings.energyrange = ui->cmbEnergyrange->currentIndex();
-    settings.tempmode = ui->cmbTempmode->currentIndex();
-    settings.zeropeakperiod = ui->spbZeroPeakPeriod->value();
-    settings.checktemperature = ui->cmbCheckTemperature->currentIndex();
+    settings.sdd_sebitcount = ui->spbSebitcount->value();
+    settings.sdd_filter = ui->cmbFilter->currentIndex();
+    settings.sdd_energyrange = ui->cmbEnergyrange->currentIndex();
+    settings.sdd_tempmode = ui->cmbTempmode->currentIndex();
+    settings.sdd_zeropeakperiod = ui->spbZeroPeakPeriod->value();
+    settings.sdd_checktemperature = ui->cmbCheckTemperature->currentIndex();
 
     if (ui->cmbAcquisionMode->currentIndex() == 0) {
-        settings.acquisitionmode = 0;
+        settings.sdd_acquisitionmode = 0;
     }
 
     if (ui->cmbAcquisionMode->currentIndex() == 1) {
-        settings.acquisitionmode = 4;
+        settings.sdd_acquisitionmode = 4;
     }
 
-    settings.sdd1 = ui->chbSDD1->isChecked();
-    settings.sdd2 = ui->chbSDD2->isChecked();
-    settings.sdd3 = ui->chbSDD3->isChecked();
-    settings.sdd4 = ui->chbSSD4->isChecked();
+    settings.sdd_sdd1 = ui->chbSDD1->isChecked();
+    settings.sdd_sdd2 = ui->chbSDD2->isChecked();
+    settings.sdd_sdd3 = ui->chbSDD3->isChecked();
+    settings.sdd_sdd4 = ui->chbSSD4->isChecked();
 
     // sample settings
     settings.sample_name = ui->txtSampleName->text().toStdString();
