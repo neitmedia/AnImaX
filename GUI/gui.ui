@@ -71,7 +71,7 @@
        <x>10</x>
        <y>30</y>
        <width>128</width>
-       <height>71</height>
+       <height>61</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -425,10 +425,10 @@
         <item row="0" column="1">
          <widget class="QSpinBox" name="spbScanWidth">
           <property name="maximum">
-           <number>1000</number>
+           <number>10000</number>
           </property>
           <property name="value">
-           <number>40</number>
+           <number>310</number>
           </property>
          </widget>
         </item>
@@ -442,10 +442,10 @@
         <item row="1" column="1">
          <widget class="QSpinBox" name="spbScanHeight">
           <property name="maximum">
-           <number>1000</number>
+           <number>10000</number>
           </property>
           <property name="value">
-           <number>30</number>
+           <number>580</number>
           </property>
          </widget>
         </item>
@@ -543,6 +543,81 @@
        <item>
         <property name="text">
          <string>500</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>600</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>700</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>800</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>900</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1000</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1100</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1200</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1300</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1400</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1500</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1600</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1700</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1800</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1900</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>2000</string>
         </property>
        </item>
       </widget>
@@ -822,7 +897,7 @@ p, li { white-space: pre-wrap; }
          <x>10</x>
          <y>270</y>
          <width>311</width>
-         <height>24</height>
+         <height>26</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -885,7 +960,7 @@ p, li { white-space: pre-wrap; }
         <rect>
          <x>10</x>
          <y>25</y>
-         <width>363</width>
+         <width>311</width>
          <height>228</height>
         </rect>
        </property>
@@ -1097,7 +1172,7 @@ p, li { white-space: pre-wrap; }
          <x>10</x>
          <y>30</y>
          <width>721</width>
-         <height>266</height>
+         <height>293</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout">
@@ -1657,7 +1732,7 @@ p, li { white-space: pre-wrap; }
          <x>10</x>
          <y>30</y>
          <width>181</width>
-         <height>86</height>
+         <height>95</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
@@ -1717,7 +1792,7 @@ p, li { white-space: pre-wrap; }
         <x>10</x>
         <y>10</y>
         <width>293</width>
-        <height>85</height>
+        <height>92</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_6">
@@ -1832,7 +1907,7 @@ p, li { white-space: pre-wrap; }
          <x>10</x>
          <y>30</y>
          <width>291</width>
-         <height>116</height>
+         <height>128</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">

@@ -113,6 +113,7 @@ int main (int argc, char** argv)
             
         	gui.send(zmq::str_buffer("ccdsettings"), zmq::send_flags::sndmore);
         	gui.send(requestccdsettings, zmq::send_flags::none);
+            free(ccdsettingsbuffersend);
             
             // send ready signal
             
@@ -246,7 +247,7 @@ int main (int argc, char** argv)
                 free(buffer);
                 free(buffersend);
                         
-                usleep(100);
+                usleep(2000);
                 
                 if (stopscan) {
                     break;

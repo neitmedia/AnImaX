@@ -78,6 +78,8 @@ private:
     int row = 0;
     int col = 0;
 
+    bool initialized = false;
+
     int savestarttime;
     int saveendtime;
 

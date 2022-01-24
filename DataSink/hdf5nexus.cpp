@@ -560,6 +560,7 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     Group* measurement_group = newNeXusGroup("/measurement", "NX_class", "NXentry", false);
     newNeXusGroupStringAttribute(measurement_group, "default", "transmission");
     measurement_group->close();
+    delete(measurement_group);
     newNeXusScalarDataSet("/measurement/start_time", "NX_DATE_TIME", datetime.toStdString(), true);
     newNeXusScalarDataSet("/measurement/definition", "NX_CHAR", "NXstxm", true);
     newNeXusScalarDataSet("/measurement/scan_type", "NX_CHAR", settings.scantype, true);
@@ -574,13 +575,16 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusGroupStringAttribute(transmission_group, "signal", "data");
     newNeXusGroupStringAttribute(transmission_group, "axes", "[\"sample_x\",\"sample_y\"]");
     transmission_group->close();
+    delete(transmission_group);
 
     DataSet* transmission_sample_x_ds = newNeXusChunked1DDataSet("/measurement/transmission/sample_x", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, false);
     newNeXusDatasetStringAttribute(transmission_sample_x_ds, "axis", "0");
     transmission_sample_x_ds->close();
+    delete(transmission_sample_x_ds);
     DataSet* transmission_sample_y_ds = newNeXusChunked1DDataSet("/measurement/transmission/sample_y", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, false);
     newNeXusDatasetStringAttribute(transmission_sample_y_ds, "axis", "1");
     transmission_sample_y_ds->close();
+    delete(transmission_sample_y_ds);
 
     newNeXusScalarDataSet("/measurement/transmission/stxm_scan_type", "NX_CHAR", "sample image", true);
 
@@ -588,13 +592,17 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusGroupStringAttribute(fluorescence_group, "signal", "data");
     newNeXusGroupStringAttribute(fluorescence_group, "axes", "[\".\",\".\"]");
     fluorescence_group->close();
+    delete(fluorescence_group);
 
     DataSet* fluorescence_sample_x_ds = newNeXusChunked1DDataSet("/measurement/fluorescence/sample_x", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, false);
     newNeXusDatasetStringAttribute(fluorescence_sample_x_ds, "axis", "0");
     fluorescence_sample_x_ds->close();
+    delete(fluorescence_sample_x_ds);
+
     DataSet* fluorescence_sample_y_ds = newNeXusChunked1DDataSet("/measurement/fluorescence/sample_y", PredType::NATIVE_FLOAT, "NX_FLOAT", settings.file_compression, settings.file_compression_level, false);
     newNeXusDatasetStringAttribute(fluorescence_sample_y_ds, "axis", "1");
     fluorescence_sample_y_ds->close();
+    delete(fluorescence_sample_y_ds);
     //file->link(H5L_TYPE_HARD, "/measurement/transmission/sample_x", "/measurement/fluorescence/sample_x");
     //file->link(H5L_TYPE_HARD, "/measurement/transmission/sample_y", "/measurement/fluorescence/sample_y");
 
@@ -659,7 +667,6 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/shutter_open_time", "NX_FLOAT", settings.ccd_shutter_open_time, true);
     newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/shutter_close_time", "NX_FLOAT", settings.ccd_shutter_close_time, true);
     newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/triggermode", "NX_INT", settings.ccd_triggermode, true);
-    newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/set_integration_time", "NX_FLOAT", settings.ccd_set_integration_time, true);
     newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/exposure_time", "NX_FLOAT", settings.ccd_exposure_time, true);
     newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/accumulation_time", "NX_FLOAT", settings.ccd_accumulation_time, true);
     newNeXusScalarDataSet("/measurement/instruments/ccd/settings/set/kinetic_time", "NX_FLOAT", settings.ccd_kinetic_time, true);
@@ -785,6 +792,7 @@ void hdf5nexus::createDataFile(QString filename, settingsdata settings) {
     newNeXusDatasetStringAttribute(fluorescencedataset, "signal", "1");
     fluorescencedataset->close();
     delete fluorescencedataset;
+
     file->link(H5L_TYPE_HARD, "/measurement/instruments/sdd/data", "/measurement/fluorescence/data");
 
     newNeXusGroup("/measurement/instruments/sdd/log", "NX_class", "NXcollection", true);
@@ -928,6 +936,9 @@ void hdf5nexus::appendValueTo1DDataSet(std::string location, int position, float
     dataset->write(dataarr, PredType::NATIVE_FLOAT, *memspace, *filespace);
 
     filespace->close();
+    delete(filespace);
     memspace->close();
+    delete(memspace);
     dataset->close();
+    delete(dataset);
 }

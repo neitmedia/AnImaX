@@ -214,7 +214,7 @@ void controlThread::run()
             // send "preview" envelope with preview data content
             gui.send(zmq::str_buffer("previewdata"), zmq::send_flags::sndmore);
             gui.send(request, zmq::send_flags::none);
-
+            free(sendbuffer);
             newSTXMpreview = false;
             std::cout<<"sent new stxm preview data"<<std::endl;
         }
@@ -235,7 +235,7 @@ void controlThread::run()
             // send "preview" envelope with preview data content
             gui.send(zmq::str_buffer("previewdata"), zmq::send_flags::sndmore);
             gui.send(request, zmq::send_flags::none);
-
+            free(sendbuffer);
             newCCDpreview = false;
             std::cout<<"sent new ccd preview data"<<std::endl;
         }
@@ -254,10 +254,10 @@ void controlThread::run()
                     roi.SerializeToArray(sendbuffer, size);
                     zmq::message_t request(size);
                     memcpy ((void *) request.data (), sendbuffer, size);
-
                     // send "preview" envelope with preview data content
                     gui.send(zmq::str_buffer("roidata"), zmq::send_flags::sndmore);
                     gui.send(request, zmq::send_flags::none);
+                    free(sendbuffer);
             }
 
             newROIs = false;
@@ -278,7 +278,7 @@ void controlThread::run()
             // send "scanstatus" envelope with status info
             gui.send(zmq::str_buffer("scanstatus"), zmq::send_flags::sndmore);
             gui.send(request, zmq::send_flags::none);
-
+            free(sendbuffer);
             partScanFinished = false;
             waitForMetadata = true;
         }
@@ -297,7 +297,7 @@ void controlThread::run()
             // send "scanstatus" envelope with status info
             gui.send(zmq::str_buffer("scanstatus"), zmq::send_flags::sndmore);
             gui.send(request, zmq::send_flags::none);
-
+            free(sendbuffer);
             wholeScanFinished = false;
         }
     }

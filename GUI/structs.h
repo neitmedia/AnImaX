@@ -63,7 +63,6 @@ struct settingsdata {
     float ccd_shutter_open_time;
     float ccd_shutter_close_time;
     int ccd_triggermode;
-    float ccd_set_integration_time;
     float ccd_exposure_time;
     float ccd_accumulation_time;
     float ccd_kinetic_time;

@@ -156,6 +156,7 @@ void scan::run()
                 zmq::message_t request(settingssize);
                 memcpy((void *)request.data(), settingsbuffer, settingssize);
                 publisher.send(request, zmq::send_flags::none);
+                free(settingsbuffer);
                 std::cout<<"sent!"<<std::endl;
 
                 // check if ccd connection is ready
@@ -242,7 +243,7 @@ void scan::run()
                 zmq::message_t request(metadatasize);
                 memcpy((void *)request.data(), metadatabuffer, metadatasize);
                 publisher.send(request, zmq::send_flags::none);
-
+                free(metadatabuffer);
                 std::cout<<"sent initial metadata!"<<std::endl;
 
                 metadata_sent = true;
@@ -354,7 +355,7 @@ void scan::run()
                         if (scanstatusstr == "part finished") {
                             std::cout<<"received scanstatus message: "<<scanstatusstr<<std::endl;
 
-                            //QThread::sleep(5);
+                            QThread::sleep(5);
 
                             acquisition_number++;
 
@@ -401,7 +402,7 @@ void scan::run()
                 zmq::message_t request(scanstatusdatasize);
                 memcpy((void *)request.data(), scanstatusdatabuffer, scanstatusdatasize);
                 publisher.send(request, zmq::send_flags::none);
-
+                free(scanstatusdatabuffer);
                 std::cout<<"sent scan '"<<scanstatus.status()<<"' message!"<<std::endl;
             }
 
@@ -418,7 +419,7 @@ void scan::run()
                 zmq::message_t request(scannotedatasize);
                 memcpy((void *)request.data(), scannotedatabuffer, scannotedatasize);
                 publisher.send(request, zmq::send_flags::none);
-
+                free(scannotedatabuffer);
                 std::cout<<"sent scan note '"<<scannotebuf.text()<<"'!"<<std::endl;
 
                 // clear scan note

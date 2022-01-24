@@ -239,7 +239,7 @@ int main (int argc, char** argv)
             free(buffer);
             free(buffersend);
             
-            usleep(4500);
+            usleep(2000);
             
             if (stopscan) {
                 break;

@@ -49,54 +49,57 @@ MainWindow::~MainWindow()
 
 void MainWindow::showEvent( QShowEvent* event ) {
     QWidget::showEvent( event );
-    // get IP settings from ini file
-    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "AnImaX", "DataSink");
-
-    settings.beginGroup("Network");
-
-    QString guiIP = settings.value("guiIP").toString();
-    QString guiPort = settings.value("guiPort").toString();
-
-    settings.endGroup();
-
-    // add log item
-    addLogItem("read network settings from file "+settings.fileName());
-    addLogItem("GUI - "+guiIP+":"+guiPort);
-
-    if ((guiIP == "") || (guiPort == "")) {
-        // write standard IP settings to ini file
-        guiIP = "127.0.0.1";
-        guiPort = "5555";
+    if (!initialized) {
+        // get IP settings from ini file
         QSettings settings(QSettings::IniFormat, QSettings::UserScope, "AnImaX", "DataSink");
+
         settings.beginGroup("Network");
-        settings.setValue("guiIP", guiIP);
-        settings.setValue("guiPort", guiPort);
+
+        QString guiIP = settings.value("guiIP").toString();
+        QString guiPort = settings.value("guiPort").toString();
+
         settings.endGroup();
+
+        // add log item
+        addLogItem("read network settings from file "+settings.fileName());
+        addLogItem("GUI - "+guiIP+":"+guiPort);
+
+        if ((guiIP == "") || (guiPort == "")) {
+            // write standard IP settings to ini file
+            guiIP = "127.0.0.1";
+            guiPort = "5555";
+            QSettings settings(QSettings::IniFormat, QSettings::UserScope, "AnImaX", "DataSink");
+            settings.beginGroup("Network");
+            settings.setValue("guiIP", guiIP);
+            settings.setValue("guiPort", guiPort);
+            settings.endGroup();
+        }
+
+        // set log filename
+        QString logpath = QDir::currentPath();
+        qint64 qiTimestamp=QDateTime::currentMSecsSinceEpoch();
+        QDateTime dt;
+        dt.setTime_t(qiTimestamp/1000);
+        QString datestring = dt.toString("yyyy-MM-dd-hh-mm-ss");
+        QString logfile = "measurement_"+datestring+".log";
+
+        QString logfilepath = logpath+"/"+logfile;
+
+        ui->txtLogFileName->setText(logfilepath);
+
+        // launch control thread
+        controlth = new controlThread(guiIP+':'+guiPort);
+        const bool connected = connect(controlth, SIGNAL(sendSettingsToGUI(settingsdata)),this,SLOT(getScanSettings(settingsdata)));
+        const bool connected2 = connect(controlth, SIGNAL(sendMetadataToGUI(metadata)),this,SLOT(getMetadata(metadata)));
+        const bool connected3 = connect(controlth, SIGNAL(sendScanNoteToGUI(std::string)),this,SLOT(getScanNote(std::string)));
+        const bool connected4 = connect(controlth, SIGNAL(sendScanStatusToGUI(std::string)),this,SLOT(getScanStatus(std::string)));
+
+        controlth->start();
+
+        // add log item
+        addLogItem("launched control thread");
+        initialized = true;
     }
-
-    // set log filename
-    QString logpath = QDir::currentPath();
-    qint64 qiTimestamp=QDateTime::currentMSecsSinceEpoch();
-    QDateTime dt;
-    dt.setTime_t(qiTimestamp/1000);
-    QString datestring = dt.toString("yyyy-MM-dd-hh-mm-ss");
-    QString logfile = "measurement_"+datestring+".log";
-
-    QString logfilepath = logpath+"/"+logfile;
-
-    ui->txtLogFileName->setText(logfilepath);
-
-    // launch control thread
-    controlth = new controlThread(guiIP+':'+guiPort);
-    const bool connected = connect(controlth, SIGNAL(sendSettingsToGUI(settingsdata)),this,SLOT(getScanSettings(settingsdata)));
-    const bool connected2 = connect(controlth, SIGNAL(sendMetadataToGUI(metadata)),this,SLOT(getMetadata(metadata)));
-    const bool connected3 = connect(controlth, SIGNAL(sendScanNoteToGUI(std::string)),this,SLOT(getScanNote(std::string)));
-    const bool connected4 = connect(controlth, SIGNAL(sendScanStatusToGUI(std::string)),this,SLOT(getScanStatus(std::string)));
-
-    controlth->start();
-
-    // add log item
-    addLogItem("launched control thread");
 }
 
 void MainWindow::addLogItem(QString logtext) {
@@ -157,7 +160,7 @@ void MainWindow::getScanSettings(settingsdata settings) {
     stxmimage = (uint32_t*) malloc(scanX*scanY*sizeof(uint32_t));
 
     // make sure stxmimage contains only zeros
-    for (int i=0;i<=scanX*scanY;i++) {
+    for (int i=0;i<scanX*scanY;i++) {
         stxmimage[i] = 0;
     }
 
