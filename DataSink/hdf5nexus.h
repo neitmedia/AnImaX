@@ -17,12 +17,13 @@ public:
     void openDataFile(QString);
     void writeEndTimeStamp();
     void closeDataFile();
-    void newNeXusFileStringAttribute(std::string, std::string);
-    void newNeXusGroupStringAttribute(Group*, std::string, std::string);
-    void newNeXusDatasetStringAttribute(DataSet*, std::string, std::string);
 
-    void writeScanIndexData(int, int, int);
-    void writeLineBreakDataAndROIs(roidata, int, int, int, int, int);
+    void newNeXusAttribute(std::string, std::string);
+    void newNeXusAttribute(Group*, std::string, std::string);
+    void newNeXusAttribute(DataSet*, std::string, std::string);
+
+    void writeScanIndexData(long, int, int);
+    void writeLineBreakDataAndROIs(roidata, long, int, int, int, int);
 
     void writeMetadata(metadata);
     void writeSDDData(int32_t, spectrumdata);

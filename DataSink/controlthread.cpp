@@ -10,57 +10,122 @@
 
 #include <zmq.hpp>
 
+// constructor of controlThread
 controlThread::controlThread(QString s): ip(s)
 {
+    // register metatypes to make them usable as function parameters
     qRegisterMetaType<imagepixeldata>( "imagepixeldata" );
     qRegisterMetaType<settingsdata>( "settingsdata" );
     qRegisterMetaType<metadata>("metadata");
     qRegisterMetaType<imagepreviewdata>( "imagepreviewdata" );
 }
 
+// function that is triggered by mainwindow.cpp / data sink GUI thread to tell the control thread that new transmission preview data is available for publishing
 void controlThread::setCurrentSTXMPreview(imagepreviewdata stxmprev) {
+
+    // write preview data to global stxmpreview variable
     stxmpreview = stxmprev;
+
+    // set newSTXMpreview = true, so main loop in thread knows that new transmission preview data is ready to be published
     newSTXMpreview = true;
+
 }
 
+// function that is triggered by mainwindow.cpp / data sink GUI thread to tell the control thread that new ccd image preview data is available for publishing
 void controlThread::setCurrentCCDImage(std::string ccdprev) {
+
+    // write preview data to global ccdpreview variable
     ccdpreview = ccdprev;
+
+    // set newCCDpreview = true, so main loop in thread knows that new ccd image preview data is ready to be published
     newCCDpreview = true;
+
 }
 
+// function that is triggered by mainwindow.cpp / data sink GUI thread to tell the control thread that there new ROI preview data is available for publishing
 void controlThread::setCurrentROIs(roidata ROIs) {
+
+    // write preview data to global ROIdata variable of type roidata (QMap<std::string, QVector<uint32_t>>)
     ROIdata = ROIs;
+
+    // set newROIs = true, so main loop in thread knows that new ROI preview data is ready to be published
     newROIs = true;
 }
 
+// run function is started when thread is launched
 void controlThread::run()
 {
+    // give out some debug info
     std::cout<<"controller thread is running..."<<std::endl;
+
+    // declare zmq context variable
     zmq::context_t ctx(1);
-    // Prepare subscriber
+
+    // declare zmq subscriber socket object
     zmq::socket_t subscriber(ctx, zmq::socket_type::sub);
+
+    // connect subscriber socket to given IP
     subscriber.connect("tcp://"+ip.toStdString());
+
+    // subscribe to messages with envelope "settings" that contain all settings that are relevant to the scan
+    // message with "settings" envelope is sent only at the start of a scan
     subscriber.set(zmq::sockopt::subscribe, "settings");
+
+    // subscribe to messages with envelope "metadata" that contain metadata
+    // message with "metadata" envelope is sent at the start of every scan part (at the start of every new energy scan)
     subscriber.set(zmq::sockopt::subscribe, "metadata");
+
+    // subscribe to messages with envelope "metadata" that contain post-scan notes
     subscriber.set(zmq::sockopt::subscribe, "scannote");
+
+    // subscribe to messages with envelope "scanstatus" that contain user requested status changes
     subscriber.set(zmq::sockopt::subscribe, "scanstatus");
 
+    // declare zmq publisher socket object GUI
     zmq::socket_t gui(ctx, zmq::socket_type::pub);
 
+    // declare and initalize variable "filecreated"
     bool filecreated = false;
+
+    /* BEGIN MAIN LOOP */
+
     while (!stop) {
+
+        // declare message envelope variable
         zmq::message_t env;
+
+        // receive message envelope if data is available
+        // !!IMPORTANT!! -> do not wait if no data is available
         (void)subscriber.recv(env, zmq::recv_flags::dontwait);
+
+        // if data has been received, process it
         if (env.size() > 0) {
+
+            // cast envelope data to string
             std::string env_str = std::string(static_cast<char*>(env.data()), env.size());
+
+            // give out some debug info
             std::cout << "Received envelope: "<<env_str<< std::endl;
+
+            // declare message object
             zmq::message_t msg;
+
+            // receive message content
             (void)subscriber.recv(msg);
+
+            // give out some debug info
             std::cout << "Received data" << std::endl;
 
+            // if received message has the envelope "settings"
             if (env_str == "settings") {
+
+                // declare animax:Measurement object Measurement
                 animax::Measurement Measurement;
+
+                // parse / deserialize message data into Measurement protobuf object Measurement
                 Measurement.ParseFromArray(msg.data(), msg.size());
+
+                /* START GETTING SETTINGS FROM PROTOBUF */
 
                 // get settings from protobuf and write them into settingsdata variable "settings"
                 settingsdata settings;
@@ -79,6 +144,7 @@ void controlThread::run()
                 settings.file_compression = Measurement.file_compression();
                 settings.file_compression_level = Measurement.file_compression_level();
 
+                // give out some debug info
                 std::cout<<"compression mode:"<<settings.file_compression<<std::endl;
 
                 // network settings
@@ -146,9 +212,13 @@ void controlThread::run()
                 settings.notes = Measurement.notes();
                 settings.userdata = Measurement.userdata();
 
+                /* END GETTING SETTINGS FROM PROTOBUF */
+
+                // if connected variable is false it means that publisher is not connected
                 if (!connected) {
-                    // Prepare publisher
+                    // start publisher, bind to *:PORT
                     gui.bind("tcp://*:"+std::to_string(settings.datasinkPort));
+                    // set connected variable = true so thread does not try to bind a second time
                     connected = true;
                 }
 
@@ -158,21 +228,38 @@ void controlThread::run()
                 std::cout<<"ccd width: "<<settings.ccd_width<<std::endl;
                 std::cout<<"ccd height: "<<settings.ccd_height<<std::endl;
 
+                // if filecreated = false it means that file has not been created by now (datasink GUI thread did not get scan settings)
                 if (!filecreated) {
+                    // set filecreated = true, so only one data file per scan is created
                     filecreated = true;
+                    // send settings to datasink GUI thread
                     emit sendSettingsToGUI(settings);
                 }
 
+                // if ccd and sdd are ready, datasink is also ready
                 if ((this->ccdReady) && (this->sddReady)) {
+                    // send "statusdata" envelope
                     gui.send(zmq::str_buffer("statusdata"), zmq::send_flags::sndmore);
+                    // send ready signal
                     gui.send(zmq::str_buffer("ready"), zmq::send_flags::none);
                 }
+
+            // if received message has the envelope "metadata"
             } else if (env_str == "metadata") {
+                // if waitForMetadata is true, thread watches for new metadata messages
+                // [important at the beginning of a scan and at the beginning of every energy scan]
                 if (waitForMetadata) {
+
+                    // declare animax::Metadata object Metadata
                     animax::Metadata Metadata;
+
+                    // parse / deserialize data from message content
                     Metadata.ParseFromArray(msg.data(), msg.size());
 
+                    // declare metadata struct of type metadata (see structs.h)
                     metadata metadata;
+
+                    // write values from protobuf to metadata struct
                     metadata.acquisition_number = Metadata.acquisition_number();
                     metadata.acquisition_time = Metadata.acquisition_time();
                     metadata.set_energy = Metadata.set_energy();
@@ -181,124 +268,259 @@ void controlThread::run()
                     metadata.horizontal_shutter = Metadata.horizontal_shutter();
                     metadata.vertical_shutter = Metadata.vertical_shutter();
 
+                    // send metadata to datasink GUI thread
                     emit sendMetadataToGUI(metadata);
+
+                    // for now, controlthread should not check for new metadata messages, so set waitForMetadata = false
                     waitForMetadata = false;
                 }
+
+            // if received message has the envelope "scannote", new post scan note has to be written to the files
             } else if (env_str == "scannote") {
+
+                // give out some debug info
                 std::cout<<"received scan note!"<<std::endl;
+
+                // declare animax::scannote object ScanNote
                 animax::scannote ScanNote;
+
+                // parse/deserialize data from message to protobuf object ScanNote
                 ScanNote.ParseFromArray(msg.data(), msg.size());
+
+                // send note data to datasink GUI thread
                 emit sendScanNoteToGUI(ScanNote.text());
 
+            // if received message has the envelope "scannote", new post scan note has to be written to the files
             } else if (env_str == "scanstatus") {
+
+                // give out some debug info
                 std::cout<<"received scan status!"<<std::endl;
+
+                // declare animax::scanstatus object scanstatus
                 animax::scanstatus scanstatus;
+
+                // parse / deserialize data from message into scanstatus
                 scanstatus.ParseFromArray(msg.data(), msg.size());
+
+                // send scan status to datasink GUI thread
                 emit sendScanStatusToGUI(scanstatus.status());
             }
 
         }
 
-        // check if stxm preview needs to be sent
+        // check if new transmission image preview data is available for sending
         if (newSTXMpreview) {
+
+            // declare animax::preview object Preview
             animax::preview Preview;
+
+            // set Preview type to "stxm"
             Preview.set_type("stxm");
+
+            // write preview data into animax::preview object Preview
             Preview.set_previewdata(stxmpreview.constData(), stxmpreview.count()*sizeof(uint32_t));
-            // serialize data and write into ZMQ request
+
+            // declare and define size variable with length of data that should be sent
             size_t size = Preview.ByteSizeLong();
+
+            // allocate memory for the send buffer
             void *sendbuffer = malloc(size);
+
+            // serialize preview data into protocol buffer
             Preview.SerializeToArray(sendbuffer, size);
+
+            // declare zmq message object request
             zmq::message_t request(size);
+
+            // write data from sendbuffer into request object
             memcpy ((void *) request.data (), sendbuffer, size);
 
-            // send "preview" envelope with preview data content
+            // send "preview" envelope
             gui.send(zmq::str_buffer("previewdata"), zmq::send_flags::sndmore);
+
+            // send preview data
             gui.send(request, zmq::send_flags::none);
+
+            // free previously allocated memory
             free(sendbuffer);
+
+            // set newSTXMpreview = false, because newest preview data has now been sent
             newSTXMpreview = false;
+
+            // give out some debug info
             std::cout<<"sent new stxm preview data"<<std::endl;
         }
 
-        // check if ccd preview needs to be sent
+        // check if new ccd image preview data is available for sending
         if (newCCDpreview) {
+
+            // declare animax::preview object Preview
             animax::preview Preview;
+
+            // set preview type to "ccd"
             Preview.set_type("ccd");
+
+            // write ccd image preview data to animax::preview object Preview
             Preview.set_previewdata(ccdpreview);
 
-            // serialize data and write into ZMQ request
+            // declare and define size variable with length of data that should be sent
             size_t size = Preview.ByteSizeLong();
+
+            // allocate necessary memory
             void *sendbuffer = malloc(size);
+
+            // serialize data
             Preview.SerializeToArray(sendbuffer, size);
+
+            // declare zmq request message
             zmq::message_t request(size);
+
+            // write data into request
             memcpy ((void *) request.data (), sendbuffer, size);
 
-            // send "preview" envelope with preview data content
+            // send "preview" envelope
             gui.send(zmq::str_buffer("previewdata"), zmq::send_flags::sndmore);
+
+            // send preview data
             gui.send(request, zmq::send_flags::none);
+
+            // free previously allocated memory
             free(sendbuffer);
+
+            // set newCCDpreview = false, because newest preview data has now been sent
             newCCDpreview = false;
+
+            // give out some debug info
             std::cout<<"sent new ccd preview data"<<std::endl;
         }
 
-        // check if ccd preview needs to be sent
+        // check if new ROI preview data is available for sending
         if (newROIs) {
+
+            // get keys from ROIdata
             auto const ROIkeys = ROIdata.keys();
+
+            // iterate through ROIs
             for (std::string e : ROIkeys) {
-                    //std::cout<<"sending ROI data for "<<e<<":"<<std::endl;
+
+                    // declare animax::ROI object roi
                     animax::ROI roi;
+
+                    // write element info to roi object
                     roi.set_element(e);
+
+                    // write ROI preview data into roi object
                     roi.set_roidata(ROIdata[e].constData(), ROIdata[e].count()*sizeof(uint32_t));
-                    // serialize data and write into ZMQ request
+
+                    // declare and define size variable with length of data that should be sent
                     size_t size = roi.ByteSizeLong();
+
+                    // allocate necessary memory
                     void *sendbuffer = malloc(size);
+
+                    // serialize data
                     roi.SerializeToArray(sendbuffer, size);
+
+                    // declare zmq request message
                     zmq::message_t request(size);
+
+                    // write data into request
                     memcpy ((void *) request.data (), sendbuffer, size);
-                    // send "preview" envelope with preview data content
+
+                    // send "roidata" envelope
                     gui.send(zmq::str_buffer("roidata"), zmq::send_flags::sndmore);
+
+                    // send data
                     gui.send(request, zmq::send_flags::none);
+
+                    // free previously allocated memory
                     free(sendbuffer);
             }
 
+            // set newROIs = false, because newest ROI preview data has now been sent
             newROIs = false;
 
         }
 
-        // check if a part of NEXAFS scan is ready
-        // if so, tell GUI
+        // check if a part of NEXAFS scan is ready (partScanFinished was set true by datasink GUI thread)
+        // if so, publish status message "part finished"
         if (partScanFinished) {
+
+            // declare animax::scanstatus object scanstatus
             animax::scanstatus scanstatus;
+
+            // set scanstatus.status = "part finished"
             scanstatus.set_status("part finished");
+
+            // get size of message
             size_t size = scanstatus.ByteSizeLong();
+
+            // allocate necessary memory
             void *sendbuffer = malloc(size);
+
+            // serialize data
             scanstatus.SerializeToArray(sendbuffer, size);
+
+            // declare zmq request message
             zmq::message_t request(size);
+
+            // write data into request
             memcpy ((void *) request.data (), sendbuffer, size);
 
-            // send "scanstatus" envelope with status info
+            // send "scanstatus" envelope
             gui.send(zmq::str_buffer("scanstatus"), zmq::send_flags::sndmore);
+
+            // send data
             gui.send(request, zmq::send_flags::none);
+
+            // free previously allocated memory
             free(sendbuffer);
+
+            // set partScanFinished = false, so "part finished" is sent out only one time
             partScanFinished = false;
+
+            // set waitForMetadata = true, so controlthread looks out for new metadata
             waitForMetadata = true;
         }
 
-        // check if a whole scan is ready
-        // if so, tell GUI
+        // check if a whole scan is ready (wholeScanFinished was set true by datasink GUI thread)
+        // if so, publish status message "whole scan finished"
         if (wholeScanFinished) {
+
+            // declare animax::scanstatus object scanstatus
             animax::scanstatus scanstatus;
+
+            // set status to "whole scan finished"
             scanstatus.set_status("whole scan finished");
+
+            // get message size
             size_t size = scanstatus.ByteSizeLong();
+
+            // allocated necessary memory
             void *sendbuffer = malloc(size);
+
+            // serialize data
             scanstatus.SerializeToArray(sendbuffer, size);
+
+            // declare zmq request message
             zmq::message_t request(size);
+
+            // write data into request
             memcpy ((void *) request.data (), sendbuffer, size);
 
-            // send "scanstatus" envelope with status info
+            // send "scanstatus" envelope
             gui.send(zmq::str_buffer("scanstatus"), zmq::send_flags::sndmore);
+
+            // send status data
             gui.send(request, zmq::send_flags::none);
+
+            // free previously allocated memory
             free(sendbuffer);
+
+            // set wholeScanFinished = false so status message is sent only one time
             wholeScanFinished = false;
         }
     }
+
+    /* END MAIN LOOP */
 }

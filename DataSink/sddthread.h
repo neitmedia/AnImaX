@@ -16,8 +16,8 @@ class sddThread : public QThread
 
 signals:
     void sendSpectrumDataToGUI(int, spectrumdata);
-    void sendScanIndexDataToGUI(int, int, int);
-    void sendLineBreakDataToGUI(roidata, int, int, int);
+    void sendScanIndexDataToGUI(long, int, int);
+    void sendLineBreakDataToGUI(roidata, long, int, int);
     void sendDeviceStatus(QString, QString);
     void sddReady();
 

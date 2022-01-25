@@ -36,8 +36,8 @@ public slots:
     void getImageData(int, std::string);
     void getCCDSettings(ccdsettings);
     void showIncomingSpectrum(int, spectrumdata);
-    void writeScanIndexData(int, int, int);
-    void writeLineBreakData(roidata, int, int, int);
+    void writeScanIndexData(long, int, int);
+    void writeLineBreakData(roidata, long, int, int);
     void getScanSettings(settingsdata);
     void getMetadata(metadata);
     void getScanNote(std::string);
