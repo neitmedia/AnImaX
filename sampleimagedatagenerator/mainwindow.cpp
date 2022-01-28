@@ -3,6 +3,7 @@
 #include "QFileDialog"
 #include <stdio.h>
 #include <QImageReader>
+#include <QRandomGenerator>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -35,10 +36,14 @@ void MainWindow::on_cmdGenImage_clicked()
 
     for (int j=0;j<scanY;j++) {
         for (int i=0;i<scanX;i++) {
+
+            int yrand = QRandomGenerator::global()->bounded(ccdY);
+            int xrand = QRandomGenerator::global()->bounded(ccdX);
+
             uint16_t pixelvalue = (uint16_t) ~((unsigned int)qGray(scaled.pixel(i,j)));
             for (int k=0;k<ccdY;k++) {
                 for (int l=0;l<ccdX;l++) {
-                    if ((k == 50) && (l == 60)) {
+                    if ((k == yrand) && (l == xrand)) {
                         out << (uint16_t)pixelvalue;
                     } else {
                         out << (uint16_t)0;
@@ -104,7 +109,7 @@ void MainWindow::on_spbScanX_valueChanged(int arg1)
 
     int scanX = ui->spbScanX->value();
     int scanY = ui->spbScanY->value();
-    ui->imagePreview->setGeometry(350,10,scanX,scanY);
+    ui->imagePreview->setGeometry(190,10,scanX,scanY);
     resizeImage();
 }
 
@@ -113,7 +118,7 @@ void MainWindow::on_spbScanY_valueChanged(int arg1)
 {
     int scanX = ui->spbScanX->value();
     int scanY = ui->spbScanY->value();
-    ui->imagePreview->setGeometry(350,10,scanX,scanY);
+    ui->imagePreview->setGeometry(190,10,scanX,scanY);
     resizeImage();
 }
 

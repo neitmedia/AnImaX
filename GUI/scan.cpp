@@ -12,11 +12,13 @@
 
 #include <zmq.hpp>
 
+// constructor
 scan::scan(settingsdata s): settings(s)
 {
     qRegisterMetaType<std::string>();
 }
 
+// this function is invoked if the thread is started
 void scan::run()
 {
         //  Prepare publisher
@@ -49,7 +51,8 @@ void scan::run()
         // prepare "Measurement"-protobuf
         animax::Measurement Measurement;
 
-        /* BEGIN SET PROTOBUF VALUES */
+        /* START SET PROTOBUF VALUES */
+
         // general scan settings
         Measurement.set_width(settings.scanWidth);
         Measurement.set_height(settings.scanHeight);
@@ -68,6 +71,7 @@ void scan::run()
         Measurement.set_file_compression(settings.file_compression);
         Measurement.set_file_compression_level(settings.file_compression_level);
 
+        // give out some debug info
         std::cout<<"file compression: "<<Measurement.file_compression()<<std::endl;
 
         // network settings
@@ -134,8 +138,11 @@ void scan::run()
         // additional settings
         Measurement.set_notes(settings.notes);
         Measurement.set_userdata(settings.userdata);
+
         /* END SET PROTOBUF VALUES */
 
+
+        // declare and initialize the "ready" status-variables
         bool ccd_connection_ready = false;
         bool ccd_detector_ready = false;
         bool ccd_settings_ready = false;
@@ -144,11 +151,12 @@ void scan::run()
         bool datasink_ready = false;
         bool metadata_sent = false;
 
-        while (true) {
+        while (!stop) {
 
             // send settings and make sure all hosts and peripherals / devices are connected
             while ((!ccd_connection_ready) || (!sdd_connection_ready) || (!datasink_ready)) {
-                // publish settings
+
+                // publish settings until all CCD and SDD replied with "connection ready" and datasink replied with "ready"
                 publisher.send(zmq::str_buffer("settings"), zmq::send_flags::sndmore);
                 size_t settingssize = Measurement.ByteSizeLong();
                 void *settingsbuffer = malloc(settingssize);
@@ -161,6 +169,8 @@ void scan::run()
 
                 // check if ccd connection is ready
                 if (!ccd_connection_ready) {
+
+                    // try to receive data, do not wait if no data is received
                     zmq::message_t ccdreply;
                     (void)ccd.recv(ccdreply, zmq::recv_flags::dontwait);
                     std::string ccdenv_str = "";
@@ -169,6 +179,8 @@ void scan::run()
                         zmq::message_t ccdmsg;
                         (void)ccd.recv(ccdmsg, zmq::recv_flags::none);
                         std::string ccdmsg_str = std::string(static_cast<char*>(ccdmsg.data()), ccdmsg.size());
+
+                        // if message contains string "connection ready", set ccd_connection_ready = true and tell user interface
                         if (ccdmsg_str == "connection ready") {
                             ccd_connection_ready = true;
                             emit sendDeviceStatusToGUI("ccd", QString::fromStdString(ccdmsg_str));
@@ -178,6 +190,8 @@ void scan::run()
 
                 // check if sdd connection is ready
                 if (!sdd_connection_ready) {
+
+                    // try to receive data, do not wait if no data is received
                     zmq::message_t sddreply;
                     (void)sdd.recv(sddreply, zmq::recv_flags::dontwait);
                     std::string sddenv_str = "";
@@ -186,6 +200,8 @@ void scan::run()
                         zmq::message_t sddmsg;
                         (void)sdd.recv(sddmsg, zmq::recv_flags::none);
                         std::string sddmsg_str = std::string(static_cast<char*>(sddmsg.data()), sddmsg.size());
+
+                        // if message contains string "connection ready", set ccd_connection_ready = true and tell user interface
                         if (sddmsg_str == "connection ready") {
                             sdd_connection_ready = true;
                             emit sendDeviceStatusToGUI("sdd", QString::fromStdString(sddmsg_str));
@@ -195,6 +211,8 @@ void scan::run()
 
                 // check if datasink is ready
                 if (!datasink_ready) {
+
+                    // try to receive data, do not wait if no data is received
                     zmq::message_t datasinkreply;
                     (void)datasink.recv(datasinkreply, zmq::recv_flags::dontwait);
                     std::string datasinkenv_str = "";
@@ -203,28 +221,35 @@ void scan::run()
                         zmq::message_t datasinkmsg;
                         (void)datasink.recv(datasinkmsg, zmq::recv_flags::none);
                         std::string datasinkmsg_str = std::string(static_cast<char*>(datasinkmsg.data()), datasinkmsg.size());
+
+                        // if message contains string "ready", set ccd_connection_ready = true and tell user interface
                         if (datasinkmsg_str == "ready") {
                             datasink_ready = true;
                             emit sendDeviceStatusToGUI("datasink", "ready");
                         }
                     }
                 }
+
+                // wait 100 ms
                 QThread::msleep(100);
             }
 
+            // if all endpoints are ready but metadata has not been sent
             if ((!metadata_sent) && (ccd_connection_ready) && (sdd_connection_ready) && (datasink_ready)) {
 
                 std::cout<<"all connected!"<<std::endl;
 
                 // send beamline parameter
-                // HERE: get beamline parameter
                 animax::Metadata Metadata;
 
                 // get current time
                 QDate cd = QDate::currentDate();
                 QTime ct = QTime::currentTime();
 
+                // build datetime string from date and time
                 QString datetime = cd.toString(Qt::ISODate)+" "+ct.toString(Qt::ISODate);
+
+                /* HERE, BEAMLINE PARAMETERS NEED TO BE SET AND NEED TO BE READ OUT */
 
                 // define protobuf values
                 Metadata.set_acquisition_number(acquisition_number);
@@ -235,7 +260,7 @@ void scan::run()
                 Metadata.set_horizontal_shutter(true);
                 Metadata.set_vertical_shutter(true);
 
-                // publish settings
+                // publish metadata
                 publisher.send(zmq::str_buffer("metadata"), zmq::send_flags::sndmore);
                 size_t metadatasize = Metadata.ByteSizeLong();
                 void *metadatabuffer = malloc(metadatasize);
@@ -246,12 +271,16 @@ void scan::run()
                 free(metadatabuffer);
                 std::cout<<"sent initial metadata!"<<std::endl;
 
+                // set metadata_sent = true, so metadata is send only once at the beginning of the scan
                 metadata_sent = true;
             }
 
+            // if sdd or ccd are not ready
             while ((!sdd_detector_ready) || (!ccd_detector_ready)) {
+
+                // if sdd detector is not ready
                 if (!sdd_detector_ready) {
-                // check if sdd detector is ready
+                    // check if sdd detector is ready
                     zmq::message_t sddreply;
                     (void)sdd.recv(sddreply, zmq::recv_flags::dontwait);
                     std::string sddenv_str = "";
@@ -267,13 +296,16 @@ void scan::run()
                     }
                 }
 
+                // if ccd detector is not ready or ccd settings are not ready
                 if (!ccd_detector_ready || !ccd_settings_ready) {
 
+                    // receive message
                     zmq::message_t ccdreply;
                     (void)ccd.recv(ccdreply, zmq::recv_flags::dontwait);
                     std::string ccdenv_str = "";
                     ccdenv_str = std::string(static_cast<char*>(ccdreply.data()), ccdreply.size());
 
+                    // if ccd is not ready, check if ccd endpoint sent "detector ready"
                     if (!ccd_detector_ready) {
                     // check if ccd detector is ready
                         if (ccdenv_str == "statusdata") {
@@ -287,8 +319,12 @@ void scan::run()
                         }
                     }
 
+                    // if ccd_settings_ready is fase, it means the ccd settings calculated by the ccd driver have not been received yet
                     if (!ccd_settings_ready) {
+
+                        // if ccdsettings are received
                         if (ccdenv_str == "ccdsettings") {
+                            // read out changed ccd settings
                             zmq::message_t ccdmsg;
                             (void)ccd.recv(ccdmsg, zmq::recv_flags::none);
 
@@ -308,19 +344,29 @@ void scan::run()
                             std::cout<<"accumulation time: "<<accumulation_time<<std::endl;
                             std::cout<<"kinetic time: "<<kinetic_time<<std::endl;
 
+                            // ccd settings were received
                             ccd_settings_ready = true;
+
+                            // to start the scan, metadata has to be sent again
                             metadata_sent = false;
                         }
                     }
                 }
             }
 
+            // if everything is ready, receive preview data and check if scan (part) is finished
             if ((datasink_ready) && (ccd_connection_ready) && (ccd_detector_ready) && (ccd_settings_ready) && (sdd_connection_ready) && (sdd_detector_ready) && (metadata_sent)) {
+
+                // try to receive data, do not wait if nothing is received
                 zmq::message_t previewmessage;
                 (void)datasink.recv(previewmessage, zmq::recv_flags::dontwait);
+
+                // if something has been received
                 if (previewmessage.size() > 0) {
                     std::string datasinkenv_str = "";
                     datasinkenv_str = std::string(static_cast<char*>(previewmessage.data()), previewmessage.size());
+
+                    // if preview data has been received
                     if (datasinkenv_str == "previewdata") {
                         zmq::message_t previewmsg;
                         (void)datasink.recv(previewmsg, zmq::recv_flags::none);
@@ -333,6 +379,7 @@ void scan::run()
                         emit sendPreviewDataToGUI(previewtype, previewdata);
                     }
 
+                    // if ROI data has been received
                     if (datasinkenv_str == "roidata") {
                         zmq::message_t roimsg;
                         (void)datasink.recv(roimsg, zmq::recv_flags::none);
@@ -345,6 +392,7 @@ void scan::run()
                         emit sendROIDataToGUI(roielement, roidata);
                     }
 
+                    // if scanstatus data
                     if (datasinkenv_str == "scanstatus") {
                         zmq::message_t scanstatusmsg;
                         (void)datasink.recv(scanstatusmsg, zmq::recv_flags::none);
@@ -357,8 +405,11 @@ void scan::run()
 
                             QThread::sleep(5);
 
+                            // increment acquisition_number
                             acquisition_number++;
 
+                            // set variables = false so metadata is read out and sent again and
+                            // application waits for a reply from sdd and ccd software
                             sdd_detector_ready = false;
                             ccd_detector_ready = false;
 
@@ -367,12 +418,15 @@ void scan::run()
 
                         if (scanstatusstr == "whole scan finished") {
                             std::cout<<"received scanstatus message: "<<scanstatusstr<<std::endl;
+
+                            // tell user interface, that scan is finished
                             emit sendScanFinished();
                         }
                     }
                 }
             }
 
+            // if user wants to stop, pause or resume the scan
             if (stopscan || pausescan || resumescan) {
                 // declare ScanNote object
                 animax::scanstatus scanstatus;
@@ -406,7 +460,7 @@ void scan::run()
                 std::cout<<"sent scan '"<<scanstatus.status()<<"' message!"<<std::endl;
             }
 
-
+            // if new scan note was saved in the user interface
             if (scannote != "") {
                 // declare ScanNote object
                 animax::scannote scannotebuf;

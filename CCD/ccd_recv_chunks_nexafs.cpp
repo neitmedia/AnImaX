@@ -41,7 +41,6 @@ int main (int argc, char** argv)
 	// declare and initialize ready variable (true means GUI is connected and settings and metadata have been successfully received)
 	bool ready = false;
     
-    //fileptr = fopen("stxm.bin", "rb");  
     fileptr = fopen(argv[1], "rb");
 	fseek(fileptr, 0, SEEK_END);          
 	filelen = ftell(fileptr);             
